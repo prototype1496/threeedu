@@ -12,7 +12,7 @@ class Connection{
         $servername = "localhost";
         $username = "root";
         $password = "";
-        $dbname = "3edu_db_aupha";
+        $dbname = "3edu_db";
 
         // Create connection
 //        $conn = new mysqli($servername, $username, $password, $dbname);
