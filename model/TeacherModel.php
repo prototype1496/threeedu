@@ -14,6 +14,21 @@
 class TeacherModel {
  
     
+        public static function get_all_student_details() {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAllStudentDetails();";
+        $stm = $conn->query($query);
+      
+            return $stm;
+      
+                 }
+   
+    
+    
+    
      public static function  add_teacher_report_details($TeacherMasterPublicID,$TeacherDetailsPublicID,$UpdatedBy) {
         //the below function creates a teacher in the database
         try {

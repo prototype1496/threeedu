@@ -8,11 +8,48 @@
 <span class="pcoded-mtext">Student Mamagement</span>
 </a>
 <ul class="pcoded-submenu">
-<li class="">
-<a href="viwestudent.php">
-<span class="pcoded-mtext">Viwe Students</span>
-</a>
+
+    <li class="">
+        <a href="viwestudent.php">
+            <span class="pcoded-mtext">Student Profile</span>
+        </a>
+    </li>
+    <li class="">
+        <a href="index.html">
+            <span class="pcoded-mtext">Student Attendance</span>
+        </a>
+    </li>
+    <li class="">
+        <a href="dashboard-crm.html">
+            <span class="pcoded-mtext">Assessment Grading</span>
+        </a>
+    </li>
+   
+
+
+</ul>
 </li>
+
+
+
+<li class="pcoded-hasmenu active pcoded-trigger">
+<a href="javascript:void(0)">
+<span class="pcoded-micon"><i class="feather icon-home"></i></span>
+<span class="pcoded-mtext">School Mamagement</span>
+</a>
+<ul class="pcoded-submenu">
+
+    
+    <li class="">
+        <a href="dashboard-crm.html">
+            <span class="pcoded-mtext">Lesson Plan</span>
+        </a>
+    </li>
+     <li class="">
+        <a href="dashboard-crm.html">
+            <span class="pcoded-mtext">Timetable</span>
+        </a>
+    </li>
 
 
 </ul>

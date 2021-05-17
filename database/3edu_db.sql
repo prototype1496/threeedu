@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `classmaster` (
   CONSTRAINT `FK_classmaster_teachermaster` FOREIGN KEY (`ClassTeacherID`) REFERENCES `teachermaster` (`TeaherMasterPublicID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.classmaster: ~1 rows (approximately)
+-- Dumping data for table 3edu_db.classmaster: ~0 rows (approximately)
 DELETE FROM `classmaster`;
 /*!40000 ALTER TABLE `classmaster` DISABLE KEYS */;
 INSERT INTO `classmaster` (`ClassMasterID`, `ClassMasterPublicID`, `ClassTeacherID`, `GradeMasterID`, `ClassName`, `ClassCode`, `Description`, `UpdatedBy`, `UpdatedOn`, `IsActive`) VALUES
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `country` (
   UNIQUE KEY `ConuntryCode` (`ConuntryCode`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.country: ~1 rows (approximately)
+-- Dumping data for table 3edu_db.country: ~0 rows (approximately)
 DELETE FROM `country`;
 /*!40000 ALTER TABLE `country` DISABLE KEYS */;
 INSERT INTO `country` (`CountryID`, `CountryName`, `ConuntryCode`, `IsActive`) VALUES
@@ -265,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `emailservice` (
   CONSTRAINT `FK_emailservice_statusmaster` FOREIGN KEY (`Status`) REFERENCES `statusmaster` (`StatueCode`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.emailservice: ~1 rows (approximately)
+-- Dumping data for table 3edu_db.emailservice: ~0 rows (approximately)
 DELETE FROM `emailservice`;
 /*!40000 ALTER TABLE `emailservice` DISABLE KEYS */;
 INSERT INTO `emailservice` (`EmailServiceID`, `EmailSerial`, `EmailAddress`, `EmailSubject`, `SendData`, `Status`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -408,7 +408,7 @@ DELETE FROM `sequencemaster`;
 INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 4, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 12, '2019-11-01 20:00:03'),
+	(3, 'TOKN', 13, '2019-11-01 20:00:03'),
 	(4, 'EMIL', 1, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
 	(6, 'SCHL', 1, '2019-11-17 18:52:58'),
@@ -428,13 +428,13 @@ CREATE TABLE IF NOT EXISTS `session` (
   PRIMARY KEY (`SessionID`),
   KEY `FK_session_usermaster` (`UserMasterPublicID`),
   CONSTRAINT `FK_session_usermaster` FOREIGN KEY (`UserMasterPublicID`) REFERENCES `usermaster` (`PublicID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_db.session: ~1 rows (approximately)
 DELETE FROM `session`;
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
 INSERT INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
-	(12, 'TECH0000000003', 'TOKN00000000012', '93d539adc365577fe58b01dfd91ce7464c698a2acfbf44e0be', '1621156605', 't', '2021-05-16 11:16:45');
+	(13, 'TECH0000000003', 'TOKN00000000013', '912f3774cc2ce47c43c46f1beaca7fac345aacb03334fd7fd5', '1621247775', 't', '2021-05-17 12:36:17');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
@@ -449,14 +449,15 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   `UpdatedBy` varchar(50) NOT NULL,
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionHistoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~2 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~3 rows (approximately)
 DELETE FROM `sessionhistory`;
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
 INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(11, '11', 'TECH0000000003', 'TOKN00000000011', 'e74312f42ce76a5220211d263341a41b3c9f9de8e7ddb003a0', '1621154057', 't', '2021-05-16 10:34:17'),
-	(12, '12', 'TECH0000000003', 'TOKN00000000012', '93d539adc365577fe58b01dfd91ce7464c698a2acfbf44e0be', '1621156605', 't', '2021-05-16 11:16:45');
+	(12, '12', 'TECH0000000003', 'TOKN00000000012', '93d539adc365577fe58b01dfd91ce7464c698a2acfbf44e0be', '1621156605', 't', '2021-05-16 11:16:45'),
+	(13, '13', 'TECH0000000003', 'TOKN00000000013', '912f3774cc2ce47c43c46f1beaca7fac345aacb03334fd7fd5', '1621247775', 't', '2021-05-17 12:36:17');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster
@@ -508,7 +509,7 @@ CREATE TABLE IF NOT EXISTS `studentmaster` (
   CONSTRAINT `FK_studentmaster_usermaster` FOREIGN KEY (`StudentNo`) REFERENCES `usermaster` (`PublicID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.studentmaster: ~1 rows (approximately)
+-- Dumping data for table 3edu_db.studentmaster: ~0 rows (approximately)
 DELETE FROM `studentmaster`;
 /*!40000 ALTER TABLE `studentmaster` DISABLE KEYS */;
 INSERT INTO `studentmaster` (`StudentMasterID`, `TitleLMasterID`, `StudentNo`, `ClassMasterPublicID`, `ParentMaleName`, `ParentFemaleName`, `UpdatedBy`, `UpdatedOn`, `IsActive`) VALUES
@@ -791,6 +792,34 @@ BEGIN
 		SELECT 	DPT.ShortHand 		AS 'DepartmentID',
 					DPT.DepartmentName	AS 'DepartmentName' 
 		FROM department DPT;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllStudentDetails
+DROP PROCEDURE IF EXISTS `GetAllStudentDetails`;
+DELIMITER //
+CREATE PROCEDURE `GetAllStudentDetails`()
+BEGIN
+SELECT 	UM.PublicID																																		AS 'PublicID',
+			CONCAT(TM.ShortName,' ',UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName,'- ', CONCAT(CM.ClassName,' (',CM.ClassCode,')'))	AS 'Name', 
+			CM.GradeMasterID																																	AS  'GradeMasterID',
+		 	UM.ContactNo																																	AS 'ContactNo',
+		 	DATE_FORMAT(UM.DOB, "%d %b, %Y")																											AS 'DOB',
+		 	AD.PrimaryAddress																																AS 'PrimaryAddress',	
+		 	IF(AD.SecondaryAddress IS NULL, 'None', AD.SecondaryAddress)																	AS 'SecondaryAddress',
+		 	CONCAT(PVC.ProvinceName,' -',DST.DistrictName)																						AS 'DCP',
+		 	CONCAT(AD.PrimaryAddress,' (',PVC.ProvinceName,'-', DST.DistrictName,')')													AS 'Address'
+		 	
+FROM usermaster UM
+JOIN studentmaster SM ON SM.StudentNo = UM.PublicID
+JOIN gendermaster GM ON GM.GenderMasterID = UM.GenderID
+JOIN titlemaster TM ON TM.TitleMasterID = SM.TitleLMasterID
+JOIN address AD ON AD.IdentificationID = UM.PublicID
+JOIN district DST ON DST.DistrictID = AD.DistrictID
+JOIN province PVC ON PVC.ProvinceID = DST.ProvinceID
+JOIN country CNT ON CNT.CountryID = PVC.IsActive 
+JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID ORDER BY CM.GradeMasterID ASC;
+
 END//
 DELIMITER ;
 

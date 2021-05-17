@@ -1,4 +1,9 @@
-<?php require '../../controller/super/SessionStart.php'; ?>
+<?php 
+require '../../controller/super/SessionStart.php'; 
+require_once '../../db_connection/dbconfig.php';
+require_once '../../model/TeacherModel.php';
+$stm = TeacherModel::get_all_student_details();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -146,29 +151,35 @@
 <table id="excel-bg" class="table table-striped table-bordered nowrap">
 <thead>
 <tr>
+<th>ID</th>
 <th>Name</th>
-<th>Position</th>
-<th>Office</th>
-<th>Age</th>
-<th>Start date</th>
-<th>Salary</th>
+<th>Grade</th>
+<th>Contact No.</th>
+<th>DOB</th>
+<th>Address</th>
 <th></th>
 </tr>
 </thead>
 <tbody>
+      <?php while($row = $stm->fetch(PDO::FETCH_ASSOC))
+                            
+                    {
+                          $public_id = $row['PublicID'];
+                            ?>
 <tr>
-<td>Tiger Nixon</td>
-<td>System Architect</td>
-<td>Edinburgh</td>
-<td>61</td>
-<td>2011/04/25</td>
-<td>$320,800</td>
+     <td><?php echo $public_id;?></td>
+         <td><?php echo $row['Name'];?></td>
+        <td><?php echo $row['GradeMasterID'];?></td>
+        <td ><?php echo $row['ContactNo'];?></td>
+        <td ><?php echo $row['DOB'];?></td>
+        <td ><?php echo $row['Address'];?></td>
+
 <td>
-    <button style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-eye"></i></button>
+    <button onclick="redirectWithID('<?php echo $public_id;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-eye"></i></button>
   </td>
 </tr>
 
-
+     <?php } ?>
 
 
 
@@ -177,12 +188,12 @@
 </tbody>
 <tfoot>
 <tr>
+<th>ID</th>
 <th>Name</th>
-<th>Position</th>
-<th>Office</th>
-<th>Age</th>
-<th>Start date</th>
-<th>Salary</th>
+<th>Grade</th>
+<th>Contact No.</th>
+<th>DOB</th>
+<th>Address</th>
 <th></th>
 </tr>
 </tfoot>
@@ -296,6 +307,13 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-23581568-13');
+</script>
+
+<script>
+ function redirectWithID(id){
+         window.location.href = "/threeedu/view/teacher/profile.php?id="+id;
+        
+    }
 </script>
 <script src="../../files/rocket-loader.min.js" data-cf-settings="028b4b5e88a856df25e89945-|49" defer=""></script></body>
 
