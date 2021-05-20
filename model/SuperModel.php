@@ -131,6 +131,22 @@ class SuperModel{
    }
    
    
+        public static function get_all_subjectts() {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAllSubjects();";
+        $stm = $conn->query($query);
+       // $stm->execute(array(':username' => $User->username));
+         //$stm->execute();
+         //print_r($stm);
+       
+         
+            return $stm;
+      
+   }
+   
    public static function get_hod_teacher_absent_time($start_date,$end_date,$departmentcode) {
        
         $Connection = new Connection();

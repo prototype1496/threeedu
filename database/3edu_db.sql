@@ -41,6 +41,34 @@ INSERT INTO `address` (`AddressID`, `PrimaryAddress`, `SecondaryAddress`, `ZipCo
 	(6, 'This address is for the test ', NULL, '10010', 4, '202000041', '2021-05-16 12:17:05');
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 
+-- Dumping structure for table 3edu_db.classdetails
+DROP TABLE IF EXISTS `classdetails`;
+CREATE TABLE IF NOT EXISTS `classdetails` (
+  `ClassDetailsID` int(11) NOT NULL AUTO_INCREMENT,
+  `ClassDetailsPublicID` varchar(50) NOT NULL,
+  `ClassMasterPublicID` varchar(50) NOT NULL,
+  `SubjectCode` char(6) NOT NULL,
+  `ClassRoomPublicID` varchar(50) NOT NULL,
+  `UpdatedBy` varchar(50) NOT NULL,
+  `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`ClassDetailsID`) USING BTREE,
+  UNIQUE KEY `ClassDetailsPublicID` (`ClassDetailsPublicID`) USING BTREE,
+  KEY `FK_classdetails_classmaster` (`ClassMasterPublicID`) USING BTREE,
+  KEY `FK_classdetails_classroom` (`ClassRoomPublicID`) USING BTREE,
+  KEY `FK_classdetails_subjectmater` (`SubjectCode`) USING BTREE,
+  CONSTRAINT `FK_classdetails_classmaster` FOREIGN KEY (`ClassMasterPublicID`) REFERENCES `classmaster` (`ClassMasterPublicID`) ON UPDATE CASCADE,
+  CONSTRAINT `FK_classdetails_classroom` FOREIGN KEY (`ClassRoomPublicID`) REFERENCES `classroom` (`ClassRoomPublicID`) ON UPDATE CASCADE,
+  CONSTRAINT `FK_classdetails_subjectmater` FOREIGN KEY (`SubjectCode`) REFERENCES `subjectmater` (`SubjectCode`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table 3edu_db.classdetails: ~2 rows (approximately)
+DELETE FROM `classdetails`;
+/*!40000 ALTER TABLE `classdetails` DISABLE KEYS */;
+INSERT INTO `classdetails` (`ClassDetailsID`, `ClassDetailsPublicID`, `ClassMasterPublicID`, `SubjectCode`, `ClassRoomPublicID`, `UpdatedBy`, `UpdatedOn`) VALUES
+	(1, 'CLASDT0000000001', 'CLAS0000000004', 'MATH', 'CLRM0000000001', 'SYS', '2020-05-24 16:30:54'),
+	(2, 'CLASDT0000000002', 'CLAS0000000004', 'ADMA', 'CLRM0000000001', 'A', '2020-05-24 16:31:19');
+/*!40000 ALTER TABLE `classdetails` ENABLE KEYS */;
+
 -- Dumping structure for table 3edu_db.classmaster
 DROP TABLE IF EXISTS `classmaster`;
 CREATE TABLE IF NOT EXISTS `classmaster` (
@@ -61,14 +89,47 @@ CREATE TABLE IF NOT EXISTS `classmaster` (
   KEY `FK_classmaster_teachermaster` (`ClassTeacherID`) USING BTREE,
   CONSTRAINT `FK_classmaster_grademaster` FOREIGN KEY (`GradeMasterID`) REFERENCES `grademaster` (`GradeMasterID`) ON UPDATE CASCADE,
   CONSTRAINT `FK_classmaster_teachermaster` FOREIGN KEY (`ClassTeacherID`) REFERENCES `teachermaster` (`TeaherMasterPublicID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.classmaster: ~0 rows (approximately)
+-- Dumping data for table 3edu_db.classmaster: ~11 rows (approximately)
 DELETE FROM `classmaster`;
 /*!40000 ALTER TABLE `classmaster` DISABLE KEYS */;
 INSERT INTO `classmaster` (`ClassMasterID`, `ClassMasterPublicID`, `ClassTeacherID`, `GradeMasterID`, `ClassName`, `ClassCode`, `Description`, `UpdatedBy`, `UpdatedOn`, `IsActive`) VALUES
-	(1, 'CLAS0000000004', 'TECH0000000003', 8, 'Grade 8', '8 A', NULL, 'sYS', '2021-05-16 12:04:00', '1');
+	(1, 'CLAS0000000004', 'TECH0000000003', 8, 'Grade 8', '8 A', NULL, 'sYS', '2021-05-16 12:04:00', '1'),
+	(2, 'CLAS0000000005', 'TECH0000000003', 8, 'Grade 8', '8 B', NULL, 'Syd', '2021-05-20 16:53:51', '1'),
+	(3, 'CLAS0000000006', 'TECH0000000003', 8, 'Grade 8', '8 C', NULL, 'Syd', '2021-05-20 16:53:51', '1'),
+	(4, 'CLAS0000000007', 'TECH0000000003', 8, 'Grade 8', '8 D', NULL, 'Syd', '2021-05-20 16:53:51', '1'),
+	(5, 'CLAS0000000008', 'TECH0000000003', 9, 'Grade 9', '9 A', NULL, 'Syd', '2021-05-20 16:53:51', '1'),
+	(6, 'CLAS0000000009', 'TECH0000000003', 9, 'Grade 9', '9 B', NULL, 'Syd', '2021-05-20 16:53:51', '1'),
+	(7, 'CLAS0000000010', 'TECH0000000003', 9, 'Grade 9', '9 C', NULL, 'Syd', '2021-05-20 16:53:51', '1'),
+	(8, 'CLAS0000000011', 'TECH0000000003', 10, 'Grade 10', '10 A', NULL, 'Syd', '2021-05-20 16:53:51', '1'),
+	(9, 'CLAS0000000012', 'TECH0000000003', 10, 'Grade 10', '10 B', NULL, 'Syd', '2021-05-20 16:53:51', '1'),
+	(10, 'CLAS0000000013', 'TECH0000000003', 11, 'Grade 11', '11 A', NULL, 'Syd', '2021-05-20 16:53:51', '1'),
+	(11, 'CLAS0000000014', 'TECH0000000003', 11, 'Grade 11', '11 B', NULL, 'Syd', '2021-05-20 16:53:51', '1');
 /*!40000 ALTER TABLE `classmaster` ENABLE KEYS */;
+
+-- Dumping structure for table 3edu_db.classroom
+DROP TABLE IF EXISTS `classroom`;
+CREATE TABLE IF NOT EXISTS `classroom` (
+  `ClassRoomID` int(11) NOT NULL AUTO_INCREMENT,
+  `ClassRoomPublicID` varchar(50) NOT NULL,
+  `ClassRoomName` varchar(50) NOT NULL,
+  `UpdatedBy` varchar(50) NOT NULL,
+  `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
+  `IsActive` char(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ClassRoomID`) USING BTREE,
+  UNIQUE KEY `RoomPublicID` (`ClassRoomPublicID`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table 3edu_db.classroom: ~4 rows (approximately)
+DELETE FROM `classroom`;
+/*!40000 ALTER TABLE `classroom` DISABLE KEYS */;
+INSERT INTO `classroom` (`ClassRoomID`, `ClassRoomPublicID`, `ClassRoomName`, `UpdatedBy`, `UpdatedOn`, `IsActive`) VALUES
+	(1, 'CLRM0000000001', 'Room 1', 'sys', '2020-05-24 16:17:04', '1'),
+	(2, 'CLRM0000000002', 'Room 2', 'sys', '2020-05-24 16:17:48', '1'),
+	(3, 'CLRM0000000003', 'Room 3', 'sys', '2020-05-24 16:18:00', '1'),
+	(4, 'CLRM0000000004', 'Room 4', 'sys', '2020-05-24 16:18:16', '1');
+/*!40000 ALTER TABLE `classroom` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.country
 DROP TABLE IF EXISTS `country`;
@@ -408,7 +469,7 @@ DELETE FROM `sequencemaster`;
 INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 4, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 13, '2019-11-01 20:00:03'),
+	(3, 'TOKN', 15, '2019-11-01 20:00:03'),
 	(4, 'EMIL', 1, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
 	(6, 'SCHL', 1, '2019-11-17 18:52:58'),
@@ -428,13 +489,14 @@ CREATE TABLE IF NOT EXISTS `session` (
   PRIMARY KEY (`SessionID`),
   KEY `FK_session_usermaster` (`UserMasterPublicID`),
   CONSTRAINT `FK_session_usermaster` FOREIGN KEY (`UserMasterPublicID`) REFERENCES `usermaster` (`PublicID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.session: ~1 rows (approximately)
+-- Dumping data for table 3edu_db.session: ~2 rows (approximately)
 DELETE FROM `session`;
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
 INSERT INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
-	(13, 'TECH0000000003', 'TOKN00000000013', '912f3774cc2ce47c43c46f1beaca7fac345aacb03334fd7fd5', '1621247775', 't', '2021-05-17 12:36:17');
+	(14, 'TECH0000000003', 'TOKN00000000014', '1429d1a771841b0e70a47f803123a1226c6d9ce63c08469be2', '1621258756', 't', '2021-05-17 15:39:17'),
+	(15, 'TECH0000000001', 'TOKN00000000015', '89dfd1f9a45b42496b83c892625abac3559eccdc9396575dd3', '1621504084', 'a', '2021-05-20 11:48:07');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
@@ -449,15 +511,17 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   `UpdatedBy` varchar(50) NOT NULL,
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionHistoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~3 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~5 rows (approximately)
 DELETE FROM `sessionhistory`;
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
 INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(11, '11', 'TECH0000000003', 'TOKN00000000011', 'e74312f42ce76a5220211d263341a41b3c9f9de8e7ddb003a0', '1621154057', 't', '2021-05-16 10:34:17'),
 	(12, '12', 'TECH0000000003', 'TOKN00000000012', '93d539adc365577fe58b01dfd91ce7464c698a2acfbf44e0be', '1621156605', 't', '2021-05-16 11:16:45'),
-	(13, '13', 'TECH0000000003', 'TOKN00000000013', '912f3774cc2ce47c43c46f1beaca7fac345aacb03334fd7fd5', '1621247775', 't', '2021-05-17 12:36:17');
+	(13, '13', 'TECH0000000003', 'TOKN00000000013', '912f3774cc2ce47c43c46f1beaca7fac345aacb03334fd7fd5', '1621247775', 't', '2021-05-17 12:36:17'),
+	(14, '14', 'TECH0000000003', 'TOKN00000000014', '1429d1a771841b0e70a47f803123a1226c6d9ce63c08469be2', '1621258756', 't', '2021-05-17 15:39:17'),
+	(15, '15', 'TECH0000000001', 'TOKN00000000015', '89dfd1f9a45b42496b83c892625abac3559eccdc9396575dd3', '1621504084', 'a', '2021-05-20 11:48:07');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster
@@ -820,6 +884,33 @@ JOIN province PVC ON PVC.ProvinceID = DST.ProvinceID
 JOIN country CNT ON CNT.CountryID = PVC.IsActive 
 JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID ORDER BY CM.GradeMasterID ASC;
 
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllSubjects
+DROP PROCEDURE IF EXISTS `GetAllSubjects`;
+DELIMITER //
+CREATE PROCEDURE `GetAllSubjects`()
+BEGIN
+	SELECT SM.SubjectCode AS 												'SujectCode',
+				 CONCAT(SM.SubjectName,' ( ',SM.SubjectCode,' )')		AS 'SubjectName' 
+		FROM subjectmater SM ;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetClassByGreadeID
+DROP PROCEDURE IF EXISTS `GetClassByGreadeID`;
+DELIMITER //
+CREATE PROCEDURE `GetClassByGreadeID`(
+	IN `GradeID` INT
+)
+BEGIN
+SET @GRADE = GradeID;
+SELECT CM.ClassMasterPublicID								'ClassMasterPublicID',
+		 CM.ClassName											'ClassName',
+		 CM.GradeMasterID										'GradeMasterID',
+		 CONCAT(CM.ClassName,' (',CM.ClassCode,')')   'class'
+FROM classmaster CM WHERE CM.GradeMasterID = @GRADE ; 
 END//
 DELIMITER ;
 

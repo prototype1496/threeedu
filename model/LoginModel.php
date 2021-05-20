@@ -104,8 +104,8 @@ class Login {
            }
            else if ($User['PositionID'] == 3)
                {
-//                Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand']);
-//             header('location:/TTMS/view/headteacher/');
+  Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand']);
+             header('location:/threeedu/view/headteacher/');   
                }
            else {
                
