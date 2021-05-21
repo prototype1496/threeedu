@@ -2,6 +2,59 @@
 
 class SuperModel{
     
+    //This is the section for 3ED
+    function get_class_by_grade_id($gradeid) {
+        //This function is used to load the districts whih a given province ID
+         $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        // this is the stored procidure from the datbaes that is loading the destrics after passing in an province ID 
+        $query = "CALL GetClassByGreadeID(:grade);";
+
+
+     
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':grade' => $gradeid));
+
+        if ($stm->rowCount() > 0) {
+
+             //What the beow lines of code are doing is they are loading a districts and displying them in a dropdown using php
+
+            echo '  <div class="form-group"> <label class="bmd-label-floating">Class</label> <div class="form-select-list"> <select  required="" class="form-control custom-select-value" name="class_id"> <option value="" disabled="disabled" selected="selected">Select Class</option>';
+            while ( $row = $stm->fetch(PDO::FETCH_ASSOC)) {
+
+
+                echo "<option value=" . $row['ClassMasterPublicID'] . ">" . $row['class'] . "</option>";
+                //echo "<option vlaue='21'>".$row['name']."</option>";name
+            }
+
+            echo'</select></div></div>';
+        } else {
+
+            echo ' <div class="form-group"> <label class="bmd-label-floating">Class</label> <div class="form-select-list"> <select  required="" class="form-control custom-select-value" name="class_id"> <option value="" disabled="disabled" selected="selected">Select Class</option></select></div></div>';
+        }
+            
+        
+        
+    }
+    
+    
+    //3ed section end 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     //This is the section for teacher's reoprt 
     
     public static function get_all_teachers_in_department($department_code) {

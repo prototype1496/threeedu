@@ -226,7 +226,7 @@ $get_subjets_stm8 = SuperModel:: get_all_subjectts();
                         <div class="form-group">
                            <label class="bmd-label-floating">Grade</label>
                           <div class="form-select-list">
-                                        <select  required="" class="form-control custom-select-value" name="marital_status_id">
+                              <select id="grade_id" onclick="get_class()"  required="" class="form-control custom-select-value" name="grade_id">
                                             <option value="" disabled="disabled" selected="selected">Select Grade</option>
                                             <option value="1">1</option>
                                              <option value="2">2</option>
@@ -249,7 +249,7 @@ $get_subjets_stm8 = SuperModel:: get_all_subjectts();
                       </div>
                     
                     
-                    <div class="col-md-4" id="class_name"></div>
+                    <div class="col-md-6" id="class_name"></div>
                     
                      
                     
@@ -263,7 +263,7 @@ $get_subjets_stm8 = SuperModel:: get_all_subjectts();
                   <div class="col-md-4">
                           <div class="form-group">
                          
-                              <input type="file"  name="profile_pic" class="form-control" />
+                              <input type="file" accept="image/png, image/jpeg" name="profile_pic" class="form-control" />
                         </div>
                       </div>
                     
@@ -561,7 +561,7 @@ $get_subjets_stm8 = SuperModel:: get_all_subjectts();
 </div>
 <![endif]-->
 
-
+<script src="../../js/ReloadClass.js" type="text/javascript"></script>
 <script type="960c3b30522fb895a4c59633-text/javascript" src="../../files/bower_components/jquery/js/jquery.min.js"></script>
 <script type="960c3b30522fb895a4c59633-text/javascript" src="../../files/bower_components/jquery-ui/js/jquery-ui.min.js"></script>
 <script type="960c3b30522fb895a4c59633-text/javascript" src="../../files/bower_components/popper.js/js/popper.min.js"></script>
