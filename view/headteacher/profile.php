@@ -1,4 +1,13 @@
-<?php require '../../controller/super/SessionStart.php'; ?>
+<?php 
+require '../../controller/super/SessionStart.php'; 
+require '../../db_connection/dbconfig.php'; 
+require '../../model/SuperModel.php'; 
+
+$student_no = trim(filter_input(INPUT_GET, 'id', FILTER_DEFAULT));
+
+$row = SuperModel::get_student_details_by_student_no($student_no);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,6 +49,10 @@
 <link rel="stylesheet" type="text/css" href="../../files/assets/icon/icofont/css/icofont.css">
 
 <link rel="stylesheet" type="text/css" href="../../files/assets/icon/feather/css/feather.css">
+
+
+<link rel="stylesheet" type="text/css" href="../../files/bower_components/ekko-lightbox/css/ekko-lightbox.css">
+<link rel="stylesheet" type="text/css" href="../../files/bower_components/lightbox2/css/lightbox.css">
 
 <link rel="stylesheet" type="text/css" href="../../files/assets/css/style.css">
 <link rel="stylesheet" type="text/css" href="../../files/assets/css/jquery.mCustomScrollbar.css">
@@ -112,8 +125,8 @@
 <div class="col-lg-8">
 <div class="page-header-title">
 <div class="d-inline">
-<h4>User Profile</h4>
-<span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
+<h4>Pupil Profile Page</h4>
+
 </div>
 </div>
 </div>
@@ -123,9 +136,9 @@
 <li class="breadcrumb-item">
 <a href="index.html"> <i class="feather icon-home"></i> </a>
 </li>
-<li class="breadcrumb-item"><a href="#!">User Profile</a>
+<li class="breadcrumb-item"><a href="#!">Pupil Profile</a>
 </li>
-<li class="breadcrumb-item"><a href="#!">User Profile</a>
+<li class="breadcrumb-item"><a href="#!">Pupil Profile</a>
 </li>
 </ul>
 </div>
@@ -144,15 +157,16 @@
 <div class="card-block user-info">
 <div class="col-md-12">
 <div class="media-left">
-<a href="#" class="profile-image">
-<img class="user-img img-radius" src="../../files/assets/images/user-profile/user-img.jpg" alt="user-img">
+    <div class="col-xl-2 col-lg-3 col-sm-3 col-xs-12">
+<a href="<?php echo $row['ProfilePic'] ; ?>" data-lightbox="roadtrip" class="profile-image" >
+    <img  class="user-img img-radius img-100" src="<?php echo $row['ProfilePic'] ; ?>" alt="user-img">
 </a>
-</div>
+</div></div>
 <div class="media-body row">
 <div class="col-lg-12">
 <div class="user-title">
-<h2>Josephin Villa</h2>
-<span class="text-white">Web designer</span>
+<h2><?php echo $row['Name'] ; ?></h2>
+<span class="text-white"><?php echo $row['PublicID'] ; ?></span>
 </div>
 </div>
 <div>
@@ -217,23 +231,23 @@
 <tbody>
 <tr>
 <th scope="row">Full Name</th>
-<td>Josephine Villa</td>
+<td><?php echo $row['Name'] ; ?></td>
 </tr>
 <tr>
 <th scope="row">Gender</th>
-<td>Female</td>
+<td><?php echo $row['Gender'] ; ?></td>
 </tr>
 <tr>
 <th scope="row">Birth Date</th>
-<td>October 25th, 1990</td>
+<td><?php echo $row['DOB'] ; ?></td>
 </tr>
 <tr>
 <th scope="row">Marital Status</th>
-<td>Single</td>
+<td><?php echo $row['MaritalStatus'] ; ?></td>
 </tr>
 <tr>
-<th scope="row">Location</th>
-<td>New York, USA</td>
+<th scope="row">Address</th>
+<td><?php echo $row['Address'] ; ?></td>
 </tr>
 </tbody>
 </table>
@@ -245,25 +259,18 @@
 <table class="table">
 <tbody>
 <tr>
-<th scope="row">Email</th>
-<td><a href="#!"><span class="__cf_email__" data-cfemail="3f7b5a52507f5a475e524f535a115c5052">[email&#160;protected]</span></a></td>
+<th scope="row">Gurdian Contact</th>
+<td><?php echo $row['ContactNo'] ; ?></td>
 </tr>
 <tr>
-<th scope="row">Mobile Number</th>
-<td>(0123) - 4567891</td>
+<th scope="row">Male Gurdian Name</th>
+<td><?php echo $row['GuardianMaleName'] ; ?></td>
 </tr>
 <tr>
-<th scope="row">Twitter</th>
-<td>@xyz</td>
+<th scope="row">Female Gurdian Name</th>
+<td><?php echo $row['GuardianFemaleName'] ; ?></td>
 </tr>
-<tr>
-<th scope="row">Skype</th>
-<td>demo.skype</td>
-</tr>
-<tr>
-<th scope="row">Website</th>
-<td><a href="#!">www.demo.com</a></td>
-</tr>
+
 </tbody>
 </table>
 </div>
@@ -1861,6 +1868,11 @@ Schedule
 <script type="fc62f3ba96b90a09d14681a9-text/javascript" src="../../files/bower_components/modernizr/js/modernizr.js"></script>
 <script type="fc62f3ba96b90a09d14681a9-text/javascript" src="../../files/bower_components/modernizr/js/css-scrollbars.js"></script>
 
+<script type="fc62f3ba96b90a09d14681a9-text/javascript" src="../../files/bower_components/ekko-lightbox/js/ekko-lightbox.js"></script>
+<script type="fc62f3ba96b90a09d14681a9-text/javascript" src="../../files/bower_components/lightbox2/js/lightbox.js"></script>
+
+
+  
 <script type="fc62f3ba96b90a09d14681a9-text/javascript" src="../../files/assets/pages/advance-elements/moment-with-locales.min.js"></script>
 <script type="fc62f3ba96b90a09d14681a9-text/javascript" src="../../files/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script type="fc62f3ba96b90a09d14681a9-text/javascript" src="../../files/assets/pages/advance-elements/bootstrap-datetimepicker.min.js"></script>
@@ -1868,6 +1880,9 @@ Schedule
 <script type="fc62f3ba96b90a09d14681a9-text/javascript" src="../../files/bower_components/bootstrap-daterangepicker/js/daterangepicker.js"></script>
 
 <script type="fc62f3ba96b90a09d14681a9-text/javascript" src="../../files/bower_components/datedropper/js/datedropper.min.js"></script>
+
+
+
 
 <script src="../../files/bower_components/datatables.net/js/jquery.dataTables.min.js" type="fc62f3ba96b90a09d14681a9-text/javascript"></script>
 <script src="../../files/bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js" type="fc62f3ba96b90a09d14681a9-text/javascript"></script>

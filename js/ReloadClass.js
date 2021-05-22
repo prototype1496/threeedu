@@ -1,7 +1,7 @@
 
 function get_class()
 {
-   
+  
      var grade_id = document.getElementById("grade_id").value;
      var temp_parm = "grade_id="+grade_id;
      

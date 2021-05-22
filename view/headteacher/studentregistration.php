@@ -47,6 +47,8 @@ $get_subjets_stm8 = SuperModel:: get_all_subjectts();
 
 <link rel="stylesheet" type="text/css" href="../../files/assets/css/style.css">
 <link rel="stylesheet" type="text/css" href="../../files/assets/css/jquery.mCustomScrollbar.css">
+
+<link href="../../lib/Toast/jquery.toast.min.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
@@ -147,7 +149,7 @@ $get_subjets_stm8 = SuperModel:: get_all_subjectts();
        
     </div>
         <div class="card-block">
-            <form>
+            <form enctype="multipart/form-data" method="POST" action="../../controller/super/ActionPerformed.php" >
                 
                 <div class="form-group row">
                       <div class="col-md-4">
@@ -176,7 +178,7 @@ $get_subjets_stm8 = SuperModel:: get_all_subjectts();
                       <div class="col-md-4">
                         <div class="form-group">
                           <div class="form-select-list">
-                               <label class="bmd-label-floating">Other Name</label>
+                               <label class="bmd-label-floating">Gender</label>
                                         <select required="" class="form-control custom-select-value" name="gender_id">
                                             <option value="" disabled="disabled" selected="selected">Select Gender</option>
                                                 <option value="1">Male</option>
@@ -269,161 +271,49 @@ $get_subjets_stm8 = SuperModel:: get_all_subjectts();
                     
                     
                     
-                <div class="col-md-4">
-                        <div class="form-group">
-                          <div class="form-select-list">
-                              <select  required="" class="form-control custom-select-value" onchange="validate_subject_1_selection()" id="subject_code_1" name="subject_code_1">
-                                         <option value="" disabled="disabled" selected="selected">Subject 1 </option>
-                                                                <?php
-                                                            while ($row = $get_subjets_stm ->fetch(PDO::FETCH_ASSOC)) {
-                                                               // print_r($row);
-                                                            ?> 
-
-                                                    <option value = "<?php echo $row['SujectCode']; ?>"> <?php echo $row['SubjectName']; ?> </option>
-
-
-                                                            <?php } ?>
-                                       </select>
-                                           </div>
-                        </div>
+                <div class="col-md-4" id="subject_1">
+            <!-- The is were the subject combo will be loaded form ReloadSubjects.js in the js/super flodder  -->
                       </div>
-                          <div class="col-md-4">
-                        <div class="form-group">
-                          <div class="form-select-list">
-                              <select  required="" class="form-control custom-select-value" onchange="validate_subject_2_selection()" id="subject_code_2" name="subject_code_2">
-                                         <option value="" disabled="disabled" selected="selected">Subject 2 </option>
-                                                                <?php
-                                                            while ($row = $get_subjets_stm2 ->fetch(PDO::FETCH_ASSOC)) {
-                                                               // print_r($row);
-                                                            ?> 
-
-                                                    <option value = "<?php echo $row['SujectCode']; ?>"> <?php echo $row['SubjectName']; ?> </option>
-
-
-                                                            <?php } ?>
-                                       </select>
-                                           </div>
-                        </div>
+                    
+              <div class="col-md-4" id="subject_2">
+                <!-- The is were the subject combo will be loaded form ReloadSubjects.js in the js/super flodder  -->
                       </div>
+                    
+                    
                 </div>
                 
                 
                  <div class="form-group row">   
-                 <div class="col-md-4">
-                        <div class="form-group">
-                          <div class="form-select-list">
-                              <select  required="" class="form-control custom-select-value" onchange="validate_subject_3_selection()" id="subject_code_3" name="subject_code_3">
-                                         <option value="" disabled="disabled" selected="selected">Subject 3 </option>
-                                                                <?php
-                                                            while ($row = $get_subjets_stm3 ->fetch(PDO::FETCH_ASSOC)) {
-                                                               // print_r($row);
-                                                            ?> 
-
-                                                    <option value = "<?php echo $row['SujectCode']; ?>"> <?php echo $row['SubjectName']; ?> </option>
-
-
-                                                            <?php } ?>
-                                       </select>
-                                           </div>
-                        </div>
+                     
+                     
+                     
+                     <div class="col-md-4" id="subject_3">
+                <!-- The is were the subject combo will be loaded form ReloadSubjects.js in the js/super flodder  -->
                       </div>
-                         
-                          <div class="col-md-4">
-                        <div class="form-group">
-                          <div class="form-select-list">
-                              <select  required="" class="form-control custom-select-value" onchange="validate_subject_4_selection()" id="subject_code_4" name="subject_code_4">
-                                         <option value="" disabled="disabled" selected="selected">Subject 4 </option>
-                                                                <?php
-                                                            while ($row = $get_subjets_stm4 ->fetch(PDO::FETCH_ASSOC)) {
-                                                               // print_r($row);
-                                                            ?> 
-
-                                                    <option value = "<?php echo $row['SujectCode']; ?>"> <?php echo $row['SubjectName']; ?> </option>
-
-
-                                                            <?php } ?>
-                                       </select>
-                                           </div>
-                        </div>
+                     
+                     <div class="col-md-4" id="subject_4">
+                <!-- The is were the subject combo will be loaded form ReloadSubjects.js in the js/super flodder  -->
                       </div>
-                          <div class="col-md-4">
-                        <div class="form-group">
-                          <div class="form-select-list">
-                              <select  required="" class="form-control custom-select-value" onchange="validate_subject_5_selection()" id="subject_code_5" name="subject_code_5">
-                                         <option value="" disabled="disabled" selected="selected">Subject 5 </option>
-                                                                <?php
-                                                            while ($row = $get_subjets_stm5 ->fetch(PDO::FETCH_ASSOC)) {
-                                                               // print_r($row);
-                                                            ?> 
-
-                                                    <option value = "<?php echo $row['SujectCode']; ?>"> <?php echo $row['SubjectName']; ?> </option>
-
-
-                                                            <?php } ?>
-                                       </select>
-                                           </div>
-                        </div>
+                     
+                     <div class="col-md-4" id="subject_5">
+                <!-- The is were the subject combo will be loaded form ReloadSubjects.js in the js/super flodder  -->
                       </div>
-                          
+                     
+                  
                       
                  </div>
                    <div class="form-group row">    
-                   
-                   <div class="col-md-4">
-                        <div class="form-group">
-                          <div class="form-select-list">
-                              <select  required="" class="form-control custom-select-value" onchange="validate_subject_6_selection()" id="subject_code_6" name="subject_code_6">
-                                         <option value="" disabled="disabled" selected="selected">Subject 6 </option>
-                                                                <?php
-                                                            while ($row = $get_subjets_stm6 ->fetch(PDO::FETCH_ASSOC)) {
-                                                               // print_r($row);
-                                                            ?> 
-
-                                                    <option value = "<?php echo $row['SujectCode']; ?>"> <?php echo $row['SubjectName']; ?> </option>
-
-
-                                                            <?php } ?>
-                                       </select>
-                                           </div>
-                        </div>
+                      <div class="col-md-4" id="subject_6">
+                <!-- The is were the subject combo will be loaded form ReloadSubjects.js in the js/super flodder  -->
                       </div>
-                          <div class="col-md-4">
-                        <div class="form-group">
-                          <div class="form-select-list">
-                              <select  class="form-control custom-select-value" onchange="validate_subject_7_selection()" id="subject_code_7" name="subject_code_7">
-                                         <option value="" disabled="disabled" selected="selected">Subject 7 </option>
-                                                                <?php
-                                                            while ($row = $get_subjets_stm7 ->fetch(PDO::FETCH_ASSOC)) {
-                                                               // print_r($row);
-                                                            ?> 
-
-                                                    <option value = "<?php echo $row['SujectCode']; ?>"> <?php echo $row['SubjectName']; ?> </option>
-
-
-                                                            <?php } ?>
-                                       </select>
-                                           </div>
-                        </div>
+                     
+                     <div class="col-md-4" id="subject_7">
+                <!-- The is were the subject combo will be loaded form ReloadSubjects.js in the js/super flodder  -->
                       </div>
-                          <div class="col-md-4">
-                        <div class="form-group">
-                          <div class="form-select-list">
-                              <select   class="form-control custom-select-value" onchange="validate_subject_8_selection()" id="subject_code_8" name="subject_code_8">
-                                         <option value="" disabled="disabled" selected="selected">Subject 8 </option>
-                                                                <?php
-                                                            while ($row = $get_subjets_stm8 ->fetch(PDO::FETCH_ASSOC)) {
-                                                               // print_r($row);
-                                                            ?> 
-
-                                                    <option value = "<?php echo $row['SujectCode']; ?>"> <?php echo $row['SubjectName']; ?> </option>
-
-
-                                                            <?php } ?>
-                                       </select>
-                                           </div>
-                        </div>
-                      </div>
-                          
+                     
+                     <div class="col-md-4" id="subject_8">
+                <!-- The is were the subject combo will be loaded form ReloadSubjects.js in the js/super flodder  -->
+                      </div>  
                       
                       
                    </div>
@@ -457,14 +347,14 @@ $get_subjets_stm8 = SuperModel:: get_all_subjectts();
                        <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Gardian Name (M)</label>
-                          <input name="gardian_name_1" type="text" class="form-control"><br>
+                          <input name="male_gardian_name" type="text" class="form-control"><br>
                         </div>
                       </div>
                           
                        <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Gardian Name (F)</label>
-                          <input name="gardian_name_2" type="text" class="form-control"><br>
+                          <input name="female_gardian_name" type="text" class="form-control"><br>
                         </div>
                       </div>
                     
@@ -472,14 +362,14 @@ $get_subjets_stm8 = SuperModel:: get_all_subjectts();
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Gardian Number</label>
-                          <input name="gardian_no" type="text" class="form-control"><br>
+                          <input required="" name="gardian_contact_no" type="text" class="form-control"><br>
                         </div>
                       </div>
                     
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Address</label>
-                          <textarea required="" type="date"  name="dob" class="form-control"  rows="3" ></textarea>
+                          <textarea required="" type="date"  name="address" class="form-control"  rows="3" ></textarea>
                         </div>
                       </div>
                     
@@ -488,7 +378,7 @@ $get_subjets_stm8 = SuperModel:: get_all_subjectts();
                 
                 
               
-                
+            <button type="submit" name="btn_reg_pupil" class="btn btn-warning btn-round">Submit</button>
               
                
             </form>
@@ -562,6 +452,12 @@ $get_subjets_stm8 = SuperModel:: get_all_subjectts();
 <![endif]-->
 
 <script src="../../js/ReloadClass.js" type="text/javascript"></script>
+<script src="../../js/ReloadSubject.js" type="text/javascript"></script>
+<script src="../../js/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script src="../../lib/Toast/alerts.js" type="text/javascript"></script>
+<script src="../../lib/Toast/jquery.toast.min.js" type="text/javascript"></script>
+
+
 <script type="960c3b30522fb895a4c59633-text/javascript" src="../../files/bower_components/jquery/js/jquery.min.js"></script>
 <script type="960c3b30522fb895a4c59633-text/javascript" src="../../files/bower_components/jquery-ui/js/jquery-ui.min.js"></script>
 <script type="960c3b30522fb895a4c59633-text/javascript" src="../../files/bower_components/popper.js/js/popper.min.js"></script>
@@ -598,6 +494,596 @@ $get_subjets_stm8 = SuperModel:: get_all_subjectts();
   gtag('js', new Date());
 
   gtag('config', 'UA-23581568-13');
+</script>
+
+<script>
+function validate_subject_1_selection(){
+            var subject_code_1 = document.getElementById("subject_code_1").value;
+            var subject_code_2 = document.getElementById("subject_code_2").value;
+            var subject_code_3 = document.getElementById("subject_code_3").value;
+            var subject_code_4 = document.getElementById("subject_code_4").value;
+            var subject_code_5 = document.getElementById("subject_code_5").value;
+            var subject_code_6 = document.getElementById("subject_code_6").value;
+            var subject_code_7 = document.getElementById("subject_code_7").value;
+            var subject_code_8 = document.getElementById("subject_code_8").value;
+              
+       
+        
+            
+//            if ((subject_code_1==null || subject_code_1==""))
+//			{
+//			subject_code_1 = -1;
+//			}
+                        
+            if ((subject_code_2==null || subject_code_2==""))
+			{
+			subject_code_2 = -1;
+			}
+                        
+            if ((subject_code_3==null || subject_code_3==""))
+			{
+			subject_code_3 = -1;
+			}
+                        
+            if ((subject_code_4==null || subject_code_4==""))
+			{
+			subject_code_4 = -1;
+			}
+                        
+                        
+                        
+             if ((subject_code_5==null || subject_code_5==""))
+			{
+			subject_code_5 = -1;
+			}
+                        
+                        
+                        
+              if ((subject_code_6==null || subject_code_6==""))
+			{
+			subject_code_6 = -1;
+			}
+             
+              if ((subject_code_7==null || subject_code_7==""))
+			{
+			subject_code_7 = -1;
+			}
+                        
+                if ((subject_code_8==null || subject_code_8==""))
+			{
+			subject_code_8 = -1;
+			}
+                     
+      
+            var i = 0;
+            var items = [subject_code_2,subject_code_3,subject_code_4,subject_code_5,subject_code_6,subject_code_7,subject_code_8];
+            
+            for (i;i<8;i++){
+                if(subject_code_1 == items[i]){
+                    var subject_code_1 = document.getElementById("subject_code_1").value="";
+                           showInfoToast('You can not select same subject twice');
+                    }
+                }
+            
+        }
+        
+        
+        
+         function validate_subject_2_selection(){
+            var subject_code_1 = document.getElementById("subject_code_1").value;
+            var subject_code_2 = document.getElementById("subject_code_2").value;
+            var subject_code_3 = document.getElementById("subject_code_3").value;
+            var subject_code_4 = document.getElementById("subject_code_4").value;
+            var subject_code_5 = document.getElementById("subject_code_5").value;
+            var subject_code_6 = document.getElementById("subject_code_6").value;
+            var subject_code_7 = document.getElementById("subject_code_7").value;
+            var subject_code_8 = document.getElementById("subject_code_8").value;
+              
+       
+        
+            
+//            if ((subject_code_1==null || subject_code_1==""))
+//			{
+//			subject_code_1 = -1;
+//			}
+                        
+            if ((subject_code_1==null || subject_code_1==""))
+			{
+			subject_code_1 = -1;
+			}
+                        
+            if ((subject_code_3==null || subject_code_3==""))
+			{
+			subject_code_3 = -1;
+			}
+                        
+            if ((subject_code_4==null || subject_code_4==""))
+			{
+			subject_code_4 = -1;
+			}
+                        
+                        
+                        
+             if ((subject_code_5==null || subject_code_5==""))
+			{
+			subject_code_5 = -1;
+			}
+                        
+                        
+                        
+              if ((subject_code_6==null || subject_code_6==""))
+			{
+			subject_code_6 = -1;
+			}
+             
+              if ((subject_code_7==null || subject_code_7==""))
+			{
+			subject_code_7 = -1;
+			}
+                        
+                if ((subject_code_8==null || subject_code_8==""))
+			{
+			subject_code_8 = -1;
+			}
+                     
+      
+            var i = 0;
+            var items = [subject_code_1,subject_code_3,subject_code_4,subject_code_5,subject_code_6,subject_code_7,subject_code_8];
+            
+            for (i;i<8;i++){
+                if(subject_code_2 == items[i]){
+                    var subject_code_2 = document.getElementById("subject_code_2").value="";
+                    
+                    showInfoToast('You can not select same subject twice');
+                        
+                    }
+                }
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+         function validate_subject_3_selection(){
+            var subject_code_1 = document.getElementById("subject_code_1").value;
+            var subject_code_2 = document.getElementById("subject_code_2").value;
+            var subject_code_3 = document.getElementById("subject_code_3").value;
+            var subject_code_4 = document.getElementById("subject_code_4").value;
+            var subject_code_5 = document.getElementById("subject_code_5").value;
+            var subject_code_6 = document.getElementById("subject_code_6").value;
+            var subject_code_7 = document.getElementById("subject_code_7").value;
+            var subject_code_8 = document.getElementById("subject_code_8").value;
+              
+       
+        
+            
+//            if ((subject_code_1==null || subject_code_1==""))
+//			{
+//			subject_code_1 = -1;
+//			}
+                        
+            if ((subject_code_1==null || subject_code_1==""))
+			{
+			subject_code_1 = -1;
+			}
+                        
+            if ((subject_code_2==null || subject_code_2==""))
+			{
+			subject_code_2 = -1;
+			}
+                        
+            if ((subject_code_4==null || subject_code_4==""))
+			{
+			subject_code_4 = -1;
+			}
+                        
+                        
+                        
+             if ((subject_code_5==null || subject_code_5==""))
+			{
+			subject_code_5 = -1;
+			}
+                        
+                        
+                        
+              if ((subject_code_6==null || subject_code_6==""))
+			{
+			subject_code_6 = -1;
+			}
+             
+              if ((subject_code_7==null || subject_code_7==""))
+			{
+			subject_code_7 = -1;
+			}
+                        
+                if ((subject_code_8==null || subject_code_8==""))
+			{
+			subject_code_8 = -1;
+			}
+                     
+      
+            var i = 0;
+            var items = [subject_code_1,subject_code_2,subject_code_4,subject_code_5,subject_code_6,subject_code_7,subject_code_8];
+            
+            for (i;i<8;i++){
+                if(subject_code_3 == items[i]){
+                    var subject_code_3 = document.getElementById("subject_code_3").value="";
+                       showInfoToast('You can not select same subject twice');
+                    }
+                }
+            
+        }
+        
+        
+        
+          function validate_subject_4_selection(){
+            var subject_code_1 = document.getElementById("subject_code_1").value;
+            var subject_code_2 = document.getElementById("subject_code_2").value;
+            var subject_code_3 = document.getElementById("subject_code_3").value;
+            var subject_code_4 = document.getElementById("subject_code_4").value;
+            var subject_code_5 = document.getElementById("subject_code_5").value;
+            var subject_code_6 = document.getElementById("subject_code_6").value;
+            var subject_code_7 = document.getElementById("subject_code_7").value;
+            var subject_code_8 = document.getElementById("subject_code_8").value;
+              
+       
+        
+            
+//            if ((subject_code_1==null || subject_code_1==""))
+//			{
+//			subject_code_1 = -1;
+//			}
+                        
+            if ((subject_code_1==null || subject_code_1==""))
+			{
+			subject_code_1 = -1;
+			}
+                        
+            if ((subject_code_2==null || subject_code_2==""))
+			{
+			subject_code_2 = -1;
+			}
+                        
+            if ((subject_code_3==null || subject_code_3==""))
+			{
+			subject_code_3 = -1;
+			}
+                        
+                        
+                        
+             if ((subject_code_5==null || subject_code_5==""))
+			{
+			subject_code_5 = -1;
+			}
+                        
+                        
+                        
+              if ((subject_code_6==null || subject_code_6==""))
+			{
+			subject_code_6 = -1;
+			}
+             
+              if ((subject_code_7==null || subject_code_7==""))
+			{
+			subject_code_7 = -1;
+			}
+                        
+                if ((subject_code_8==null || subject_code_8==""))
+			{
+			subject_code_8 = -1;
+			}
+                     
+      
+            var i = 0;
+            var items = [subject_code_1,subject_code_2,subject_code_3,subject_code_5,subject_code_6,subject_code_7,subject_code_8];
+            
+            for (i;i<8;i++){
+                if(subject_code_4 == items[i]){
+                    var subject_code_4 = document.getElementById("subject_code_4").value="";
+                        showInfoToast('You can not select same subject twice');
+                    }
+                }
+            
+        }
+        
+        
+        
+        
+          function validate_subject_5_selection(){
+            var subject_code_1 = document.getElementById("subject_code_1").value;
+            var subject_code_2 = document.getElementById("subject_code_2").value;
+            var subject_code_3 = document.getElementById("subject_code_3").value;
+            var subject_code_4 = document.getElementById("subject_code_4").value;
+            var subject_code_5 = document.getElementById("subject_code_5").value;
+            var subject_code_6 = document.getElementById("subject_code_6").value;
+            var subject_code_7 = document.getElementById("subject_code_7").value;
+            var subject_code_8 = document.getElementById("subject_code_8").value;
+              
+       
+        
+            
+//            if ((subject_code_1==null || subject_code_1==""))
+//			{
+//			subject_code_1 = -1;
+//			}
+                        
+            if ((subject_code_1==null || subject_code_1==""))
+			{
+			subject_code_1 = -1;
+			}
+                        
+            if ((subject_code_2==null || subject_code_2==""))
+			{
+			subject_code_2 = -1;
+			}
+                        
+            if ((subject_code_3==null || subject_code_3==""))
+			{
+			subject_code_3 = -1;
+			}
+                        
+                        
+                        
+             if ((subject_code_4==null || subject_code_4==""))
+			{
+			subject_code_4 = -1;
+			}
+                        
+                        
+                        
+              if ((subject_code_6==null || subject_code_6==""))
+			{
+			subject_code_6 = -1;
+			}
+             
+              if ((subject_code_7==null || subject_code_7==""))
+			{
+			subject_code_7 = -1;
+			}
+                        
+                if ((subject_code_8==null || subject_code_8==""))
+			{
+			subject_code_8 = -1;
+			}
+                     
+      
+            var i = 0;
+            var items = [subject_code_1,subject_code_2,subject_code_3,subject_code_4,subject_code_6,subject_code_7,subject_code_8];
+            
+            for (i;i<8;i++){
+                if(subject_code_5 == items[i]){
+                    var subject_code_5 = document.getElementById("subject_code_5").value="";
+                          showInfoToast('You can not select same subject twice');
+                    }
+                }
+            
+        }
+        
+        
+        
+        
+        
+          function validate_subject_6_selection(){
+            var subject_code_1 = document.getElementById("subject_code_1").value;
+            var subject_code_2 = document.getElementById("subject_code_2").value;
+            var subject_code_3 = document.getElementById("subject_code_3").value;
+            var subject_code_4 = document.getElementById("subject_code_4").value;
+            var subject_code_5 = document.getElementById("subject_code_5").value;
+            var subject_code_6 = document.getElementById("subject_code_6").value;
+            var subject_code_7 = document.getElementById("subject_code_7").value;
+            var subject_code_8 = document.getElementById("subject_code_8").value;
+              
+       
+        
+            
+//            if ((subject_code_1==null || subject_code_1==""))
+//			{
+//			subject_code_1 = -1;
+//			}
+                        
+            if ((subject_code_1==null || subject_code_1==""))
+			{
+			subject_code_1 = -1;
+			}
+                        
+            if ((subject_code_2==null || subject_code_2==""))
+			{
+			subject_code_2 = -1;
+			}
+                        
+            if ((subject_code_3==null || subject_code_3==""))
+			{
+			subject_code_3 = -1;
+			}
+                        
+                        
+                        
+             if ((subject_code_4==null || subject_code_4==""))
+			{
+			subject_code_4 = -1;
+			}
+                        
+                        
+                        
+              if ((subject_code_5==null || subject_code_5==""))
+			{
+			subject_code_5 = -1;
+			}
+             
+              if ((subject_code_7==null || subject_code_7==""))
+			{
+			subject_code_7 = -1;
+			}
+                        
+                if ((subject_code_8==null || subject_code_8==""))
+			{
+			subject_code_8 = -1;
+			}
+                     
+      
+            var i = 0;
+            var items = [subject_code_1,subject_code_2,subject_code_3,subject_code_4,subject_code_5,subject_code_7,subject_code_8];
+            
+            for (i;i<8;i++){
+                if(subject_code_6 == items[i]){
+                    var subject_code_6 = document.getElementById("subject_code_6").value="";
+                           showInfoToast('You can not select same subject twice');
+                    }
+                }
+            
+        }
+        
+        
+        
+        
+        function validate_subject_7_selection(){
+            var subject_code_1 = document.getElementById("subject_code_1").value;
+            var subject_code_2 = document.getElementById("subject_code_2").value;
+            var subject_code_3 = document.getElementById("subject_code_3").value;
+            var subject_code_4 = document.getElementById("subject_code_4").value;
+            var subject_code_5 = document.getElementById("subject_code_5").value;
+            var subject_code_6 = document.getElementById("subject_code_6").value;
+            var subject_code_7 = document.getElementById("subject_code_7").value;
+            var subject_code_8 = document.getElementById("subject_code_8").value;
+              
+       
+        
+            
+//            if ((subject_code_1==null || subject_code_1==""))
+//			{
+//			subject_code_1 = -1;
+//			}
+                        
+            if ((subject_code_1==null || subject_code_1==""))
+			{
+			subject_code_1 = -1;
+			}
+                        
+            if ((subject_code_2==null || subject_code_2==""))
+			{
+			subject_code_2 = -1;
+			}
+                        
+            if ((subject_code_3==null || subject_code_3==""))
+			{
+			subject_code_3 = -1;
+			}
+                        
+                        
+                        
+             if ((subject_code_4==null || subject_code_4==""))
+			{
+			subject_code_4 = -1;
+			}
+                        
+                        
+                        
+              if ((subject_code_5==null || subject_code_5==""))
+			{
+			subject_code_5 = -1;
+			}
+             
+              if ((subject_code_6==null || subject_code_6==""))
+			{
+			subject_code_6 = -1;
+			}
+                        
+                if ((subject_code_8==null || subject_code_8==""))
+			{
+			subject_code_8 = -1;
+			}
+                     
+      
+            var i = 0;
+            var items = [subject_code_1,subject_code_2,subject_code_3,subject_code_4,subject_code_5,subject_code_6,subject_code_8];
+            
+            for (i;i<8;i++){
+                if(subject_code_7 == items[i]){
+                    var subject_code_7 = document.getElementById("subject_code_7").value="";
+                          showInfoToast('You can not select same subject twice');
+                    }
+                }
+            
+        }
+        
+        
+        
+        
+         function validate_subject_8_selection(){
+            var subject_code_1 = document.getElementById("subject_code_1").value;
+            var subject_code_2 = document.getElementById("subject_code_2").value;
+            var subject_code_3 = document.getElementById("subject_code_3").value;
+            var subject_code_4 = document.getElementById("subject_code_4").value;
+            var subject_code_5 = document.getElementById("subject_code_5").value;
+            var subject_code_6 = document.getElementById("subject_code_6").value;
+            var subject_code_7 = document.getElementById("subject_code_7").value;
+            var subject_code_8 = document.getElementById("subject_code_8").value;
+              
+       
+        
+            
+//            if ((subject_code_1==null || subject_code_1==""))
+//			{
+//			subject_code_1 = -1;
+//			}
+                        
+            if ((subject_code_1==null || subject_code_1==""))
+			{
+			subject_code_1 = -1;
+			}
+                        
+            if ((subject_code_2==null || subject_code_2==""))
+			{
+			subject_code_2 = -1;
+			}
+                        
+            if ((subject_code_3==null || subject_code_3==""))
+			{
+			subject_code_3 = -1;
+			}
+                        
+                        
+                        
+             if ((subject_code_4==null || subject_code_4==""))
+			{
+			subject_code_4 = -1;
+			}
+                        
+                        
+                        
+              if ((subject_code_5==null || subject_code_5==""))
+			{
+			subject_code_5 = -1;
+			}
+             
+              if ((subject_code_6==null || subject_code_6==""))
+			{
+			subject_code_6 = -1;
+			}
+                        
+                if ((subject_code_7==null || subject_code_7==""))
+			{
+			subject_code_8 = -1;
+			}
+                     
+      
+            var i = 0;
+            var items = [subject_code_1,subject_code_2,subject_code_3,subject_code_4,subject_code_5,subject_code_6,subject_code_7];
+            
+            for (i;i<8;i++){
+                if(subject_code_8 == items[i]){
+                    var subject_code_8 = document.getElementById("subject_code_8").value="";
+                          showInfoToast('You can not select same subject twice');
+                    }
+                }
+            
+        }
+        
+       
 </script>
 
 

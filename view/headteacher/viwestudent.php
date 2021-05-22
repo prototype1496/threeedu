@@ -153,10 +153,10 @@ $stm = TeacherModel::get_all_student_details();
 <tr>
 <th>ID</th>
 <th>Name</th>
-<th>Grade</th>
+
 <th>Contact No.</th>
 <th>DOB</th>
-<th>Address</th>
+
 <th></th>
 </tr>
 </thead>
@@ -169,10 +169,10 @@ $stm = TeacherModel::get_all_student_details();
 <tr>
      <td><?php echo $public_id;?></td>
          <td><?php echo $row['Name'];?></td>
-        <td><?php echo $row['GradeMasterID'];?></td>
+        
         <td ><?php echo $row['ContactNo'];?></td>
         <td ><?php echo $row['DOB'];?></td>
-        <td ><?php echo $row['Address'];?></td>
+       
 
 <td>
     <button onclick="redirectWithID('<?php echo $public_id;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-eye"></i></button>
@@ -190,10 +190,9 @@ $stm = TeacherModel::get_all_student_details();
 <tr>
 <th>ID</th>
 <th>Name</th>
-<th>Grade</th>
+
 <th>Contact No.</th>
 <th>DOB</th>
-<th>Address</th>
 <th></th>
 </tr>
 </tfoot>
@@ -311,7 +310,7 @@ $stm = TeacherModel::get_all_student_details();
 
 <script>
  function redirectWithID(id){
-         window.location.href = "/threeedu/view/teacher/profile.php?id="+id;
+         window.location.href = "/threeedu/view/headteacher/profile.php?id="+id;
         
     }
 </script>

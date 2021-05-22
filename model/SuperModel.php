@@ -20,7 +20,7 @@ class SuperModel{
 
              //What the beow lines of code are doing is they are loading a districts and displying them in a dropdown using php
 
-            echo '  <div class="form-group"> <label class="bmd-label-floating">Class</label> <div class="form-select-list"> <select  required="" class="form-control custom-select-value" name="class_id"> <option value="" disabled="disabled" selected="selected">Select Class</option>';
+            echo '  <div class="form-group"> <label class="bmd-label-floating">Class</label> <div class="form-select-list"> <select  required="" class="form-control custom-select-value" name="class_id" id = "class_id" onchange="get_subjects()" > <option value="" disabled="disabled" selected="selected">Select Class</option>';
             while ( $row = $stm->fetch(PDO::FETCH_ASSOC)) {
 
 
@@ -31,7 +31,7 @@ class SuperModel{
             echo'</select></div></div>';
         } else {
 
-            echo ' <div class="form-group"> <label class="bmd-label-floating">Class</label> <div class="form-select-list"> <select  required="" class="form-control custom-select-value" name="class_id"> <option value="" disabled="disabled" selected="selected">Select Class</option></select></div></div>';
+            echo ' <div class="form-group"> <label class="bmd-label-floating">Class</label> <div class="form-select-list"> <select  required="" class="form-control custom-select-value" name="class_id" id = "class_id" "> <option value="" disabled="disabled" selected="selected">Select Class</option></select></div></div>';
         }
             
         
@@ -39,6 +39,396 @@ class SuperModel{
     }
     
     
+    
+      function get_subject_by_class_id($classid) {
+        //This function is used to load the subject on selection of class Id 
+         $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        // this is the stored procidure from the datbaes that is loading the subjects after passing in an class ID 
+        $query = "CALL GetClassSubjectsByClassMasterID(:class_id);";
+
+
+     
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':class_id' => $classid));
+
+        if ($stm->rowCount() > 0) {
+
+             //What the beow lines of code are doing is they are loading a subjects and displying them in a dropdown using php
+
+            echo '<div class="form-group"> <div class="form-select-list"> <select  required="" class="form-control custom-select-value" onchange="validate_subject_1_selection()" id="subject_code_1" name="subject_code_1"> <option value="" disabled="disabled" selected="selected">Subject 1 </option>';
+            while ( $row = $stm->fetch(PDO::FETCH_ASSOC)) {
+
+
+                echo "<option value=" . $row['SubjectCode'] . ">" . $row['Subject'] . "</option>";
+                //echo "<option vlaue='21'>".$row['name']."</option>";name
+            }
+
+            echo'</select></div></div>';
+        } else {
+
+            echo ' <div class="form-group"> <div class="form-select-list"> <select  required="" class="form-control custom-select-value" onchange="validate_subject_1_selection()" id="subject_code_1" name="subject_code_1"> <option value="" disabled="disabled" selected="selected">Subject 1 </option> </select></div></div>';
+        }
+            
+        
+        
+    }
+    
+    
+    
+    
+    
+    function get_subject_by_class_id_2($classid) {
+        //This function is used to load the subject on selection of class Id 
+         $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        // this is the stored procidure from the datbaes that is loading the subjects after passing in an class ID 
+        $query = "CALL GetClassSubjectsByClassMasterID(:class_id);";
+
+
+     
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':class_id' => $classid));
+
+        if ($stm->rowCount() > 0) {
+
+             //What the beow lines of code are doing is they are loading a subjects and displying them in a dropdown using php
+
+            echo '<div class="form-group"> <div class="form-select-list"> <select  required="" class="form-control custom-select-value" onchange="validate_subject_2_selection()" id="subject_code_2" name="subject_code_2"> <option value="" disabled="disabled" selected="selected">Subject 2 </option>';
+            while ( $row = $stm->fetch(PDO::FETCH_ASSOC)) {
+
+
+                echo "<option value=" . $row['SubjectCode'] . ">" . $row['Subject'] . "</option>";
+                //echo "<option vlaue='21'>".$row['name']."</option>";name
+            }
+
+            echo'</select></div></div>';
+        } else {
+
+            echo ' <div class="form-group"> <div class="form-select-list"> <select  required="" class="form-control custom-select-value" onchange="validate_subject_2_selection()" id="subject_code_2" name="subject_code_2"> <option value="" disabled="disabled" selected="selected">Subject 2 </option> </select></div></div>';
+        }
+            
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    function get_subject_by_class_id_3($classid) {
+        //This function is used to load the subject on selection of class Id 
+         $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        // this is the stored procidure from the datbaes that is loading the subjects after passing in an class ID 
+        $query = "CALL GetClassSubjectsByClassMasterID(:class_id);";
+
+
+     
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':class_id' => $classid));
+
+        if ($stm->rowCount() > 0) {
+
+             //What the beow lines of code are doing is they are loading a subjects and displying them in a dropdown using php
+
+            echo '<div class="form-group"> <div class="form-select-list"> <select  required="" class="form-control custom-select-value" onchange="validate_subject_3_selection()" id="subject_code_3" name="subject_code_3"> <option value="" disabled="disabled" selected="selected">Subject 3 </option>';
+            while ( $row = $stm->fetch(PDO::FETCH_ASSOC)) {
+
+
+                echo "<option value=" . $row['SubjectCode'] . ">" . $row['Subject'] . "</option>";
+                //echo "<option vlaue='21'>".$row['name']."</option>";name
+            }
+
+            echo'</select></div></div>';
+        } else {
+
+            echo ' <div class="form-group"> <div class="form-select-list"> <select  required="" class="form-control custom-select-value" onchange="validate_subject_3_selection()" id="subject_code_3" name="subject_code_3"> <option value="" disabled="disabled" selected="selected">Subject 3 </option> </select></div></div>';
+        }
+            
+        
+        
+    }
+    
+    
+    
+    
+    
+    function get_subject_by_class_id_4($classid) {
+        //This function is used to load the subject on selection of class Id 
+         $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        // this is the stored procidure from the datbaes that is loading the subjects after passing in an class ID 
+        $query = "CALL GetClassSubjectsByClassMasterID(:class_id);";
+
+
+     
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':class_id' => $classid));
+
+        if ($stm->rowCount() > 0) {
+
+             //What the beow lines of code are doing is they are loading a subjects and displying them in a dropdown using php
+
+            echo '<div class="form-group"> <div class="form-select-list"> <select  required="" class="form-control custom-select-value" onchange="validate_subject_4_selection()" id="subject_code_4" name="subject_code_4"> <option value="" disabled="disabled" selected="selected">Subject 4 </option>';
+            while ( $row = $stm->fetch(PDO::FETCH_ASSOC)) {
+
+
+                echo "<option value=" . $row['SubjectCode'] . ">" . $row['Subject'] . "</option>";
+                //echo "<option vlaue='21'>".$row['name']."</option>";name
+            }
+
+            echo'</select></div></div>';
+        } else {
+
+            echo ' <div class="form-group"> <div class="form-select-list"> <select  required="" class="form-control custom-select-value" onchange="validate_subject_4_selection()" id="subject_code_4" name="subject_code_4"> <option value="" disabled="disabled" selected="selected">Subject 4 </option> </select></div></div>';
+        }
+            
+        
+        
+    }
+    
+    
+    
+    
+    function get_subject_by_class_id_5($classid) {
+        //This function is used to load the subject on selection of class Id 
+         $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        // this is the stored procidure from the datbaes that is loading the subjects after passing in an class ID 
+        $query = "CALL GetClassSubjectsByClassMasterID(:class_id);";
+
+
+     
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':class_id' => $classid));
+
+        if ($stm->rowCount() > 0) {
+
+             //What the beow lines of code are doing is they are loading a subjects and displying them in a dropdown using php
+
+            echo '<div class="form-group"> <div class="form-select-list"> <select  required="" class="form-control custom-select-value" onchange="validate_subject_5_selection()" id="subject_code_5" name="subject_code_5"> <option value="" disabled="disabled" selected="selected">Subject 5 </option>';
+            while ( $row = $stm->fetch(PDO::FETCH_ASSOC)) {
+
+
+                echo "<option value=" . $row['SubjectCode'] . ">" . $row['Subject'] . "</option>";
+                //echo "<option vlaue='21'>".$row['name']."</option>";name
+            }
+
+            echo'</select></div></div>';
+        } else {
+
+            echo ' <div class="form-group"> <div class="form-select-list"> <select  required="" class="form-control custom-select-value" onchange="validate_subject_5_selection()" id="subject_code_5" name="subject_code_5"> <option value="" disabled="disabled" selected="selected">Subject 5 </option> </select></div></div>';
+        }
+            
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    function get_subject_by_class_id_6($classid) {
+        //This function is used to load the subject on selection of class Id 
+         $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        // this is the stored procidure from the datbaes that is loading the subjects after passing in an class ID 
+        $query = "CALL GetClassSubjectsByClassMasterID(:class_id);";
+
+
+     
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':class_id' => $classid));
+
+        if ($stm->rowCount() > 0) {
+
+             //What the beow lines of code are doing is they are loading a subjects and displying them in a dropdown using php
+
+            echo '<div class="form-group"> <div class="form-select-list"> <select  required="" class="form-control custom-select-value" onchange="validate_subject_6_selection()" id="subject_code_6" name="subject_code_5"> <option value="" disabled="disabled" selected="selected">Subject 6 </option>';
+            while ( $row = $stm->fetch(PDO::FETCH_ASSOC)) {
+
+
+                echo "<option value=" . $row['SubjectCode'] . ">" . $row['Subject'] . "</option>";
+                //echo "<option vlaue='21'>".$row['name']."</option>";name
+            }
+
+            echo'</select></div></div>';
+        } else {
+
+            echo ' <div class="form-group"> <div class="form-select-list"> <select  required="" class="form-control custom-select-value" onchange="validate_subject_6_selection()" id="subject_code_6" name="subject_code_6"> <option value="" disabled="disabled" selected="selected">Subject 6 </option> </select></div></div>';
+        }
+            
+        
+        
+    }
+    
+    
+    
+    
+    function get_subject_by_class_id_7($classid) {
+        //This function is used to load the subject on selection of class Id 
+         $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        // this is the stored procidure from the datbaes that is loading the subjects after passing in an class ID 
+        $query = "CALL GetClassSubjectsByClassMasterID(:class_id);";
+
+
+     
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':class_id' => $classid));
+
+        if ($stm->rowCount() > 0) {
+
+             //What the beow lines of code are doing is they are loading a subjects and displying them in a dropdown using php
+
+            echo '<div class="form-group"> <div class="form-select-list"> <select  class="form-control custom-select-value" onchange="validate_subject_7_selection()" id="subject_code_7" name="subject_code_7"> <option value="" disabled="disabled" selected="selected">Subject 7 </option>';
+            while ( $row = $stm->fetch(PDO::FETCH_ASSOC)) {
+
+
+                echo "<option value=" . $row['SubjectCode'] . ">" . $row['Subject'] . "</option>";
+                //echo "<option vlaue='21'>".$row['name']."</option>";name
+            }
+
+            echo'</select></div></div>';
+        } else {
+
+            echo ' <div class="form-group"> <div class="form-select-list"> <select  class="form-control custom-select-value" onchange="validate_subject_7_selection()" id="subject_code_7" name="subject_code_7"> <option value="" disabled="disabled" selected="selected">Subject 7 </option> </select></div></div>';
+        }
+            
+        
+        
+    }
+    
+    
+    
+    
+    function get_subject_by_class_id_8($classid) {
+        //This function is used to load the subject on selection of class Id 
+         $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        // this is the stored procidure from the datbaes that is loading the subjects after passing in an class ID 
+        $query = "CALL GetClassSubjectsByClassMasterID(:class_id);";
+
+
+     
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':class_id' => $classid));
+
+        if ($stm->rowCount() > 0) {
+
+             //What the beow lines of code are doing is they are loading a subjects and displying them in a dropdown using php
+
+            echo '<div class="form-group"> <div class="form-select-list"> <select   class="form-control custom-select-value" onchange="validate_subject_8_selection()" id="subject_code_8" name="subject_code_8"> <option value="" disabled="disabled" selected="selected">Subject 8 </option>';
+            while ( $row = $stm->fetch(PDO::FETCH_ASSOC)) {
+
+
+                echo "<option value=" . $row['SubjectCode'] . ">" . $row['Subject'] . "</option>";
+                //echo "<option vlaue='21'>".$row['name']."</option>";name
+            }
+
+            echo'</select></div></div>';
+        } else {
+
+            echo ' <div class="form-group"> <div class="form-select-list"> <select  class="form-control custom-select-value" onchange="validate_subject_8_selection()" id="subject_code_8" name="subject_code_8"> <option value="" disabled="disabled" selected="selected">Subject 8 </option> </select></div></div>';
+        }
+            
+    }
+        
+        
+        
+        
+        
+    public static function get_student_details_by_student_no($studentNo) {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+       
+        $query = "CALL GetAllStudentDetailsByStudentNo('$studentNo');";
+          $stm = $conn->prepare($query);
+        $stm = $conn->query($query);
+        $stm->execute(array(':studen_no' => $studentNo));
+       // $stm->execute(array(':username' => $User->username));
+         //$stm->execute();
+     
+         $row = $stm->fetch(PDO::FETCH_ASSOC);
+         
+            return $row;
+      
+   }
+    
+   
+   
+   
+      public static function regiter_pupil($first_name, $last_name,$other_name, $gender_id,$dob,$marital_status_id,$class_id,$subject_code_1,$subject_code_2,$subject_code_3,$subject_code_4,$subject_code_5,$subject_code_6,$subject_code_7,$subject_code_8,$male_gardian_name,$female_gardian_name,$gardian_contact_no,$address,$StudentMasterPublicID,$StudentNo,$file_temp,$UpdatedBy) {
+        //the below function creates a session in the databes for every log in 
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+            
+            $conn->beginTransaction();
+            
+            $subject_array = array();
+            
+            array_push($subject_array,$subject_code_1);
+            array_push($subject_array,$subject_code_2);
+            array_push($subject_array,$subject_code_3);
+            array_push($subject_array,$subject_code_4);
+            array_push($subject_array,$subject_code_5);
+            array_push($subject_array,$subject_code_6);
+            array_push($subject_array,$subject_code_7);
+            array_push($subject_array,$subject_code_8);
+              
+               
+                   
+          $query = "INSERT INTO `studentmaster` (`StudentMasterPublicID`, `ProfilePic`, `StudentNo`, `FirstName`, `LastName`, `OtherName`, `GenderID`, `MaritalStatusID`, `DOB`, `GuardianContactNo`, `GuardianMaleName`, `GuardianFemaleName`, `Address`, `UpdatedBy`, `IsActive`) VALUES (:StudentMasterPublicID, :ProfilePic, :StudentNo, :FirstName, :LastName, :OtherName, :GenderID, :MaritalStatusID, :DOB, :GuardianContactNo, :GuardianMaleName, :GuardianFemaleName, :Address, :UpdatedBy, '1');";
+            $stm = $conn->prepare($query);
+            $stm->execute(array(':StudentMasterPublicID'=>$StudentMasterPublicID,':ProfilePic'=>$file_temp, ':StudentNo'=>$StudentNo, ':FirstName'=>$first_name,':LastName'=>$last_name,':OtherName'=>$other_name,':GenderID'=>$gender_id,':MaritalStatusID'=>$marital_status_id,':DOB'=>$dob,':GuardianContactNo'=>$gardian_contact_no,':GuardianMaleName'=>$male_gardian_name,':GuardianFemaleName'=>$female_gardian_name,':Address'=>$address,':UpdatedBy'=>$UpdatedBy));
+
+             
+          
+                   
+                   
+                 foreach ($subject_array as $key => $value)    {
+                     
+                     if(!empty($value) && $value != "" && $value !=  NULL ){
+                         
+                     $query2 = "INSERT INTO `studentdetails` (`StudentDetailsPublicID`, `StudentMasterPublicID`, `SubjectCode`, `ClassMasterPublicID`,  `UpdatedBy`) VALUES (GetSequence(10), :StudentMasterPublicID, :SubjectCode, :ClassMasterPublicID,:UpdatedBy);";
+                     $stm = $conn->prepare($query2);
+                     $stm->execute(array(':StudentMasterPublicID'=>$StudentMasterPublicID, ':SubjectCode'=>$value, ':ClassMasterPublicID'=>$class_id,':UpdatedBy'=>$UpdatedBy));
+                   
+                      
+                     }
+                     
+                 }
+            
+            
+      
+           
+             
+              $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+            echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+   
+   
     //3ed section end 
     
     
@@ -377,6 +767,25 @@ class SuperModel{
         
         
         $query = "CALL GetSequence($sequence_number);";
+        $stm = $conn->query($query);
+       // $stm->execute(array(':username' => $User->username));
+         //$stm->execute();
+
+         $row = $stm->fetch(PDO::FETCH_ASSOC);
+         
+            return $row['SequnceNumber'];
+      
+    }
+    
+    
+      public static function get_student_no($sequence_number) {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        
+        
+        $query = "CALL GetStudentNo($sequence_number);";
         $stm = $conn->query($query);
        // $stm->execute(array(':username' => $User->username));
          //$stm->execute();
