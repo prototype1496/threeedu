@@ -382,18 +382,37 @@ class SuperModel{
             
             $subject_array = array();
             
-           
+            array_push($subject_array,$subject_code_1);
+            array_push($subject_array,$subject_code_2);
+            array_push($subject_array,$subject_code_3);
+            array_push($subject_array,$subject_code_4);
+            array_push($subject_array,$subject_code_5);
+            array_push($subject_array,$subject_code_6);
+            array_push($subject_array,$subject_code_7);
+            array_push($subject_array,$subject_code_8);
               
                
                    
-          $query = "INSERT INTO `studentmaster` (`StudentMasterPublicID`, `ProfilePic`, `StudentNo`, `FirstName`, `LastName`, `OtherName`, `GenderID`, `MaritalStatusID`, `DOB`, `GuardianContactNo`, `GuardianMaleName`, `GuardianFemaleName`, `Address`, `UpdatedBy`, `IsActive`,`EmailAddress`, `ClassMasterPublicID`) VALUES (:StudentMasterPublicID, :ProfilePic, :StudentNo, :FirstName, :LastName, :OtherName, :GenderID, :MaritalStatusID, :DOB, :GuardianContactNo, :GuardianMaleName, :GuardianFemaleName, :Address, :UpdatedBy, '1',:EmailAddress,:ClassMasterPublicID);";
+          $query = "INSERT INTO `studentmaster` (`StudentMasterPublicID`, `ProfilePic`, `StudentNo`, `FirstName`, `LastName`, `OtherName`, `GenderID`, `MaritalStatusID`, `DOB`, `GuardianContactNo`, `GuardianMaleName`, `GuardianFemaleName`, `Address`, `UpdatedBy`, `IsActive`) VALUES (:StudentMasterPublicID, :ProfilePic, :StudentNo, :FirstName, :LastName, :OtherName, :GenderID, :MaritalStatusID, :DOB, :GuardianContactNo, :GuardianMaleName, :GuardianFemaleName, :Address, :UpdatedBy, '1');";
             $stm = $conn->prepare($query);
-            $stm->execute(array(':StudentMasterPublicID'=>$StudentMasterPublicID,':ProfilePic'=>$file_temp, ':StudentNo'=>$StudentNo, ':FirstName'=>$first_name,':LastName'=>$last_name,':OtherName'=>$other_name,':GenderID'=>$gender_id,':MaritalStatusID'=>$marital_status_id,':DOB'=>$dob,':GuardianContactNo'=>$gardian_contact_no,':GuardianMaleName'=>$male_gardian_name,':GuardianFemaleName'=>$female_gardian_name,':Address'=>$address,':UpdatedBy'=>$UpdatedBy,':EmailAddress'=>$email_address,':ClassMasterPublicID'=>$class_id));
+            $stm->execute(array(':StudentMasterPublicID'=>$StudentMasterPublicID,':ProfilePic'=>$file_temp, ':StudentNo'=>$StudentNo, ':FirstName'=>$first_name,':LastName'=>$last_name,':OtherName'=>$other_name,':GenderID'=>$gender_id,':MaritalStatusID'=>$marital_status_id,':DOB'=>$dob,':GuardianContactNo'=>$gardian_contact_no,':GuardianMaleName'=>$male_gardian_name,':GuardianFemaleName'=>$female_gardian_name,':Address'=>$address,':UpdatedBy'=>$UpdatedBy));
 
              
           
                    
-             
+                   
+                 foreach ($subject_array as $key => $value)    {
+                     
+                     if(!empty($value) && $value != "" && $value !=  NULL ){
+                         
+                     $query2 = "INSERT INTO `studentdetails` (`StudentDetailsPublicID`, `StudentMasterPublicID`, `SubjectCode`, `ClassMasterPublicID`,  `UpdatedBy`) VALUES (GetSequence(10), :StudentMasterPublicID, :SubjectCode, :ClassMasterPublicID,:UpdatedBy);";
+                     $stm = $conn->prepare($query2);
+                     $stm->execute(array(':StudentMasterPublicID'=>$StudentMasterPublicID, ':SubjectCode'=>$value, ':ClassMasterPublicID'=>$class_id,':UpdatedBy'=>$UpdatedBy));
+                   
+                      
+                     }
+                     
+                 }
             
             
       

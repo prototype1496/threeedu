@@ -115,23 +115,7 @@ $stm = TeacherModel::get_all_student_details();
 <div class="page-header">
 <div class="row align-items-end">
 <div class="col-lg-8">
-<div class="page-header-title">
-<div class="d-inline">
-<h4>Students</h4>
-<span></span>
-</div>
-</div>
-</div>
-<div class="col-lg-4">
-<div class="page-header-breadcrumb">
-<ul class="breadcrumb-title">
-<li class="breadcrumb-item">
-<a href="index.html"> <i class="feather icon-users"></i> </a>
-</li>
-<li class="breadcrumb-item"><a href="#!">Home</a>
-</li>
-<li class="breadcrumb-item"><a href="#!">Viwe Pupils</a>
-</li>
+
 
  </ul>
 </div>
@@ -145,7 +129,10 @@ $stm = TeacherModel::get_all_student_details();
 <div class="col-sm-12">
 
 <div class="card">
-
+    <div class="card-header ">
+        <h4>Students Information </h4>      
+   <hr>     
+    </div>
 <div class="card-block">
 <div class="dt-responsive table-responsive">
 <table id="excel-bg" class="table table-striped table-bordered nowrap">

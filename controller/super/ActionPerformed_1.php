@@ -26,16 +26,14 @@
            $dob = trim(filter_input(INPUT_POST, 'dob', FILTER_DEFAULT));
            $marital_status_id = trim(filter_input(INPUT_POST, 'marital_status_id', FILTER_DEFAULT));
            $class_id = trim(filter_input(INPUT_POST, 'class_id', FILTER_DEFAULT));
-           $subject_code_1 = 'MATH';
-           $subject_code_2 = 'MATH';
-            $subject_code_3 = 'MATH';
-            $subject_code_4 = 'MATH';
-            $subject_code_5 = 'MATH';
-            $subject_code_6 = 'MATH';;
-            $subject_code_7 = 'MATH';
-            $subject_code_8 = 'MATH';
-            
-             $email_address = trim(filter_input(INPUT_POST, 'email_address', FILTER_DEFAULT));
+           $subject_code_1 = trim(filter_input(INPUT_POST, 'subject_code_1', FILTER_DEFAULT));
+           $subject_code_2 = trim(filter_input(INPUT_POST, 'subject_code_2', FILTER_DEFAULT));
+            $subject_code_3 = trim(filter_input(INPUT_POST, 'subject_code_3', FILTER_DEFAULT));
+            $subject_code_4 = trim(filter_input(INPUT_POST, 'subject_code_4', FILTER_DEFAULT));
+            $subject_code_5 = trim(filter_input(INPUT_POST, 'subject_code_5', FILTER_DEFAULT));
+            $subject_code_6 = trim(filter_input(INPUT_POST, 'subject_code_6', FILTER_DEFAULT));
+            $subject_code_7 = trim(filter_input(INPUT_POST, 'subject_code_7', FILTER_DEFAULT));
+            $subject_code_8 = trim(filter_input(INPUT_POST, 'subject_code_8', FILTER_DEFAULT));       
            $male_gardian_name = trim(filter_input(INPUT_POST, 'male_gardian_name', FILTER_DEFAULT));
            $female_gardian_name = trim(filter_input(INPUT_POST, 'female_gardian_name', FILTER_DEFAULT));
            $gardian_contact_no = trim(filter_input(INPUT_POST, 'gardian_contact_no', FILTER_DEFAULT));
@@ -62,12 +60,15 @@
                     
                     
                     
-                      if (!isset($email_address) || $email_address == Null || $email_address == "" ){
+                      if (!isset($subject_code_7) || $subject_code_7 == Null || $subject_code_7 == "" ){
         
-                $email_address = NULL;
+                $subject_code_7 = NULL;
                     }
                     
-                  
+                      if (!isset($subject_code_8) || $subject_code_8 == Null || $subject_code_8 == "" ){
+        
+                $subject_code_8 = NULL;
+                    }
            
            
       
@@ -83,7 +84,7 @@
      
      
      
-       if (SuperModel::regiter_pupil($first_name, $last_name,$other_name, $gender_id,$dob,$marital_status_id,$class_id,$subject_code_1,$subject_code_2,$subject_code_3,$subject_code_4,$subject_code_5,$subject_code_6,$subject_code_7,$subject_code_8,$male_gardian_name,$female_gardian_name,$gardian_contact_no,$address,$StudentMasterPublicID,$StudentNo,$location.$file_new_name,$UpdatedBy,$email_address))
+       if (SuperModel::regiter_pupil($first_name, $last_name,$other_name, $gender_id,$dob,$marital_status_id,$class_id,$subject_code_1,$subject_code_2,$subject_code_3,$subject_code_4,$subject_code_5,$subject_code_6,$subject_code_7,$subject_code_8,$male_gardian_name,$female_gardian_name,$gardian_contact_no,$address,$StudentMasterPublicID,$StudentNo,$location.$file_new_name,$UpdatedBy))
         {
             move_uploaded_file($file_temp, $location.$file_new_name);
             echo "<script>               

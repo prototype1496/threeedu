@@ -222,14 +222,9 @@ $get_subjets_stm8 = SuperModel:: get_all_subjectts();
                 
                 
                 <div class="form-group row">
-                    <div class="col-md-4">
-                          <div class="form-group">
-                         <label class="bmd-label-floating">Profile Pic</label>
-                              <input type="file" accept="image/png, image/jpeg" name="profile_pic" class="form-control" />
-                        </div>
-                      </div>
+                    
                        
-                 <div class="col-md-4">
+                 <div class="col-md-6">
                         <div class="form-group">
                            <label class="bmd-label-floating">Grade</label>
                           <div class="form-select-list">
@@ -256,17 +251,72 @@ $get_subjets_stm8 = SuperModel:: get_all_subjectts();
                       </div>
                     
                     
-                    <div class="col-md-4" id="class_name"></div>
+                    <div class="col-md-6" id="class_name"></div>
                     
                      
                     
                 </div>
                 
-               
+                <div class="form-group row">
+                    
+                    
+                    
+                    
+                  <div class="col-md-4">
+                          <div class="form-group">
+                         
+                              <input type="file" accept="image/png, image/jpeg" name="profile_pic" class="form-control" />
+                        </div>
+                      </div>
+                    
+                    
+                    
+                <div class="col-md-4" id="subject_1">
+            <!-- The is were the subject combo will be loaded form ReloadSubjects.js in the js/super flodder  -->
+                      </div>
+                    
+              <div class="col-md-4" id="subject_2">
+                <!-- The is were the subject combo will be loaded form ReloadSubjects.js in the js/super flodder  -->
+                      </div>
+                    
+                    
+                </div>
                 
                 
-               
-                
+                 <div class="form-group row">   
+                     
+                     
+                     
+                     <div class="col-md-4" id="subject_3">
+                <!-- The is were the subject combo will be loaded form ReloadSubjects.js in the js/super flodder  -->
+                      </div>
+                     
+                     <div class="col-md-4" id="subject_4">
+                <!-- The is were the subject combo will be loaded form ReloadSubjects.js in the js/super flodder  -->
+                      </div>
+                     
+                     <div class="col-md-4" id="subject_5">
+                <!-- The is were the subject combo will be loaded form ReloadSubjects.js in the js/super flodder  -->
+                      </div>
+                     
+                  
+                      
+                 </div>
+                   <div class="form-group row">    
+                      <div class="col-md-4" id="subject_6">
+                <!-- The is were the subject combo will be loaded form ReloadSubjects.js in the js/super flodder  -->
+                      </div>
+                     
+                     <div class="col-md-4" id="subject_7">
+                <!-- The is were the subject combo will be loaded form ReloadSubjects.js in the js/super flodder  -->
+                      </div>
+                     
+                     <div class="col-md-4" id="subject_8">
+                <!-- The is were the subject combo will be loaded form ReloadSubjects.js in the js/super flodder  -->
+                      </div>  
+                      
+                      
+                   </div>
          
             
         </div>
@@ -294,17 +344,14 @@ $get_subjets_stm8 = SuperModel:: get_all_subjectts();
          
                 
                 <div class="form-group row">
-                    
-                      
-                    
-                       <div class="col-md-6">
+                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Gardian Name (M)</label>
                           <input name="male_gardian_name" type="text" class="form-control"><br>
                         </div>
                       </div>
                           
-                       <div class="col-md-6">
+                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Gardian Name (F)</label>
                           <input name="female_gardian_name" type="text" class="form-control"><br>
@@ -312,17 +359,10 @@ $get_subjets_stm8 = SuperModel:: get_all_subjectts();
                       </div>
                     
                     
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Gardian Number</label>
                           <input required="" name="gardian_contact_no" type="text" class="form-control"><br>
-                        </div>
-                      </div>
-                    
-                    <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Email</label>
-                          <input name="email_address" type="email" class="form-control"><br>
                         </div>
                       </div>
                     
