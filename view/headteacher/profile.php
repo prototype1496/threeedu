@@ -270,6 +270,20 @@ $row = SuperModel::get_student_details_by_student_no($student_no);
                                                         </div>
                                                     </div>
                                                 </div>
+                                                
+                                                 <div class="row">
+                                                    <div class="col-md-6">
+                                                        <dt>
+                                                            <p class="text-right">Email Address</p>
+                                                        </dt>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div>
+                                                            <?php echo $row['EmailAddress'] ; ?>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
 
 
 

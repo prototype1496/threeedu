@@ -987,7 +987,8 @@ SELECT 	SM.StudentNo																																	AS 'PublicID',
 		 	SM.GuardianMaleName																															AS 'GuardianMaleName',
 		 	SM.GuardianFemaleName																														AS 'GuardianFemaleName',
 		 	SM.ProfilePic																																	AS 'ProfilePic',
-		 	CONCAT(CM.ClassName,' (', CM.ClassCode,')')																							AS 'ClassName'
+		 	CONCAT(CM.ClassName,' (', CM.ClassCode,')')																							AS 'ClassName',
+		 	IF(SM.EmailAddress IS NULL OR SM.EmailAddress = '','None',SM.EmailAddress )																																AS 'EmailAddress'
 		 	
 FROM studentmaster SM
 JOIN gendermaster GM ON GM.GenderMasterID = SM.GenderID
