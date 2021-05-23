@@ -115,23 +115,7 @@ $stm = TeacherModel::get_all_student_details();
 <div class="page-header">
 <div class="row align-items-end">
 <div class="col-lg-8">
-<div class="page-header-title">
-<div class="d-inline">
-<h4>Students</h4>
-<span></span>
-</div>
-</div>
-</div>
-<div class="col-lg-4">
-<div class="page-header-breadcrumb">
-<ul class="breadcrumb-title">
-<li class="breadcrumb-item">
-<a href="index.html"> <i class="feather icon-users"></i> </a>
-</li>
-<li class="breadcrumb-item"><a href="#!">Home</a>
-</li>
-<li class="breadcrumb-item"><a href="#!">Viwe Pupils</a>
-</li>
+
 
  </ul>
 </div>
@@ -145,18 +129,21 @@ $stm = TeacherModel::get_all_student_details();
 <div class="col-sm-12">
 
 <div class="card">
-
+    <div class="card-header ">
+        <h4>Students Information </h4>      
+   <hr>     
+    </div>
 <div class="card-block">
 <div class="dt-responsive table-responsive">
 <table id="excel-bg" class="table table-striped table-bordered nowrap">
 <thead>
 <tr>
-<th>ID</th>
+<th>Student No.</th>
 <th>Name</th>
-<th>Grade</th>
+
 <th>Contact No.</th>
 <th>DOB</th>
-<th>Address</th>
+
 <th></th>
 </tr>
 </thead>
@@ -169,10 +156,10 @@ $stm = TeacherModel::get_all_student_details();
 <tr>
      <td><?php echo $public_id;?></td>
          <td><?php echo $row['Name'];?></td>
-        <td><?php echo $row['GradeMasterID'];?></td>
+        
         <td ><?php echo $row['ContactNo'];?></td>
         <td ><?php echo $row['DOB'];?></td>
-        <td ><?php echo $row['Address'];?></td>
+       
 
 <td>
     <button onclick="redirectWithID('<?php echo $public_id;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-eye"></i></button>
@@ -188,12 +175,11 @@ $stm = TeacherModel::get_all_student_details();
 </tbody>
 <tfoot>
 <tr>
-<th>ID</th>
+<th>Student No.</th>
 <th>Name</th>
-<th>Grade</th>
+
 <th>Contact No.</th>
 <th>DOB</th>
-<th>Address</th>
 <th></th>
 </tr>
 </tfoot>

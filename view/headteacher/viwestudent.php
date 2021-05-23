@@ -138,7 +138,7 @@ $stm = TeacherModel::get_all_student_details();
 <table id="excel-bg" class="table table-striped table-bordered nowrap">
 <thead>
 <tr>
-<th>ID</th>
+<th>Student No.</th>
 <th>Name</th>
 
 <th>Contact No.</th>
@@ -175,7 +175,7 @@ $stm = TeacherModel::get_all_student_details();
 </tbody>
 <tfoot>
 <tr>
-<th>ID</th>
+<th>Student No.</th>
 <th>Name</th>
 
 <th>Contact No.</th>

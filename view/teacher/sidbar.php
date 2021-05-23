@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="">
-        <a href="index.html">
+        <a href="studentattendance.php">
             <span class="pcoded-mtext">Student Attendance</span>
         </a>
     </li>

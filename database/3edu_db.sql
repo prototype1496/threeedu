@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `country` (
   UNIQUE KEY `ConuntryCode` (`ConuntryCode`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.country: ~0 rows (approximately)
+-- Dumping data for table 3edu_db.country: ~1 rows (approximately)
 DELETE FROM `country`;
 /*!40000 ALTER TABLE `country` DISABLE KEYS */;
 INSERT INTO `country` (`CountryID`, `CountryName`, `ConuntryCode`, `IsActive`) VALUES
@@ -334,7 +334,7 @@ CREATE TABLE IF NOT EXISTS `emailservice` (
   CONSTRAINT `FK_emailservice_statusmaster` FOREIGN KEY (`Status`) REFERENCES `statusmaster` (`StatueCode`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.emailservice: ~0 rows (approximately)
+-- Dumping data for table 3edu_db.emailservice: ~1 rows (approximately)
 DELETE FROM `emailservice`;
 /*!40000 ALTER TABLE `emailservice` DISABLE KEYS */;
 INSERT INTO `emailservice` (`EmailServiceID`, `EmailSerial`, `EmailAddress`, `EmailSubject`, `SendData`, `Status`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -477,7 +477,7 @@ DELETE FROM `sequencemaster`;
 INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 4, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 18, '2019-11-01 20:00:03'),
+	(3, 'TOKN', 19, '2019-11-01 20:00:03'),
 	(4, 'EMIL', 2, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
 	(6, 'SCHL', 1, '2019-11-17 18:52:58'),
@@ -506,8 +506,8 @@ CREATE TABLE IF NOT EXISTS `session` (
 DELETE FROM `session`;
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
 INSERT INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
-	(14, 'TECH0000000003', 'TOKN00000000014', '1429d1a771841b0e70a47f803123a1226c6d9ce63c08469be2', '1621258756', 't', '2021-05-17 15:39:17'),
-	(18, 'TECH0000000001', 'TOKN00000000018', 'ddc729cde648e4a168440d65687e4963d5f04b02095f61d170', '1621796706', 'a', '2021-05-23 21:05:07');
+	(18, 'TECH0000000001', 'TOKN00000000018', 'ddc729cde648e4a168440d65687e4963d5f04b02095f61d170', '1621796706', 'a', '2021-05-23 21:05:07'),
+	(19, 'TECH0000000003', 'TOKN00000000019', '5d0494c3eb093049f0469b681119733f6c3cd31dff8fdb4e48', '1621801826', 't', '2021-05-23 22:30:26');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
@@ -535,7 +535,8 @@ INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublic
 	(15, '15', 'TECH0000000001', 'TOKN00000000015', '89dfd1f9a45b42496b83c892625abac3559eccdc9396575dd3', '1621504084', 'a', '2021-05-20 11:48:07'),
 	(16, '16', 'TECH0000000001', 'TOKN00000000016', '5619883bdc3b99c02003690ac5091848ae73d1969dd861ae34', '1621670356', 'a', '2021-05-22 09:59:17'),
 	(17, '17', 'TECH0000000001', 'TOKN00000000017', '2cdce058de63efe18aa1e6f6113d62c59a5805bdb1ea6ab2cd', '1621767854', 'a', '2021-05-23 13:04:16'),
-	(18, '18', 'TECH0000000001', 'TOKN00000000018', 'ddc729cde648e4a168440d65687e4963d5f04b02095f61d170', '1621796706', 'a', '2021-05-23 21:05:07');
+	(18, '18', 'TECH0000000001', 'TOKN00000000018', 'ddc729cde648e4a168440d65687e4963d5f04b02095f61d170', '1621796706', 'a', '2021-05-23 21:05:07'),
+	(19, '19', 'TECH0000000003', 'TOKN00000000019', '5d0494c3eb093049f0469b681119733f6c3cd31dff8fdb4e48', '1621801826', 't', '2021-05-23 22:30:26');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster
@@ -588,7 +589,7 @@ CREATE TABLE IF NOT EXISTS `studentdetails` (
   CONSTRAINT `FK_studentdetails_subjectmater` FOREIGN KEY (`SubjectCode`) REFERENCES `subjectmater` (`SubjectCode`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.studentdetails: ~15 rows (approximately)
+-- Dumping data for table 3edu_db.studentdetails: ~17 rows (approximately)
 DELETE FROM `studentdetails`;
 /*!40000 ALTER TABLE `studentdetails` DISABLE KEYS */;
 INSERT INTO `studentdetails` (`StudentDetailsID`, `StudentDetailsPublicID`, `StudentMasterPublicID`, `SubjectCode`, `ClassMasterPublicID`, `Year`, `UpdatedOn`, `UpdatedBy`) VALUES
@@ -674,7 +675,7 @@ CREATE TABLE IF NOT EXISTS `subjectmater` (
   CONSTRAINT `FK_subjectmater_department` FOREIGN KEY (`DepartmentCode`) REFERENCES `department` (`ShortHand`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.subjectmater: ~27 rows (approximately)
+-- Dumping data for table 3edu_db.subjectmater: ~31 rows (approximately)
 DELETE FROM `subjectmater`;
 /*!40000 ALTER TABLE `subjectmater` DISABLE KEYS */;
 INSERT INTO `subjectmater` (`SubjectMaterID`, `SubjectName`, `SubjectCode`, `DepartmentCode`, `SubjectDiscription`, `UpdatedBy`, `UpdatedOn`, `IsActive`) VALUES
