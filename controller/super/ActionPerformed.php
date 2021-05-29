@@ -609,7 +609,75 @@
       
       
  }
-else if (isset ($_POST['txt']))
+else if (isset ($_POST['btn_student_attnedance']))
  {
-     echo 'Test';  
+     $class_id = trim(filter_input(INPUT_POST, 'class_id', FILTER_DEFAULT));
+  
+    
+     $student_no  = isset($_POST['student_no']) ? $_POST['student_no'] : array(0=>0);
+     $ststus_id  = isset($_POST['ststus_id']) ? $_POST['ststus_id'] : array(0=>0);
+     $reason  = isset($_POST['reason']) ? $_POST['reason'] : array(0=>0);
+      $count = 0 ;
+      $data = array();
+        $size_of_id_array = sizeof($student_no); 
+         
+        
+        // $compined_data
+        foreach ($student_no as $key => $value)    {
+           
+            
+            if($count < $size_of_id_array ){
+               
+                if(empty($reason[$count])){
+                  $reson_data =   NULL;
+                }else {
+                  $reson_data =  $reason[$count]; 
+                    
+                }
+             
+              array_push($data,array($value,$class_id,$ststus_id[$count],$reson_data)); 
+                 $count++;
+            }
+        }
+        
+        
+        
+         if(count($data) > 0 ){
+         
+         if(SuperModel::add_attendacy($data))
+         {        
+       echo "<script>               
+            $(document).ready(
+             
+            function(){
+                
+               $.jnoty('Attendance Taken Successfuly', {
+            sticky: false,
+            header: 'Success',
+            theme: 'jnoty-success',
+            close: function() {window.location.replace('/threeedu/view/teacher/selectgrade.php')},
+            });   
+            }); 
+            </script>";
+         
+         }
+         else
+         {    
+           echo "<script>               
+            $(document).ready(
+             
+            function(){
+                
+               $.jnoty('Erro in submiting attendance Please Try Later', {
+            sticky: false,
+            header: 'Erro',
+            theme: 'jnoty-danger',
+            close: function() {window.location.replace('/threeedu/view/teacher/selectgrade.php')},
+            });   
+            }); 
+            </script>";
+         
+         }
+         
+         }
  }

@@ -14,6 +14,19 @@
 class TeacherModel {
  
     
+    public static function get_all_student_details_classid($ClassID) {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAllStudentDetailsByClassID('$ClassID');";
+        $stm = $conn->query($query);
+      
+            return $stm;
+      
+                 }
+    
+    
         public static function get_all_student_details() {
        
         $Connection = new Connection();

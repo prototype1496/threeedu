@@ -1,15 +1,12 @@
 <?php 
 require '../../controller/super/SessionStart.php'; 
-require_once '../../db_connection/dbconfig.php';
-require_once '../../model/TeacherModel.php';
+require '../../db_connection/dbconfig.php'; 
+require '../../model/SuperModel.php'; 
 
-if ($_GET['classid']){
-    $class_id = $_GET['classid'];
-  $stm = TeacherModel::get_all_student_details_classid($class_id);
+if ($_GET['grade']){
+    $grade_id = $_GET['grade'];
+   $stm  =  SuperModel::get_classes_by_grade_id($grade_id);
 }
-
-
-
 
 ?>
 <!DOCTYPE html>
@@ -18,7 +15,7 @@ if ($_GET['classid']){
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dashboard-crm.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:45:47 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<title>Pupil Profil </title>
+<title>Teacher Dashboared </title>
 
 
 <!--[if lt IE 10]>
@@ -42,10 +39,6 @@ if ($_GET['classid']){
 <link rel="stylesheet" href="../../files/assets/pages/chart/radial/css/radial.css" type="text/css" media="all">
 
 <link rel="stylesheet" type="text/css" href="../../files/assets/icon/feather/css/feather.css">
-
-
-<link rel="stylesheet" type="text/css" href="../../files/bower_components/ekko-lightbox/css/ekko-lightbox.css">
-<link rel="stylesheet" type="text/css" href="../../files/bower_components/lightbox2/css/lightbox.css">
 
 <link rel="stylesheet" type="text/css" href="../../files/assets/css/style.css">
 <link rel="stylesheet" type="text/css" href="../../files/assets/css/jquery.mCustomScrollbar.css">
@@ -109,156 +102,72 @@ if ($_GET['classid']){
 
 
 
+<div class="pcoded-content">
+<div class="pcoded-inner-content">
+<div class="main-body">
+<div class="page-wrapper">
+<div class="page-body">
+    
+    
+<div class="row">
 
- <div class="pcoded-content">
-        <div class="pcoded-inner-content">
-            <div class="main-body">
-                <div class="page-wrapper">
+    <div class="col-xl-12 col-md-12">
+<div class="card bg-c-white  text-white">
+<div class="card-block">
+<div class="row align-items-center">
+    <div class="col">
 
-
-
-
-
-                    <div class="page-body">
-
-
-
-                        <div class="card">
-
-
-
-
-
-
-
-
-                            <form method="POST" action="../../controller/super/ActionPerformed.php">
-
-
-                            <div class="card-block table-border-style">
-                                <div class="table-responsive">
-                                    <table class="table table-styling">
-                                        <thead>
-                                            <tr class="table-primary">
-
-                                                <th>Photo</th>
-                                                <th>Student ID</th>
-                                                <th>Names</th>
-                                             
-                                                <th>         </th>
-                                                <th>Status</th>
-                                                <th>Reason</th>
-                                            </tr>
-                                        </thead>
-<input type="hidden" name="class_id" value=" <?php echo $class_id ; ?>"/>
-                                       <?php while($row = $stm->fetch(PDO::FETCH_ASSOC))
-                            
-                    {
-                          $public_id = $row['PublicID'];
-                            ?>
-                                                <tr>
-                                                          
-                                                    <td>
-                                                        <div>
-                                                            <img src="<?php echo $row['ProfilePic'] ; ?>" class="img-circle" alt="Cinque Terre" width="100" height="100" />
-                                                        </div>
-                                                    </td>
-
-
-                                                    <td>
-                                                        <br />
-                                                        <br />
-                                                        
-                                                        <input type="hidden" name="student_no[]" value=" <?php echo $public_id ; ?>"/>
-                                                       <?php echo $public_id ; ?>
-                                                    </td>
-
-                                                    <td>
-                                                        <br />
-                                                        <br />
-                                                       <?php echo $row['Name'] ; ?>
-
-                                                    </td>
-
-
-
-                                                    <td>
-                                                        <br />
-                                                        <br />
-                                                        
-
-                                                    </td>
-
-
-                                                    <td>
-
-                                                      
-
-                                                            
-                        <div class="form-group">
-                            
-                          <div class="form-select-list">
-                                 <br />
-                                                        <br />
-                                        <select  required="" class="form-control " name="ststus_id[]">
-                                            <option value="3" selected="selected">Unmarked</option>
-                                            <option value="1">Present</option>
-                                                <option value="2">Absent</option>
-                                               
-                                                
-                                       </select>
-                                    </div>
-                        </div>
-                    
-                            
-
-
-
-                                                    </td>
-                                                    <td>
-                                                        <br />
-                                                        <br />
-                                                        <input placeholder="Enter Reason" name="reason[]" type="text" class="form-control">
-
-                                                    </td>
-
-                                                </tr>
-                                                <?php 
-                            
-                    }
-                         
-                            ?>
-
-                                    </table>
-
-                                </div>
-
-
-
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" name="btn_student_attnedance" value="Submit" class="btn btn-primary btn-round" />
-                                    </div>
-                                </div>
-
-
-</form>
-                            </div>
-
-
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-          
+ <div class="big-icon">
+     <img src="../../img/Home.png" />
         </div>
+    
+</div>
+</div>
+</div>
+</div>
+        
     </div>
+    
+
+      <?php
+                                while ($row = $stm->fetch(PDO::FETCH_ASSOC)){
+                                    
+                                 ?>
+    
+    
+    
+    <div class="col-xl-3 col-md-3">
+    <a href="studentattendance.php?classid=<?php echo $row['ClassMasterPublicID']; ?>">
+<div class="card bg-c-pink  text-white">
+<div class="card-block">
+<div class="row align-items-center">
+    <div class="col">
+<p class=" h6 m-b-10"><?php echo $row['Class']; ?></p>
+
+</div>
+ 
+    
+</div>
+</div>
+</div>
+        </a>
+</div>
+    
+    
+        <?php
+                                }
+                                 ?>
+    
+    
 
 
+</div>
+</div>
+</div>
 
-}
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -323,10 +232,6 @@ if ($_GET['classid']){
 <script src="../../../../../../../../developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js" type="960c3b30522fb895a4c59633-text/javascript"></script>
 <script type="960c3b30522fb895a4c59633-text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
 <script type="960c3b30522fb895a4c59633-text/javascript" src="../../files/assets/pages/google-maps/gmaps.js"></script>
-
-
-<script type="960c3b30522fb895a4c59633-text/javascript" src="../../files/bower_components/ekko-lightbox/js/ekko-lightbox.js"></script>
-<script type="960c3b30522fb895a4c59633-text/javascript" src="../../files/bower_components/lightbox2/js/lightbox.js"></script>
 
 <script src="../../files/assets/pages/widget/gauge/gauge.min.js" type="960c3b30522fb895a4c59633-text/javascript"></script>
 <script src="../../files/assets/pages/widget/amchart/amcharts.js" type="960c3b30522fb895a4c59633-text/javascript"></script>

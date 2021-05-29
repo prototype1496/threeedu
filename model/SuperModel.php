@@ -3,6 +3,48 @@
 class SuperModel{
     
     //This is the section for 3ED
+    
+    public static function add_attendacy($tem_data) {
+        //the below function creates a session in the databes for every log in 
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+            
+            $conn->beginTransaction();
+       // print_r(count($tem_data[0]));
+           //$args  = array_fill(0, count($tem_data[0]), '?');
+            //Insets data new session into the session table
+            $query = "INSERT INTO `studentattendance` (`StudentID`, `ClassID`, `Status`, `Reason`) VALUES  (?,?,?,?)";
+            $stm = $conn->prepare($query);
+            
+            
+            foreach ($tem_data as $data)
+            {
+                 //print_r($data);
+                if (!empty($data[0])){
+                  //  print_r($data);
+                  $stm->execute($data);
+                }else{
+                    
+                    
+                }
+               
+              //  
+            }
+            //print_r($stm);
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+            //echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
+    
+    
+    
     function get_class_by_grade_id($gradeid) {
         //This function is used to load the districts whih a given province ID
          $Connection = new Connection();
@@ -350,6 +392,24 @@ class SuperModel{
         
         
         
+          
+    public static function get_classes_by_grade_id($grade_id) {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+       
+        $query = "CALL GetAllClassesByGradeID('$grade_id');";
+         //$stm = $conn->prepare($query);
+         $stm = $conn->query($query);
+        //$row = $stm->execute(array(':gradeid' => $grade_id));
+       // $stm->execute(array(':username' => $User->username));
+        // $stm->execute();
+     
+//         $row = $stm->fetch(PDO::FETCH_ASSOC);
+          // print_r($stm);
+            return $stm;
+      
+   }
         
     public static function get_student_details_by_student_no($studentNo) {
        
