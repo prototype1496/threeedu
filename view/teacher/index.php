@@ -159,6 +159,7 @@
 </div>
     
  <div class="col-xl-3 col-md-6">
+     <a href="studentassecment.php">
 <div class="card bg-c-pink  text-white">
 <div class="card-block">
 <div class="row align-items-center">
@@ -173,6 +174,7 @@
 </div>
 </div>
 </div>
+         </a>
 </div>
     
     <div class="col-xl-3 col-md-6">
