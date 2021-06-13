@@ -617,8 +617,12 @@ else if (isset ($_POST['btn_student_attnedance']))
      $student_no  = isset($_POST['student_no']) ? $_POST['student_no'] : array(0=>0);
      $ststus_id  = isset($_POST['ststus_id']) ? $_POST['ststus_id'] : array(0=>0);
      $reason  = isset($_POST['reason']) ? $_POST['reason'] : array(0=>0);
+     
+      
       $count = 0 ;
       $data = array();
+      
+      //print_r(strlen($student_no[0])) ; 
         $size_of_id_array = sizeof($student_no); 
          
         
@@ -635,7 +639,7 @@ else if (isset ($_POST['btn_student_attnedance']))
                     
                 }
              
-              array_push($data,array($value,$class_id,$ststus_id[$count],$reson_data)); 
+              array_push($data,array($class_id,$student_no[$count],$ststus_id[$count],$reson_data)); 
                  $count++;
             }
         }
@@ -680,4 +684,93 @@ else if (isset ($_POST['btn_student_attnedance']))
          }
          
          }
+         
+         
+         
+        
  }
+ 
+else if (isset ($_POST['btn_accessment']))
+ {
+     $class_id = trim(filter_input(INPUT_POST, 'classid', FILTER_DEFAULT));
+   
+   $assecemnt_type_id = trim(filter_input(INPUT_POST, 'accesmenttype_id', FILTER_DEFAULT));
+    $UpdatedBy = $_SESSION['threeedu_username'];
+    
+    //$student_puplic_id = trim(filter_input(INPUT_POST, 'student_puplic_id', FILTER_DEFAULT));
+    
+     $student__public_id  = isset($_POST['student_puplic_id']) ? $_POST['student_puplic_id'] : array(0=>0);
+     $score = isset($_POST['score']) ? $_POST['score'] : array(0=>0);
+     $comment  = isset($_POST['comment']) ? $_POST['comment'] : array(0=>0);
+      $count = 0 ;
+      $data = array();
+      
+     // print_r(strlen($student_no[0])) ; 
+        $size_of_id_array = sizeof($student__public_id); 
+         
+        
+        // $compined_data
+        foreach ($student__public_id as $key => $value)    {
+           
+            
+            if($count < $size_of_id_array ){
+               
+                if(empty($comment[$count])){
+                  $comment_data =   NULL;
+                }else {
+                  $comment_data =  $comment[$count]; 
+                    
+                }
+             
+              array_push($data,array($student__public_id[$count],$assecemnt_type_id,$class_id,$score[$count],$comment_data,$UpdatedBy)); 
+                 $count++;
+            }
+        }
+        
+        
+       //print_r(count($data));
+        
+         if(count($data) > 0 ){
+         
+         if(SuperModel::add_acessment($data))
+         {        
+       echo "<script>               
+            $(document).ready(
+             
+            function(){
+                
+               $.jnoty('Grading Submited Successfuly', {
+            sticky: false,
+            header: 'Success',
+            theme: 'jnoty-success',
+            close: function() {window.location.replace('/threeedu/view/teacher/studentassecment.php')},
+            });   
+            }); 
+            </script>";
+         
+         }
+         else
+         {    
+           echo "<script>               
+            $(document).ready(
+             
+            function(){
+                
+               $.jnoty('Erro in submiting grading Please Try Later', {
+            sticky: false,
+            header: 'Erro',
+            theme: 'jnoty-danger',
+            close: function() {window.location.replace('/threeedu/view/teacher/studentassecment.php')},
+            });   
+            }); 
+            </script>";
+         
+         }
+         
+         }
+         
+         
+         
+        
+ }
+  

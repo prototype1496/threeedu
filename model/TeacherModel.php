@@ -39,7 +39,17 @@ class TeacherModel {
       
                  }
    
-    
+    public static function get_all_student_details_by_class_masterpublic_id($classID) {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAllStudentDetailsByClassMasterPublicID('$classID');";
+        $stm = $conn->query($query);
+      
+            return $stm;
+      
+                 }
     
     
      public static function  add_teacher_report_details($TeacherMasterPublicID,$TeacherDetailsPublicID,$UpdatedBy) {

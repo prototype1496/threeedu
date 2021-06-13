@@ -14,7 +14,7 @@ class SuperModel{
        // print_r(count($tem_data[0]));
            //$args  = array_fill(0, count($tem_data[0]), '?');
             //Insets data new session into the session table
-            $query = "INSERT INTO `studentattendance` (`StudentID`, `ClassID`, `Status`, `Reason`) VALUES  (?,?,?,?)";
+            $query = "INSERT INTO `studentattendance` (`ClassID`,`StudentID`, `Status`, `Reason`) VALUES  (?,?,?,?)";
             $stm = $conn->prepare($query);
             
             
@@ -22,8 +22,8 @@ class SuperModel{
             {
                  //print_r($data);
                 if (!empty($data[0])){
-                  //  print_r($data);
-                  $stm->execute($data);
+                   // print_r($data);
+                 $stm->execute($data);
                 }else{
                     
                     
@@ -38,6 +38,49 @@ class SuperModel{
         } catch (Exception $exc) {
             $conn->rollBack();
             //echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
+    
+    
+    
+    
+     public static function add_acessment($tem_data) {
+        //the below function creates a session in the databes for every log in 
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+            
+            $conn->beginTransaction();
+       // print_r(count($tem_data[0]));
+           //$args  = array_fill(0, count($tem_data[0]), '?');
+            //Insets data new session into the session table
+            $query = "INSERT INTO `studnetassesment` (`StudentMasterPublicID`, `AssecemntTypeMasterID`, `ClassMasterPublicID`, `Score`, `Commment`, `UpdatedBy`) VALUES (?, ?, ?, ?, ?, ?);";
+            $stm = $conn->prepare($query);
+            
+           // print_r($stm);
+            foreach ($tem_data as $data)
+            {
+                // print_r($data);
+                if (!empty($data[0])){
+                //  print_r($data);
+                $stm->execute($data);
+                
+                }else{
+                    
+                    
+                }
+               
+              //  
+            }
+            //print_r($stm);
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+           //echo $exc->getMessage();
             return FALSE;
         }
     }
@@ -391,7 +434,155 @@ class SuperModel{
         
         
         
+    //This is for searchable combos 
+
+     public static function get_all_classes() {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+       
+        $query = "CALL GetAllClasses();";
+         
+         $stm = $conn->query($query);
+      
+          
+            return $stm;
+      
+   }
+   
+   
+    function get_all_subjects($class_id) {
+        //This function is used to load the districts whih a given province ID
+         $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        // this is the stored procidure from the datbaes that is loading the destrics after passing in an province ID 
+        $query = "CALL GetSubjectsByClassMasterPublicID(:class_id);";
+
+///maonpwe
+     
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':class_id' => $class_id));
+
+        if ($stm->rowCount() > 0) {
+
+             //What the beow lines of code are doing is they are loading a districts and displying them in a dropdown using php
+ echo "  <option value='' disabled='disabled' selected='selected' >Select Subject</option> ";
+            while ( $row = $stm->fetch(PDO::FETCH_ASSOC)) {
+
+
+                echo "<option value=" . $row['SujectCode'] . ">" . $row['SubjectName'] . "</option>";
+                //echo "<option vlaue='21'>".$row['name']."</option>";name
+            }
+
+            
+           
+            
+            } else {
+
+            echo "  <option value='' disabled='disabled' selected='selected' >Select Subject</option> ";
+       
+            }
+            
         
+        
+    }
+    
+    
+      function get_all_acessment_types($class_id,$subject_code) {
+        //This function is used to load the districts whih a given province ID
+         $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        // this is the stored procidure from the datbaes that is loading the destrics after passing in an province ID 
+        $query = "CALL GetAssecmentTypeBySubjectCode(:class_id,:subject_code);";
+
+///maonpwe
+     
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':class_id' => $class_id,':subject_code' => $subject_code));
+
+        if ($stm->rowCount() > 0) {
+
+             //What the beow lines of code are doing is they are loading a districts and displying them in a dropdown using php
+ echo "  <option value='' disabled='disabled' selected='selected' >Select Acessment Type</option> ";
+            while ( $row = $stm->fetch(PDO::FETCH_ASSOC)) {
+
+
+                echo "<option value=" . $row['AssementTypeID'] . ">" . $row['AssementTypeName'] . "</option>";
+                //echo "<option vlaue='21'>".$row['name']."</option>";name
+            }
+
+            
+           
+            
+            } else {
+
+           echo "  <option value='' disabled='disabled' selected='selected' >Select Acessment Type</option> ";
+       
+            }
+            
+        
+        
+    }
+    
+     function get_student_details_by_class_id($class_id) {
+        //This function is used to load the districts whih a given province ID
+         $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        // this is the stored procidure from the datbaes that is loading the destrics after passing in an province ID 
+        $query = "CALL GetAllStudentDetailsByClassMasterPublicID(:class_id);";
+
+///maonpwe
+     
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':class_id' => $class_id));
+
+        if ($stm->rowCount() > 0) {
+
+             //What the beow lines of code are doing is they are loading a districts and displying them in a dropdown using php
+ 
+            while ( $row = $stm->fetch(PDO::FETCH_ASSOC)) {
+
+
+                              $public_id = $row['StudentMasterPublicID'];
+                                                         ?>
+                             <tr>
+                             <input name="student_puplic_id[]" value="<?php echo $public_id;?>" type="hidden"/>
+                                      <td><?php echo $row['StudentNo'];?></td>
+
+                                     <td ><?php echo $row['NameInfo'];?></td>
+                                     <td ><?php echo $row['Class'];?></td>
+
+                                     <td ><input maxlength="3" m="100" min="0" name="score[]" required="" placeholder="Enter %" /></td>
+                                     <td ><input name="comment[]" placeholder="Enter Comment" /></td>
+
+                             </tr>
+                             
+                             <?php
+                             
+                             
+            }
+
+            
+           
+            
+            } else {
+
+    
+       
+            }
+            
+        
+        
+    }
+
+//Searchable combos end     
+    
+    
+    
+    
           
     public static function get_classes_by_grade_id($grade_id) {
        

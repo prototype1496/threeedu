@@ -20,7 +20,7 @@
         </a>
     </li>
     <li class="">
-        <a href="dashboard-crm.html">
+        <a href="studentassecment.php">
             <span class="pcoded-mtext">Assessment Grading</span>
         </a>
     </li>

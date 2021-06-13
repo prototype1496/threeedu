@@ -169,8 +169,8 @@ if ($_GET['classid']){
                                                         <br />
                                                         <br />
                                                         
-                                                        <input type="hidden" name="student_no[]" value=" <?php echo $public_id ; ?>"/>
-                                                       <?php echo $public_id ; ?>
+                                                        <input type="hidden" name="student_no[]" value=" <?php echo trim($public_id)  ; ?>"/>
+                                                       <?php echo trim($public_id) ; ?>
                                                     </td>
 
                                                     <td>
