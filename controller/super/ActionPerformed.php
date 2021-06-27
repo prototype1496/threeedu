@@ -693,6 +693,8 @@ else if (isset ($_POST['btn_student_attnedance']))
 else if (isset ($_POST['btn_accessment']))
  {
      $class_id = trim(filter_input(INPUT_POST, 'classid', FILTER_DEFAULT));
+     
+     $accecment_type_name = trim(filter_input(INPUT_POST, 'accecment_type_name', FILTER_DEFAULT));
    
    $assecemnt_type_id = trim(filter_input(INPUT_POST, 'accesmenttype_id', FILTER_DEFAULT));
     $UpdatedBy = $_SESSION['threeedu_username'];
@@ -722,7 +724,7 @@ else if (isset ($_POST['btn_accessment']))
                     
                 }
              
-              array_push($data,array($student__public_id[$count],$assecemnt_type_id,$class_id,$score[$count],$comment_data,$UpdatedBy)); 
+              array_push($data,array($student__public_id[$count],$assecemnt_type_id,$class_id,$score[$count],$comment_data,$UpdatedBy, strtolower($accecment_type_name))); 
                  $count++;
             }
         }
@@ -769,8 +771,43 @@ else if (isset ($_POST['btn_accessment']))
          
          }
          
-         
-         
-        
+       
+ }else if (isset ($_POST['btn_sequnce']))
+ {
+          $SequnceCode  = $_POST['sequnce_code'];
+          
+           if (SuperModel::add_seuence($SequnceCode))
+        {
+            
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+                
+               $.jnoty('Sequence Added Successfully', {
+            sticky: false,
+            header: 'Success',
+            theme: 'jnoty-success',
+            close: function() {window.location.replace('/threeedu/view/admin/sequncemaster.php')},
+            });   
+            }); 
+            </script>";
+        }else {
+             echo "<script>               
+            $(document).ready(
+             
+            function(){
+                
+               $.jnoty('Sequence Not Added Successfully Please Check if it exists', {
+            sticky: false,
+            header: 'Success',
+            theme: 'jnoty-success',
+            close: function() {window.location.replace('/threeedu/view/admin/sequncemaster.php')},
+            });   
+            }); 
+            </script>";
+            
  }
+ 
+        }
   

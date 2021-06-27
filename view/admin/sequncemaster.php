@@ -2,10 +2,7 @@
 require '../../controller/super/SessionStart.php'; 
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/TeacherModel.php';
-require_once '../../model/SuperModel.php';
-$stm = TeacherModel::get_all_student_details();
-
-$classes = SuperModel::get_all_classes();
+$stm = TeacherModel::get_all_seqences();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,8 +44,6 @@ $classes = SuperModel::get_all_classes();
 
 <link rel="stylesheet" type="text/css" href="../../files/assets/css/style.css">
 <link rel="stylesheet" type="text/css" href="../../files/assets/css/jquery.mCustomScrollbar.css">
-<link rel="stylesheet" href="../../files/bower_components/select2/css/select2.min.css" />
-<link rel="stylesheet" type="text/css" href="../../files/assets/css/style.css">
 </head>
 <body>
 
@@ -132,74 +127,48 @@ $classes = SuperModel::get_all_classes();
 <div class="page-body">
 <div class="row">
 <div class="col-sm-12">
-    <form method="post" action="../../controller/super/ActionPerformed.php" >
-<div class="card">
-   
-<div class="card-block">
-   <hr>    
-   <div class="col-sm-12">
-       <div class="row">
-           <div class="col-sm-12 col-xl-3 m-b-30">
-               
-               
-               <select id="selected_class_id" onchange="get_subjects(),get_assesment_types()" required="" name="classid" class="js-example-data-array col-sm-4">
-            <option value="" disabled="disabled" selected="selected" >Select Class</option>
-                <?php
-                while ($row = $classes->fetch(PDO::FETCH_ASSOC)) {
-                    ?>
-                    <option value="<?php echo $row['ClassMasterPublicID']; ?>"><?php echo $row['Class']; ?></option>
 
-                <?php } ?>
-               </select>
-      </div>
-           
-           <div  class="col-sm-12 col-xl-3 m-b-30">
-               <select id="subject_id" onchange="get_assesment_types()" required='' name='subject_id' class='js-example-data-array col-sm-4'>
-                   
-               </select>
-      </div>
-           
-           
-           <div id="assesmenttypeid" class="col-sm-12 col-xl-3 m-b-30">
-               <select id="assecmenttype_id"  onchange="get_studentdata()" required="" name="accesmenttype_id" class="js-example-data-array col-sm-4">
-                   
-                   
-               </select>
-      </div>
-           
-           
-             
-           <div id="assesmenttypeid" style="padding: 8px 30px 8px 30px;" class="col-sm-12 col-xl-3 m-b-30">
-               <input  type="text" required="" name="accecment_type_name" class="form-control" placeholder="Accecment Name" />  
-                   
-               </select>
-      </div>
-     
-        </div>
-           
-   </div>
- <hr>   
- <div id="assesmenttypeid" class="col-sm-12 col-xl-3 m-b-20">
-     <button class="form-control btn-info align-items-end" name="btn_accessment" value="btn_attendace" type="submit" >Submit Gradding</button>
-     
- </div>
- 
+<div class="card">
+    <hr>
+    <div class="card-header ">
+        <hr>   
+        <form method="POST" action="../../controller/super/ActionPerformed.php">
+            <input placeholder="Enter Sequnce Start"  maxlength="4" oninput="this.value = this.value.toUpperCase()"  name="sequnce_code" class="form-control"/><br>
+            <button value="btn_sequnce" name="btn_sequnce" class="btn btn-info">Add Sequnce</button>
+            </form>
+   <hr>     
+    </div>
+<div class="card-block">
 <div class="dt-responsive table-responsive">
 <table id="excel-bg" class="table table-striped table-bordered nowrap">
 <thead>
 <tr>
-<th>Student No.</th>
-<th>Name</th>
-<th>Class</th>
-<th>Score</th>
+<th>Sequence Master ID</th>
+<th>Sequnce Code</th>
 
-<th>Comment</th>
+
 
 
 </tr>
 </thead>
-<tbody id="student_data">
-   
+<tbody>
+      <?php while($row = $stm->fetch(PDO::FETCH_ASSOC))
+                            
+                    {
+                         
+                            ?>
+<tr>
+     
+         <td><?php echo $row['SequenceMasterID'];?></td>
+        
+        <td ><?php echo $row['SequnceCode'];?></td>
+       
+       
+
+
+</tr>
+
+     <?php } ?>
 
 
 
@@ -208,23 +177,17 @@ $classes = SuperModel::get_all_classes();
 </tbody>
 <tfoot>
 <tr>
-<th>Student No.</th>
-<th>Name</th>
-<th>Class</th>
-<th>Score</th>
-
-<th>Comment</th>
+<th>Sequence Master ID</th>
+<th>Sequnce Code</th>
 </tr>
 </tfoot>
 </table>
 </div>
- 
- 
 </div>
 </div>
 
 
-</form>
+
 </div>
 </div>
 </div>
@@ -294,20 +257,6 @@ $classes = SuperModel::get_all_classes();
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/modernizr/js/modernizr.js"></script>
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/modernizr/js/css-scrollbars.js"></script>
 
-<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/i18next/js/i18next.min.js"></script>
-<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
-<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
-<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/jquery-i18next/js/jquery-i18next.min.js"></script>
-
-<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/select2/js/select2.full.min.js"></script>
-<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/bootstrap-multiselect/js/bootstrap-multiselect.js">
-
-</script>
-<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/multiselect/js/jquery.multi-select.js"></script>
-<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/assets/js/jquery.quicksearch.js"></script>
-
-
-
 <script src="../../files/bower_components/datatables.net/js/jquery.dataTables.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
 <script src="../../files/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
 <script src="../../files/assets/pages/data-table/js/jszip.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
@@ -335,21 +284,6 @@ $classes = SuperModel::get_all_classes();
 <script src="../../files/assets/js/jquery.mCustomScrollbar.concat.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/assets/js/script.js"></script>
 
-
-
-<script src="../../js/RelaodTeacherAssecmentCombo.js" type="text/javascript"></script>
-
-
-
-
-
-
-<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/assets/pages/advance-elements/select2-custom.js"></script>
-
-<script src="../../files/assets/js/pcoded.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
-<script src="../../files/assets/js/vartical-layout.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
-<script src="../../files/assets/js/jquery.mCustomScrollbar.concat.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
-<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/assets/js/script.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13" type="028b4b5e88a856df25e89945-text/javascript"></script>
 <script type="028b4b5e88a856df25e89945-text/javascript">
   window.dataLayer = window.dataLayer || [];
@@ -361,7 +295,7 @@ $classes = SuperModel::get_all_classes();
 
 <script>
  function redirectWithID(id){
-         window.location.href = "/threeedu/view/teacher/profile.php?id="+id;
+         window.location.href = "/threeedu/view/headteacher/profile.php?id="+id;
         
     }
 </script>

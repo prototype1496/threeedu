@@ -4,6 +4,30 @@ class SuperModel{
     
     //This is the section for 3ED
     
+    public static function add_seuence($sequence) {
+        //the below function creates a session in the databes for every log in 
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+            
+            $conn->beginTransaction();
+      
+            $query = "INSERT INTO `sequencemaster` (`SequnceCode`) VALUES (:SequnceCode);";
+            $stm = $conn->prepare($query);
+            
+             $stm->execute(array(':SequnceCode'=>$sequence));
+            
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+            //echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
+    
     public static function add_attendacy($tem_data) {
         //the below function creates a session in the databes for every log in 
         try {
@@ -42,7 +66,7 @@ class SuperModel{
         }
     }
     
-    
+     
     
     
     
@@ -56,7 +80,7 @@ class SuperModel{
        // print_r(count($tem_data[0]));
            //$args  = array_fill(0, count($tem_data[0]), '?');
             //Insets data new session into the session table
-            $query = "INSERT INTO `studnetassesment` (`StudentMasterPublicID`, `AssecemntTypeMasterID`, `ClassMasterPublicID`, `Score`, `Commment`, `UpdatedBy`) VALUES (?, ?, ?, ?, ?, ?);";
+            $query = "INSERT INTO `studnetassesment` (`StudentMasterPublicID`, `AssecemntTypeMasterID`, `ClassMasterPublicID`, `Score`, `Commment`, `UpdatedBy`,`AssecementName`) VALUES (?, ?, ?, ?, ?, ?,?);";
             $stm = $conn->prepare($query);
             
            // print_r($stm);
@@ -526,18 +550,19 @@ class SuperModel{
         
     }
     
-     function get_student_details_by_class_id($class_id) {
+     function get_student_details_by_class_id($class_id,$assecmenttype_id) {
         //This function is used to load the districts whih a given province ID
          $Connection = new Connection();
         $conn = $Connection->connect();
 
         // this is the stored procidure from the datbaes that is loading the destrics after passing in an province ID 
-        $query = "CALL GetAllStudentDetailsByClassMasterPublicID(:class_id);";
+        $query = "CALL GetAllStudentDetailsByClassMasterPublicID(:class_id,:assecmenttype_id);";
 
 ///maonpwe
      
         $stm = $conn->prepare($query);
-        $stm->execute(array(':class_id' => $class_id));
+        $stm->execute(array(':class_id' => $class_id,':assecmenttype_id'=>$assecmenttype_id));
+        
 
         if ($stm->rowCount() > 0) {
 

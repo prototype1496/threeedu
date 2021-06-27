@@ -1,7 +1,5 @@
 <?php
 
-
-
  require_once '../../model/SuperModel.php';
  require_once '../../db_connection/dbconfig.php';
 
@@ -23,7 +21,7 @@ elseif ($_GET['id']==2)
 
 elseif ($_GET['id']==3)
     {
-    $super_maodel->get_student_details_by_class_id($_GET['class_id']);
+    $super_maodel->get_student_details_by_class_id($_GET['class_id'],$_GET['assecmenttype_id']);
 }
 
 

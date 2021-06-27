@@ -30,8 +30,9 @@ function get_assesment_types()
 function get_studentdata()
 {
     var class_id = document.getElementById("selected_class_id").value;
+     var assecmenttype_id = document.getElementById("assecmenttype_id").value;
   
-     var temp_parm = "class_id="+class_id;
+     var temp_parm = "class_id="+class_id+"&&assecmenttype_id="+assecmenttype_id;;
      
      
     xmlhttp = new XMLHttpRequest();

@@ -39,6 +39,20 @@ class TeacherModel {
       
                  }
    
+                 
+                 
+                  public static function get_all_seqences() {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetSequnces();";
+        $stm = $conn->query($query);
+      
+            return $stm;
+      
+                 }
+                 
     public static function get_all_student_details_by_class_masterpublic_id($classID) {
        
         $Connection = new Connection();

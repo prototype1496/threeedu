@@ -89,8 +89,8 @@ class Login {
         $user_type_id = $User['UserTypeID'];
         
         if ($user_type_id == 1) {
-//              Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand']);
-//            header('location:/TTMS/view/admin/');
+ Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand']);
+             header('location:/threeedu/view/admin/');  
         } else if ($user_type_id == 2) {
             
         } else if ($user_type_id == 3) {

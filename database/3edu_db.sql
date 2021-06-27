@@ -62,9 +62,9 @@ CREATE TABLE IF NOT EXISTS `assementtypemaster` (
 DELETE FROM `assementtypemaster`;
 /*!40000 ALTER TABLE `assementtypemaster` DISABLE KEYS */;
 INSERT INTO `assementtypemaster` (`AssementTypeID`, `GradeMasterID`, `SubjectCode`, `AssementTypeName`, `IsActive`, `UpdatedOn`, `UpdatedBy`) VALUES
-	(1, 8, 'MATH', 'Class Exercis 1', '1', '2021-06-13 07:28:11', ''),
-	(2, 8, 'MATH', 'End Of Tem Test', '1', '2021-06-13 07:29:01', ''),
-	(3, 8, 'MATH', 'Mid Tem Test', '1', '2021-06-13 07:28:30', '');
+	(1, 8, 'MATH', 'Class Exercis 1', '1', '2021-06-13 07:28:11', 'sys'),
+	(2, 8, 'MATH', 'End Of Tem Test', '1', '2021-06-13 07:29:01', 'sys'),
+	(3, 8, 'MATH', 'Mid Tem Test', '1', '2021-06-13 07:28:30', 'sys');
 /*!40000 ALTER TABLE `assementtypemaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.classdetails
@@ -495,18 +495,18 @@ CREATE TABLE IF NOT EXISTS `sequencemaster` (
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SequenceMasterID`),
   UNIQUE KEY `SequnceCode` (`SequnceCode`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sequencemaster: ~10 rows (approximately)
+-- Dumping data for table 3edu_db.sequencemaster: ~11 rows (approximately)
 DELETE FROM `sequencemaster`;
 /*!40000 ALTER TABLE `sequencemaster` DISABLE KEYS */;
 INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
-	(1, 'TECH', 4, '2019-11-01 19:08:09'),
+	(1, 'TECH', 6, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 25, '2019-11-01 20:00:03'),
-	(4, 'EMIL', 2, '2019-11-15 05:28:12'),
+	(3, 'TOKN', 40, '2019-11-01 20:00:03'),
+	(4, 'EMIL', 3, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
-	(6, 'SCHL', 1, '2019-11-17 18:52:58'),
+	(6, 'SCHL', 2, '2019-11-17 18:52:58'),
 	(7, 'TRD', 2, '2019-11-18 21:59:20'),
 	(8, 'STNO', 33, '2021-05-22 19:45:06'),
 	(9, 'SDNT', 28, '2021-05-22 20:49:17'),
@@ -526,14 +526,15 @@ CREATE TABLE IF NOT EXISTS `session` (
   PRIMARY KEY (`SessionID`),
   KEY `FK_session_usermaster` (`UserMasterPublicID`),
   CONSTRAINT `FK_session_usermaster` FOREIGN KEY (`UserMasterPublicID`) REFERENCES `usermaster` (`PublicID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_db.session: ~2 rows (approximately)
 DELETE FROM `session`;
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
 INSERT INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
-	(24, 'TECH0000000001', 'TOKN00000000024', 'ccf770174decb8687b6b041dc09f97164824b5c38788aa217c', '1623561126', 'a', '2021-06-13 07:12:10'),
-	(25, 'TECH0000000003', 'TOKN00000000025', 'a1635177ffd79203b49fdfb1092eb13c2040aa7140487acdf2', '1623572749', 't', '2021-06-13 10:25:50');
+	(37, 'ADMIN00001', 'TOKN00000000037', 'eb60a326b9eb008c18ef8efdc82db2410b687aec66c0130d25', '1624021219', 'a', '2021-06-18 15:00:19'),
+	(39, 'TECH0000000001', 'TOKN00000000039', '48a8674f7d7f59213a9d439a63f5ed09db0cf3042633020f49', '1624118584', 'h', '2021-06-19 18:03:05'),
+	(40, 'TECH0000000003', 'TOKN00000000040', 'ee853f31f9e0704029c89e222e8d48807dc59a7ecd8578336f', '1624118595', 't', '2021-06-19 18:03:15');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
@@ -548,9 +549,9 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   `UpdatedBy` varchar(50) NOT NULL,
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionHistoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~15 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~26 rows (approximately)
 DELETE FROM `sessionhistory`;
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
 INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -568,7 +569,22 @@ INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublic
 	(22, '22', 'TECH0000000003', 'TOKN00000000022', 'd51f593d831ee7f0607d91ccef31932c71ab7227584c3f55f4', '1622292309', 't', '2021-05-29 14:45:09'),
 	(23, '23', 'TECH0000000003', 'TOKN00000000023', 'd8150c3089dbdde596b2129b52cdc6def25dffab19b25b9d22', '1623479474', 't', '2021-06-12 08:31:15'),
 	(24, '24', 'TECH0000000001', 'TOKN00000000024', 'ccf770174decb8687b6b041dc09f97164824b5c38788aa217c', '1623561126', 'a', '2021-06-13 07:12:10'),
-	(25, '25', 'TECH0000000003', 'TOKN00000000025', 'a1635177ffd79203b49fdfb1092eb13c2040aa7140487acdf2', '1623572749', 't', '2021-06-13 10:25:50');
+	(25, '25', 'TECH0000000003', 'TOKN00000000025', 'a1635177ffd79203b49fdfb1092eb13c2040aa7140487acdf2', '1623572749', 't', '2021-06-13 10:25:50'),
+	(26, '26', 'TECH0000000003', 'TOKN00000000026', 'c0feaa1d388dd7b545a352432b68c93e5389e3f30291d941b4', '1623760037', 't', '2021-06-15 14:27:24'),
+	(27, '27', 'TECH0000000001', 'TOKN00000000027', 'cc4ec0688cd366c9b3d7e590e68ef64e4fbb932b5559071995', '1623766862', 'a', '2021-06-15 16:21:03'),
+	(28, '28', 'TECH0000000003', 'TOKN00000000028', 'b2b5d8ec157e2e51f8b69676db7d302424d93e80a59632141c', '1623767109', 't', '2021-06-15 16:25:09'),
+	(29, '29', 'TECH0000000001', 'TOKN00000000029', '1f4d6af2cf1996196417880abaf3f15af760fe6184b7738851', '1623953983', 'a', '2021-06-17 20:19:43'),
+	(30, '30', 'TECH0000000003', 'TOKN00000000030', '6dbad331b9d8a571c2e9d8bae4d80c659eead523e047ebd9a0', '1623954081', 't', '2021-06-17 20:21:21'),
+	(31, '31', 'TECH0000000001', 'TOKN00000000031', '3298565dc6375ab35b3d72db46612ec9f36c2af238f7fd6dc1', '1624006485', 'a', '2021-06-18 10:54:46'),
+	(32, '32', 'ADMIN00001', 'TOKN00000000032', 'ac80476c4a8aa34ee5957a46374e72d1996d865f90f014b8f0', '1624006859', 'a', '2021-06-18 11:00:59'),
+	(33, '33', 'ADMIN00001', 'TOKN00000000033', 'f267266e3e2d0c07db7c994c6209f435c765f48e1ceceee7b4', '1624012252', 'a', '2021-06-18 12:30:52'),
+	(34, '34', 'ADMIN00001', 'TOKN00000000034', '955656743d81b10e9a31c860c89900d89ce888a924e7e84d2a', '1624012602', 'a', '2021-06-18 12:36:42'),
+	(35, '35', 'TECH0000000001', 'TOKN00000000035', '5190958241b65712e8fc73f58090980c57e5fc3d49e747b5ed', '1624012630', 'h', '2021-06-18 12:37:10'),
+	(36, '36', 'ADMIN00001', 'TOKN00000000036', 'c01e9f5f1aac895aa0a396abf916005612c405be0f1bafc72e', '1624021152', 'a', '2021-06-18 14:59:12'),
+	(37, '37', 'ADMIN00001', 'TOKN00000000037', 'eb60a326b9eb008c18ef8efdc82db2410b687aec66c0130d25', '1624021219', 'a', '2021-06-18 15:00:19'),
+	(38, '38', 'TECH0000000001', 'TOKN00000000038', '8e01a5baedbb12b588306ca675f20022e8f2fd13824fbdd358', '1624021260', 'h', '2021-06-18 15:01:00'),
+	(39, '39', 'TECH0000000001', 'TOKN00000000039', '48a8674f7d7f59213a9d439a63f5ed09db0cf3042633020f49', '1624118584', 'h', '2021-06-19 18:03:05'),
+	(40, '40', 'TECH0000000003', 'TOKN00000000040', 'ee853f31f9e0704029c89e222e8d48807dc59a7ecd8578336f', '1624118595', 't', '2021-06-19 18:03:15');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster
@@ -739,7 +755,7 @@ CREATE TABLE IF NOT EXISTS `studnetassesment` (
   CONSTRAINT `FK_studnetassesment_studentmaster` FOREIGN KEY (`StudentMasterPublicID`) REFERENCES `studentmaster` (`StudentMasterPublicID`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.studnetassesment: ~4 rows (approximately)
+-- Dumping data for table 3edu_db.studnetassesment: ~0 rows (approximately)
 DELETE FROM `studnetassesment`;
 /*!40000 ALTER TABLE `studnetassesment` DISABLE KEYS */;
 /*!40000 ALTER TABLE `studnetassesment` ENABLE KEYS */;
@@ -930,15 +946,16 @@ CREATE TABLE IF NOT EXISTS `usermaster` (
   CONSTRAINT `FK_usermaster_gendermaster` FOREIGN KEY (`GenderID`) REFERENCES `gendermaster` (`GenderMasterID`) ON UPDATE CASCADE,
   CONSTRAINT `FK_usermaster_maritalstatusmaster` FOREIGN KEY (`MaritalStatusID`) REFERENCES `maritalstatusmaster` (`MaritalStatusMasterID`) ON UPDATE CASCADE,
   CONSTRAINT `FK_usermaster_usertypemaster` FOREIGN KEY (`UserTypeID`) REFERENCES `usertypemaster` (`UserTypeMasterID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.usermaster: ~3 rows (approximately)
+-- Dumping data for table 3edu_db.usermaster: ~4 rows (approximately)
 DELETE FROM `usermaster`;
 /*!40000 ALTER TABLE `usermaster` DISABLE KEYS */;
 INSERT INTO `usermaster` (`UserMasterID`, `PublicID`, `NRC`, `Passport`, `UserName`, `Password`, `FirstName`, `LastName`, `OtherName`, `EmailAddress`, `ContactNo`, `GenderID`, `MaritalStatusID`, `DOB`, `UserTypeID`, `UpdatedBy`, `UpdatedOn`, `IsActive`, `LoginAttempts`, `IsLocked`) VALUES
-	(1, 'TECH0000000001', '55445/16/1', 'cc', 'a', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Head', 'System', 'Teacher', 'prototype1496@gmail.com', '988755487', 1, 4, '1997-01-02', 3, 'Sys', '2019-11-14 08:56:25', '1', '0', '0'),
+	(1, 'TECH0000000001', '55445/16/1', 'cc', 'h', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Head', 'System', 'Teacher', 'prototype1496@gmail.com', '988755487', 1, 4, '1997-01-02', 3, 'Sys', '2019-11-14 08:56:25', '1', '0', '0'),
 	(2, 'TECH0000000003', '515151/8/8', '74444/45/45', 't', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Alinuswe', 'Mwandobo', NULL, 'alinuswemwandobo@gmail.com', '977100587', 1, 1, '1996-01-01', 3, 'admin', '2020-11-20 11:52:45', '1', '0', '0'),
-	(4, '202000041', NULL, NULL, 's', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Student', 'Grace', NULL, NULL, '09771258789', 2, 4, '1996-05-16', 3, 'Sys', '2021-05-16 11:43:28', '1', '0', '0');
+	(4, '202000041', NULL, NULL, 's', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Student', 'Grace', NULL, NULL, '09771258789', 2, 4, '1996-05-16', 3, 'Sys', '2021-05-16 11:43:28', '1', '0', '0'),
+	(5, 'ADMIN00001', NULL, NULL, 'a', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'System', 'Admin', NULL, 'sys@gmail.com', '097758568', 1, 4, '2021-06-18', 1, 'sys', '2021-06-18 11:00:21', '1', '0', '0');
 /*!40000 ALTER TABLE `usermaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.usertypemaster
@@ -975,6 +992,16 @@ CREATE TABLE IF NOT EXISTS `user_tb` (
 DELETE FROM `user_tb`;
 /*!40000 ALTER TABLE `user_tb` DISABLE KEYS */;
 /*!40000 ALTER TABLE `user_tb` ENABLE KEYS */;
+
+-- Dumping structure for view 3edu_db.vwsequncemaster
+DROP VIEW IF EXISTS `vwsequncemaster`;
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `vwsequncemaster` (
+	`SequenceMasterID` INT(11) NOT NULL,
+	`SequnceCode` CHAR(4) NOT NULL COLLATE 'latin1_swedish_ci',
+	`LastInsertedID` INT(11) NOT NULL,
+	`UpdatedOn` DATETIME NOT NULL
+) ENGINE=MyISAM;
 
 -- Dumping structure for procedure 3edu_db.ActivateUser
 DROP PROCEDURE IF EXISTS `ActivateUser`;
@@ -1445,6 +1472,20 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure 3edu_db.GetSequnces
+DROP PROCEDURE IF EXISTS `GetSequnces`;
+DELIMITER //
+CREATE PROCEDURE `GetSequnces`()
+BEGIN
+		SELECT SM.SequenceMasterID AS 'SequenceMasterID',
+				 SM.SequnceCode		AS 'SequnceCode',
+				 SM.LastInsertedID	AS 'LastInsertedID',
+				 SM.UpdatedOn			AS 'UpdatedOn'
+		
+		FROM vwsequncemaster SM ORDER BY SM.SequenceMasterID ;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure 3edu_db.GetSessionDetails
 DROP PROCEDURE IF EXISTS `GetSessionDetails`;
 DELIMITER //
@@ -1720,6 +1761,17 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure 3edu_db.TEST
+DROP PROCEDURE IF EXISTS `TEST`;
+DELIMITER //
+CREATE PROCEDURE `TEST`()
+    NO SQL
+SELECT 	UM.NRC			AS 'NRC',
+		UM.FirstName	AS 'FirstName',
+        UM.LastName		AS 'LastName'
+FROM usermaster UM//
+DELIMITER ;
+
 -- Dumping structure for procedure 3edu_db.UpdateEmailSatusCode
 DROP PROCEDURE IF EXISTS `UpdateEmailSatusCode`;
 DELIMITER //
@@ -1854,6 +1906,17 @@ CREATE TRIGGER `SessionHistory` AFTER INSERT ON `session` FOR EACH ROW BEGIN
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+-- Dumping structure for view 3edu_db.vwsequncemaster
+DROP VIEW IF EXISTS `vwsequncemaster`;
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `vwsequncemaster`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwsequncemaster` AS SELECT SM.SequenceMasterID AS 'SequenceMasterID',
+		 SM.SequnceCode		AS 'SequnceCode',
+		 SM.LastInsertedID	AS 'LastInsertedID',
+		 SM.UpdatedOn			AS 'UpdatedOn'
+
+FROM sequencemaster SM ;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
