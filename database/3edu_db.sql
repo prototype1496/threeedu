@@ -497,13 +497,13 @@ CREATE TABLE IF NOT EXISTS `sequencemaster` (
   UNIQUE KEY `SequnceCode` (`SequnceCode`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sequencemaster: ~11 rows (approximately)
+-- Dumping data for table 3edu_db.sequencemaster: ~10 rows (approximately)
 DELETE FROM `sequencemaster`;
 /*!40000 ALTER TABLE `sequencemaster` DISABLE KEYS */;
 INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 6, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 40, '2019-11-01 20:00:03'),
+	(3, 'TOKN', 41, '2019-11-01 20:00:03'),
 	(4, 'EMIL', 3, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
 	(6, 'SCHL', 2, '2019-11-17 18:52:58'),
@@ -526,15 +526,15 @@ CREATE TABLE IF NOT EXISTS `session` (
   PRIMARY KEY (`SessionID`),
   KEY `FK_session_usermaster` (`UserMasterPublicID`),
   CONSTRAINT `FK_session_usermaster` FOREIGN KEY (`UserMasterPublicID`) REFERENCES `usermaster` (`PublicID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.session: ~2 rows (approximately)
+-- Dumping data for table 3edu_db.session: ~3 rows (approximately)
 DELETE FROM `session`;
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
 INSERT INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(37, 'ADMIN00001', 'TOKN00000000037', 'eb60a326b9eb008c18ef8efdc82db2410b687aec66c0130d25', '1624021219', 'a', '2021-06-18 15:00:19'),
 	(39, 'TECH0000000001', 'TOKN00000000039', '48a8674f7d7f59213a9d439a63f5ed09db0cf3042633020f49', '1624118584', 'h', '2021-06-19 18:03:05'),
-	(40, 'TECH0000000003', 'TOKN00000000040', 'ee853f31f9e0704029c89e222e8d48807dc59a7ecd8578336f', '1624118595', 't', '2021-06-19 18:03:15');
+	(41, 'TECH0000000003', 'TOKN00000000041', '388719fec077d6937c07f4b08bcbe015a61cfec4fccf491321', '1624771271', 't', '2021-06-27 07:21:12');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
@@ -549,9 +549,9 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   `UpdatedBy` varchar(50) NOT NULL,
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionHistoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~26 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~31 rows (approximately)
 DELETE FROM `sessionhistory`;
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
 INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -584,7 +584,8 @@ INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublic
 	(37, '37', 'ADMIN00001', 'TOKN00000000037', 'eb60a326b9eb008c18ef8efdc82db2410b687aec66c0130d25', '1624021219', 'a', '2021-06-18 15:00:19'),
 	(38, '38', 'TECH0000000001', 'TOKN00000000038', '8e01a5baedbb12b588306ca675f20022e8f2fd13824fbdd358', '1624021260', 'h', '2021-06-18 15:01:00'),
 	(39, '39', 'TECH0000000001', 'TOKN00000000039', '48a8674f7d7f59213a9d439a63f5ed09db0cf3042633020f49', '1624118584', 'h', '2021-06-19 18:03:05'),
-	(40, '40', 'TECH0000000003', 'TOKN00000000040', 'ee853f31f9e0704029c89e222e8d48807dc59a7ecd8578336f', '1624118595', 't', '2021-06-19 18:03:15');
+	(40, '40', 'TECH0000000003', 'TOKN00000000040', 'ee853f31f9e0704029c89e222e8d48807dc59a7ecd8578336f', '1624118595', 't', '2021-06-19 18:03:15'),
+	(41, '41', 'TECH0000000003', 'TOKN00000000041', '388719fec077d6937c07f4b08bcbe015a61cfec4fccf491321', '1624771271', 't', '2021-06-27 07:21:12');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster
@@ -630,7 +631,7 @@ CREATE TABLE IF NOT EXISTS `studentattendance` (
   PRIMARY KEY (`StudentAttendanceID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.studentattendance: ~24 rows (approximately)
+-- Dumping data for table 3edu_db.studentattendance: ~25 rows (approximately)
 DELETE FROM `studentattendance`;
 /*!40000 ALTER TABLE `studentattendance` DISABLE KEYS */;
 INSERT INTO `studentattendance` (`StudentAttendanceID`, `StudentID`, `ClassID`, `UpdatedOn`, `Status`, `Reason`) VALUES
@@ -742,6 +743,7 @@ CREATE TABLE IF NOT EXISTS `studnetassesment` (
   `AssecemntTypeMasterID` int(11) NOT NULL,
   `ClassMasterPublicID` varchar(50) NOT NULL,
   `YearAdded` year(4) NOT NULL DEFAULT year(current_timestamp()),
+  `AssecementName` varchar(50) NOT NULL,
   `Score` double NOT NULL,
   `Commment` varchar(50) DEFAULT NULL,
   `UpdatedBy` varchar(50) NOT NULL,
@@ -755,9 +757,11 @@ CREATE TABLE IF NOT EXISTS `studnetassesment` (
   CONSTRAINT `FK_studnetassesment_studentmaster` FOREIGN KEY (`StudentMasterPublicID`) REFERENCES `studentmaster` (`StudentMasterPublicID`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.studnetassesment: ~0 rows (approximately)
+-- Dumping data for table 3edu_db.studnetassesment: ~3 rows (approximately)
 DELETE FROM `studnetassesment`;
 /*!40000 ALTER TABLE `studnetassesment` DISABLE KEYS */;
+INSERT INTO `studnetassesment` (`StudentMasterPublicID`, `AssecemntTypeMasterID`, `ClassMasterPublicID`, `YearAdded`, `AssecementName`, `Score`, `Commment`, `UpdatedBy`, `UpdatedOn`, `AddedOn`) VALUES
+	('SDNT0000000001', 1, 'CLAS0000000004', '2021', 'test', 20, NULL, 't', '2021-06-27 10:18:19', '2021-06-27 10:18:19');
 /*!40000 ALTER TABLE `studnetassesment` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.subjectmater
@@ -777,7 +781,7 @@ CREATE TABLE IF NOT EXISTS `subjectmater` (
   CONSTRAINT `FK_subjectmater_department` FOREIGN KEY (`DepartmentCode`) REFERENCES `department` (`ShortHand`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.subjectmater: ~27 rows (approximately)
+-- Dumping data for table 3edu_db.subjectmater: ~31 rows (approximately)
 DELETE FROM `subjectmater`;
 /*!40000 ALTER TABLE `subjectmater` DISABLE KEYS */;
 INSERT INTO `subjectmater` (`SubjectMaterID`, `SubjectName`, `SubjectCode`, `DepartmentCode`, `SubjectDiscription`, `UpdatedBy`, `UpdatedOn`, `IsActive`) VALUES
@@ -1141,10 +1145,13 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS `GetAllStudentDetailsByClassMasterPublicID`;
 DELIMITER //
 CREATE PROCEDURE `GetAllStudentDetailsByClassMasterPublicID`(
-	IN `CLASSMASTERPUBLICID_` VARCHAR(50)
+	IN `CLASSMASTERPUBLICID_` VARCHAR(50),
+	IN `ATENDANCYTYPEID_` INT
 )
 BEGIN
 			SET @CLASSMASTERPUBLICID  = CLASSMASTERPUBLICID_;
+			SET @AtendancyTypeID  = ATENDANCYTYPEID_;
+			
 			SELECT 	SM.StudentMasterPublicID																																AS 'StudentMasterPublicID',
 						SM.StudentNo																																				AS 'StudentNo',
 						CONCAT(SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName,' (',GM.ShortName,')' )		AS 'NameInfo', 
@@ -1162,7 +1169,19 @@ BEGIN
 			FROM studentmaster SM
 			JOIN gendermaster GM ON GM.GenderMasterID = SM.GenderID
 			JOIN maritalstatusmaster MSM ON MSM.MaritalStatusMasterID = SM.MaritalStatusID 
-			JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID WHERE CM.ClassMasterPublicID = @CLASSMASTERPUBLICID  AND SM.IsActive = 1 ORDER BY SM.FirstName,SM.LastName,SM.StudentNo ASC;
+			JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID WHERE CM.ClassMasterPublicID = @CLASSMASTERPUBLICID  AND SM.IsActive = 1 
+			AND SM.StudentMasterPublicID NOT IN 
+			
+			(
+			SELECT SA.StudentMasterPublicID		 	
+			FROM studentmaster SM
+			JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID 
+			LEFT JOIN studnetassesment SA ON SA.StudentMasterPublicID = SM.StudentMasterPublicID
+			WHERE CM.ClassMasterPublicID = @CLASSMASTERPUBLICID  AND SM.IsActive = 1 AND SA.YearAdded =  YEAR(CURDATE()) AND SA.AssecemntTypeMasterID = @AtendancyTypeID
+			)
+			
+			ORDER BY SM.FirstName,SM.LastName,SM.StudentNo ASC;
+
 END//
 DELIMITER ;
 
