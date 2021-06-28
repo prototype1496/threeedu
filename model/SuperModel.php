@@ -4,6 +4,41 @@ class SuperModel{
     
     //This is the section for 3ED
     
+      public static function get_timtable($class_masster_id) {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+       
+        $query = "CALL GetTimeTable(:class_masster_id);";
+        
+         
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':class_masster_id' => $class_masster_id));
+            return $stm;
+            
+            
+      
+   }
+   
+   public static function get_class_name($class_masster_id) {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+       
+        $query = "CALL GetClassDetailsByPublicID(:class_masster_id);";
+        
+         
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':class_masster_id' => $class_masster_id));
+            $row = $stm->fetch(PDO::FETCH_ASSOC);
+         
+            return $row['class'];
+      
+   }
+   
+   
+    
+    
     public static function add_seuence($sequence) {
         //the below function creates a session in the databes for every log in 
         try {

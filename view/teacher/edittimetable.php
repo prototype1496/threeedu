@@ -2,7 +2,36 @@
 require '../../controller/super/SessionStart.php'; 
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/TeacherModel.php';
+require_once '../../model/SuperModel.php';
 $stm = TeacherModel::get_all_student_details();
+
+$classes = SuperModel::get_all_classes();
+$classmaster_id ="";
+ $monday  = array();
+            $tuesday  = array();
+            $wednsday  = array();
+            $thursday  = array();
+            $friday  = array();
+            $periods = array();
+ if ( isset($_GET['classmasterid']) )
+          {
+            $classmaster_id  = trim(filter_input(INPUT_GET, 'classmasterid', FILTER_DEFAULT));
+            $get_timtable_data = SuperModel::get_timtable($classmaster_id);
+           
+            while($row = $get_timtable_data->fetch(PDO::FETCH_ASSOC)){
+             array_push($monday,$row['Monday']);
+             array_push($tuesday,$row['Tuesday']);
+             array_push($wednsday,$row['Wednesday']);
+             array_push($thursday,$row['Thursday']);
+             array_push($friday,$row['Friday']);
+             array_push($periods,$row['PeriodName']);
+          
+            }
+            
+          }else {
+              
+              
+          }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +39,7 @@ $stm = TeacherModel::get_all_student_details();
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dt-ext-buttons-html-5-data-export.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:48:50 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<title>Student Details </title>
+<title>Time Table</title>
 
 
 <!--[if lt IE 10]>
@@ -44,6 +73,8 @@ $stm = TeacherModel::get_all_student_details();
 
 <link rel="stylesheet" type="text/css" href="../../files/assets/css/style.css">
 <link rel="stylesheet" type="text/css" href="../../files/assets/css/jquery.mCustomScrollbar.css">
+<link rel="stylesheet" href="../../files/bower_components/select2/css/select2.min.css" />
+<link rel="stylesheet" type="text/css" href="../../files/assets/css/style.css">
 </head>
 <body>
 
@@ -128,67 +159,82 @@ $stm = TeacherModel::get_all_student_details();
 <div class="row">
 <div class="col-sm-12">
 
-<div class="card">
-    <div class="card-header ">
-        <h4>Students Information </h4>      
-   <hr>     
+
+
+<div class="">
+    <div class="">
+        <div class="main-body">
+            <div class="page-wrapper">
+
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+
+                                <div class="card">
+
+                                     <div class="card-block warning-breadcrumb">
+                                        <div class="breadcrumb-header">
+                                            <h5>Edit TimeTable</h5>
+
+                                        </div>
+                                        <div class="page-header-breadcrumb">
+                                            <ul class="breadcrumb-title">
+                                                <li class="breadcrumb-item">
+                                                    <a href="#!">
+                                                        <i class="icofont icofont-home"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="breadcrumb-item">
+                                                    <span>Time Table</span>
+                                                </li>
+                                                <li class="breadcrumb-item">
+                                                    <a href="#!">TimeTable Model</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+  <div class="card-block">
+      <div class="form">
+           <div class="row">
+
+
+
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+
+                                                        <div>
+                                                            <h1 style="color:maroon; font-family: 'Times New Roman'; font-size: 180%; ">
+                                                               <?PHP echo $_GET['day']; ?>
+                                                           </h1>
+                                                                
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+   <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Update" class="btn btn-warning btn-round" />
+                                        </div>
+                                    </div>
+          </div>
+   </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
     </div>
-<div class="card-block">
-<div class="dt-responsive table-responsive">
-<table id="excel-bg" class="table table-striped table-bordered nowrap">
-<thead>
-<tr>
-<th>Student No.</th>
-<th>Name</th>
 
-<th>Contact No.</th>
-<th>DOB</th>
-
-<th></th>
-</tr>
-</thead>
-<tbody>
-      <?php while($row = $stm->fetch(PDO::FETCH_ASSOC))
-                            
-                    {
-                          $public_id = $row['PublicID'];
-                            ?>
-<tr>
-     <td><?php echo $public_id;?></td>
-         <td><?php echo $row['Name'];?></td>
-        
-        <td ><?php echo $row['ContactNo'];?></td>
-        <td ><?php echo $row['DOB'];?></td>
-       
-
-<td>
-    <button onclick="redirectWithID('<?php echo $public_id;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-eye"></i></button>
-  </td>
-</tr>
-
-     <?php } ?>
-
-
-
-
-
-</tbody>
-<tfoot>
-<tr>
-<th>Student No.</th>
-<th>Name</th>
-
-<th>Contact No.</th>
-<th>DOB</th>
-<th></th>
-</tr>
-</tfoot>
-</table>
 </div>
-</div>
-</div>
-
-
 
 </div>
 </div>
@@ -205,48 +251,6 @@ $stm = TeacherModel::get_all_student_details();
 </div>
 </div>
 
-
-<!--[if lt IE 10]>
-<div class="ie-warning">
-    <h1>Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
-    <div class="iew-container">
-        <ul class="iew-download">
-            <li>
-                <a href="http://www.google.com/chrome/">
-                    <img src="../../files/assets/images/browser/chrome.png" alt="Chrome">
-                    <div>Chrome</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.mozilla.org/en-US/firefox/new/">
-                    <img src="../../files/assets/images/browser/firefox.png" alt="Firefox">
-                    <div>Firefox</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://www.opera.com">
-                    <img src="../../files/assets/images/browser/opera.png" alt="Opera">
-                    <div>Opera</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.apple.com/safari/">
-                    <img src="../../files/assets/images/browser/safari.png" alt="Safari">
-                    <div>Safari</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                    <img src="../../files/assets/images/browser/ie.png" alt="">
-                    <div>IE (9 & above)</div>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <p>Sorry for the inconvenience!</p>
-</div>
-<![endif]-->
 
 
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/jquery/js/jquery.min.js"></script>
@@ -258,6 +262,20 @@ $stm = TeacherModel::get_all_student_details();
 
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/modernizr/js/modernizr.js"></script>
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/modernizr/js/css-scrollbars.js"></script>
+
+<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/i18next/js/i18next.min.js"></script>
+<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
+<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
+<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/jquery-i18next/js/jquery-i18next.min.js"></script>
+
+<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/select2/js/select2.full.min.js"></script>
+<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/bootstrap-multiselect/js/bootstrap-multiselect.js">
+
+</script>
+<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/multiselect/js/jquery.multi-select.js"></script>
+<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/assets/js/jquery.quicksearch.js"></script>
+
+
 
 <script src="../../files/bower_components/datatables.net/js/jquery.dataTables.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
 <script src="../../files/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
@@ -275,12 +293,18 @@ $stm = TeacherModel::get_all_student_details();
 <script src="../../files/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
 <script src="../../files/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
 
-
-
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/i18next/js/i18next.min.js"></script>
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/jquery-i18next/js/jquery-i18next.min.js"></script>
+
+
+
+
+<script src="../../js/RelaodTeacherAssecmentCombo.js" type="text/javascript"></script>
+
+<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/assets/pages/advance-elements/select2-custom.js"></script>
+
 
 
 
@@ -289,6 +313,7 @@ $stm = TeacherModel::get_all_student_details();
 <script src="../../files/assets/js/vartical-layout.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
 <script src="../../files/assets/js/jquery.mCustomScrollbar.concat.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/assets/js/script.js"></script>
+
 
 
 

@@ -46,7 +46,7 @@
         </a>
     </li>
      <li class="">
-        <a href="dashboard-crm.html">
+         <a href="viwetimetable.php">
             <span class="pcoded-mtext">Timetable</span>
         </a>
     </li>
