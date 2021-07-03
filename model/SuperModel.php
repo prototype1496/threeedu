@@ -102,7 +102,71 @@ class SuperModel{
     }
     
      
-    
+    public static function update_time_table($tem_data,$day) {
+        //the below function creates a session in the databes for every log in 
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+            
+            $conn->beginTransaction();
+      if ($day == 1 )
+                {
+                 $query = "UPDATE timetabledetails SET Monday = ? , UpdatedBy = ? WHERE TimeTableDetailsID = ?;" ;
+           
+                }
+                else if ($day == 2)
+                    {
+                     $query = "UPDATE timetabledetails SET Tuesday = ? , UpdatedBy = ? WHERE TimeTableDetailsID = ?;" ;
+           
+                    }
+               else if ($day == 3)
+                    {
+                     $query = "UPDATE timetabledetails SET Wednesday = ? , UpdatedBy = ? WHERE TimeTableDetailsID = ?;" ;
+           
+                    }
+                    
+               else if ($day == 4)
+                    {
+                     $query = "UPDATE timetabledetails SET Thursday = ? , UpdatedBy = ? WHERE TimeTableDetailsID = ?;" ;
+           
+                    }
+                    
+             else if ($day == 5)
+                    {
+                     $query = "UPDATE timetabledetails SET Friday = ? , UpdatedBy = ? WHERE TimeTableDetailsID = ?;" ;
+           
+                    }else {
+                         $query='';
+                    }
+            
+            
+            $stm = $conn->prepare($query);
+            
+           //print_r($stm);
+            foreach ($tem_data as $data)
+            {
+                // print_r($data);
+                if (!empty($data[2])){
+               // print_r($data);
+                 $stm->execute($data);
+             
+                }else{
+                    
+                    
+                }
+               
+              //  
+            }
+            //print_r($stm);
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+           //echo $exc->getMessage();
+            return FALSE;
+        }
+    }
     
     
      public static function add_acessment($tem_data) {
@@ -509,6 +573,20 @@ class SuperModel{
       
    }
    
+     public static function get_all_classes_with_mapped_subjects() {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+       
+        $query = "CALL GetAllClassesWithMappedSubjects();";
+         
+         $stm = $conn->query($query);
+      
+          
+            return $stm;
+      
+   }
+   
    
     function get_all_subjects($class_id) {
         //This function is used to load the districts whih a given province ID
@@ -720,6 +798,44 @@ class SuperModel{
         }
     }
    
+    
+    
+    public static function get_all_subjectts() {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAllSubjects();";
+        $stm = $conn->query($query);
+       // $stm->execute(array(':username' => $User->username));
+         //$stm->execute();
+         //print_r($stm);
+       
+         
+            return $stm;
+      
+   }
+   
+       public static function get_subjects_by_class_id($class_master_id) {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetClassSubjectsByID(:class_master_id);";
+        
+          $stm = $conn->prepare($query);
+        $stm->execute(array(':class_master_id' => $class_master_id));
+        
+
+        //$stm = $conn->query($query);
+       // $stm->execute(array(':username' => $User->username));
+         //$stm->execute();
+         //print_r($stm);
+       
+         
+            return $stm;
+      
+   }
    
     //3ed section end 
     
@@ -866,21 +982,7 @@ class SuperModel{
    }
    
    
-        public static function get_all_subjectts() {
-       
-        $Connection = new Connection();
-        $conn = $Connection->connect();
-
-        $query = "CALL GetAllSubjects();";
-        $stm = $conn->query($query);
-       // $stm->execute(array(':username' => $User->username));
-         //$stm->execute();
-         //print_r($stm);
-       
-         
-            return $stm;
-      
-   }
+        
    
    public static function get_hod_teacher_absent_time($start_date,$end_date,$departmentcode) {
        

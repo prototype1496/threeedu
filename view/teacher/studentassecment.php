@@ -329,6 +329,16 @@ $classes = SuperModel::get_all_classes();
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/jquery-i18next/js/jquery-i18next.min.js"></script>
 
+
+
+
+<script src="../../js/RelaodTeacherAssecmentCombo.js" type="text/javascript"></script>
+
+<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/assets/pages/advance-elements/select2-custom.js"></script>
+
+
+
+
 <script src="../../files/assets/pages/data-table/extensions/buttons/js/extension-btns-custom.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
 <script src="../../files/assets/js/pcoded.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
 <script src="../../files/assets/js/vartical-layout.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
@@ -337,19 +347,7 @@ $classes = SuperModel::get_all_classes();
 
 
 
-<script src="../../js/RelaodTeacherAssecmentCombo.js" type="text/javascript"></script>
 
-
-
-
-
-
-<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/assets/pages/advance-elements/select2-custom.js"></script>
-
-<script src="../../files/assets/js/pcoded.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
-<script src="../../files/assets/js/vartical-layout.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
-<script src="../../files/assets/js/jquery.mCustomScrollbar.concat.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
-<script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/assets/js/script.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13" type="028b4b5e88a856df25e89945-text/javascript"></script>
 <script type="028b4b5e88a856df25e89945-text/javascript">
   window.dataLayer = window.dataLayer || [];

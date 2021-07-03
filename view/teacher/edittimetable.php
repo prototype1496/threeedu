@@ -5,27 +5,65 @@ require_once '../../model/TeacherModel.php';
 require_once '../../model/SuperModel.php';
 $stm = TeacherModel::get_all_student_details();
 
-$classes = SuperModel::get_all_classes();
+
+
 $classmaster_id ="";
- $monday  = array();
+            $period_ids  = array();
+            $subjects_arry  = array();
+           $periods  = array();
+            $monday  = array();
             $tuesday  = array();
             $wednsday  = array();
             $thursday  = array();
             $friday  = array();
             $periods = array();
- if ( isset($_GET['classmasterid']) )
+ if ( isset($_GET['id']) && isset($_GET['day']) )
           {
-            $classmaster_id  = trim(filter_input(INPUT_GET, 'classmasterid', FILTER_DEFAULT));
+     
+           $day_of_week  = $_GET['day'];
+            $classmaster_id  = trim(filter_input(INPUT_GET, 'id', FILTER_DEFAULT));
+            
+             $subjects  = SuperModel::get_subjects_by_class_id($classmaster_id);
+
+              while($row = $subjects->fetch(PDO::FETCH_ASSOC))
+                      {
+                  $subjects_arry[$row['SujectCode']]=$row['SubjectName'];
+                  
+                      }
+             
+             
             $get_timtable_data = SuperModel::get_timtable($classmaster_id);
-           
+           $cunt=0;
             while($row = $get_timtable_data->fetch(PDO::FETCH_ASSOC)){
-             array_push($monday,$row['Monday']);
-             array_push($tuesday,$row['Tuesday']);
-             array_push($wednsday,$row['Wednesday']);
-             array_push($thursday,$row['Thursday']);
-             array_push($friday,$row['Friday']);
-             array_push($periods,$row['PeriodName']);
+            // array_push($monday[],$row['Monday']);
+             $cunt++;
+             $periods[$row['Monday'].$cunt] = $row['PeriodName'];
+             $monday[$row['Monday'].$cunt ] = $row['SubjectCodeM'];
+             $period_ids[$row['Monday'].$cunt] = $row['TimeTableDetailsID'];
+             
+             
+             $periods[$row['Tuesday'].$cunt] = $row['PeriodName'];
+             $tuesday[$row['Tuesday'].$cunt ] = $row['SubjectCodeT'];
+             $period_ids[$row['Tuesday'].$cunt] = $row['TimeTableDetailsID'];
+             
+             
+             $periods[$row['Wednesday'].$cunt] = $row['PeriodName'];
+             $wednsday[$row['Wednesday'].$cunt ] = $row['SubjectCodeW'];
+             $period_ids[$row['Wednesday'].$cunt] = $row['TimeTableDetailsID'];
+             
+             
+             $periods[$row['Thursday'].$cunt] = $row['PeriodName'];
+             $thursday[$row['Thursday'].$cunt ] = $row['SubjectCodeTH'];
+             $period_ids[$row['Thursday'].$cunt] = $row['TimeTableDetailsID'];
+             
+             
+             
+             $periods[$row['Friday'].$cunt] = $row['PeriodName'];
+             $friday[$row['Friday'].$cunt ] = $row['SubjectCodeF'];
+            $period_ids[$row['Friday'].$cunt] = $row['TimeTableDetailsID']; 
           
+             
+           
             }
             
           }else {
@@ -207,7 +245,7 @@ $classmaster_id ="";
 
                                                         <div>
                                                             <h1 style="color:maroon; font-family: 'Times New Roman'; font-size: 180%; ">
-                                                               <?PHP echo $_GET['day']; ?>
+                                                               <?PHP echo $day_of_week; ?>
                                                            </h1>
                                                                 
                                                         </div>
@@ -216,11 +254,189 @@ $classmaster_id ="";
 
 
                                             </div>
+       
+                
+       
+                       <form action="../../controller/super/ActionPerformed.php" method="POST" >
+                           
+                           <input type="hidden" name="day_of_week" value="<?php echo $day_of_week;  ?>"/>
+                            <input type="hidden" name="class_master_id" value="<?php echo $classmaster_id;  ?>"/>
+                               
+                            <div class="col-sm-12">
+                                                 <div class="row">
+                            <?php if ($day_of_week == 'Monday'){
+                                                  
+                           
+                                
+                                   foreach ($monday as $key => $value) {
 
-   <div class="form-group">
-                                        <div class="col-md-offset-2 col-md-10">
-                                            <input type="submit" value="Update" class="btn btn-warning btn-round" />
+                                           ?>
+           <div class="col-sm-12 col-xl-6 m-b-30">
+               <input type="hidden" name="timtable_deatails_id[]" value="<?php echo $period_ids[$key]; ?>"/>
+                                  <label class="label-form"><b><?php echo $periods[$key] ; ?></b></label>
+                                   <div class="form-group">
+                                       <select name="subject_code[]" onchange="" name="classid" class="js-example-data-array col-sm-4">
+                                           <option value="<?PHP echo substr($key, 0 , -1);?>"   selected="selected" ><?PHP echo $value;?></option>
+                                             <option value=""   >Free Period</option>
+            <?php
+             foreach ($subjects_arry as $key => $value) {
+   ?>
+                     <option value="<?php echo $key; ?>"><?php echo $value; ?></option>                      
+            <?php  }
+            ?>
+            
+               </select>
+                </div>  
+                   </div>
+                        
+                                   <?php 
+                                   
+             }
+                                   
+             }
+             
+             //Tusday
+            
+                                   else if ($day_of_week == 'Tuesday'){
+                                       
+                                      
+                                
+                                   foreach ($tuesday as $key => $value) {
+
+                                           ?>
+           <div class="col-sm-12 col-xl-6 m-b-30">
+                                   <input type="hidden" name="timtable_deatails_id[]" value="<?php echo $period_ids[$key]; ?>"/>
+                                  <label class="label-form"><b><?php echo $periods[$key] ; ?></b></label>
+                                   <div class="form-group">
+               <select id="" onchange=""  name="subject_code[]" class="js-example-data-array col-sm-4">
+            <option value="<?PHP echo substr($key, 0 , -1);?>"  selected="selected" ><?PHP echo $value;?></option>
+               <option value=""   >Free Period</option>
+            <?php
+             foreach ($subjects_arry as $key => $value) {
+   ?>
+                     <option value="<?php echo$key; ?>"><?php echo $value; ?></option>                      
+            <?php  }
+            ?>
+            
+               </select>
+                </div>  
+                   </div>
+                        
+                                   <?php 
+                                   
+                        } 
+                                   }
+                                   
+                                   
+                                   // This is wedniday start 
+                                   
+                                   else if ($day_of_week == 'Wednesday'){
+                                       
+                                      
+                                
+                                   foreach ($wednsday as $key => $value) {
+
+                                           ?>
+           <div class="col-sm-12 col-xl-6 m-b-30">
+                                   <input type="hidden" name="timtable_deatails_id[]" value="<?php echo $period_ids[$key]; ?>"/>
+                                  <label class="label-form"><b><?php echo $periods[$key] ; ?></b></label>
+                                   <div class="form-group">
+               <select id="" onchange=""  name="subject_code[]" class="js-example-data-array col-sm-4">
+            <option value="<?PHP echo substr($key, 0 , -1);?>"  selected="selected" ><?PHP echo $value;?></option>
+               
+            <?php
+             foreach ($subjects_arry as $key => $value) {
+   ?>
+                     <option value="<?php echo$key; ?>"><?php echo $value; ?></option>                      
+            <?php  }
+            ?>
+            
+               </select>
+                </div>  
+                   </div>
+                        
+                                   <?php 
+                                   
+             } 
+                                   }
+                                   
+                                   //This is thursday start 
+                                   else if ($day_of_week == 'Thursday'){
+                                       
+                                      
+                                
+                                   foreach ($thursday as $key => $value) {
+
+                                           ?>
+           <div class="col-sm-12 col-xl-6 m-b-30">
+                                   <input type="hidden" name="timtable_deatails_id[]" value="<?php echo $period_ids[$key]; ?>"/>
+                                  <label class="label-form"><b><?php echo $periods[$key] ; ?></b></label>
+                                   <div class="form-group">
+               <select id="" onchange=""  name="subject_code[]" class="js-example-data-array col-sm-4">
+            <option value="<?PHP echo substr($key, 0 , -1);?>"  selected="selected" ><?PHP echo $value;?></option>
+               
+            <?php
+             foreach ($subjects_arry as $key => $value) {
+   ?>
+                     <option value="<?php echo$key; ?>"><?php echo $value; ?></option>                      
+            <?php  }
+            ?>
+            
+               </select>
+                </div>  
+                   </div>
+                        
+                                   <?php 
+                                   
+             } 
+                                   }
+                                   
+                                   //This is friday Start 
+                                   
+                                   else if ($day_of_week == 'Friday'){
+                                       
+                                      
+                                
+                                   foreach ($thursday as $key => $value) {
+
+                                           ?>
+           <div class="col-sm-12 col-xl-6 m-b-30">
+                                   <input type="hidden" name="timtable_deatails_id[]" value="<?php echo $period_ids[$key]; ?>"/>
+                                  <label class="label-form"><b><?php echo $periods[$key] ; ?></b></label>
+                                   <div class="form-group">
+               <select id="" onchange=""  name="subject_code[]" class="js-example-data-array col-sm-4">
+            <option value="<?PHP echo substr($key, 0 , -1);?>"  selected="selected" ><?PHP echo $value;?></option>
+               
+            <?php
+             foreach ($subjects_arry as $key => $value) {
+   ?>
+                     <option value="<?php echo$key; ?>"><?php echo $value; ?></option>                      
+            <?php  }
+            ?>
+            
+               </select>
+                </div>  
+                   </div>
+                        
+                                   <?php 
+                                   
+             } 
+                                   }
+                                   ?> 
+                                   
+                                   
+                                     
+                           
+                             </div>         </div>  
+                           
+                           <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" name="btn_upadte_time_table" value="Update" class="btn btn-warning btn-round" />
                                         </div>
+                           
+            </form>
+                     
+       
+                                        
                                     </div>
           </div>
    </div>

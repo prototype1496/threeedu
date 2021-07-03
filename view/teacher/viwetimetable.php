@@ -5,7 +5,7 @@ require_once '../../model/TeacherModel.php';
 require_once '../../model/SuperModel.php';
 $stm = TeacherModel::get_all_student_details();
 
-$classes = SuperModel::get_all_classes();
+$classes = SuperModel::get_all_classes_with_mapped_subjects();
 $classmaster_id ="";
  $monday  = array();
             $tuesday  = array();
