@@ -922,7 +922,7 @@ else if (isset ($_POST['btn_accessment']))
              
              if(isset( $_FILES["docFile"]["name"]) && !empty($_FILES["docFile"]["name"])){
                  
-           $location = "../../../documents_uploads/";
+           $location = "../../documents_uploads/";
      $file_new_name = $TeacherID.'_'. $_FILES["docFile"]["name"]; // New and unique name of uploaded file
     // $file_name = $_FILES["profile_pic"]["name"];
      $file_temp = $_FILES["docFile"]["tmp_name"];

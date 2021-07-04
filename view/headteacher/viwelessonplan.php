@@ -169,7 +169,7 @@ $stm = SuperModel::get_teacher_document_details($document_id);
                                           
                                         ?>
 
-                               <br> <a class="media" href="pdf/<?php echo $row['DocumentURL']; ?>"></a>
+                               <br> <a class="media" href="pdf/../<?php echo $row['DocumentURL']; ?>"></a>
                                
                                    <?php
                                  }else {

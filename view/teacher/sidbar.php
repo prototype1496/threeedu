@@ -77,7 +77,7 @@
 <li class="pcoded-hasmenu ">
 <a href="javascript:void(0)">
 <span class="pcoded-micon"><i class="feather icon-inbox"></i></span>
-<span class="pcoded-mtext">Reports</span>
+<span class="pcoded-mtext">Academics</span>
 </a>
 <ul class="pcoded-submenu">
 

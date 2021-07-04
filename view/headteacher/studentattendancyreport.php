@@ -142,9 +142,9 @@ $stm = SuperModel::get_studnet_attendance_report();
 <th>Student ID</th>
 <th>Name</th>
 <th>Class</th>
-<th>Marked Date</th>
-<th>Status</th>
 <th>Reason</th>
+<th>Status</th>
+<th>Marked Date</th>
 <th></th>
 </tr>
 </thead>
@@ -183,9 +183,9 @@ $stm = SuperModel::get_studnet_attendance_report();
 <th>Student ID</th>
 <th>Name</th>
 <th>Class</th>
-<th>Marked Date</th>
-<th>Status</th>
 <th>Reason</th>
+<th>Status</th>
+<th>Marked Date</th>
 <th></th>
 </tr>
 </tfoot>

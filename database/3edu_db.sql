@@ -215,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `country` (
   UNIQUE KEY `ConuntryCode` (`ConuntryCode`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.country: ~0 rows (approximately)
+-- Dumping data for table 3edu_db.country: ~1 rows (approximately)
 DELETE FROM `country`;
 /*!40000 ALTER TABLE `country` DISABLE KEYS */;
 INSERT INTO `country` (`CountryID`, `CountryName`, `ConuntryCode`, `IsActive`) VALUES
@@ -399,7 +399,7 @@ CREATE TABLE IF NOT EXISTS `emailservice` (
   CONSTRAINT `FK_emailservice_statusmaster` FOREIGN KEY (`Status`) REFERENCES `statusmaster` (`StatueCode`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.emailservice: ~0 rows (approximately)
+-- Dumping data for table 3edu_db.emailservice: ~1 rows (approximately)
 DELETE FROM `emailservice`;
 /*!40000 ALTER TABLE `emailservice` DISABLE KEYS */;
 INSERT INTO `emailservice` (`EmailServiceID`, `EmailSerial`, `EmailAddress`, `EmailSubject`, `SendData`, `Status`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -565,7 +565,7 @@ DELETE FROM `sequencemaster`;
 INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 6, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 52, '2019-11-01 20:00:03'),
+	(3, 'TOKN', 57, '2019-11-01 20:00:03'),
 	(4, 'EMIL', 3, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
 	(6, 'SCHL', 2, '2019-11-17 18:52:58'),
@@ -595,8 +595,8 @@ DELETE FROM `session`;
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
 INSERT INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(47, 'ADMIN00001', 'TOKN00000000047', '3c96bed5aeaa0cbb69ccafa5806ac2d989874a59d162d75520', '1625323314', 'a', '2021-07-03 16:41:54'),
-	(51, 'TECH0000000001', 'TOKN00000000051', 'fe5feae7c6d1931c6ed903d72d67413bb8973e065492a5d1aa', '1625364634', 'h', '2021-07-04 04:10:34'),
-	(52, 'TECH0000000003', 'TOKN00000000052', 'b6365e3354697adda045020aff60c7920b0b5830d1f6f2939f', '1625369824', 't', '2021-07-04 05:37:05');
+	(56, 'TECH0000000003', 'TOKN00000000056', '93235f454cb14a93a167e8125fe18b4a7fa1769b5ae47e2070', '1625399377', 't', '2021-07-04 13:49:37'),
+	(57, 'TECH0000000001', 'TOKN00000000057', 'a04568cc059681d2c1c7d431d036c8c8e2cd57457af812ef63', '1625399625', 'h', '2021-07-04 13:53:45');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
@@ -658,7 +658,12 @@ INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublic
 	(49, '49', 'TECH0000000003', 'TOKN00000000049', 'ae6a8d7d986c446b5908f2fccefc8bed2cf01aab26ad298404', '1625325552', 't', '2021-07-03 17:19:12'),
 	(50, '50', 'TECH0000000003', 'TOKN00000000050', '62793b27525869bf51e61fcc5ef98ee624581e18e015f6948f', '1625340163', 't', '2021-07-03 21:22:44'),
 	(51, '51', 'TECH0000000001', 'TOKN00000000051', 'fe5feae7c6d1931c6ed903d72d67413bb8973e065492a5d1aa', '1625364634', 'h', '2021-07-04 04:10:34'),
-	(52, '52', 'TECH0000000003', 'TOKN00000000052', 'b6365e3354697adda045020aff60c7920b0b5830d1f6f2939f', '1625369824', 't', '2021-07-04 05:37:05');
+	(52, '52', 'TECH0000000003', 'TOKN00000000052', 'b6365e3354697adda045020aff60c7920b0b5830d1f6f2939f', '1625369824', 't', '2021-07-04 05:37:05'),
+	(53, '53', 'TECH0000000003', 'TOKN00000000053', '38727f78a682318e0deba87588657ca95421cd31885a208006', '1625398419', 't', '2021-07-04 13:33:39'),
+	(54, '54', 'TECH0000000003', 'TOKN00000000054', 'ffbd39f7d9520ead4f5f82ca24df05ef57c8ae63c1aedf5dab', '1625398517', 't', '2021-07-04 13:35:17'),
+	(55, '55', 'TECH0000000001', 'TOKN00000000055', 'ffcf9c5532d81d84bbe5875d141c891ae826b07ff913e970d0', '1625399307', 'h', '2021-07-04 13:48:27'),
+	(56, '56', 'TECH0000000003', 'TOKN00000000056', '93235f454cb14a93a167e8125fe18b4a7fa1769b5ae47e2070', '1625399377', 't', '2021-07-04 13:49:37'),
+	(57, '57', 'TECH0000000001', 'TOKN00000000057', 'a04568cc059681d2c1c7d431d036c8c8e2cd57457af812ef63', '1625399625', 'h', '2021-07-04 13:53:45');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster
@@ -937,8 +942,9 @@ CREATE TABLE IF NOT EXISTS `teacherdocument` (
 DELETE FROM `teacherdocument`;
 /*!40000 ALTER TABLE `teacherdocument` DISABLE KEYS */;
 INSERT INTO `teacherdocument` (`TeacherdocumentID`, `Title`, `DocumentTypeID`, `DocumentURL`, `IsApproved`, `AddedBy`, `LastUpdatedBy`, `AddedOn`, `UpdatedOn`) VALUES
-	(4, 'wewewe', '1', '../../../documents_uploads/TECH0000000003_pdf-test.pdf', '0', 't', 't', '2021-07-03 19:46:00', '2021-07-04 04:51:10'),
-	(5, '', '1', '', '0', 't', 't', '2021-07-04 04:46:13', '2021-07-04 05:47:56');
+	(4, 'wewewe', '1', '../../documents_uploads/TECH0000000003_pdf-test.pdf', '0', 't', 't', '2021-07-03 19:46:00', '2021-07-04 13:48:12'),
+	(5, '', '1', '', '0', 't', 't', '2021-07-04 04:46:13', '2021-07-04 05:47:56'),
+	(10, 'Ali Mwanza Lesson Plan', '1', '../../documents_uploads/TECH0000000003_pdf-test.pdf', '0', 't', 't', '2021-07-04 13:45:24', '2021-07-04 13:45:24');
 /*!40000 ALTER TABLE `teacherdocument` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.teachermaster
@@ -1017,8 +1023,8 @@ INSERT INTO `timetabledetails` (`TimeTableDetailsID`, `TimeTableMaterD`, `Monday
 	(1, 1, 'MATH', 'ENG', 'SCEN', 'MATH', 'ENG', 't', '2021-07-03 16:04:15', '2021-06-27 13:00:42'),
 	(2, 5, 'ENG', 'MATH', 'MATH', 'ENG', 'ENG', 't', '2021-07-03 16:04:15', '2021-06-27 13:12:51'),
 	(3, 6, 'SCEN', 'RE110', 'ZMLG', NULL, 'MATH', 't', '2021-07-03 16:32:41', '2021-06-27 13:23:57'),
-	(4, 7, 'ADMA', 'RE110', 'MATH', 'MATH', 'MATH', 't', '2021-07-03 16:32:41', '2021-06-27 13:24:18'),
-	(5, 10, 'MATH', NULL, NULL, NULL, NULL, '', '2021-07-03 13:42:57', '2021-06-28 04:44:47'),
+	(4, 7, 'ADMA', NULL, 'MATH', 'MATH', 'MATH', 't', '2021-07-04 13:41:18', '2021-06-27 13:24:18'),
+	(5, 10, 'MATH', 'ENG', NULL, NULL, NULL, 't', '2021-07-04 13:40:37', '2021-06-28 04:44:47'),
 	(6, 8, 'MATH', 'CMST', 'ADMA', 'ADMA', 'ADMA', 't', '2021-07-03 16:02:26', '2021-06-28 04:46:08'),
 	(7, 9, 'MATH', 'CMST', NULL, NULL, NULL, 't', '2021-07-03 16:02:26', '2021-07-03 13:18:46'),
 	(10, 12, 'ENG', 'ITSC', NULL, NULL, NULL, 't', '2021-07-03 16:02:26', '2021-07-03 13:19:32'),
