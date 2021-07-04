@@ -17,6 +17,20 @@ class SuperModel{
             return $stm;
       
                  }
+                 
+                 public static function get_studnet_attendance_report() {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetStudentAttendanceReport();";
+        $stm = $conn->query($query);
+      
+            return $stm;
+      
+                 }
+                 
+                 
     
     //Reports End
     

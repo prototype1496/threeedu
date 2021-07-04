@@ -87,6 +87,11 @@
             <span class="pcoded-mtext">Student Assement Mark</span>
         </a>
     </li>
+     <li class="">
+          <a href="studentattendancyreport.php">
+            <span class="pcoded-mtext">Student Attendance </span>
+        </a>
+    </li>
 
 
 </ul>

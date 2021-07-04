@@ -150,7 +150,7 @@ if ($_GET['classid']){
                                                 <th>Reason</th>
                                             </tr>
                                         </thead>
-<input type="hidden" name="class_id" value=" <?php echo $class_id ; ?>"/>
+<input type="hidden" name="class_id" value="<?php echo $class_id; ?>"/>
                                        <?php while($row = $stm->fetch(PDO::FETCH_ASSOC))
                             
                     {
@@ -169,7 +169,7 @@ if ($_GET['classid']){
                                                         <br />
                                                         <br />
                                                         
-                                                        <input type="hidden" name="student_no[]" value=" <?php echo trim($public_id)  ; ?>"/>
+                                                        <input type="hidden" name="student_no[]" value="<?php echo $public_id; ?>"/>
                                                        <?php echo trim($public_id) ; ?>
                                                     </td>
 
