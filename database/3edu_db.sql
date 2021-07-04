@@ -565,7 +565,7 @@ DELETE FROM `sequencemaster`;
 INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 6, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 57, '2019-11-01 20:00:03'),
+	(3, 'TOKN', 60, '2019-11-01 20:00:03'),
 	(4, 'EMIL', 3, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
 	(6, 'SCHL', 2, '2019-11-17 18:52:58'),
@@ -595,8 +595,8 @@ DELETE FROM `session`;
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
 INSERT INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(47, 'ADMIN00001', 'TOKN00000000047', '3c96bed5aeaa0cbb69ccafa5806ac2d989874a59d162d75520', '1625323314', 'a', '2021-07-03 16:41:54'),
-	(56, 'TECH0000000003', 'TOKN00000000056', '93235f454cb14a93a167e8125fe18b4a7fa1769b5ae47e2070', '1625399377', 't', '2021-07-04 13:49:37'),
-	(57, 'TECH0000000001', 'TOKN00000000057', 'a04568cc059681d2c1c7d431d036c8c8e2cd57457af812ef63', '1625399625', 'h', '2021-07-04 13:53:45');
+	(59, 'TECH0000000001', 'TOKN00000000059', '950cf8a74217b361a58fecbf39f51acee2c9dbf82c6958cdf5', '1625400107', 'h', '2021-07-04 14:01:47'),
+	(60, 'TECH0000000003', 'TOKN00000000060', '385483bdc9ef58e9836275d34ce43c2ed5cea59e0060b3fef8', '1625400250', 't', '2021-07-04 14:04:10');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
@@ -613,7 +613,7 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   PRIMARY KEY (`SessionHistoryID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~42 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~47 rows (approximately)
 DELETE FROM `sessionhistory`;
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
 INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -663,7 +663,10 @@ INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublic
 	(54, '54', 'TECH0000000003', 'TOKN00000000054', 'ffbd39f7d9520ead4f5f82ca24df05ef57c8ae63c1aedf5dab', '1625398517', 't', '2021-07-04 13:35:17'),
 	(55, '55', 'TECH0000000001', 'TOKN00000000055', 'ffcf9c5532d81d84bbe5875d141c891ae826b07ff913e970d0', '1625399307', 'h', '2021-07-04 13:48:27'),
 	(56, '56', 'TECH0000000003', 'TOKN00000000056', '93235f454cb14a93a167e8125fe18b4a7fa1769b5ae47e2070', '1625399377', 't', '2021-07-04 13:49:37'),
-	(57, '57', 'TECH0000000001', 'TOKN00000000057', 'a04568cc059681d2c1c7d431d036c8c8e2cd57457af812ef63', '1625399625', 'h', '2021-07-04 13:53:45');
+	(57, '57', 'TECH0000000001', 'TOKN00000000057', 'a04568cc059681d2c1c7d431d036c8c8e2cd57457af812ef63', '1625399625', 'h', '2021-07-04 13:53:45'),
+	(58, '58', 'TECH0000000003', 'TOKN00000000058', '973a56f1e4b3563c49ecd2e4ce830a467d0881c94a497af25f', '1625399928', 't', '2021-07-04 13:58:48'),
+	(59, '59', 'TECH0000000001', 'TOKN00000000059', '950cf8a74217b361a58fecbf39f51acee2c9dbf82c6958cdf5', '1625400107', 'h', '2021-07-04 14:01:47'),
+	(60, '60', 'TECH0000000003', 'TOKN00000000060', '385483bdc9ef58e9836275d34ce43c2ed5cea59e0060b3fef8', '1625400250', 't', '2021-07-04 14:04:10');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster
@@ -713,7 +716,7 @@ CREATE TABLE IF NOT EXISTS `studentattendance` (
 DELETE FROM `studentattendance`;
 /*!40000 ALTER TABLE `studentattendance` DISABLE KEYS */;
 INSERT INTO `studentattendance` (`StudentAttendanceID`, `StudentID`, `ClassID`, `UpdatedOn`, `Status`, `Reason`) VALUES
-	(59, '3EDU202100034', 'CLAS0000000008', '2021-07-02 12:54:13', '2', NULL),
+	(59, '3EDU202100034', 'CLAS0000000008', '2021-07-02 12:54:13', '2', 'hjvhjv'),
 	(60, '3EDU202100023', 'CLAS0000000004', '2021-07-02 12:54:56', '2', NULL),
 	(61, '3EDU202100020', 'CLAS0000000004', '2021-07-02 12:54:56', '1', NULL),
 	(62, '3EDU202100010', 'CLAS0000000004', '2021-07-02 12:54:56', '1', NULL),
@@ -938,13 +941,11 @@ CREATE TABLE IF NOT EXISTS `teacherdocument` (
   CONSTRAINT `FK_teacherdocument_comboboxvaluemaster` FOREIGN KEY (`DocumentTypeID`) REFERENCES `comboboxvaluemaster` (`ID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.teacherdocument: ~2 rows (approximately)
+-- Dumping data for table 3edu_db.teacherdocument: ~3 rows (approximately)
 DELETE FROM `teacherdocument`;
 /*!40000 ALTER TABLE `teacherdocument` DISABLE KEYS */;
 INSERT INTO `teacherdocument` (`TeacherdocumentID`, `Title`, `DocumentTypeID`, `DocumentURL`, `IsApproved`, `AddedBy`, `LastUpdatedBy`, `AddedOn`, `UpdatedOn`) VALUES
-	(4, 'wewewe', '1', '../../documents_uploads/TECH0000000003_pdf-test.pdf', '0', 't', 't', '2021-07-03 19:46:00', '2021-07-04 13:48:12'),
-	(5, '', '1', '', '0', 't', 't', '2021-07-04 04:46:13', '2021-07-04 05:47:56'),
-	(10, 'Ali Mwanza Lesson Plan', '1', '../../documents_uploads/TECH0000000003_pdf-test.pdf', '0', 't', 't', '2021-07-04 13:45:24', '2021-07-04 13:45:24');
+	(5, '', '1', '', '0', 't', 't', '2021-07-04 04:46:13', '2021-07-04 05:47:56');
 /*!40000 ALTER TABLE `teacherdocument` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.teachermaster
