@@ -4,6 +4,23 @@ class SuperModel{
     
     //This is the section for 3ED
     
+    //Reports
+    
+     public static function get_studnet_assecment_mark_report() {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetStudentAsscementMarkReport();";
+        $stm = $conn->query($query);
+      
+            return $stm;
+      
+                 }
+    
+    //Reports End
+    
+    
       public static function get_timtable($class_masster_id) {
        
         $Connection = new Connection();
