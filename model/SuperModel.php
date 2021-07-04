@@ -35,8 +35,51 @@ class SuperModel{
             return $row['class'];
       
    }
+      public static function get_teacher_document_details($document_id) {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+       
+        $query = "CALL GetTeacherDocumentDetailsByID(:document_id);";
+        
+         
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':document_id' => $document_id));
+           
+            return $stm;
+      
+   }
+   
+     public static function get_all_teacher_lession_document() {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+       
+        $query = "CALL GetAllTeacherLessionPlanDocuments();";
+        
+         
+        $stm = $conn->prepare($query);
+        $stm->execute();
+           
+            return $stm;
+      
+   }
    
    
+     public static function get_teacher_lession_document_by_ID($teaher_master_public_id) {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+       
+        $query = "CALL GeteacherLessionPlanDocumentsByID(:teaher_master_public_id);";
+        
+         
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':teaher_master_public_id'=>$teaher_master_public_id));
+           
+            return $stm;
+      
+   }
     
     
     public static function add_seuence($sequence) {
@@ -207,7 +250,32 @@ class SuperModel{
             return FALSE;
         }
     }
-    
+     public static function uplaod_lesson_plan($lesonplantitle,$file_url,$UpdatedBy) {
+        //the below function creates a session in the databes for every log in 
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+            
+            $conn->beginTransaction();
+       // print_r(count($tem_data[0]));
+           //$args  = array_fill(0, count($tem_data[0]), '?');
+            //Insets data new session into the session table
+            $query = "INSERT INTO `3edu_db`.`teacherdocument` (`Title`, `DocumentTypeID`, `DocumentURL`, `AddedBy`,`LastUpdatedBy`) VALUES (?, ?, ?, ?,?);";
+            $stm = $conn->prepare($query);
+            
+           $stm->execute(array($lesonplantitle,'1',$file_url,$UpdatedBy,$UpdatedBy));
+               
+           
+            //print_r($stm);
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+           echo $exc->getMessage();
+            return FALSE;
+        }
+    }
     
     
     

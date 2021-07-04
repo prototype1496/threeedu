@@ -271,7 +271,7 @@ $classmaster_id ="";
                                    foreach ($monday as $key => $value) {
 
                                            ?>
-           <div class="col-sm-12 col-xl-6 m-b-30">
+           <div class="col-sm-6">
                <input type="hidden" name="timtable_deatails_id[]" value="<?php echo $period_ids[$key]; ?>"/>
                                   <label class="label-form"><b><?php echo $periods[$key] ; ?></b></label>
                                    <div class="form-group">
@@ -304,7 +304,7 @@ $classmaster_id ="";
                                    foreach ($tuesday as $key => $value) {
 
                                            ?>
-           <div class="col-sm-12 col-xl-6 m-b-30">
+           <div class="col-sm-6">
                                    <input type="hidden" name="timtable_deatails_id[]" value="<?php echo $period_ids[$key]; ?>"/>
                                   <label class="label-form"><b><?php echo $periods[$key] ; ?></b></label>
                                    <div class="form-group">
@@ -337,7 +337,7 @@ $classmaster_id ="";
                                    foreach ($wednsday as $key => $value) {
 
                                            ?>
-           <div class="col-sm-12 col-xl-6 m-b-30">
+           <div class="col-sm-6">
                                    <input type="hidden" name="timtable_deatails_id[]" value="<?php echo $period_ids[$key]; ?>"/>
                                   <label class="label-form"><b><?php echo $periods[$key] ; ?></b></label>
                                    <div class="form-group">
@@ -368,7 +368,7 @@ $classmaster_id ="";
                                    foreach ($thursday as $key => $value) {
 
                                            ?>
-           <div class="col-sm-12 col-xl-6 m-b-30">
+           <div class="col-sm-6">
                                    <input type="hidden" name="timtable_deatails_id[]" value="<?php echo $period_ids[$key]; ?>"/>
                                   <label class="label-form"><b><?php echo $periods[$key] ; ?></b></label>
                                    <div class="form-group">
@@ -400,7 +400,7 @@ $classmaster_id ="";
                                    foreach ($thursday as $key => $value) {
 
                                            ?>
-           <div class="col-sm-12 col-xl-6 m-b-30">
+           <div class="col-sm-6">
                                    <input type="hidden" name="timtable_deatails_id[]" value="<?php echo $period_ids[$key]; ?>"/>
                                   <label class="label-form"><b><?php echo $periods[$key] ; ?></b></label>
                                    <div class="form-group">
@@ -429,7 +429,7 @@ $classmaster_id ="";
                            
                              </div>         </div>  
                            
-                           <div class="col-md-offset-2 col-md-10">
+                           <div class="col-sm-6">
                                             <input type="submit" name="btn_upadte_time_table" value="Update" class="btn btn-warning btn-round" />
                                         </div>
                            

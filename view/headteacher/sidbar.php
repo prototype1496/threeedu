@@ -20,6 +20,12 @@
             <span class="pcoded-mtext">Student Registration</span>
         </a>
     </li>
+    
+      <li class="">
+          <a href="lessionplaninbox.php">
+            <span class="pcoded-mtext">Lession Plan</span>
+        </a>
+    </li>
 
 
 </ul>

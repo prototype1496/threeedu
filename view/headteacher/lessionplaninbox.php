@@ -3,37 +3,8 @@ require '../../controller/super/SessionStart.php';
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/TeacherModel.php';
 require_once '../../model/SuperModel.php';
-$stm = TeacherModel::get_all_student_details();
 
-$classes = SuperModel::get_all_classes_with_mapped_subjects();
-$classmaster_id ="";
- $monday  = array();
-            $tuesday  = array();
-            $wednsday  = array();
-            $thursday  = array();
-            $friday  = array();
-            $periods = array();
- if ( isset($_GET['classmasterid']) )
-          {
-            $classmaster_id  = trim(filter_input(INPUT_GET, 'classmasterid', FILTER_DEFAULT));
-            $get_timtable_data = SuperModel::get_timtable($classmaster_id);
-            
-            $classname =  SuperModel::get_class_name($classmaster_id);
-           
-            while($row = $get_timtable_data->fetch(PDO::FETCH_ASSOC)){
-             array_push($monday,$row['SubjectCodeM']);
-             array_push($tuesday,$row['SubjectCodeT']);
-             array_push($wednsday,$row['SubjectCodeW']);
-             array_push($thursday,$row['SubjectCodeTH']);
-             array_push($friday,$row['SubjectCodeF']);
-             array_push($periods,$row['PeriodName']);
-          
-            }
-            
-          }else {
-              
-              
-          }
+$stm = SuperModel::get_all_teacher_lession_document();       
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +12,7 @@ $classmaster_id ="";
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dt-ext-buttons-html-5-data-export.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:48:50 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<title>Time Table</title>
+<title>Viwe Lesson Plan </title>
 
 
 <!--[if lt IE 10]>
@@ -143,18 +114,7 @@ $classmaster_id ="";
 <div class="pcoded-inner-content">
 
 <div class="main-body">
-<div class="page-wrapper">
 
-<div class="page-header">
-<div class="row align-items-end">
-<div class="col-lg-8">
-
-
- </ul>
-</div>
-</div>
-</div>
-</div>
 
 
 <div class="page-body">
@@ -166,161 +126,107 @@ $classmaster_id ="";
 <div class="">
     <div class="">
         <div class="main-body">
-            <div class="page-wrapper">
+            <div class="">
 
                 <div class="page-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="card">
-<hr>    
-   <div class="col-sm-12">
-       <div class="row">
-           <div class="col-sm-12 col-xl-3 m-b-30">
-               
-               <form action="../../controller/super/ActionPerformed.php" method="POST" >
-               <select id="selected_class_id" onchange="" required="" name="classid" class="js-example-data-array col-sm-4">
-            <option value="" disabled="disabled" selected="selected" >Select Class</option>
-                <?php
-                while ($row = $classes->fetch(PDO::FETCH_ASSOC)) {
-                    ?>
-                    <option value="<?php echo $row['ClassMasterPublicID']; ?>"><?php echo $row['Class']; ?></option>
-
-                <?php } ?>
-               </select>
-      </div>
-           <div class="col-sm-12 col-xl-3 m-b-30">
-           <button class="btn btn-info" type="submit" name="btn_load_time_table">Load Time Table</button>
-           
-               </div>
-            </form>
-     
-        </div>
-           
-   </div>
- 
-                                <div class="card">
-                                    <?php if (isset($classname)){
-                                           ?>
-                                    
-                                       <h2><b>Class Time Table For <?php echo $classname; ?></b></h2><br> 
-                                        
-                                  
-                                    
-                                    <div class="card-block table-border-style">
-                                        <div class="table-responsive">
-                                            <table class="table table-styling table-hover table-striped table-primary">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Days</th>
-                                                         <?php  
-                                                         
-                                                       $headers = $periods;
-                                                       
-
-                                                      foreach ($headers as $key => $value) {
-
-                                                                             ?>
-
-                                                 <?php ?>
-                                                 <th><?php echo $value; ?></th>
-
-                                                 <?php } ?>
-                                                     <th></th>
-                                                    </tr>
-                                                    
-                                                                               
-<tr>
-   
-    <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Monday</td>
-     <?php foreach ($monday as $key => $value) {
-                         
-                      ?>
-    <td><?php echo $value ?></td>
-       
-     <?php   } ?>
- 
-    <td> <button onclick="redirectWithID('<?php echo $classmaster_id;?>','Monday')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit"></i></button>
-  </td>
-</tr>
-
-                                                                               
-<tr>
-   
-    <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Tuesday</td>
-     <?php foreach ($tuesday as $key => $value) {
-                         
-                      ?>
-    <td><?php echo $value ?></td>
-       
-     <?php   } ?>
-    <td> <button onclick="redirectWithID('<?php echo $classmaster_id;?>','Tuesday')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit"></i></button>
-  </td>
-</tr>
+                    <div class="">
+                        
+                      <div class="">
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
 
 
-                                                                               
-<tr>
-   
-    <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Wednesday</td>
-     <?php foreach ($wednsday as $key => $value) {
-                         
-                      ?>
-    <td><?php echo $value ?></td>
-       
-     <?php   } ?>
-     <td> <button onclick="redirectWithID('<?php echo $classmaster_id;?>','Wednesday')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit"></i></button>
-  </td>
-</tr>
 
 
-                                                                               
-<tr>
-   
-    <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Thursday </td>
-     <?php foreach ($thursday as $key => $value) {
-                         
-                      ?>
-    <td><?php echo $value ?></td>
-       
-     <?php   } ?>
-    <td> <button onclick="redirectWithID('<?php echo $classmaster_id;?>','Thursday')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit"></i></button>
-  </td>
-</tr>
+
+                <div class="page-body">
 
 
-                                                                               
-<tr>
-   
-    <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Friday</td>
-     <?php foreach ($friday as $key => $value) {
-                         
-                      ?>
-    <td><?php echo $value ?></td>
-       
-     <?php   } ?>
-    <td> <button onclick="redirectWithID('<?php echo $classmaster_id;?>','Friday')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit"></i></button>
-  </td>
-</tr>
 
-                                                </thead>
+                    <div class="card">
+
+
+
+                        <div class="card-block table-border-style" style="height:600;">
+                            <div class="table-responsive" style="height:600;">
+                                <table class="table table-styling nowrap">
+                                    <thead>
+                                        <tr class="table-inverse">
+
+                                            <th>Lesson Plan Inbox</th>
+
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                      <?php while($row = $stm->fetch(PDO::FETCH_ASSOC))
+                                      {
+                                         ?>
+                                        <tr>
+                                            <td>
+                                              <?php echo $row['LessonPlanData']; ?>   
+                                            </td>
+
+                                            <td class="text-right">
+                                                <span class="label label-info"><?php echo $row['AddedOn']; ?></span>
+                                                <a href="viwelessonplan.php?document_id=<?php echo $row['TeacherdocumentID']; ?>">
+                                                    <span class="label label-success">Open</span>
+                                                </a>
+
                                                 
-                                            </table>
-                                        </div>
-                                    </div>
-                                       
-                                        <?php } else { ?>
-                                       
-                                      <center>  <h5><b>Please Select Calsss<b></h5>
-                                                   <img src="../../img/timetable.png"/></center>
-                                       
-                                      <?php } ?>
-                                </div>
+                                                <a href="">
 
+                                                    <i class="feather icon-trash-2 btn btn-danger-bg" style="width: 20; height: 20; "></i>   
+                                                    
+                                                </a>
+
+                                               
+                                            </td>
+                                        </tr>
+                                    
+                                        <?php } ?>
+
+
+                                </table>
+
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
 
 
 
                             </div>
                         </div>
+
+
+
+                    </div>
+
+                   
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+     
+    </div>
+</div>
                     </div>
                 </div>
             </div>
@@ -368,6 +274,11 @@ $classmaster_id ="";
 </script>
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/multiselect/js/jquery.multi-select.js"></script>
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/assets/js/jquery.quicksearch.js"></script>
+
+
+<script type="028b4b5e88a856df25e89945-text/javascript" src="../../lib/pdf/jquery.media.js"></script>
+<script type="028b4b5e88a856df25e89945-text/javascript" src="../../lib/pdf/pdf-active.js"></script>
+
 
 
 

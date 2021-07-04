@@ -173,6 +173,26 @@ INSERT INTO `classroom` (`ClassRoomID`, `ClassRoomPublicID`, `ClassRoomName`, `U
 	(4, 'CLRM0000000004', 'Room 4', 'sys', '2020-05-24 16:18:16', '1');
 /*!40000 ALTER TABLE `classroom` ENABLE KEYS */;
 
+-- Dumping structure for table 3edu_db.comboboxvaluemaster
+DROP TABLE IF EXISTS `comboboxvaluemaster`;
+CREATE TABLE IF NOT EXISTS `comboboxvaluemaster` (
+  `ComboBoxValueMasterID` int(11) NOT NULL AUTO_INCREMENT,
+  `ID` varchar(50) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `Value` varchar(50) NOT NULL,
+  `Active` char(1) NOT NULL DEFAULT '0',
+  `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`ID`,`Name`) USING BTREE,
+  UNIQUE KEY `ComboBoxValueMasterID` (`ComboBoxValueMasterID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table 3edu_db.comboboxvaluemaster: ~1 rows (approximately)
+DELETE FROM `comboboxvaluemaster`;
+/*!40000 ALTER TABLE `comboboxvaluemaster` DISABLE KEYS */;
+INSERT INTO `comboboxvaluemaster` (`ComboBoxValueMasterID`, `ID`, `Name`, `Value`, `Active`, `UpdatedOn`) VALUES
+	(1, '1', 'DocumentType', 'Leson Plan', '1', '2021-07-03 18:11:26');
+/*!40000 ALTER TABLE `comboboxvaluemaster` ENABLE KEYS */;
+
 -- Dumping structure for table 3edu_db.country
 DROP TABLE IF EXISTS `country`;
 CREATE TABLE IF NOT EXISTS `country` (
@@ -474,7 +494,8 @@ CREATE TABLE IF NOT EXISTS `periodmaster` (
   `SequenceID` int(11) NOT NULL,
   `IsActive` char(1) NOT NULL DEFAULT '0',
   `UpdatedOn` varchar(50) NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`PeriodMasterID`)
+  PRIMARY KEY (`PeriodMasterID`),
+  UNIQUE KEY `SequenceID` (`SequenceID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_db.periodmaster: ~5 rows (approximately)
@@ -533,7 +554,7 @@ DELETE FROM `sequencemaster`;
 INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 6, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 46, '2019-11-01 20:00:03'),
+	(3, 'TOKN', 52, '2019-11-01 20:00:03'),
 	(4, 'EMIL', 3, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
 	(6, 'SCHL', 2, '2019-11-17 18:52:58'),
@@ -556,15 +577,15 @@ CREATE TABLE IF NOT EXISTS `session` (
   PRIMARY KEY (`SessionID`),
   KEY `FK_session_usermaster` (`UserMasterPublicID`),
   CONSTRAINT `FK_session_usermaster` FOREIGN KEY (`UserMasterPublicID`) REFERENCES `usermaster` (`PublicID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_db.session: ~3 rows (approximately)
 DELETE FROM `session`;
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
 INSERT INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
-	(37, 'ADMIN00001', 'TOKN00000000037', 'eb60a326b9eb008c18ef8efdc82db2410b687aec66c0130d25', '1624021219', 'a', '2021-06-18 15:00:19'),
-	(45, 'TECH0000000001', 'TOKN00000000045', '3b042f7d6b2d964d5014df527d872b4e69315fe8559e11e26f', '1625305699', 'h', '2021-07-03 11:48:20'),
-	(46, 'TECH0000000003', 'TOKN00000000046', '2dc356e7ed69fef2f752baeb38a5323a50e947ff7893d96bb1', '1625305742', 't', '2021-07-03 11:49:02');
+	(47, 'ADMIN00001', 'TOKN00000000047', '3c96bed5aeaa0cbb69ccafa5806ac2d989874a59d162d75520', '1625323314', 'a', '2021-07-03 16:41:54'),
+	(51, 'TECH0000000001', 'TOKN00000000051', 'fe5feae7c6d1931c6ed903d72d67413bb8973e065492a5d1aa', '1625364634', 'h', '2021-07-04 04:10:34'),
+	(52, 'TECH0000000003', 'TOKN00000000052', 'b6365e3354697adda045020aff60c7920b0b5830d1f6f2939f', '1625369824', 't', '2021-07-04 05:37:05');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
@@ -579,9 +600,9 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   `UpdatedBy` varchar(50) NOT NULL,
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionHistoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~34 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~42 rows (approximately)
 DELETE FROM `sessionhistory`;
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
 INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -620,7 +641,13 @@ INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublic
 	(43, '43', 'TECH0000000003', 'TOKN00000000043', 'fc28f8c7af43a183b2f543d333f98e12ce1558947e46f59adf', '1625218858', 't', '2021-07-02 11:40:58'),
 	(44, '44', 'TECH0000000003', 'TOKN00000000044', '4ad5586d6a71d9b5c747a4f7b98247c8a96112275b1ddcd455', '1625287641', 't', '2021-07-03 06:47:21'),
 	(45, '45', 'TECH0000000001', 'TOKN00000000045', '3b042f7d6b2d964d5014df527d872b4e69315fe8559e11e26f', '1625305699', 'h', '2021-07-03 11:48:20'),
-	(46, '46', 'TECH0000000003', 'TOKN00000000046', '2dc356e7ed69fef2f752baeb38a5323a50e947ff7893d96bb1', '1625305742', 't', '2021-07-03 11:49:02');
+	(46, '46', 'TECH0000000003', 'TOKN00000000046', '2dc356e7ed69fef2f752baeb38a5323a50e947ff7893d96bb1', '1625305742', 't', '2021-07-03 11:49:02'),
+	(47, '47', 'ADMIN00001', 'TOKN00000000047', '3c96bed5aeaa0cbb69ccafa5806ac2d989874a59d162d75520', '1625323314', 'a', '2021-07-03 16:41:54'),
+	(48, '48', 'TECH0000000001', 'TOKN00000000048', 'a3f32fc585de041b965029851aed58cbdbdeb7e770e312617b', '1625323339', 'h', '2021-07-03 16:42:19'),
+	(49, '49', 'TECH0000000003', 'TOKN00000000049', 'ae6a8d7d986c446b5908f2fccefc8bed2cf01aab26ad298404', '1625325552', 't', '2021-07-03 17:19:12'),
+	(50, '50', 'TECH0000000003', 'TOKN00000000050', '62793b27525869bf51e61fcc5ef98ee624581e18e015f6948f', '1625340163', 't', '2021-07-03 21:22:44'),
+	(51, '51', 'TECH0000000001', 'TOKN00000000051', 'fe5feae7c6d1931c6ed903d72d67413bb8973e065492a5d1aa', '1625364634', 'h', '2021-07-04 04:10:34'),
+	(52, '52', 'TECH0000000003', 'TOKN00000000052', 'b6365e3354697adda045020aff60c7920b0b5830d1f6f2939f', '1625369824', 't', '2021-07-04 05:37:05');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster
@@ -880,6 +907,31 @@ INSERT INTO `teacherdetails` (`TeacherDetailsID`, `TeacherDetailsPublicID`, `Tea
 	(4, 'TECHDT0000000006', 'TECH0000000001', 'GMD', 't', '2020-06-15 22:56:50');
 /*!40000 ALTER TABLE `teacherdetails` ENABLE KEYS */;
 
+-- Dumping structure for table 3edu_db.teacherdocument
+DROP TABLE IF EXISTS `teacherdocument`;
+CREATE TABLE IF NOT EXISTS `teacherdocument` (
+  `TeacherdocumentID` int(11) NOT NULL AUTO_INCREMENT,
+  `Title` varchar(50) NOT NULL,
+  `DocumentTypeID` varchar(50) NOT NULL,
+  `DocumentURL` varchar(10000) NOT NULL,
+  `IsApproved` char(1) NOT NULL DEFAULT '0',
+  `AddedBy` varchar(50) NOT NULL,
+  `LastUpdatedBy` varchar(50) NOT NULL,
+  `AddedOn` datetime NOT NULL DEFAULT current_timestamp(),
+  `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`TeacherdocumentID`),
+  KEY `FK_teacherdocument_comboboxvaluemaster` (`DocumentTypeID`),
+  CONSTRAINT `FK_teacherdocument_comboboxvaluemaster` FOREIGN KEY (`DocumentTypeID`) REFERENCES `comboboxvaluemaster` (`ID`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table 3edu_db.teacherdocument: ~2 rows (approximately)
+DELETE FROM `teacherdocument`;
+/*!40000 ALTER TABLE `teacherdocument` DISABLE KEYS */;
+INSERT INTO `teacherdocument` (`TeacherdocumentID`, `Title`, `DocumentTypeID`, `DocumentURL`, `IsApproved`, `AddedBy`, `LastUpdatedBy`, `AddedOn`, `UpdatedOn`) VALUES
+	(4, 'wewewe', '1', '../../../documents_uploads/TECH0000000003_pdf-test.pdf', '0', 't', 't', '2021-07-03 19:46:00', '2021-07-04 04:51:10'),
+	(5, '', '1', '', '0', 't', 't', '2021-07-04 04:46:13', '2021-07-04 05:47:56');
+/*!40000 ALTER TABLE `teacherdocument` ENABLE KEYS */;
+
 -- Dumping structure for table 3edu_db.teachermaster
 DROP TABLE IF EXISTS `teachermaster`;
 CREATE TABLE IF NOT EXISTS `teachermaster` (
@@ -955,8 +1007,8 @@ DELETE FROM `timetabledetails`;
 INSERT INTO `timetabledetails` (`TimeTableDetailsID`, `TimeTableMaterD`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `UpdatedBy`, `UpdatedOn`, `AddedOn`) VALUES
 	(1, 1, 'MATH', 'ENG', 'SCEN', 'MATH', 'ENG', 't', '2021-07-03 16:04:15', '2021-06-27 13:00:42'),
 	(2, 5, 'ENG', 'MATH', 'MATH', 'ENG', 'ENG', 't', '2021-07-03 16:04:15', '2021-06-27 13:12:51'),
-	(3, 6, 'SCEN', 'RE110', NULL, NULL, NULL, 't', '2021-07-03 16:04:15', '2021-06-27 13:23:57'),
-	(4, 7, 'ADMA', 'RE110', 'MATH', 'MATH', '', 't', '2021-07-03 16:04:15', '2021-06-27 13:24:18'),
+	(3, 6, 'SCEN', 'RE110', 'ZMLG', NULL, 'MATH', 't', '2021-07-03 16:32:41', '2021-06-27 13:23:57'),
+	(4, 7, 'ADMA', 'RE110', 'MATH', 'MATH', 'MATH', 't', '2021-07-03 16:32:41', '2021-06-27 13:24:18'),
 	(5, 10, 'MATH', NULL, NULL, NULL, NULL, '', '2021-07-03 13:42:57', '2021-06-28 04:44:47'),
 	(6, 8, 'MATH', 'CMST', 'ADMA', 'ADMA', 'ADMA', 't', '2021-07-03 16:02:26', '2021-06-28 04:46:08'),
 	(7, 9, 'MATH', 'CMST', NULL, NULL, NULL, 't', '2021-07-03 16:02:26', '2021-07-03 13:18:46'),
@@ -1331,6 +1383,28 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure 3edu_db.GetAllTeacherLessionPlanDocuments
+DROP PROCEDURE IF EXISTS `GetAllTeacherLessionPlanDocuments`;
+DELIMITER //
+CREATE PROCEDURE `GetAllTeacherLessionPlanDocuments`()
+BEGIN
+SELECT 	
+			CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName,'-',GM.ShortName, ' [',DP.DepartmentName,']  (',TD.Title,')' )						AS 'LessonPlanData', 
+			TD.TeacherdocumentID							AS 'TeacherdocumentID',
+			TD.Title											AS 'Title',
+		 	TD.DocumentURL									AS 'DocumentURL',
+		 	 DATE_FORMAT(TD.AddedOn, "%d %b, %Y")  AS 'AddedOn'
+		 		
+
+FROM teacherdocument TD 
+JOIN usermaster UM ON UM.UserName = TD.AddedBy
+JOIN teachermaster TM ON TM.TeaherMasterPublicID = UM.PublicID
+JOIN department DP ON DP.ShortHand = TM.DeparmrntCode
+JOIN gendermaster GM ON GM.GenderMasterID = UM.GenderID
+ORDER BY  TD.UpdatedOn, TD.IsApproved,DP.DepartmentName DESC ;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure 3edu_db.GetAssecmentTypeBySubjectCode
 DROP PROCEDURE IF EXISTS `GetAssecmentTypeBySubjectCode`;
 DELIMITER //
@@ -1457,6 +1531,30 @@ BEGIN
 		SELECT	DST.DistrictID AS districtId,
 		 			DST.DistrictName		AS name
 		FROM district DST WHERE DST.ProvinceID = @ProvinceId AND DST.IsActive = 1;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GeteacherLessionPlanDocumentsByID
+DROP PROCEDURE IF EXISTS `GeteacherLessionPlanDocumentsByID`;
+DELIMITER //
+CREATE PROCEDURE `GeteacherLessionPlanDocumentsByID`(
+	IN `TeaherMasterPublicID_` VARCHAR(50)
+)
+BEGIN
+SELECT 	
+			CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName,'-',GM.ShortName, ' [',DP.DepartmentName,']  (',TD.Title,')' )						AS 'LessonPlanData', 
+			TD.TeacherdocumentID							AS 'TeacherdocumentID',
+			TD.Title											AS 'Title',
+		 	TD.DocumentURL									AS 'DocumentURL',
+		 	 DATE_FORMAT(TD.AddedOn, "%d %b, %Y")  AS 'AddedOn'
+		 		
+
+FROM teacherdocument TD 
+JOIN usermaster UM ON UM.UserName = TD.AddedBy
+JOIN teachermaster TM ON TM.TeaherMasterPublicID = UM.PublicID
+JOIN department DP ON DP.ShortHand = TM.DeparmrntCode
+JOIN gendermaster GM ON GM.GenderMasterID = UM.GenderID WHERE TM.TeaherMasterPublicID= TeaherMasterPublicID_
+ORDER BY  TD.UpdatedOn, TD.IsApproved,DP.DepartmentName DESC ;
 END//
 DELIMITER ;
 
@@ -1724,6 +1822,23 @@ BEGIN
 		FROM classmaster CM 
 		JOIN classdetails CD ON CD.ClassMasterPublicID = CM.ClassMasterPublicID
 		JOIN subjectmater SM ON SM.SubjectCode = CD.SubjectCode WHERE CM.ClassMasterPublicID = @CLASSMASTERPUBLICID ;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetTeacherDocumentDetailsByID
+DROP PROCEDURE IF EXISTS `GetTeacherDocumentDetailsByID`;
+DELIMITER //
+CREATE PROCEDURE `GetTeacherDocumentDetailsByID`(
+	IN `DOCUMENTID_` INT
+)
+BEGIN
+SET @DOCUMENTID = DOCUMENTID_;
+
+SELECT 	TD.TeacherdocumentID		AS 'TeacherdocumentID',
+			TD.Title						AS 'Title',
+		 	TD.DocumentURL				AS 'DocumentURL'
+
+FROM teacherdocument TD WHERE TD.TeacherdocumentID = @DOCUMENTID;
 END//
 DELIMITER ;
 

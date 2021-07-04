@@ -910,4 +910,59 @@ else if (isset ($_POST['btn_accessment']))
          } 
             
         }
+         }
+         
+         else if (isset ($_POST['btn_upload_lessonplan']))
+         {
+           
+             $lesonplantitle = trim(filter_input(INPUT_POST, 'lesonplantitle', FILTER_DEFAULT));
+             $TeacherID =  $_SESSION['threeedu_public_id'];
+             $UpdatedBy = $_SESSION['threeedu_username'];
+            
+             
+             if(isset( $_FILES["docFile"]["name"]) && !empty($_FILES["docFile"]["name"])){
+                 
+           $location = "../../../documents_uploads/";
+     $file_new_name = $TeacherID.'_'. $_FILES["docFile"]["name"]; // New and unique name of uploaded file
+    // $file_name = $_FILES["profile_pic"]["name"];
+     $file_temp = $_FILES["docFile"]["tmp_name"];
+   
+     // move_uploaded_file($file_temp, $location.$file_new_name);
+     
+     
+     
+       if (SuperModel::uplaod_lesson_plan($lesonplantitle,$location.$file_new_name,$UpdatedBy))
+        {
+            move_uploaded_file($file_temp, $location.$file_new_name);
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+                
+               $.jnoty('Lesson Plan Successfully Uploaded', {
+            sticky: false,
+            header: 'Success',
+            theme: 'jnoty-success',
+            close: function() {window.location.replace('/threeedu/view/teacher/lessonplan.php')},
+            });   
+            }); 
+            </script>";
+        }else
+        {
+           echo "<script>               
+            $(document).ready(
+             
+            function(){
+                
+               $.jnoty('Error in Uploading Lesson Plan Please Try Agin Later', {
+            sticky: false,
+            header: 'Erro',
+            theme: 'jnoty-danger',
+            close: function() {window.location.replace('/threeedu/view/teacher/lessonplan.php')},
+            });   
+            }); 
+            </script>";
+             }
+             
+             }
         }

@@ -3,37 +3,7 @@ require '../../controller/super/SessionStart.php';
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/TeacherModel.php';
 require_once '../../model/SuperModel.php';
-$stm = TeacherModel::get_all_student_details();
 
-$classes = SuperModel::get_all_classes_with_mapped_subjects();
-$classmaster_id ="";
- $monday  = array();
-            $tuesday  = array();
-            $wednsday  = array();
-            $thursday  = array();
-            $friday  = array();
-            $periods = array();
- if ( isset($_GET['classmasterid']) )
-          {
-            $classmaster_id  = trim(filter_input(INPUT_GET, 'classmasterid', FILTER_DEFAULT));
-            $get_timtable_data = SuperModel::get_timtable($classmaster_id);
-            
-            $classname =  SuperModel::get_class_name($classmaster_id);
-           
-            while($row = $get_timtable_data->fetch(PDO::FETCH_ASSOC)){
-             array_push($monday,$row['SubjectCodeM']);
-             array_push($tuesday,$row['SubjectCodeT']);
-             array_push($wednsday,$row['SubjectCodeW']);
-             array_push($thursday,$row['SubjectCodeTH']);
-             array_push($friday,$row['SubjectCodeF']);
-             array_push($periods,$row['PeriodName']);
-          
-            }
-            
-          }else {
-              
-              
-          }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -169,158 +139,151 @@ $classmaster_id ="";
             <div class="page-wrapper">
 
                 <div class="page-body">
+                    <div class="">
+                        
+                        <div class="">
+        <div class="pcoded-inner-content">
+            <div class="main-body">
+                <div class="page-wrapper">
+
+                    <div class="page-body">
+
+
+                        <div class="card">
+
+
+                            <div class="card-block primary-breadcrumb">
+                                <div class="breadcrumb-header">
+                                    <h5>Lesson Plan Uploading</h5>
+                                </div>
+                                <div class="page-header-breadcrumb">
+                                    <ul class="breadcrumb-title">
+                                        <li class="breadcrumb-item">
+                                            <a href="#!">
+                                                <i class="icofont icofont-home"></i>
+                                            </a>
+                                        </li>
+                                        <li class="breadcrumb-item">
+                                            <span>Lession</span>
+                                        </li>
+                                        <li class="breadcrumb-item">
+                                            <a href="#!">Registration Model</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+                            <div class="card-block">
+
+
+                                <div class="form">
+
+
+                                    <form  method="POST" action="../../controller/super/ActionPerformed.php" enctype="multipart/form-data"  >
+
+                                    <div class="row">
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Lesson Plan Title</label>
+                                                <div>
+                                                    <input class="form-control" type="text" name="lesonplantitle" required="" />  
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Upload Lesson plan (.PDF)</label>
+                                                <div>
+                                                    <input type="file" accept="application/pdf" name="docFile" required="" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="col-form-label">.</label>
+                                                <div class="col-md-offset-2 col-md-10">
+                                                    <input name="btn_upload_lessonplan" type="submit" value="Submit" class="btn btn-primary btn-round" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                            
+                                           
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+ </form>
+
+
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="card">
-<hr>    
-   <div class="col-sm-12">
-       <div class="row">
-           <div class="col-sm-12 col-xl-3 m-b-30">
-               
-               <form action="../../controller/super/ActionPerformed.php" method="POST" >
-               <select id="selected_class_id" onchange="" required="" name="classid" class="js-example-data-array col-sm-4">
-            <option value="" disabled="disabled" selected="selected" >Select Class</option>
-                <?php
-                while ($row = $classes->fetch(PDO::FETCH_ASSOC)) {
-                    ?>
-                    <option value="<?php echo $row['ClassMasterPublicID']; ?>"><?php echo $row['Class']; ?></option>
 
-                <?php } ?>
-               </select>
-      </div>
-           <div class="col-sm-12 col-xl-3 m-b-30">
-           <button class="btn btn-info" type="submit" name="btn_load_time_table">Load Time Table</button>
-           
-               </div>
-            </form>
-     
-        </div>
-           
-   </div>
- 
-                                <div class="card">
-                                    <?php if (isset($classname)){
-                                           ?>
-                                    
-                                       <h2><b>Class Time Table For <?php echo $classname; ?></b></h2><br> 
-                                        
-                                  
-                                    
-                                    <div class="card-block table-border-style">
-                                        <div class="table-responsive">
-                                            <table class="table table-styling table-hover table-striped table-primary">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Days</th>
-                                                         <?php  
-                                                         
-                                                       $headers = $periods;
-                                                       
+                                <div class="card-block note-card">
+                                    <div class="note-box-wrapper row">
+                                        <div class="note-box-aside col-lg-12 col-xl-3">
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    <h5><i class="icofont icofont-file-text m-r-5"></i></h5>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input class="form-control form-control-lg" type="text" id="Note-search" placeholder="Search lesson">
+                                                </div>
+                                            </div>
+                                            <div class="notes-list">
+                                                <ul id="Note-list" class="Note-list list-group">klllksdfsdsfsdfsfsdffffffffffffff dgdfsl</ul>
+                                                <ul id="Note-list" class="Note-list list-group">klllksdfsdsfsdfsfsdffffffffffffff dgdfsl</ul>
+                                            </div>
+                                        </div>
+                                        <div class="note-box-content col-lg-12 col-xl-9">
+                                            <div class="Note-header">
+                                                <div class="Note-created f-right">
+                                                    <span class="Note-created__on">Lesson draft Created On</span>
+                                                    <span class="Note-created__date" id="Note-created__date"><script>
+                                                        
 
-                                                      foreach ($headers as $key => $value) {
-
-                                                                             ?>
-
-                                                 <?php ?>
-                                                 <th><?php echo $value; ?></th>
-
-                                                 <?php } ?>
-                                                     <th></th>
-                                                    </tr>
-                                                    
-                                                                               
-<tr>
-   
-    <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Monday</td>
-     <?php foreach ($monday as $key => $value) {
-                         
-                      ?>
-    <td><?php echo $value ?></td>
-       
-     <?php   } ?>
- 
-    <td> <button onclick="redirectWithID('<?php echo $classmaster_id;?>','Monday')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit"></i></button>
-  </td>
-</tr>
-
-                                                                               
-<tr>
-   
-    <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Tuesday</td>
-     <?php foreach ($tuesday as $key => $value) {
-                         
-                      ?>
-    <td><?php echo $value ?></td>
-       
-     <?php   } ?>
-    <td> <button onclick="redirectWithID('<?php echo $classmaster_id;?>','Tuesday')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit"></i></button>
-  </td>
-</tr>
-
-
-                                                                               
-<tr>
-   
-    <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Wednesday</td>
-     <?php foreach ($wednsday as $key => $value) {
-                         
-                      ?>
-    <td><?php echo $value ?></td>
-       
-     <?php   } ?>
-     <td> <button onclick="redirectWithID('<?php echo $classmaster_id;?>','Wednesday')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit"></i></button>
-  </td>
-</tr>
-
-
-                                                                               
-<tr>
-   
-    <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Thursday </td>
-     <?php foreach ($thursday as $key => $value) {
-                         
-                      ?>
-    <td><?php echo $value ?></td>
-       
-     <?php   } ?>
-    <td> <button onclick="redirectWithID('<?php echo $classmaster_id;?>','Thursday')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit"></i></button>
-  </td>
-</tr>
-
-
-                                                                               
-<tr>
-   
-    <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Friday</td>
-     <?php foreach ($friday as $key => $value) {
-                         
-                      ?>
-    <td><?php echo $value ?></td>
-       
-     <?php   } ?>
-    <td> <button onclick="redirectWithID('<?php echo $classmaster_id;?>','Friday')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit"></i></button>
-  </td>
-</tr>
-
-                                                </thead>
-                                                
-                                            </table>
+                                                var today = new Date();
+                                                var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                                                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                                                var dateTime = date+' '+time;
+                                                document.write(dateTime)</script></span>
+                                                </div>
+                                                <a href="#" class="btn btn-md btn-primary hidden-xs Note-add">Add New +</a>
+                                            </div>
+                                            <div class="note-body">
+                                                <div class="note-write">
+                                <textarea id="Note-pad" class="form-control" placeholder="Type your note here" rows="10"></textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                       
-                                        <?php } else { ?>
-                                       
-                                      <center>  <h5><b>Please Select Calsss<b></h5>
-                                                   <img src="../../img/timetable.png"/></center>
-                                       
-                                      <?php } ?>
                                 </div>
-
-
-
-
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
                     </div>
                 </div>
             </div>
