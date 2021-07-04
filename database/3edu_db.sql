@@ -702,37 +702,21 @@ CREATE TABLE IF NOT EXISTS `studentattendance` (
   `Status` varchar(50) NOT NULL,
   `Reason` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`StudentAttendanceID`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.studentattendance: ~25 rows (approximately)
+-- Dumping data for table 3edu_db.studentattendance: ~9 rows (approximately)
 DELETE FROM `studentattendance`;
 /*!40000 ALTER TABLE `studentattendance` DISABLE KEYS */;
 INSERT INTO `studentattendance` (`StudentAttendanceID`, `StudentID`, `ClassID`, `UpdatedOn`, `Status`, `Reason`) VALUES
-	(33, ' 3EDU202100031', 'CLAS0000000004', '2021-05-29 18:04:43', '3', NULL),
-	(34, ' 3EDU202100023', 'CLAS0000000004', '2021-05-29 18:04:43', '3', NULL),
-	(35, ' 3EDU202100020', 'CLAS0000000004', '2021-05-29 18:04:43', '3', NULL),
-	(36, ' 3EDU202100010', 'CLAS0000000004', '2021-05-29 18:04:43', '3', NULL),
-	(37, ' 3EDU202100009', 'CLAS0000000004', '2021-05-29 18:04:43', '3', NULL),
-	(38, ' 3EDU202100031', 'CLAS0000000004', '2021-05-29 18:05:25', '3', NULL),
-	(39, ' 3EDU202100023', 'CLAS0000000004', '2021-05-29 18:05:25', '3', NULL),
-	(40, ' 3EDU202100020', 'CLAS0000000004', '2021-05-29 18:05:25', '3', NULL),
-	(41, ' 3EDU202100010', 'CLAS0000000004', '2021-05-29 18:05:25', '3', NULL),
-	(42, ' 3EDU202100009', 'CLAS0000000004', '2021-05-29 18:05:25', '3', NULL),
-	(43, ' 3EDU202100031', 'CLAS0000000004', '2021-05-29 18:07:43', '3', NULL),
-	(44, ' 3EDU202100023', 'CLAS0000000004', '2021-05-29 18:07:43', '3', NULL),
-	(45, ' 3EDU202100020', 'CLAS0000000004', '2021-05-29 18:07:43', '3', NULL),
-	(46, ' 3EDU202100010', 'CLAS0000000004', '2021-05-29 18:07:43', '3', NULL),
-	(47, ' 3EDU202100009', 'CLAS0000000004', '2021-05-29 18:07:43', '3', NULL),
-	(48, ' 3EDU202100031', 'CLAS0000000004', '2021-05-29 18:09:01', '3', NULL),
-	(49, ' 3EDU202100023', 'CLAS0000000004', '2021-05-29 18:09:01', '3', NULL),
-	(50, ' 3EDU202100020', 'CLAS0000000004', '2021-05-29 18:09:01', '3', NULL),
-	(51, ' 3EDU202100010', 'CLAS0000000004', '2021-05-29 18:09:01', '3', NULL),
-	(52, ' 3EDU202100009', 'CLAS0000000004', '2021-05-29 18:09:01', '3', NULL),
-	(53, ' 3EDU202100031', 'CLAS0000000004', '2021-05-29 18:11:01', '3', NULL),
-	(54, ' 3EDU202100023', 'CLAS0000000004', '2021-05-29 18:11:01', '3', NULL),
-	(55, ' 3EDU202100020', 'CLAS0000000004', '2021-05-29 18:11:01', '3', NULL),
-	(56, ' 3EDU202100010', 'CLAS0000000004', '2021-05-29 18:11:01', '3', NULL),
-	(57, ' 3EDU202100009', 'CLAS0000000004', '2021-05-29 18:11:01', '3', NULL);
+	(59, '3EDU202100034', 'CLAS0000000008', '2021-07-02 12:54:13', '2', NULL),
+	(60, '3EDU202100023', 'CLAS0000000004', '2021-07-02 12:54:56', '2', NULL),
+	(61, '3EDU202100020', 'CLAS0000000004', '2021-07-02 12:54:56', '1', NULL),
+	(62, '3EDU202100010', 'CLAS0000000004', '2021-07-02 12:54:56', '1', NULL),
+	(63, '3EDU202100009', 'CLAS0000000004', '2021-07-02 12:54:56', '2', NULL),
+	(64, '3EDU202100023', 'CLAS0000000004', '2021-07-01 13:02:17', '3', NULL),
+	(65, '3EDU202100020', 'CLAS0000000004', '2021-07-01 13:02:17', '3', NULL),
+	(66, '3EDU202100010', 'CLAS0000000004', '2021-07-01 13:02:17', '3', NULL),
+	(67, '3EDU202100009', 'CLAS0000000004', '2021-07-01 13:02:17', '3', NULL);
 /*!40000 ALTER TABLE `studentattendance` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.studentdetails
@@ -796,7 +780,7 @@ CREATE TABLE IF NOT EXISTS `studentmaster` (
   CONSTRAINT `FK_studentmaster_maritalstatusmaster` FOREIGN KEY (`MaritalStatusID`) REFERENCES `maritalstatusmaster` (`MaritalStatusMasterID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.studentmaster: ~6 rows (approximately)
+-- Dumping data for table 3edu_db.studentmaster: ~7 rows (approximately)
 DELETE FROM `studentmaster`;
 /*!40000 ALTER TABLE `studentmaster` DISABLE KEYS */;
 INSERT INTO `studentmaster` (`StudentMasterID`, `StudentMasterPublicID`, `ProfilePic`, `StudentNo`, `FirstName`, `LastName`, `OtherName`, `GenderID`, `MaritalStatusID`, `ClassMasterPublicID`, `DOB`, `EmailAddress`, `GuardianContactNo`, `GuardianMaleName`, `GuardianFemaleName`, `Address`, `UpdatedBy`, `UpdatedOn`, `Year`, `IsActive`) VALUES
@@ -832,7 +816,7 @@ CREATE TABLE IF NOT EXISTS `studnetassesment` (
   CONSTRAINT `FK_studnetassesment_studentmaster` FOREIGN KEY (`StudentMasterPublicID`) REFERENCES `studentmaster` (`StudentMasterPublicID`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.studnetassesment: ~12 rows (approximately)
+-- Dumping data for table 3edu_db.studnetassesment: ~13 rows (approximately)
 DELETE FROM `studnetassesment`;
 /*!40000 ALTER TABLE `studnetassesment` DISABLE KEYS */;
 INSERT INTO `studnetassesment` (`StudnetAssesmenID`, `StudentMasterPublicID`, `AssecemntTypeMasterID`, `ClassMasterPublicID`, `YearAdded`, `AssecementName`, `Score`, `Commment`, `UpdatedBy`, `UpdatedOn`, `AddedOn`) VALUES
@@ -1821,6 +1805,27 @@ BEGIN
 		JOIN assementtypemaster ASTM ON ASTM.AssementTypeID = STA.AssecemntTypeMasterID
 		JOIN subjectmater SM ON SM.SubjectCode = ASTM.SubjectCode
 		JOIN classmaster CM ON CM.ClassMasterPublicID = STA.ClassMasterPublicID ORDER BY CM.GradeMasterID, STM.StudentNo,STM.FirstName,STM.LastName ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetStudentAttendanceReport
+DROP PROCEDURE IF EXISTS `GetStudentAttendanceReport`;
+DELIMITER //
+CREATE PROCEDURE `GetStudentAttendanceReport`()
+BEGIN
+		SELECT  STA.StudentAttendanceID																								   AS 'PublicID',
+					 STM.StudentNo																												AS 'StudentNo',
+					CONCAT(STM.FirstName,IF(STM.OtherName IS NULL,' ',CONCAT(' ',STM.OtherName,' ')),STM.LastName )	AS 'Name',
+					CONCAT(CM.ClassName,' (',CM.ClassCode,')')																		AS 'ClassName',
+					IF (STA.Reason IS NULL,'None',STA.Reason)																			AS 'Reason',
+					STAM.Statue																													AS 'Statue',
+				   DATE_FORMAT(STA.UpdatedOn, "%d %b, %Y") 					   												   AS 'MarkedOn'
+					
+		FROM studentattendance STA
+		JOIN studentmaster STM ON STM.StudentNo = STA.StudentID 
+		JOIN classmaster CM ON CM.ClassMasterPublicID = STA.ClassID 
+		JOIN statusmaster STAM ON STAM.StatueCode =STA.`Status` ORDER BY CM.ClassCode,STA.StudentID,DATE (STA.UpdatedOn),STM.FirstName,STM.LastName ASC;
+
 END//
 DELIMITER ;
 
