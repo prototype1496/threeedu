@@ -115,18 +115,7 @@ $classes = SuperModel::get_all_classes();
 <div class="pcoded-inner-content">
 
 <div class="main-body">
-<div class="page-wrapper">
 
-<div class="page-header">
-<div class="row align-items-end">
-<div class="col-lg-8">
-
-
- </ul>
-</div>
-</div>
-</div>
-</div>
 
 
 <div class="page-body">

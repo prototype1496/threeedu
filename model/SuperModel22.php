@@ -823,16 +823,19 @@ class SuperModel{
           
     public static function get_classes_by_grade_id($grade_id) {
        
-   
-        $query = "CALL GetAllClassesByGradeID(:grade_id);";
-          $stm = $conn->prepare($query);
-        
-        $stm->execute(array(':grade_id' => $grade_id));
-  
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+       
+        $query = "CALL GetAllClassesByGradeID('$grade_id');";
+         //$stm = $conn->prepare($query);
+         $stm = $conn->query($query);
+        //$row = $stm->execute(array(':gradeid' => $grade_id));
+       // $stm->execute(array(':username' => $User->username));
+        // $stm->execute();
      
-         $row = $stm->fetch(PDO::FETCH_ASSOC);
-         
-            return $row;
+//         $row = $stm->fetch(PDO::FETCH_ASSOC);
+          // print_r($stm);
+            return $stm;
       
    }
         
@@ -841,19 +844,16 @@ class SuperModel{
         $Connection = new Connection();
         $conn = $Connection->connect();
        
-        $query = "CALL GetAllStudentDetailsByStudentNo(:stuentNo);";
+        $query = "CALL GetAllStudentDetailsByStudentNo('$studentNo');";
           $stm = $conn->prepare($query);
-        
-        $stm->execute(array(':stuentNo' => $studentNo));
-  
+        $stm = $conn->query($query);
+        $stm->execute(array(':studen_no' => $studentNo));
+       // $stm->execute(array(':username' => $User->username));
+         //$stm->execute();
      
          $row = $stm->fetch(PDO::FETCH_ASSOC);
          
             return $row;
-			
-			
-			
-			
       
    }
     
