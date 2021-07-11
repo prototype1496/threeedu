@@ -24,7 +24,7 @@ if($LoginModel->check_login_state()){
       echo '
     <script type="text/javascript">
    document.getElementById("user_name").value = "'.$dencripted_username.'";
-       document.getElementById("password").value = "'.$dencripted_password.'";
+       document.getElementById("password-field").value = "'.$dencripted_password.'";
      </script>';
 
 }else{

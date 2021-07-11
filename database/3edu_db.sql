@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `assementtypemaster` (
   CONSTRAINT `FK_assementtypemaster_subjectmater` FOREIGN KEY (`SubjectCode`) REFERENCES `subjectmater` (`SubjectCode`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.assementtypemaster: ~6 rows (approximately)
+-- Dumping data for table 3edu_db.assementtypemaster: ~5 rows (approximately)
 DELETE FROM `assementtypemaster`;
 /*!40000 ALTER TABLE `assementtypemaster` DISABLE KEYS */;
 INSERT INTO `assementtypemaster` (`AssementTypeID`, `GradeMasterID`, `SubjectCode`, `AssementTypeName`, `IsActive`, `UpdatedOn`, `UpdatedBy`) VALUES
@@ -215,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `country` (
   UNIQUE KEY `ConuntryCode` (`ConuntryCode`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.country: ~1 rows (approximately)
+-- Dumping data for table 3edu_db.country: ~0 rows (approximately)
 DELETE FROM `country`;
 /*!40000 ALTER TABLE `country` DISABLE KEYS */;
 INSERT INTO `country` (`CountryID`, `CountryName`, `ConuntryCode`, `IsActive`) VALUES
@@ -399,7 +399,7 @@ CREATE TABLE IF NOT EXISTS `emailservice` (
   CONSTRAINT `FK_emailservice_statusmaster` FOREIGN KEY (`Status`) REFERENCES `statusmaster` (`StatueCode`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.emailservice: ~1 rows (approximately)
+-- Dumping data for table 3edu_db.emailservice: ~0 rows (approximately)
 DELETE FROM `emailservice`;
 /*!40000 ALTER TABLE `emailservice` DISABLE KEYS */;
 INSERT INTO `emailservice` (`EmailServiceID`, `EmailSerial`, `EmailAddress`, `EmailSubject`, `SendData`, `Status`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -588,7 +588,7 @@ CREATE TABLE IF NOT EXISTS `session` (
   PRIMARY KEY (`SessionID`),
   KEY `FK_session_usermaster` (`UserMasterPublicID`),
   CONSTRAINT `FK_session_usermaster` FOREIGN KEY (`UserMasterPublicID`) REFERENCES `usermaster` (`PublicID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_db.session: ~3 rows (approximately)
 DELETE FROM `session`;
@@ -611,9 +611,9 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   `UpdatedBy` varchar(50) NOT NULL,
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionHistoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~47 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~44 rows (approximately)
 DELETE FROM `sessionhistory`;
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
 INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -824,7 +824,7 @@ CREATE TABLE IF NOT EXISTS `studnetassesment` (
   CONSTRAINT `FK_studnetassesment_studentmaster` FOREIGN KEY (`StudentMasterPublicID`) REFERENCES `studentmaster` (`StudentMasterPublicID`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.studnetassesment: ~13 rows (approximately)
+-- Dumping data for table 3edu_db.studnetassesment: ~12 rows (approximately)
 DELETE FROM `studnetassesment`;
 /*!40000 ALTER TABLE `studnetassesment` DISABLE KEYS */;
 INSERT INTO `studnetassesment` (`StudnetAssesmenID`, `StudentMasterPublicID`, `AssecemntTypeMasterID`, `ClassMasterPublicID`, `YearAdded`, `AssecementName`, `Score`, `Commment`, `UpdatedBy`, `UpdatedOn`, `AddedOn`) VALUES
@@ -939,9 +939,9 @@ CREATE TABLE IF NOT EXISTS `teacherdocument` (
   PRIMARY KEY (`TeacherdocumentID`),
   KEY `FK_teacherdocument_comboboxvaluemaster` (`DocumentTypeID`),
   CONSTRAINT `FK_teacherdocument_comboboxvaluemaster` FOREIGN KEY (`DocumentTypeID`) REFERENCES `comboboxvaluemaster` (`ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.teacherdocument: ~3 rows (approximately)
+-- Dumping data for table 3edu_db.teacherdocument: ~2 rows (approximately)
 DELETE FROM `teacherdocument`;
 /*!40000 ALTER TABLE `teacherdocument` DISABLE KEYS */;
 INSERT INTO `teacherdocument` (`TeacherdocumentID`, `Title`, `DocumentTypeID`, `DocumentURL`, `IsApproved`, `AddedBy`, `LastUpdatedBy`, `AddedOn`, `UpdatedOn`) VALUES
