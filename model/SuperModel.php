@@ -823,16 +823,19 @@ class SuperModel{
           
     public static function get_classes_by_grade_id($grade_id) {
        
-   
+   $Connection = new Connection();
+        $conn = $Connection->connect();
+        
+        
         $query = "CALL GetAllClassesByGradeID(:grade_id);";
           $stm = $conn->prepare($query);
         
         $stm->execute(array(':grade_id' => $grade_id));
   
      
-         $row = $stm->fetch(PDO::FETCH_ASSOC);
          
-            return $row;
+         //print_r($row);
+           return $stm;
       
    }
         
