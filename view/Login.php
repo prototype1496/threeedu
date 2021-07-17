@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="keywords" content="app, app landing, app landing page, agency, startup, saas, startup template, saas template, app, app template, app website, clean app landing, app landing, app landing template, business, creative, landing, marketing, product, software, software landing, Simple App Landing, webapp">
     <meta name="author" content="YasirKareem">
-    <title>Alps - App Landing Page</title>
+    <title>Login Page</title>
     <link rel="stylesheet" href="lib/cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">

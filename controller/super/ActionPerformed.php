@@ -71,7 +71,7 @@
            
            
       
-       if(isset( $_FILES["profile_pic"]["name"]) && !empty($_FILES["profile_pic"]["name"])){
+       if(isset($_FILES["profile_pic"]["name"]) && !empty($_FILES["profile_pic"]["name"])){
           
           
            $location = "../../uploads/";
@@ -119,7 +119,7 @@
        }else {
            
            $file_new_name = "../../uploads/defult.png";
-          if (SuperModel::regiter_pupil($first_name, $last_name,$other_name, $gender_id,$dob,$marital_status_id,$class_id,$subject_code_1,$subject_code_2,$subject_code_3,$subject_code_4,$subject_code_5,$subject_code_6,$subject_code_7,$subject_code_8,$male_gardian_name,$female_gardian_name,$gardian_contact_no,$address,$StudentMasterPublicID,$StudentNo,$file_new_name,$UpdatedBy))
+          if (SuperModel::regiter_pupil($first_name, $last_name,$other_name, $gender_id,$dob,$marital_status_id,$class_id,$subject_code_1,$subject_code_2,$subject_code_3,$subject_code_4,$subject_code_5,$subject_code_6,$subject_code_7,$subject_code_8,$male_gardian_name,$female_gardian_name,$gardian_contact_no,$address,$StudentMasterPublicID,$StudentNo,$file_new_name,$UpdatedBy,$email_address))
         {
             
             echo "<script>               
@@ -921,9 +921,9 @@ else if (isset ($_POST['btn_accessment']))
             
              
              if(isset( $_FILES["docFile"]["name"]) && !empty($_FILES["docFile"]["name"])){
-                 
+                 $myuid = uniqid();
            $location = "../../documents_uploads/";
-     $file_new_name = $TeacherID.'_'. $_FILES["docFile"]["name"]; // New and unique name of uploaded file
+     $file_new_name = $TeacherID.'_'.$myuid. $_FILES["docFile"]["name"]; // New and unique name of uploaded file
     // $file_name = $_FILES["profile_pic"]["name"];
      $file_temp = $_FILES["docFile"]["tmp_name"];
    

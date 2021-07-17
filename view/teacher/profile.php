@@ -369,8 +369,7 @@ $row = SuperModel::get_student_details_by_student_no($student_no);
                 </div>
             </div>
         </div>
-        <div id="styleSelector">
-        </div>
+     
     </div>
 </div>
 </div>

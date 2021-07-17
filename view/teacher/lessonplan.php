@@ -11,7 +11,7 @@ require_once '../../model/SuperModel.php';
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dt-ext-buttons-html-5-data-export.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:48:50 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<title>Time Table</title>
+<title>Lesson Plan</title>
 
 
 <!--[if lt IE 10]>
@@ -237,8 +237,8 @@ require_once '../../model/SuperModel.php';
                                                 </div>
                                             </div>
                                             <div class="notes-list">
-                                                <ul id="Note-list" class="Note-list list-group">klllksdfsdsfsdfsfsdffffffffffffff dgdfsl</ul>
-                                                <ul id="Note-list" class="Note-list list-group">klllksdfsdsfsdfsfsdffffffffffffff dgdfsl</ul>
+                                                <ul id="Note-list" class="Note-list list-group">Test Notes Entered</ul>
+                                                <ul id="Note-list" class="Note-list list-group">Test Notes Entered</ul>
                                             </div>
                                         </div>
                                         <div class="note-box-content col-lg-12 col-xl-9">
