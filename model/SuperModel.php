@@ -832,9 +832,6 @@ class SuperModel{
         
         $stm->execute(array(':grade_id' => $grade_id));
   
-     
-         
-         //print_r($row);
            return $stm;
       
    }

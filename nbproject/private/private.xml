@@ -3,7 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/threeedu/view/teacher/viwelessonplan.php</file>
+            <file>file:/C:/xampp/htdocs/threeedu/view/teacher/selectclass.php</file>
+            <file>file:/C:/xampp/htdocs/threeedu/view/Login.php</file>
+            <file>file:/C:/xampp/htdocs/threeedu/index.php</file>
+            <file>file:/C:/xampp/htdocs/threeedu/model/SuperModel.php</file>
+            <file>file:/C:/xampp/htdocs/threeedu/model/LoginModel.php</file>
         </group>
     </open-files>
 </project-private>
