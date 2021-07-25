@@ -805,6 +805,13 @@ else if (isset ($_POST['btn_accessment']))
            header("Location:/threeedu/view/teacher/viwetimetable.php?classmasterid=$classmaster_id");
            
            
+        }else if (isset ($_POST['btn_load_time_table_student'])){
+            
+            $classmaster_id = trim(filter_input(INPUT_POST, 'classid', FILTER_DEFAULT));
+            //echo $classmaster_id;
+           header("Location:/threeedu/view/student/viwetimetable.php?classmasterid=$classmaster_id");
+           
+           
         }else if (isset ($_POST['btn_upadte_time_table'])){
           
           

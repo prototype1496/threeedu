@@ -189,7 +189,7 @@ $classmaster_id ="";
                </select>
       </div>
            <div class="col-sm-12 col-xl-3 m-b-30">
-           <button class="btn btn-info" type="submit" name="btn_load_time_table">Load Time Table</button>
+           <button class="btn btn-info" type="submit" name="btn_load_time_table_student">Load Time Table</button>
            
                </div>
             </form>
@@ -225,7 +225,7 @@ $classmaster_id ="";
                                                  <th><?php echo $value; ?></th>
 
                                                  <?php } ?>
-                                                     <th></th>
+                                                     
                                                     </tr>
                                                     
                                                                                
@@ -239,8 +239,7 @@ $classmaster_id ="";
        
      <?php   } ?>
  
-    <td> <button onclick="redirectWithID('<?php echo $classmaster_id;?>','Monday')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit"></i></button>
-  </td>
+   
 </tr>
 
                                                                                
@@ -253,8 +252,7 @@ $classmaster_id ="";
     <td><?php echo $value ?></td>
        
      <?php   } ?>
-    <td> <button onclick="redirectWithID('<?php echo $classmaster_id;?>','Tuesday')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit"></i></button>
-  </td>
+   
 </tr>
 
 
@@ -268,8 +266,7 @@ $classmaster_id ="";
     <td><?php echo $value ?></td>
        
      <?php   } ?>
-     <td> <button onclick="redirectWithID('<?php echo $classmaster_id;?>','Wednesday')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit"></i></button>
-  </td>
+   
 </tr>
 
 
@@ -283,8 +280,7 @@ $classmaster_id ="";
     <td><?php echo $value ?></td>
        
      <?php   } ?>
-    <td> <button onclick="redirectWithID('<?php echo $classmaster_id;?>','Thursday')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit"></i></button>
-  </td>
+   
 </tr>
 
 
@@ -298,8 +294,7 @@ $classmaster_id ="";
     <td><?php echo $value ?></td>
        
      <?php   } ?>
-    <td> <button onclick="redirectWithID('<?php echo $classmaster_id;?>','Friday')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit"></i></button>
-  </td>
+  
 </tr>
 
                                                 </thead>
