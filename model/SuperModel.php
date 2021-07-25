@@ -1568,8 +1568,7 @@ class SuperModel{
     
     
     
-    
-    public static function update_user_password($user_name,$password) {
+    public static function update_user_password($user_public_id,$password) {
         //the below function creates a session in the databes for every log in 
         try {
             $Connection = new Connection();
@@ -1577,9 +1576,9 @@ class SuperModel{
             
             $conn->beginTransaction();
       
-            $query = "CALL UpdatePasswordByUsername(:Username,:Password);";
+            $query = "CALL UpdatePasswordByUserPublicID(:UserpublicID,:Password);";
             $stm = $conn->prepare($query);
-            $stm->execute(array(':Username'=>$user_name,':Password'=>$password));
+            $stm->execute(array(':UserpublicID'=>$user_public_id,':Password'=>$password));
 
              
             $conn->commit();
@@ -1587,7 +1586,7 @@ class SuperModel{
             return TRUE;
         } catch (Exception $exc) {
             $conn->rollBack();
-           // echo $exc->getMessage();
+           echo $exc->getMessage();
             return FALSE;
         }
     }
@@ -1757,5 +1756,9 @@ class SuperModel{
             return $row;
       
     }
+    
+    
+    
+    
          
    }

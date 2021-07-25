@@ -92,7 +92,8 @@ class Login {
  Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand']);
              header('location:/threeedu/view/admin/');  
         } else if ($user_type_id == 2) {
-            
+            Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand']);
+             header('location:/threeedu/view/student/'); 
         } else if ($user_type_id == 3) {
             
            if ( $User['PositionID'] == 1){

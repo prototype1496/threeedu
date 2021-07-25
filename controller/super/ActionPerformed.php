@@ -154,18 +154,7 @@
            
        }
          
-     
-      
-
-      
-       
-       
-      
-      
-      
-      
-    
-          
+        
  }    
  else if (isset ($_POST['btn_approve']) && $_POST['btn_approve'] == "btn_approve")
  {
