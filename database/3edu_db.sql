@@ -565,13 +565,13 @@ DELETE FROM `sequencemaster`;
 INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 6, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 60, '2019-11-01 20:00:03'),
+	(3, 'TOKN', 103, '2019-11-01 20:00:03'),
 	(4, 'EMIL', 3, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
 	(6, 'SCHL', 2, '2019-11-17 18:52:58'),
 	(7, 'TRD', 2, '2019-11-18 21:59:20'),
-	(8, 'STNO', 33, '2021-05-22 19:45:06'),
-	(9, 'SDNT', 28, '2021-05-22 20:49:17'),
+	(8, 'STNO', 39, '2021-05-22 19:45:06'),
+	(9, 'SDNT', 34, '2021-05-22 20:49:17'),
 	(10, 'STDT', 44, '2021-05-22 22:25:57');
 /*!40000 ALTER TABLE `sequencemaster` ENABLE KEYS */;
 
@@ -588,15 +588,16 @@ CREATE TABLE IF NOT EXISTS `session` (
   PRIMARY KEY (`SessionID`),
   KEY `FK_session_usermaster` (`UserMasterPublicID`),
   CONSTRAINT `FK_session_usermaster` FOREIGN KEY (`UserMasterPublicID`) REFERENCES `usermaster` (`PublicID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_db.session: ~3 rows (approximately)
 DELETE FROM `session`;
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
 INSERT INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(47, 'ADMIN00001', 'TOKN00000000047', '3c96bed5aeaa0cbb69ccafa5806ac2d989874a59d162d75520', '1625323314', 'a', '2021-07-03 16:41:54'),
-	(59, 'TECH0000000001', 'TOKN00000000059', '950cf8a74217b361a58fecbf39f51acee2c9dbf82c6958cdf5', '1625400107', 'h', '2021-07-04 14:01:47'),
-	(60, 'TECH0000000003', 'TOKN00000000060', '385483bdc9ef58e9836275d34ce43c2ed5cea59e0060b3fef8', '1625400250', 't', '2021-07-04 14:04:10');
+	(97, 'TECH0000000003', 'TOKN00000000097', 'ecc00456cb560b70c648147419258ff31aa634b89802014d45', '1627230660', 't', '2021-07-25 18:31:01'),
+	(101, 'TECH0000000001', 'TOKN000000000101', 'e62a71c3b87fd8c17c32383220548240ca8fcd85f5bdc36e99', '1627240034', 'h', '2021-07-25 21:07:14'),
+	(103, 'STUS00000000034', 'TOKN000000000103', 'e589cd37009e854be3bc9a85cf1a35d4270cfb603d7cdf5cb9', '1627240075', 'SDNT00000000034', '2021-07-25 21:07:55');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
@@ -611,9 +612,9 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   `UpdatedBy` varchar(50) NOT NULL,
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionHistoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~44 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~84 rows (approximately)
 DELETE FROM `sessionhistory`;
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
 INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -666,7 +667,50 @@ INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublic
 	(57, '57', 'TECH0000000001', 'TOKN00000000057', 'a04568cc059681d2c1c7d431d036c8c8e2cd57457af812ef63', '1625399625', 'h', '2021-07-04 13:53:45'),
 	(58, '58', 'TECH0000000003', 'TOKN00000000058', '973a56f1e4b3563c49ecd2e4ce830a467d0881c94a497af25f', '1625399928', 't', '2021-07-04 13:58:48'),
 	(59, '59', 'TECH0000000001', 'TOKN00000000059', '950cf8a74217b361a58fecbf39f51acee2c9dbf82c6958cdf5', '1625400107', 'h', '2021-07-04 14:01:47'),
-	(60, '60', 'TECH0000000003', 'TOKN00000000060', '385483bdc9ef58e9836275d34ce43c2ed5cea59e0060b3fef8', '1625400250', 't', '2021-07-04 14:04:10');
+	(60, '60', 'TECH0000000003', 'TOKN00000000060', '385483bdc9ef58e9836275d34ce43c2ed5cea59e0060b3fef8', '1625400250', 't', '2021-07-04 14:04:10'),
+	(61, '61', 'TECH0000000003', 'TOKN00000000061', 'e9839a00a13d7c51cb928f82d807418212bfa34bd72ce80585', '1625852046', 't', '2021-07-09 19:34:10'),
+	(62, '62', 'TECH0000000003', 'TOKN00000000062', 'e582596ab5022ff1c8ff3b39536242ba12e388de7742baafbf', '1626020411', 't', '2021-07-11 18:20:12'),
+	(63, '63', 'TECH0000000003', 'TOKN00000000063', 'b12cc83d3df9ee4589fefe47a18f03f0d156c0f5524deef1af', '1626023467', 't', '2021-07-11 19:11:07'),
+	(64, '64', 'TECH0000000003', 'TOKN00000000064', '8fccf5d1306ca3f9d270855f5e805b7ec655282661d921117c', '1626538160', 't', '2021-07-17 18:09:23'),
+	(65, '65', 'TECH0000000001', 'TOKN00000000065', '9500ac6d68ba995bbda5bfe62420b16868c1ad00c30d4a31a1', '1626538193', 'h', '2021-07-17 18:09:54'),
+	(66, '66', 'TECH0000000003', 'TOKN00000000066', 'd5c6f05ea9b8bb49321d9aee8612ad9ce0baa59bb091c04f77', '1626539954', 't', '2021-07-17 18:39:14'),
+	(67, '67', 'TECH0000000001', 'TOKN00000000067', '2b9004ecc4e0b4cc9360a9897db7670a5987b664cf6ef4654e', '1626540163', 'h', '2021-07-17 18:42:49'),
+	(68, '68', 'TECH0000000003', 'TOKN00000000068', '415308d7e8ade1e2de2fd9b812be44c330ddc474dd33a1c96f', '1626540491', 't', '2021-07-17 18:48:12'),
+	(69, '69', 'TECH0000000001', 'TOKN00000000069', '798b68af8622f789eb55d77ef94b3c1ebef25d9ea8aeeb4358', '1627207457', 'h', '2021-07-25 12:04:18'),
+	(70, '70', 'TECH0000000001', 'TOKN00000000070', 'ec14f4774ebef0ed1dc08142207c152dbe651a141bcb418a73', '1627209976', 'h', '2021-07-25 12:46:16'),
+	(71, '71', 'TECH0000000001', 'TOKN00000000071', '52f9274421838c0bf25753131309e39e14ed0e2acd81eccc66', '1627211060', 'h', '2021-07-25 13:04:20'),
+	(72, '72', 'TECH0000000001', 'TOKN00000000072', '34a55314106c765e6cd3b2b6ac7e681392facf19e4e1c29fed', '1627211112', 'h', '2021-07-25 13:05:13'),
+	(73, '73', 'TECH0000000001', 'TOKN00000000073', 'f31b1248dbe9ea69f0a57e59a21e3ec761b9fffad2dd190117', '1627211673', 'h', '2021-07-25 13:14:33'),
+	(74, '74', 'TECH0000000001', 'TOKN00000000074', 'e9a27e2ebec5fa67bd3059f421f8fe5dd4e1b84f5b1ff8f601', '1627212095', 'h', '2021-07-25 13:21:35'),
+	(75, '75', 'TECH0000000003', 'TOKN00000000075', 'dfae4038997c5bb9de0e27776b3805da767e97a1ec5dc8700e', '1627212109', 't', '2021-07-25 13:21:49'),
+	(76, '76', 'TECH0000000003', 'TOKN00000000076', '1e4663007f49721a27b4475e7006f00c2d9d06b0e0a05f6b79', '1627215591', 't', '2021-07-25 14:19:51'),
+	(77, '77', 'TECH0000000001', 'TOKN00000000077', 'a25b522cfb2c8ac69f7a84a39a4a7f28a90a419370572cc5cc', '1627216973', 'h', '2021-07-25 14:42:53'),
+	(78, '78', 'TECH0000000003', 'TOKN00000000078', '213d62184c839c87c2a1aff77ae8405f00d66ff2140feeaca1', '1627216983', 't', '2021-07-25 14:43:03'),
+	(79, '79', 'TECH0000000003', 'TOKN00000000079', '61a21819dd4360ffd5d5b720d252a16104e65f3d2c3694ae0f', '1627218184', 't', '2021-07-25 15:03:05'),
+	(80, '80', 'TECH0000000003', 'TOKN00000000080', '6ce9e591ac49abaa9ed6d514e7d0f983faea9a0850d101f804', '1627218200', 't', '2021-07-25 15:03:20'),
+	(81, '81', 'TECH0000000003', 'TOKN00000000081', 'bada1a04e02075cdcfd7d21df02ed623ee86274d083cd8c487', '1627218718', 't', '2021-07-25 15:11:58'),
+	(82, '82', 'TECH0000000001', 'TOKN00000000082', '7e0288c40f1f71d98623024fb99a56b1d00dba183ff0797275', '1627218741', 'h', '2021-07-25 15:12:21'),
+	(83, '83', 'TECH0000000001', 'TOKN00000000083', '99444833d73382a4e0255266d687c324daad76568b35b899e3', '1627218745', 'h', '2021-07-25 15:12:25'),
+	(84, '84', 'TECH0000000003', 'TOKN00000000084', '643cfc7180aba84ce90506120367215e050d6498184e1a6e2f', '1627218773', 't', '2021-07-25 15:12:53'),
+	(85, '85', 'TECH0000000003', 'TOKN00000000085', '676a9e1bf554fcb71789c553ed0b22d3576449e2aee5a4ca3a', '1627218877', 't', '2021-07-25 15:14:37'),
+	(86, '86', 'TECH0000000003', 'TOKN00000000086', '6af7fa662176edce55df59b1d882a7ae7889622044b61c4500', '1627218893', 't', '2021-07-25 15:14:53'),
+	(87, '87', 'TECH0000000003', 'TOKN00000000087', 'c62160da6595350ee8eb9fb7cc0c1f9fbf07b926e8f68d3640', '1627218919', 't', '2021-07-25 15:15:19'),
+	(88, '88', 'TECH0000000003', 'TOKN00000000088', '59dccfc813245714794622e78c6bd25a0e2cb7f789f46dd969', '1627218981', 't', '2021-07-25 15:16:21'),
+	(89, '89', 'TECH0000000003', 'TOKN00000000089', 'c044b8d7f7d8a78e22aa22bf371a9ceaf5fee172d6ef1fc260', '1627219010', 't', '2021-07-25 15:16:50'),
+	(90, '90', 'TECH0000000001', 'TOKN00000000090', '05b6a12f20c14aa486e693014c11e69b0e2b7c64a12ab64a11', '1627226848', 'h', '2021-07-25 17:27:28'),
+	(91, '91', 'TECH0000000001', 'TOKN00000000091', '3ecadd43b2131f4811c09c59527347bdc7913f071062df8a30', '1627226884', 'h', '2021-07-25 17:28:04'),
+	(92, '92', 'TECH0000000001', 'TOKN00000000092', '57f4866799fd4d4fb32f163fb73d69fe557e64d7a31170f8cd', '1627227889', 'h', '2021-07-25 17:44:49'),
+	(93, '93', 'TECH0000000001', 'TOKN00000000093', '87b505a911ca1da13a78916ba253a88882d391f6678619c687', '1627228055', 'h', '2021-07-25 17:47:35'),
+	(94, '94', 'TECH0000000001', 'TOKN00000000094', '4ae66c48e7c3be0f82f9a6a5e3c843172dcb95748a1bd8e356', '1627228576', 'h', '2021-07-25 17:56:16'),
+	(95, '95', 'TECH0000000001', 'TOKN00000000095', 'fa72ccf677ad4f54245f09ad3fe610205b4f172fcdd474d343', '1627228859', 'h', '2021-07-25 18:00:59'),
+	(96, '96', 'TECH0000000001', 'TOKN00000000096', '11f03d3bc2812561c8be7c0a73dfce423eedd8b2b20d237c85', '1627230516', 'h', '2021-07-25 18:28:36'),
+	(97, '97', 'TECH0000000003', 'TOKN00000000097', 'ecc00456cb560b70c648147419258ff31aa634b89802014d45', '1627230660', 't', '2021-07-25 18:31:01'),
+	(98, '98', 'STUS00000000034', 'TOKN00000000098', '56e4ec5c2ccb1c4daf14a348437138a4cd93532a228fa520f7', '1627237449', 'SDNT00000000034', '2021-07-25 20:24:09'),
+	(99, '99', 'STUS00000000034', 'TOKN00000000099', '416beeae876d173799411a27f2ee229546d66d6f74e92e3172', '1627238899', 'SDNT00000000034', '2021-07-25 20:48:20'),
+	(100, '100', 'TECH0000000001', 'TOKN000000000100', '612f46d51e316e38f8b3682ab8832b07c30a2bffadb05d942a', '1627239677', 'h', '2021-07-25 21:01:17'),
+	(101, '101', 'TECH0000000001', 'TOKN000000000101', 'e62a71c3b87fd8c17c32383220548240ca8fcd85f5bdc36e99', '1627240034', 'h', '2021-07-25 21:07:14'),
+	(102, '102', 'STUS00000000034', 'TOKN000000000102', '348ed20b94f8f9d0ee4c1371acb45074d6597d6a693e115d95', '1627240056', 'SDNT00000000034', '2021-07-25 21:07:36'),
+	(103, '103', 'STUS00000000034', 'TOKN000000000103', 'e589cd37009e854be3bc9a85cf1a35d4270cfb603d7cdf5cb9', '1627240075', 'SDNT00000000034', '2021-07-25 21:07:55');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster
@@ -786,9 +830,9 @@ CREATE TABLE IF NOT EXISTS `studentmaster` (
   CONSTRAINT `FK_studentmaster_classmaster` FOREIGN KEY (`ClassMasterPublicID`) REFERENCES `classmaster` (`ClassMasterPublicID`) ON UPDATE CASCADE,
   CONSTRAINT `FK_studentmaster_gendermaster` FOREIGN KEY (`GenderID`) REFERENCES `gendermaster` (`GenderMasterID`) ON UPDATE CASCADE,
   CONSTRAINT `FK_studentmaster_maritalstatusmaster` FOREIGN KEY (`MaritalStatusID`) REFERENCES `maritalstatusmaster` (`MaritalStatusMasterID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.studentmaster: ~7 rows (approximately)
+-- Dumping data for table 3edu_db.studentmaster: ~11 rows (approximately)
 DELETE FROM `studentmaster`;
 /*!40000 ALTER TABLE `studentmaster` DISABLE KEYS */;
 INSERT INTO `studentmaster` (`StudentMasterID`, `StudentMasterPublicID`, `ProfilePic`, `StudentNo`, `FirstName`, `LastName`, `OtherName`, `GenderID`, `MaritalStatusID`, `ClassMasterPublicID`, `DOB`, `EmailAddress`, `GuardianContactNo`, `GuardianMaleName`, `GuardianFemaleName`, `Address`, `UpdatedBy`, `UpdatedOn`, `Year`, `IsActive`) VALUES
@@ -798,7 +842,12 @@ INSERT INTO `studentmaster` (`StudentMasterID`, `StudentMasterPublicID`, `Profil
 	(20, 'SDNT00000000018', '../../uploads/defult.png', '3EDU202100023', 'Myday', 'Kasalwe', NULL, 2, 1, 'CLAS0000000004', '2004-05-14', NULL, '0977100587', 'Mwamba Liabwa Banda', NULL, 'Luska Zambia', 'a', '2021-05-23 00:13:35', '2021', '1'),
 	(22, 'SDNT00000000026', '../../uploads/defult.png', '3EDU202100031', 'Emmanuel', 'Mwando', 'Lukulu', 1, 2, 'CLAS0000000013', '2021-05-07', NULL, '0977100587', 'sdsd', NULL, 'Lusaka, Chelenge', 'a', '2021-05-23 00:31:30', '2021', '1'),
 	(24, 'SDNT00000000028', '../../uploads/3EDU202100033_lady.png', '3EDU202100033', 'Test', 'Pupile', NULL, 1, 4, 'CLAS0000000013', '2000-01-01', 'alinuswemwandobo@gmail.com4', '0977100587', 'Mwamba Liabwa Banda', 'Mwape Liabwa', 'Lusaka, Chelenge', 'a', '2021-05-23 21:59:44', '2021', '1'),
-	(27, 'SDNT00000000029', '../../uploads/defult.png', '3EDU202100034', 'Mwazube', 'Mkonde', NULL, 1, 4, 'CLAS0000000008', '2021-07-04', NULL, '', 'Mwaba Kaenga', NULL, 'Lusaka Xelston', 'a', '2021-07-04 12:03:36', '2021', '1');
+	(27, 'SDNT00000000029', '../../uploads/defult.png', '3EDU202100034', 'Mwazube', 'Mkonde', NULL, 1, 4, 'CLAS0000000008', '2021-07-04', NULL, '', 'Mwaba Kaenga', NULL, 'Lusaka Xelston', 'a', '2021-07-04 12:03:36', '2021', '1'),
+	(29, 'SDNT00000000030', '../../uploads/defult.png', '3EDU202100035', 'Test', 'Test', NULL, 1, 4, 'CLAS0000000004', '1996-06-06', 'prottype1496@gmail.com', '0977100587', 'Mwamba Liabwa Banda', 'Banda', '204 B provident road Fairview', 'h', '2021-07-17 18:29:03', '2021', '1'),
+	(30, 'SDNT00000000031', '../../uploads/defult.png', '3EDU202100036', 'Test', 'Test', NULL, 1, 4, 'CLAS0000000004', '1996-06-06', 'prottype1496@gmail.com', '0977100587', 'Mwamba Liabwa Banda', 'Banda', '204 B provident road Fairview', 'h', '2021-07-17 18:30:02', '2021', '1'),
+	(31, 'SDNT00000000032', '../../uploads/defult.png', '3EDU202100037', 'Test', 'Test', NULL, 1, 4, 'CLAS0000000004', '1996-06-06', 'prottype1496@gmail.com', '0977100587', 'Mwamba Liabwa Banda', 'Banda', '204 B provident road Fairview', 'h', '2021-07-17 18:32:03', '2021', '1'),
+	(32, 'SDNT00000000033', '../../uploads/defult.png', '3EDU202100038', 'Test', 'Test', NULL, 1, 4, 'CLAS0000000008', '1996-06-06', 'prottype1496@gmail.com', '0977100587', 'Mwamba Liabwa Banda', 'Banda', '204 B provident road Fairview', 'h', '2021-07-17 18:34:03', '2021', '1'),
+	(33, 'SDNT00000000034', '../../uploads/defult.png', '3EDU202100039', 'mwakala', 'Mwansa', NULL, 1, 1, 'CLAS0000000005', '1996-12-31', 'prototype1496@gmail.com', '0977100587', 'Mwamba Liabwa Banda', 'Mwando', 'Lusaka, Chelenge', 'h', '2021-07-25 12:13:39', '2021', '1');
 /*!40000 ALTER TABLE `studentmaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.studnetassesment
@@ -939,13 +988,16 @@ CREATE TABLE IF NOT EXISTS `teacherdocument` (
   PRIMARY KEY (`TeacherdocumentID`),
   KEY `FK_teacherdocument_comboboxvaluemaster` (`DocumentTypeID`),
   CONSTRAINT `FK_teacherdocument_comboboxvaluemaster` FOREIGN KEY (`DocumentTypeID`) REFERENCES `comboboxvaluemaster` (`ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.teacherdocument: ~2 rows (approximately)
+-- Dumping data for table 3edu_db.teacherdocument: ~3 rows (approximately)
 DELETE FROM `teacherdocument`;
 /*!40000 ALTER TABLE `teacherdocument` DISABLE KEYS */;
 INSERT INTO `teacherdocument` (`TeacherdocumentID`, `Title`, `DocumentTypeID`, `DocumentURL`, `IsApproved`, `AddedBy`, `LastUpdatedBy`, `AddedOn`, `UpdatedOn`) VALUES
-	(5, '', '1', '', '0', 't', 't', '2021-07-04 04:46:13', '2021-07-04 05:47:56');
+	(5, '', '1', '', '0', 't', 't', '2021-07-04 04:46:13', '2021-07-04 05:47:56'),
+	(11, 'Ali Mwanza Lesson Plan', '1', '../../documents_uploads/TECH0000000003_pdf-test.pdf', '0', 't', 't', '2021-07-17 18:40:52', '2021-07-17 18:40:52'),
+	(13, 'Ali Mwanza Lesson Plan', '1', '../../documents_uploads/TECH0000000003_60f30b96aebd7LeaveForm.pdf', '0', 't', 't', '2021-07-17 18:55:50', '2021-07-17 18:55:50'),
+	(14, 'Ali Mwanza Lesson Plan', '1', '../../documents_uploads/TECH0000000003_60f30ba41a30dLeaveForm.pdf', '0', 't', 't', '2021-07-17 18:56:04', '2021-07-17 18:56:04');
 /*!40000 ALTER TABLE `teacherdocument` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.teachermaster
@@ -1026,10 +1078,10 @@ INSERT INTO `timetabledetails` (`TimeTableDetailsID`, `TimeTableMaterD`, `Monday
 	(3, 6, 'SCEN', 'RE110', 'ZMLG', NULL, 'MATH', 't', '2021-07-03 16:32:41', '2021-06-27 13:23:57'),
 	(4, 7, 'ADMA', NULL, 'MATH', 'MATH', 'MATH', 't', '2021-07-04 13:41:18', '2021-06-27 13:24:18'),
 	(5, 10, 'MATH', 'ENG', NULL, NULL, NULL, 't', '2021-07-04 13:40:37', '2021-06-28 04:44:47'),
-	(6, 8, 'MATH', 'CMST', 'ADMA', 'ADMA', 'ADMA', 't', '2021-07-03 16:02:26', '2021-06-28 04:46:08'),
-	(7, 9, 'MATH', 'CMST', NULL, NULL, NULL, 't', '2021-07-03 16:02:26', '2021-07-03 13:18:46'),
-	(10, 12, 'ENG', 'ITSC', NULL, NULL, NULL, 't', '2021-07-03 16:02:26', '2021-07-03 13:19:32'),
-	(11, 13, 'ENG', 'ITSC', NULL, NULL, NULL, 't', '2021-07-03 16:02:26', '2021-07-03 13:19:47');
+	(6, 8, 'MATH', 'CMST', 'ITSC', 'ADMA', 'ADMA', 't', '2021-07-10 12:35:20', '2021-06-28 04:46:08'),
+	(7, 9, 'MATH', 'CMST', 'CMST', NULL, NULL, 't', '2021-07-10 12:35:20', '2021-07-03 13:18:46'),
+	(10, 12, 'ENG', 'ITSC', 'CMST', NULL, NULL, 't', '2021-07-10 12:35:20', '2021-07-03 13:19:32'),
+	(11, 13, 'ENG', 'ITSC', 'SCST', NULL, NULL, 't', '2021-07-10 12:35:20', '2021-07-03 13:19:47');
 /*!40000 ALTER TABLE `timetabledetails` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.timetablemaster
@@ -1127,7 +1179,7 @@ DELETE FROM `usermaster`;
 INSERT INTO `usermaster` (`UserMasterID`, `PublicID`, `NRC`, `Passport`, `UserName`, `Password`, `FirstName`, `LastName`, `OtherName`, `EmailAddress`, `ContactNo`, `GenderID`, `MaritalStatusID`, `DOB`, `UserTypeID`, `UpdatedBy`, `UpdatedOn`, `IsActive`, `LoginAttempts`, `IsLocked`) VALUES
 	(1, 'TECH0000000001', '55445/16/1', 'cc', 'h', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Head', 'System', 'Teacher', 'prototype1496@gmail.com', '988755487', 1, 4, '1997-01-02', 3, 'Sys', '2019-11-14 08:56:25', '1', '0', '0'),
 	(2, 'TECH0000000003', '515151/8/8', '74444/45/45', 't', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Alinuswe', 'Mwandobo', NULL, 'alinuswemwandobo@gmail.com', '977100587', 1, 1, '1996-01-01', 3, 'admin', '2020-11-20 11:52:45', '1', '0', '0'),
-	(4, '202000041', NULL, NULL, 's', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Student', 'Grace', NULL, NULL, '09771258789', 2, 4, '1996-05-16', 3, 'Sys', '2021-05-16 11:43:28', '1', '0', '0'),
+	(4, 'STUS00000000034', NULL, NULL, 'SDNT00000000034', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Student', 'Grace', NULL, NULL, '09771258789', 2, 4, '1996-05-16', 2, 'Sys', '2021-05-16 11:43:28', '1', '0', '0'),
 	(5, 'ADMIN00001', NULL, NULL, 'a', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'System', 'Admin', NULL, 'sys@gmail.com', '097758568', 1, 4, '2021-06-18', 1, 'sys', '2021-06-18 11:00:21', '1', '0', '0');
 /*!40000 ALTER TABLE `usermaster` ENABLE KEYS */;
 
@@ -1139,13 +1191,14 @@ CREATE TABLE IF NOT EXISTS `usertypemaster` (
   `IsActive` char(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`UserTypeMasterID`),
   UNIQUE KEY `UserType` (`UserType`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.usertypemaster: ~2 rows (approximately)
+-- Dumping data for table 3edu_db.usertypemaster: ~3 rows (approximately)
 DELETE FROM `usertypemaster`;
 /*!40000 ALTER TABLE `usertypemaster` DISABLE KEYS */;
 INSERT INTO `usertypemaster` (`UserTypeMasterID`, `UserType`, `IsActive`) VALUES
 	(1, 'Admin', '1'),
+	(2, 'Student', '1'),
 	(3, 'Teacher', '1');
 /*!40000 ALTER TABLE `usertypemaster` ENABLE KEYS */;
 
@@ -2179,6 +2232,28 @@ BEGIN
 		UPDATE usermaster SET `Password` = password_, IsActive = 1 WHERE UserName = username_;
 		
 		UPDATE teachermaster SET IsActive = 1 WHERE PublicUserID = @PUBLICID ;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.UpdatePasswordByUserPublicID
+DROP PROCEDURE IF EXISTS `UpdatePasswordByUserPublicID`;
+DELIMITER //
+CREATE PROCEDURE `UpdatePasswordByUserPublicID`(
+	IN `userpublic_id` VARCHAR(50),
+	IN `password_` VARCHAR(300)
+)
+BEGIN
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION
+		BEGIN
+		     SELECT 0 AS message;
+		     ROLLBACK;
+		END;
+		
+	
+		
+		UPDATE usermaster SET `Password` = password_, IsActive = 1,IsLocked = 0,LoginAttempts=0 WHERE PublicID = userpublic_id;
+		
+		
 END//
 DELIMITER ;
 
