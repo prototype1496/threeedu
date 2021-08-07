@@ -600,7 +600,7 @@ DELETE FROM `sequencemaster`;
 INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 6, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 84, '2019-11-01 20:00:03'),
+	(3, 'TOKN', 85, '2019-11-01 20:00:03'),
 	(4, 'EMIL', 3, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
 	(6, 'SCHL', 2, '2019-11-17 18:52:58'),
@@ -623,7 +623,7 @@ CREATE TABLE IF NOT EXISTS `session` (
   PRIMARY KEY (`SessionID`),
   KEY `FK_session_usermaster` (`UserMasterPublicID`),
   CONSTRAINT `FK_session_usermaster` FOREIGN KEY (`UserMasterPublicID`) REFERENCES `usermaster` (`PublicID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_db.session: ~6 rows (approximately)
 DELETE FROM `session`;
@@ -634,7 +634,7 @@ INSERT INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`,
 	(74, 'TECH0000000003', 'TOKN00000000074', 'fc29373414e5d2ba23089885b0cb0abe94c10f1c680a2327d0', '1628347552', 't', '2021-08-07 16:45:52'),
 	(77, 'SDNT00000000031', 'TOKN00000000077', '4234fdf4462f819da6f9e4e3c2bb0b2c656222d57752d733bb', '1628354160', '3EDU202100036', '2021-08-07 18:36:00'),
 	(82, 'TECH0000000001', 'TOKN00000000082', '8ab497349cfedd82b5024c3ede3c6b2f686b5b4a5468751bcc', '1628355502', 'h', '2021-08-07 18:58:22'),
-	(84, 'ITADM00001', 'TOKN00000000084', 'a4d23a9893b4b3eef0c931f8aefea4e8f732ac7c7b8cae7aa6', '1628358333', 'it', '2021-08-07 19:45:33');
+	(85, 'ITADM00001', 'TOKN00000000085', 'fdb5e50478e627a5f04f784c764ddbf2fea5864fa88cfc2991', '1628366938', 'it', '2021-08-07 22:08:58');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
@@ -649,9 +649,9 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   `UpdatedBy` varchar(50) NOT NULL,
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionHistoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~74 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~75 rows (approximately)
 DELETE FROM `sessionhistory`;
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
 INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -728,7 +728,8 @@ INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublic
 	(81, '81', 'ITADM00001', 'TOKN00000000081', 'f2a765a3e4185763dc728dc5c5edbfc4a7a1018167f6a78b06', '1628355230', 'it', '2021-08-07 18:53:50'),
 	(82, '82', 'TECH0000000001', 'TOKN00000000082', '8ab497349cfedd82b5024c3ede3c6b2f686b5b4a5468751bcc', '1628355502', 'h', '2021-08-07 18:58:22'),
 	(83, '83', 'ITADM00001', 'TOKN00000000083', '622fb2b5bc6b0b38dcff55731cfb8a2dbc5e74a9820feed247', '1628355532', 'it', '2021-08-07 18:58:52'),
-	(84, '84', 'ITADM00001', 'TOKN00000000084', 'a4d23a9893b4b3eef0c931f8aefea4e8f732ac7c7b8cae7aa6', '1628358333', 'it', '2021-08-07 19:45:33');
+	(84, '84', 'ITADM00001', 'TOKN00000000084', 'a4d23a9893b4b3eef0c931f8aefea4e8f732ac7c7b8cae7aa6', '1628358333', 'it', '2021-08-07 19:45:33'),
+	(85, '85', 'ITADM00001', 'TOKN00000000085', 'fdb5e50478e627a5f04f784c764ddbf2fea5864fa88cfc2991', '1628366938', 'it', '2021-08-07 22:08:58');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster
@@ -1074,14 +1075,15 @@ CREATE TABLE IF NOT EXISTS `tenantmaster` (
   `IsActive` char(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`TenantMasterID`),
   UNIQUE KEY `TenantID` (`TenantID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.tenantmaster: ~2 rows (approximately)
+-- Dumping data for table 3edu_db.tenantmaster: ~3 rows (approximately)
 DELETE FROM `tenantmaster`;
 /*!40000 ALTER TABLE `tenantmaster` DISABLE KEYS */;
 INSERT INTO `tenantmaster` (`TenantMasterID`, `TenantID`, `TenantName`, `UpdatedOn`, `IsActive`) VALUES
 	(1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'Lusaka Secondary School ', '2021-08-07 19:10:57', '1'),
-	(2, 'a29294e8-f7a1-11eb-a81c-1062e5c23529', 'Test School ', '2021-08-07 19:11:28', '1');
+	(2, 'a29294e8-f7a1-11eb-a81c-1062e5c23529', 'Test School ', '2021-08-07 19:11:28', '1'),
+	(3, '3edu_29294e8-f7a1-11eb-a81c-1062e5c23520', '3Eedu Admin', '2021-08-07 21:42:07', '1');
 /*!40000 ALTER TABLE `tenantmaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.timetabledetails
@@ -1605,6 +1607,37 @@ BEGIN
 		SELECT   CT.CountryID		AS 'CountryID',
 					CT.ConuntryCode 	AS 'ConuntryCode'
 		FROM country CT WHERE CT.IsActive=1;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetDashboardUserCounts
+DROP PROCEDURE IF EXISTS `GetDashboardUserCounts`;
+DELIMITER //
+CREATE PROCEDURE `GetDashboardUserCounts`(
+	IN `TENANTID_` VARCHAR(400)
+)
+BEGIN
+SET @TENANTID = TENANTID_;
+
+SET @TOTALUSERS = (SELECT COUNT(UM.UserMasterID) FROM usermaster UM WHERE UM.TenantID = @TENANTID AND UM.IsActive = 1);
+SET @TOTALUSERSUPDATEDATE = (SELECT MAX(UM.UpdatedOn) FROM usermaster UM WHERE UM.TenantID = @TENANTID AND UM.IsActive = 1);
+
+SET @TOTALSTUDENTS = (SELECT COUNT(UM.UserMasterID) FROM usermaster UM WHERE UM.TenantID = @TENANTID AND UM.IsActive = 1 AND UM.UserTypeID = 2);
+SET @TOTALSTUDENTSUPDATEDATE = (SELECT MAX(UM.UpdatedOn) FROM usermaster UM WHERE UM.TenantID = @TENANTID AND UM.IsActive = 1 AND UM.UserTypeID = 2);
+
+SET @TOTALTEACHERS = (SELECT COUNT(UM.UserMasterID) FROM usermaster UM WHERE UM.TenantID = @TENANTID AND UM.IsActive = 1 AND UM.UserTypeID = 3);
+SET @TOTALTEACHERSUPDATEDATE = (SELECT MAX(UM.UpdatedOn) FROM usermaster UM WHERE UM.TenantID = @TENANTID AND UM.IsActive = 1 AND UM.UserTypeID = 3);
+
+SELECT @TOTALUSERS 																		AS 'TotalUsers',
+		 DATE_FORMAT(@TOTALUSERSUPDATEDATE, "%d %b, %Y %H:%m")	      	AS 'LastUpdatedDateTotalUsers',
+		 
+	 	 @TOTALSTUDENTS 																	AS 'TotalStudents',
+	 	  DATE_FORMAT(@TOTALSTUDENTSUPDATEDATE, "%d %b, %Y %H:%m")	   AS 'LastUpdatedDateTotalUsers',
+	 	  
+		 @TOTALTEACHERS 																	AS 'TotalTeachers',
+		  DATE_FORMAT(@TOTALTEACHERSUPDATEDATE, "%d %b, %Y %H:%m")	   AS 'LastUpdatedDateTotalUsers';
+		  
+		  
 END//
 DELIMITER ;
 

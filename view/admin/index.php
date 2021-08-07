@@ -1,4 +1,12 @@
-<?php require '../../controller/super/SessionStart.php'; ?>
+<?php 
+    require_once  '../../controller/super/SessionStart.php'; 
+    require  '../../controller/super/SessionSet.php'; 
+    require_once '../../db_connection/dbconfig.php'; 
+     require_once '../../model/SuperModel.php'; 
+     $tenant_id = $_SESSION['threeedu_tenantid'];
+     $usercount_data = SuperModel::get_dashboard_count_by_tenenat_id($tenant_id);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -109,15 +117,91 @@
 
 
                                             <div class="row">
-
-                                                <div class="col-xl-12 col-md-12">
+                                                    <div class="col-xl-3 col-md-6">
+                                                <div class="card bg-c-yellow update-card">
+                                                    <div class="card-block">
+                                                        <div class="row align-items-end">
+                                                            <div class="col-8">
+                                                                <h4 class="text-white"><?php echo $usercount_data['TotalUsers']; ?></h4>
+                                                                <h6 class="text-white m-b-0">All Users</h6>
+                                                            </div>
+                                                            <div class="col-4 text-right">
+                                                                <canvas id="update-chart-1" height="50"></canvas>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update :<?php echo $usercount_data['LastUpdatedDateTotalUsers']; ?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                
+                                                <div class="col-xl-3 col-md-6">
+                                                <div class="card bg-c-green update-card">
+                                                    <div class="card-block">
+                                                        <div class="row align-items-end">
+                                                            <div class="col-8">
+                                                                <h4 class="text-white"><?php echo $usercount_data['TotalStudents']; ?></h4>
+                                                                <h6 class="text-white m-b-0">All Students</h6>
+                                                            </div>
+                                                            <div class="col-4 text-right">
+                                                                <canvas id="update-chart-1" height="50"></canvas>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update : <?php echo $usercount_data['LastUpdatedDateTotalUsers']; ?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                
+                                                <div class="col-xl-3 col-md-6">
+                                                <div class="card bg-c-blue update-card">
+                                                    <div class="card-block">
+                                                        <div class="row align-items-end">
+                                                            <div class="col-8">
+                                                                <h4 class="text-white"><?php echo $usercount_data['TotalTeachers']; ?></h4>
+                                                                <h6 class="text-white m-b-0">All Teachers</h6>
+                                                            </div>
+                                                            <div class="col-4 text-right">
+                                                                <canvas id="update-chart-1" height="50"></canvas>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update :<?php echo $usercount_data['LastUpdatedDateTotalUsers']; ?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                
+                                                <div class="col-xl-3 col-md-6">
+                                                <div class="card bg-c-pink update-card">
+                                                    <div class="card-block">
+                                                        <div class="row align-items-end">
+                                                            <div class="col-8">
+                                                                <h4 class="text-white">Loading....</h4>
+                                                                <h6 class="text-white m-b-0">Total Classes</h6>
+                                                            </div>
+                                                            <div class="col-4 text-right">
+                                                                <canvas id="update-chart-1" height="50"></canvas>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                
+                                                
+<!--                                                <div class="col-xl-12 col-md-12">
                                                     <div class="card bg-c-white  text-white">
                                                         <div class="card-block">
                                                             <div class="row align-items-center">
                                                                 <div class="col">
 
                                                                     <div class="big-icon">
-<!--                                                                        <img src="../../img/Home.png" />-->
+                                                                        <img src="../../img/Home.png" />
                                                                     </div>
 
                                                                 </div>
@@ -125,7 +209,7 @@
                                                         </div>
                                                     </div>
 
-                                                </div>
+                                                </div>-->
 
                                                 <!--<div class="col-xl-3 col-md-6">
                                                     <a href="viwestudent.php">
