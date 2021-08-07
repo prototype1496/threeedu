@@ -1,6 +1,17 @@
 <nav class="pcoded-navbar">
 <div class="pcoded-inner-navbar main-menu">
-<div class="pcoded-navigatio-lavel">Head Teacher Account</div>
+<div class="pcoded-navigatio-lavel"> 
+   <?php
+            if ($_SESSION['threeedu_user_id'] == 1)
+                {
+                 echo 'Head Teacher Account';
+                } 
+            else if ($_SESSION['threeedu_user_id'] == 4) 
+                {
+                        echo 'IT Admin Account';
+                }
+        ?>
+</div>
 <ul class="pcoded-item pcoded-left-item">
 <li class="pcoded-hasmenu ">
 <a href="javascript:void(0)">

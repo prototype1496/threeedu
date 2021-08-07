@@ -2,7 +2,7 @@
 require '../../controller/super/SessionStart.php'; 
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/TeacherModel.php';
-$stm = TeacherModel::get_all_seqences();
+$stm = TeacherModel::get_all_student_details();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,7 +112,7 @@ $stm = TeacherModel::get_all_seqences();
                         {
                             require './itadminsidbar.php';
                         }
-    ?>
+                        ?>
 <!--side bar end  --> 
 
 <div class="pcoded-content">
@@ -138,13 +138,8 @@ $stm = TeacherModel::get_all_seqences();
 <div class="col-sm-12">
 
 <div class="card">
-    <hr>
     <div class="card-header ">
-        <hr>   
-        <form method="POST" action="../../controller/super/ActionPerformed.php">
-            <input placeholder="Enter Sequnce Start"  maxlength="4" oninput="this.value = this.value.toUpperCase()"  name="sequnce_code" class="form-control"/><br>
-            <button value="btn_sequnce" name="btn_sequnce" class="btn btn-info">Add Sequnce</button>
-            </form>
+        <h4>Students Information </h4>      
    <hr>     
     </div>
 <div class="card-block">
@@ -152,29 +147,32 @@ $stm = TeacherModel::get_all_seqences();
 <table id="excel-bg" class="table table-striped table-bordered nowrap">
 <thead>
 <tr>
-<th>Sequence Master ID</th>
-<th>Sequnce Code</th>
+<th>Student No.</th>
+<th>Name</th>
 
+<th>Contact No.</th>
+<th>DOB</th>
 
-
-
+<th></th>
 </tr>
 </thead>
 <tbody>
       <?php while($row = $stm->fetch(PDO::FETCH_ASSOC))
                             
                     {
-                         
+                          $public_id = $row['PublicID'];
                             ?>
 <tr>
-     
-         <td><?php echo $row['SequenceMasterID'];?></td>
+     <td><?php echo $public_id;?></td>
+         <td><?php echo $row['Name'];?></td>
         
-        <td ><?php echo $row['SequnceCode'];?></td>
-       
+        <td ><?php echo $row['ContactNo'];?></td>
+        <td ><?php echo $row['DOB'];?></td>
        
 
-
+<td>
+    <button onclick="redirectWithID('<?php echo $public_id;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-eye"></i></button>
+  </td>
 </tr>
 
      <?php } ?>
@@ -186,8 +184,12 @@ $stm = TeacherModel::get_all_seqences();
 </tbody>
 <tfoot>
 <tr>
-<th>Sequence Master ID</th>
-<th>Sequnce Code</th>
+<th>Student No.</th>
+<th>Name</th>
+
+<th>Contact No.</th>
+<th>DOB</th>
+<th></th>
 </tr>
 </tfoot>
 </table>
@@ -304,7 +306,7 @@ $stm = TeacherModel::get_all_seqences();
 
 <script>
  function redirectWithID(id){
-         window.location.href = "/threeedu/view/headteacher/profile.php?id="+id;
+         window.location.href = "/threeedu/view/admin/profile.php?id="+id;
         
     }
 </script>

@@ -40,7 +40,7 @@
            $female_gardian_name = trim(filter_input(INPUT_POST, 'female_gardian_name', FILTER_DEFAULT));
            $gardian_contact_no = trim(filter_input(INPUT_POST, 'gardian_contact_no', FILTER_DEFAULT));
            $address = trim(filter_input(INPUT_POST, 'address', FILTER_DEFAULT));
-           
+           $userid_redirect = trim(filter_input(INPUT_POST, 'userid_redirect', FILTER_DEFAULT));
            
            
             if (!isset($other_name) || $other_name == Null || $other_name == "" ){
@@ -86,6 +86,9 @@
        if (SuperModel::regiter_pupil($first_name, $last_name,$other_name, $gender_id,$dob,$marital_status_id,$class_id,$subject_code_1,$subject_code_2,$subject_code_3,$subject_code_4,$subject_code_5,$subject_code_6,$subject_code_7,$subject_code_8,$male_gardian_name,$female_gardian_name,$gardian_contact_no,$address,$StudentMasterPublicID,$StudentNo,$location.$file_new_name,$UpdatedBy,$email_address))
         {
             move_uploaded_file($file_temp, $location.$file_new_name);
+            
+           
+            
             echo "<script>               
             $(document).ready(
              
@@ -95,7 +98,7 @@
             sticky: false,
             header: 'Success',
             theme: 'jnoty-success',
-            close: function() {window.location.replace('/threeedu/view/headteacher/studentregistration.php')},
+            close: function() {window.location.replace('/threeedu/view/admin/studentregistration.php')},
             });   
             }); 
             </script>";
@@ -110,7 +113,7 @@
             sticky: false,
             header: 'Erro',
             theme: 'jnoty-danger',
-            close: function() {window.location.replace('/threeedu/view/headteacher/studentregistration.php')},
+            close: function() {window.location.replace('/threeedu/view/admin/studentregistration.php')},
             });   
             }); 
             </script>";
@@ -131,7 +134,7 @@
             sticky: false,
             header: 'Success',
             theme: 'jnoty-success',
-            close: function() {window.location.replace('/threeedu/view/headteacher/studentregistration.php')},
+            close: function() {window.location.replace('/threeedu/view/admin/studentregistration.php')},
             });   
             }); 
             </script>";
@@ -146,7 +149,7 @@
             sticky: false,
             header: 'Erro',
             theme: 'jnoty-danger',
-            close: function() {window.location.replace('/threeedu/view/headteacher/studentregistration.php')},
+            close: function() {window.location.replace('/threeedu/view/admin/studentregistration.php')},
             });   
             }); 
             </script>";
@@ -805,7 +808,16 @@ else if (isset ($_POST['btn_accessment']))
            header("Location:/threeedu/view/teacher/viwetimetable.php?classmasterid=$classmaster_id");
            
            
-        }else if (isset ($_POST['btn_load_time_table_student'])){
+        }else if (isset ($_POST['btn_load_time_table_admin'])){
+            
+            $classmaster_id = trim(filter_input(INPUT_POST, 'classid', FILTER_DEFAULT));
+            //echo $classmaster_id;
+           header("Location:/threeedu/view/admin/viwetimetable.php?classmasterid=$classmaster_id");
+           
+           
+        }
+        
+        else if (isset ($_POST['btn_load_time_table_student'])){
             
             $classmaster_id = trim(filter_input(INPUT_POST, 'classid', FILTER_DEFAULT));
             //echo $classmaster_id;

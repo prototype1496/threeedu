@@ -89,12 +89,17 @@ class Login {
         $user_type_id = $User['UserTypeID'];
         
         if ($user_type_id == 1) {
- Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand']);
+ Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id);
              header('location:/threeedu/view/admin/');  
         } else if ($user_type_id == 2) {
-            Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand']);
+            Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id);
              header('location:/threeedu/view/student/'); 
-        } else if ($user_type_id == 3) {
+        } 
+        else if ($user_type_id == 4) {
+            Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id);
+              header('location:/threeedu/view/admin/');  
+        }
+        else if ($user_type_id == 3) {
             
            if ( $User['PositionID'] == 1){
                
@@ -105,27 +110,28 @@ class Login {
            }
            else if ($User['PositionID'] == 3)
                {
-  Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand']);
+  Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id);
              header('location:/threeedu/view/headteacher/');   
                }
            else {
                
-               Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand']);
+               Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id);
              header('location:/threeedu/view/teacher/');   
            }
               
         }
-        else if ($user_type_id == 4) {
+        else {
 //            Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand']);
-//             header('location:/TTMS/view/headteacher/');
+             header('location:/threeedu');
         }
     }
 
-    public static function set_sessions($username, $public_id,$user_names,$department) {
+    public static function set_sessions($username, $public_id,$user_names,$department,$user_id) {
         // This functionis used to set the username and public id session 
         // so as to use it the the system 
         $_SESSION['threeedu_username'] = $username;
         $_SESSION['threeedu_public_id'] = $public_id;
+        $_SESSION['threeedu_user_id'] = $user_id;
         $_SESSION['threeedu_names'] = $user_names;
         $_SESSION['threeedu_department_code'] = $department;
         
