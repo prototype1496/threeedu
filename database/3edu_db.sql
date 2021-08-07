@@ -2009,6 +2009,35 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure 3edu_db.GetSuperAdminDashbordUserCount
+DROP PROCEDURE IF EXISTS `GetSuperAdminDashbordUserCount`;
+DELIMITER //
+CREATE PROCEDURE `GetSuperAdminDashbordUserCount`()
+BEGIN
+
+
+SET @TOTALUSERS = (SELECT COUNT(UM.UserMasterID) FROM usermaster UM WHERE  UM.IsActive = 1);
+SET @TOTALUSERSUPDATEDATE = (SELECT MAX(UM.UpdatedOn) FROM usermaster UM WHERE  UM.IsActive = 1);
+
+SET @TOTALSTUDENTS = (SELECT COUNT(UM.UserMasterID) FROM usermaster UM WHERE  UM.IsActive = 1 AND UM.UserTypeID = 2);
+SET @TOTALSTUDENTSUPDATEDATE = (SELECT MAX(UM.UpdatedOn) FROM usermaster UM WHERE  UM.IsActive = 1 AND UM.UserTypeID = 2);
+
+SET @TOTALTEACHERS = (SELECT COUNT(UM.UserMasterID) FROM usermaster UM WHERE  UM.IsActive = 1 AND UM.UserTypeID = 3);
+SET @TOTALTEACHERSUPDATEDATE = (SELECT MAX(UM.UpdatedOn) FROM usermaster UM WHERE UM.IsActive = 1 AND UM.UserTypeID = 3);
+
+SELECT @TOTALUSERS 																		AS 'TotalUsers',
+		 DATE_FORMAT(@TOTALUSERSUPDATEDATE, "%d %b, %Y %H:%m")	      	AS 'LastUpdatedDateTotalUsers',
+		 
+	 	 @TOTALSTUDENTS 																	AS 'TotalStudents',
+	 	  DATE_FORMAT(@TOTALSTUDENTSUPDATEDATE, "%d %b, %Y %H:%m")	   AS 'LastUpdatedDateTotalUsers',
+	 	  
+		 @TOTALTEACHERS 																	AS 'TotalTeachers',
+		  DATE_FORMAT(@TOTALTEACHERSUPDATEDATE, "%d %b, %Y %H:%m")	   AS 'LastUpdatedDateTotalUsers';
+		  
+		  
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure 3edu_db.GetTeacherDocumentDetailsByID
 DROP PROCEDURE IF EXISTS `GetTeacherDocumentDetailsByID`;
 DELIMITER //
