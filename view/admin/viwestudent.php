@@ -172,6 +172,8 @@ $stm = TeacherModel::get_all_student_details();
 
 <td>
     <button onclick="redirectWithID('<?php echo $public_id;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-eye"></i></button>
+  
+    <button onclick="redirectResetWithID('<?php echo $public_id;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-unlock"></i></button>
   </td>
 </tr>
 
@@ -309,6 +311,12 @@ $stm = TeacherModel::get_all_student_details();
          window.location.href = "/threeedu/view/admin/profile.php?id="+id;
         
     }
+    
+     function redirectResetWithID(id){
+         window.location.href = "/threeedu/view/resetpassword/ChangePassword.php?name="+id+"&data=";
+        
+    }
+    
 </script>
 <script src="../../files/rocket-loader.min.js" data-cf-settings="028b4b5e88a856df25e89945-|49" defer=""></script></body>
 

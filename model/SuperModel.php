@@ -1586,7 +1586,7 @@ class SuperModel{
             return TRUE;
         } catch (Exception $exc) {
             $conn->rollBack();
-           echo $exc->getMessage();
+          // echo $exc->getMessage();
             return FALSE;
         }
     }

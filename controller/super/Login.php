@@ -24,7 +24,11 @@ if (isset($user_name) && !empty($user_name) && isset($password) && !empty($passw
 
         if ($is_password_correct) 
             {
-
+                //Is Tneant Active Or Not
+                $is_tenant_active = $user_data['IsTenantActive'];
+                
+                if($is_tenant_active == 1){
+                
                 //check if user is aactive or not
                 $is_active = $user_data['IsActive'];
 
@@ -62,6 +66,12 @@ if (isset($user_name) && !empty($user_name) && isset($password) && !empty($passw
                   header('location:/threeedu/view/resetpassword/ChangePassword.php?name='.$public_id.'&data='.$isset.'') ; 
                      }
 
+                     }else {
+                         echo "<script>               
+                    showInfoToast('School Account Has Been Lock Please Contact School Admin');
+                      </script>";
+                         
+                     }
             //$login_model->create_session($user_data);
             } 
         else {
