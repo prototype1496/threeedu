@@ -9,7 +9,7 @@ class SuperModel {
         $conn = $Connection->connect();
         if ($tenant_id == '3edu_29294e8-f7a1-11eb-a81c-1062e5c23520') {
 
-            $query = "CALL GetDashboardUserCounts(:tenant_id);";
+            $query = "CALL GetSuperAdminDashbordUserCount(:tenant_id);";
         } else {
 
             $query = "CALL GetDashboardUserCounts(:tenant_id);";
