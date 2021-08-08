@@ -1,6 +1,6 @@
 <?php 
     require_once  '../../controller/super/SessionStart.php'; 
-    require  '../../controller/super/SessionSet.php'; 
+  
     require_once '../../db_connection/dbconfig.php'; 
      require_once '../../model/SuperModel.php'; 
      $tenant_id = $_SESSION['threeedu_tenantid'];
