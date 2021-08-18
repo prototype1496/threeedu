@@ -6,6 +6,7 @@
 <i class="feather icon-menu"></i>
 </a>
 <a href="index.php">
+    
 <img class="img-fluid" src="../../files/assets/images/logo.png" alt="Theme-Logo" />
 </a>
 <a class="mobile-options">

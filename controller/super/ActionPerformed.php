@@ -973,4 +973,105 @@ else if (isset ($_POST['btn_accessment']))
              }
              
              }
+        }else if (isset ($_POST['btn_add_class']))
+ {
+           $class_master_id =  SuperModel::get_sequence_id(18);    
+            
+            
+     $grade_id = trim(filter_input(INPUT_POST, 'grade_id', FILTER_DEFAULT));
+     
+     $class_name = trim(filter_input(INPUT_POST, 'class_name', FILTER_DEFAULT));
+   
+   $class_code = trim(filter_input(INPUT_POST, 'class_code', FILTER_DEFAULT));
+   $class_teacher_id = trim(filter_input(INPUT_POST, 'class_teacher_id', FILTER_DEFAULT));
+    $description = trim(filter_input(INPUT_POST, 'description', FILTER_DEFAULT));
+    $UpdatedBy = $_SESSION['threeedu_username'];
+    $tenant_id = $_SESSION['threeedu_tenantid'];
+    
+    //$student_puplic_id = trim(filter_input(INPUT_POST, 'student_puplic_id', FILTER_DEFAULT));
+    
+     if (!isset($description) || $description == Null || $description == "" || empty($description) ){
+        
+                $description = NULL;
+                    }
+    
+     
+     $subject_code= isset($_POST['subject_name']) ? $_POST['subject_name'] : array(0=>0);
+     $class_room_id  = isset($_POST['class_room']) ? $_POST['class_room'] : array(0=>0);
+      $count = 0 ;
+      $data = array();
+      
+     // print_r(strlen($student_no[0])) ; 
+        $size_of_id_array = sizeof($subject_code); 
+         
+        
+        // $compined_data
+        foreach ($subject_code as $key => $value)    {
+           
+            
+            if($count < $size_of_id_array ){
+               
+                if(empty($class_room_id[$count])){
+                  $class_room_data =   NULL;
+                }else {
+                  $class_room_data =  $class_room_id[$count]; 
+                    
+                }
+                
+                 if(empty($subject_code[$count])){
+                  $subject_code_data =   NULL;
+                }else {
+                  $subject_code_data =  $subject_code[$count]; 
+                    
+                }
+                
+              $class_details_id =  SuperModel::get_sequence_id(19); 
+              array_push($data,array($class_details_id,$class_master_id,$subject_code_data,$class_room_data,$UpdatedBy)); 
+                 $count++;
+            }
         }
+        
+        
+       //print_r(count($data));
+        
+         if(count($data) > 0 ){
+         
+         if(SuperModel::add_class($class_master_id,$class_teacher_id,$grade_id,$class_name,$class_code,$description,$UpdatedBy,$tenant_id,$data))
+         {        
+       echo "<script>               
+            $(document).ready(
+             
+            function(){
+                
+               $.jnoty('Class Added Successfuly', {
+            sticky: false,
+            header: 'Success',
+            theme: 'jnoty-success',
+            close: function() {window.location.replace('/threeedu/view/admin/classmaster.php')},
+            });   
+            }); 
+            </script>";
+         
+         }
+         else
+         {    
+           echo "<script>               
+            $(document).ready(
+             
+            function(){
+                
+               $.jnoty('Class Added Please Try Later', {
+            sticky: false,
+            header: 'Erro',
+            theme: 'jnoty-danger',
+            close: function() {window.location.replace('/threeedu/view/admin/classmaster.php')},
+            });   
+            }); 
+            </script>";
+         
+        }
+         
+         }
+         
+       
+ }

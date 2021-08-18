@@ -95,7 +95,7 @@
 
 
 
-                    <!--    <li class="">
+                        <li class="">
                             <a href="#">
                                 <span class="pcoded-mtext">Assessment Type master</span>
                             </a>
@@ -107,8 +107,8 @@
                         </li>
                         
                         <li class="">
-                            <a href="#">
-                                <span class="pcoded-mtext">Class Master Table</span>
+                            <a href="classmaster.php">
+                                <span class="pcoded-mtext">Class Master</span>
                             </a>
                         </li>
                         
@@ -117,7 +117,7 @@
                             <a href="#">
                                 <span class="pcoded-mtext">Subject Master</span>
                             </a>
-                        </li>-->
+                        </li>
 
 
 

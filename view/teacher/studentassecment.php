@@ -188,7 +188,7 @@ $classes = SuperModel::get_all_classes();
 </tr>
 </thead>
 <tbody id="student_data">
-   
+<!--This data is being loaded in the ReloadTeacherAssecementCombo   -->
 
 
 

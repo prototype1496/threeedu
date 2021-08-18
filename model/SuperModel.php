@@ -50,8 +50,92 @@ class SuperModel {
     }
 
     //Reports End
+public static function get_all_subjectts() {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAllSubjects();";
+        $stm = $conn->query($query);
+        // $stm->execute(array(':username' => $User->username));
+        //$stm->execute();
+        //print_r($stm);
 
 
+        return $stm;
+    }
+    public static function get_class_rooms_by_tenant_id($tenatnt_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+         $query = "CALL GetClassRoomsByID(:tenant_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenatnt_id));
+        
+        return $stm;
+        
+    }
+    
+    
+public static function get_school_details_by_tenant_id($tenatnt_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+         $query = "CALL GetSchoolDetailsByTenatID(:tenant_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenatnt_id));
+        $row = $stm->fetch(PDO::FETCH_ASSOC);
+        return $row;
+        
+    }
+    
+       public static function get_teacher_details_by_tenant_id($tenatnt_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+         $query = "CALL GetTeacherDetailsByID(:tenant_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenatnt_id));
+
+        return $stm;
+        
+    }
+    
+    
+       public static function get_active_grades_by_tenant_id($tenatnt_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+         $query = "CALL GetAllActivesGradesByTenantID(:tenant_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenatnt_id));
+
+        return $stm;
+        
+    }
+    
+    
+      public static function get_all_active_calsses($tenatnt_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+         $query = "CALL GetAllActiveClasses(:tenant_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenatnt_id));
+
+        return $stm;
+        
+    }
     public static function get_timtable($class_masster_id) {
 
         $Connection = new Connection();
@@ -175,6 +259,11 @@ class SuperModel {
         }
     }
 
+    
+    
+    
+    
+    
     public static function update_time_table($tem_data, $day) {
         //the below function creates a session in the databes for every log in 
         try {
@@ -222,6 +311,51 @@ class SuperModel {
         }
     }
 
+    public static function add_class($calss_master_id,$class_teacher_id,$grade_id,$class_name,$class_code,$discription,$updatedby,$tenant_id, $tem_data) {
+        //the below function creates a session in the databes for every log in 
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+           
+            $conn->beginTransaction();
+            // print_r(count($tem_data[0]));
+            //$args  = array_fill(0, count($tem_data[0]), '?');
+            //Insets data new session into the session table
+            $query = "INSERT INTO classmaster (ClassMasterPublicID,ClassTeacherID, GradeMasterID, ClassName, ClassCode, Description, UpdatedBy, TenantID,IsActive) VALUES (:ClassMasterPublicID,:ClassTeacherID,:GradeMasterID, :ClassName,:ClassCode, :Description, :UpdatedBy, :TenantID,1)";
+            $stm = $conn->prepare($query);
+             $stm->execute(array(':ClassMasterPublicID' => $calss_master_id,':ClassTeacherID' => $class_teacher_id, ':GradeMasterID' => $grade_id, ':ClassName' => $class_name, ':ClassCode' => $class_code, ':Description' => $discription, ':UpdatedBy' => $updatedby, ':TenantID' => $tenant_id));
+
+            
+          
+            $query1 = "INSERT INTO classdetails (ClassDetailsPublicID,ClassMasterPublicID, SubjectCode, ClassRoomPublicID, UpdatedBy) VALUES (?,?, ?, ?, ?)";
+            $stm2 = $conn->prepare($query1);
+            // print_r($stm);
+            foreach ($tem_data as $data) {
+                // print_r($data);
+                if (!empty($data[0])) {
+                    //  print_r($data);
+                    $stm2->execute($data);
+                } else {
+                    
+                }
+
+                //  
+            }
+             
+             
+            //print_r($stm);
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+            echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
+    
     public static function add_acessment($tem_data) {
         //the below function creates a session in the databes for every log in 
         try {
@@ -639,7 +773,7 @@ class SuperModel {
     }
 
     function get_student_details_by_class_id($class_id, $assecmenttype_id) {
-        //This function is used to load the districts whih a given province ID
+        //This function is used to load Students in the studentassecment.php grid 
         $Connection = new Connection();
         $conn = $Connection->connect();
 
@@ -739,20 +873,7 @@ class SuperModel {
         }
     }
 
-    public static function get_all_subjectts() {
-
-        $Connection = new Connection();
-        $conn = $Connection->connect();
-
-        $query = "CALL GetAllSubjects();";
-        $stm = $conn->query($query);
-        // $stm->execute(array(':username' => $User->username));
-        //$stm->execute();
-        //print_r($stm);
-
-
-        return $stm;
-    }
+    
 
     public static function get_subjects_by_class_id($class_master_id) {
 
