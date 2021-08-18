@@ -461,5 +461,11 @@ $get_class_details = SuperModel::get_class_details_by_id($class_master_id);
 
         <script src="../../files/rocket-loader.min.js" data-cf-settings="f2f98c3a4b756bca2389ac2a-|49" defer=""></script></body>
 
-
+<script>
+ function redirectWithID(id){
+         window.location.href = "/threeedu/view/admin/editclassmaster.php?id="+id;
+        
+    }
+    
+</script>
 </html>
