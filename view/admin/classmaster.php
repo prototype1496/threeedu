@@ -234,7 +234,7 @@ $get_grades_stm = SuperModel::get_active_grades_by_tenant_id($tenant_id);
                                                 <div class="col-md-6">
                                                 <div class="card-block">
                                                     <div class="table-responsive">
-                                                        <table class="table table-striped table-bordered" id="example-1">
+                                                        <table class="table table-striped table-bordered" id="edu_example-3">
                                                                 <thead>
                                                                     <tr>
                                                                            <th>#</th>
@@ -437,4 +437,11 @@ $get_grades_stm = SuperModel::get_active_grades_by_tenant_id($tenant_id);
         <script src="../../files/rocket-loader.min.js" data-cf-settings="f2f98c3a4b756bca2389ac2a-|49" defer=""></script></body>
 
 
+<script>
+ function redirectWithID(id){
+         window.location.href = "/threeedu/view/admin/editclassmaster.php?id="+id;
+        
+    }
+    
+</script>
 </html>

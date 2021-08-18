@@ -2,13 +2,20 @@
 require_once '../../controller/super/SessionStart.php';
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/SuperModel.php';
-require_once '../../lib/grid/model/dbcon.php';
+require_once '../../lib/grid/dbcon.php';
+$class_master_id = trim(filter_input(INPUT_GET, 'id', FILTER_DEFAULT));
 $tenant_id = $_SESSION['threeedu_tenantid'];
 $stm = SuperModel::get_all_active_calsses($tenant_id);
 $row= SuperModel::get_school_details_by_tenant_id($tenant_id);
 $teacher_details_stm = SuperModel::get_teacher_details_by_tenant_id($tenant_id);
 $get_grades_stm = SuperModel::get_active_grades_by_tenant_id($tenant_id);
 
+ if(!isset($class_master_id) || empty($class_master_id) ){
+     
+     header("location: /threeedu/view/admin/classmaster.php");
+ }
+$get_maped_subjects = SuperModel::get_subjects_by_class_id($class_master_id);
+$get_class_details = SuperModel::get_class_details_by_id($class_master_id);
 
 
 ?>
@@ -117,7 +124,7 @@ $get_grades_stm = SuperModel::get_active_grades_by_tenant_id($tenant_id);
                                         <div class="page-body">
                         <form method="POST" action="../../controller/super/ActionPerformed.php">
                             <div>
-                                <button name="btn_add_class" class="btn btn-primary waves-effect waves-light add" style="float: right;" type="submit">Submit</button> <br><br><br><br>
+                                <button name="btn_update_class" class="btn btn-primary waves-effect waves-light add" style="float: right;" type="submit">Submit</button> <br><br><br><br>
                             </div>
                 
                                               <div class="card">
@@ -172,7 +179,7 @@ $get_grades_stm = SuperModel::get_active_grades_by_tenant_id($tenant_id);
                           <div class="form-select-list">
                              
                                         <select required="" class="form-control custom-select-value" name="grade_id">
-                                            <option value="" disabled="disabled" selected="selected">Select Grade</option>
+                                            <option value="<?php echo $get_class_details['GradeMasterID']; ?>" disabled="disabled" selected="selected"><?php echo $get_class_details['Grade']; ?></option>
                                                  <?php 
                                                  while($grades =$get_grades_stm->fetch(PDO::FETCH_ASSOC) ){ ?> 
                                                   <option value="<?php echo $grades['GradeMasterID']; ?>">
@@ -188,14 +195,14 @@ $get_grades_stm = SuperModel::get_active_grades_by_tenant_id($tenant_id);
                                         <div class="col-md-4">  
                             <div class="form-group">
                         
-                                <input required="" name="class_name" placeholder="Class Name" type="text" class="form-control">
+                                <input required="" value="<?php echo $get_class_details['ClassName']; ?>" name="class_name" placeholder="Class Name" type="text" class="form-control">
                         </div>  
                                             </div>
                                         
                                         <div class="col-md-4">  
                                         <div class="form-group">
                          
-                                            <input required="" maxlength="3" name="class_code" placeholder="Class Code" type="text" class="form-control">
+                                            <input required="" value="<?php echo $get_class_details['ClassCode']; ?>" maxlength="3" name="class_code" placeholder="Class Code" type="text" class="form-control">
                         </div> 
                                           </div>
                                         
@@ -205,7 +212,7 @@ $get_grades_stm = SuperModel::get_active_grades_by_tenant_id($tenant_id);
                           <div class="form-select-list">
                              
                                         <select class="js-example-data-array col-sm-4" required="" class="form-control custom-select-value" name="class_teacher_id">
-                                            <option value="" disabled="disabled" selected="selected">Select Class Teacher</option>
+                                            <option value="<?php echo $get_class_details['TeaherMasterPublicID']; ?>" selected="selected"><?php echo $get_class_details['Teacher']; ?></option>
                                               
                                                 <?php 
                                                 while($teachers =$teacher_details_stm->fetch(PDO::FETCH_ASSOC) ){ 
@@ -220,7 +227,7 @@ $get_grades_stm = SuperModel::get_active_grades_by_tenant_id($tenant_id);
                         </div>                 
                                         <div class="form-group">
                           <label class="bmd-label-floating">Description</label>
-                          <textarea  type="date"  name="description" class="form-control"  rows="3" ></textarea>
+                          <textarea  type="date"  name="description" class="form-control"  rows="3" ><?php echo $get_class_details['Description']; ?></textarea>
                         </div>            
                                                     
                                                       </div> 
@@ -234,10 +241,10 @@ $get_grades_stm = SuperModel::get_active_grades_by_tenant_id($tenant_id);
                                                 <div class="col-md-6">
                                                 <div class="card-block">
                                                     <div class="table-responsive">
-                                                        <table class="table table-striped table-bordered" id="example-1">
+                                                        <table class="table table-striped table-bordered" id="edu_example-3">
                                                                 <thead>
                                                                     <tr>
-                                                                           <th>#</th>
+                                                                           
                                                                         <th>Subject</th>
                                                                         <th>Room</th>
 
@@ -245,14 +252,32 @@ $get_grades_stm = SuperModel::get_active_grades_by_tenant_id($tenant_id);
                                                                     </tr>
                                                                 </thead>
                                                             <tbody>
-                                                               
+                                                               <?php 
+                                                 while($data =$get_maped_subjects->fetch(PDO::FETCH_ASSOC) ){ ?> 
+                                                            <tr>
+                                                                
+                                                                <td>
+                                                                    <?php echo $data['Subject'] ?>
+                                                                    <input value="<?php echo $data['SujectCode'] ?>" type="hidden" name="subject_name[]" />     
+                                                                </td>
+                                                                <td>
+                                                                    <?php echo $data['ClassRoomName'] ?>
+                                                                 <input value="<?php echo $data['ClassRoomPublicID'] ?>" type="hidden" name="class_room[]" /> 
+                                                                </td>
+                                                                <td>  <a class="add" title="Add" data-toggle="tooltip" id="0"><i class="fa fa-user-plus"></i></a> 
+                                                                        <a class="edit" title="Edit" data-toggle="tooltip" id="1"><i class="fa fa-pencil"></i></a>
+                                                                          <a class="delete" title="Delete"  id="2"><i class="fa fa-trash-o"></i></a>  
+                                                                </td>
+                                                                
+                                                            </tr>
+                                                <?php } ?> 
                                                                
                                                                
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                    
-                                                    <button type="button" class="btn btn-primary waves-effect waves-light"><i class="fa fa-plus"></i> Add New</button>
+                                                    <button type="button" class="btn btn-primary waves-effect waves-light add-new"><i class="fa fa-plus"></i> Add New</button>
                                                 </div>
                                                     
                                                     </div>
@@ -282,7 +307,7 @@ $get_grades_stm = SuperModel::get_active_grades_by_tenant_id($tenant_id);
 <tr>
     <th>#</th>
 <th>Class Name</th>
-<th>Description</th>
+
 
 <th>Class Teacher</th>
 <th>Created On</th>
@@ -304,7 +329,7 @@ $get_grades_stm = SuperModel::get_active_grades_by_tenant_id($tenant_id);
          <td><?php echo $num = $num+1; ?></td>
          <td><?php echo $row['Class'];?></td>
         
-        <td ><?php echo $row['Description'];?></td>
+        
         <td ><?php echo $row['TeacherName'];?></td>
           <td ><?php echo $row['AddOn'];?></td>
             <td ><?php echo $row['UpdatedBy'];?></td>
@@ -328,8 +353,6 @@ $get_grades_stm = SuperModel::get_active_grades_by_tenant_id($tenant_id);
 <tr>
       <th>#</th>
 <th>Class Name</th>
-<th>Description</th>
-
 <th>Class Teacher</th>
 <th>Created On</th>
 <th>Created By</th>
@@ -360,10 +383,8 @@ $get_grades_stm = SuperModel::get_active_grades_by_tenant_id($tenant_id);
         </div>
 
 
-       <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-          <script src="../../lib/grid/grid.js" type="text/javascript"></script>
-          
+      
+       <script src="../../lib/grid/jquery-3.5.1.min.js" type="text/javascript"></script>
         <script type="f2f98c3a4b756bca2389ac2a-text/javascript" src="../../files/bower_components/jquery-ui/js/jquery-ui.min.js"></script>
         <script type="f2f98c3a4b756bca2389ac2a-text/javascript" src="../../files/bower_components/popper.js/js/popper.min.js"></script>
         <script type="f2f98c3a4b756bca2389ac2a-text/javascript" src="../../files/bower_components/bootstrap/js/bootstrap.min.js"></script>
@@ -375,7 +396,9 @@ $get_grades_stm = SuperModel::get_active_grades_by_tenant_id($tenant_id);
         <script type="f2f98c3a4b756bca2389ac2a-text/javascript" src="../../files/bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
         <script type="f2f98c3a4b756bca2389ac2a-text/javascript" src="../../files/bower_components/jquery-i18next/js/jquery-i18next.min.js"></script>
         
-        
+<!--          script fro grid-->
+         <script src="../../lib/grid/grid.js" type="text/javascript"></script>
+         <!--          script fro grid end -->
     <script type="f2f98c3a4b756bca2389ac2a-text/javascript" src="../../files/bower_components/select2/js/select2.full.min.js"></script>
     <script type="f2f98c3a4b756bca2389ac2a-text/javascript" src="../../files/bower_components/bootstrap-multiselect/js/bootstrap-multiselect.js">
     </script>

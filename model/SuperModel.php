@@ -161,6 +161,21 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
 
         return $row['class'];
     }
+    
+    
+     public static function get_class_details_by_id($class_masster_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetClassDetailsByID(:class_masster_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':class_masster_id' => $class_masster_id));
+        $row = $stm->fetch(PDO::FETCH_ASSOC);
+
+        return $row;
+    }
 
     public static function get_teacher_document_details($document_id) {
 

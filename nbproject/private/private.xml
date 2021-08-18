@@ -3,8 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/threeedu/view/admin/itadminsidbar.php</file>
+            <file>file:/C:/xampp/htdocs/threeedu/view/admin/navbar.php</file>
+            <file>file:/C:/xampp/htdocs/threeedu/controller/super/ActionPerformed.php</file>
+            <file>file:/C:/xampp/htdocs/threeedu/lib/grid/getclassrooms.php</file>
+            <file>file:/C:/xampp/htdocs/threeedu/model/SuperModel.php</file>
+            <file>file:/C:/xampp/htdocs/threeedu/files/assets/pages/edit-table/editable.js</file>
+            <file>file:/C:/xampp/htdocs/threeedu/view/headteacher/studentregistration.php</file>
+            <file>file:/C:/xampp/htdocs/threeedu/lib/grid/getsubjects.php</file>
             <file>file:/C:/xampp/htdocs/threeedu/view/admin/classmaster.php</file>
+            <file>file:/C:/xampp/htdocs/threeedu/view/teacher/studentassecment.php</file>
         </group>
     </open-files>
 </project-private>
