@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `classdetails` (
   CONSTRAINT `FK_classdetails_subjectmater` FOREIGN KEY (`SubjectCode`) REFERENCES `subjectmater` (`SubjectCode`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.classdetails: ~9 rows (approximately)
+-- Dumping data for table 3edu_db.classdetails: ~28 rows (approximately)
 DELETE FROM `classdetails`;
 /*!40000 ALTER TABLE `classdetails` DISABLE KEYS */;
 INSERT INTO `classdetails` (`ClassDetailsID`, `ClassDetailsPublicID`, `ClassMasterPublicID`, `SubjectCode`, `ClassRoomPublicID`, `IsActive`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `classmaster` (
   CONSTRAINT `FK_classmaster_teachermaster` FOREIGN KEY (`ClassTeacherID`) REFERENCES `teachermaster` (`TeaherMasterPublicID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.classmaster: ~13 rows (approximately)
+-- Dumping data for table 3edu_db.classmaster: ~12 rows (approximately)
 DELETE FROM `classmaster`;
 /*!40000 ALTER TABLE `classmaster` DISABLE KEYS */;
 INSERT INTO `classmaster` (`ClassMasterID`, `ClassMasterPublicID`, `ClassTeacherID`, `GradeMasterID`, `ClassName`, `ClassCode`, `Description`, `UpdatedBy`, `UpdatedOn`, `AddedOn`, `IsActive`, `TenantID`) VALUES
@@ -611,13 +611,13 @@ CREATE TABLE IF NOT EXISTS `sequencemaster` (
   UNIQUE KEY `SequnceCode` (`SequnceCode`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sequencemaster: ~12 rows (approximately)
+-- Dumping data for table 3edu_db.sequencemaster: ~11 rows (approximately)
 DELETE FROM `sequencemaster`;
 /*!40000 ALTER TABLE `sequencemaster` DISABLE KEYS */;
 INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 6, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 106, '2019-11-01 20:00:03'),
+	(3, 'TOKN', 107, '2019-11-01 20:00:03'),
 	(4, 'EMIL', 3, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
 	(6, 'SCHL', 2, '2019-11-17 18:52:58'),
@@ -642,7 +642,7 @@ CREATE TABLE IF NOT EXISTS `session` (
   PRIMARY KEY (`SessionID`),
   KEY `FK_session_usermaster` (`UserMasterPublicID`),
   CONSTRAINT `FK_session_usermaster` FOREIGN KEY (`UserMasterPublicID`) REFERENCES `usermaster` (`PublicID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_db.session: ~6 rows (approximately)
 DELETE FROM `session`;
@@ -653,7 +653,7 @@ INSERT INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`,
 	(95, 'ADMIN00001', 'TOKN00000000095', '46fc0e3a02230bdfd727119c6ef20d40ed471f546dcb1f0e94', '1628924698', 'a', '2021-08-14 09:04:58'),
 	(97, 'TECH0000000001', 'TOKN00000000097', 'a107aff4cf0a6baf117c9de4f6fa6f9a6521a009a4de11b8a9', '1628955172', 'h', '2021-08-14 17:32:52'),
 	(103, 'TECH0000000003', 'TOKN000000000103', 'cffebc864d190b2b559150a844bffad80b22a455e9fa6e763e', '1629112847', 't', '2021-08-16 13:20:47'),
-	(106, 'ITADM00001', 'TOKN000000000106', 'dd0b89919e8ee7c922b233f75afd0a0b9e98bf8d5201f007a6', '1629256786', 'it', '2021-08-18 05:19:46');
+	(107, 'ITADM00001', 'TOKN000000000107', '1704b37fb5511b42d1ad4e6f85a06f0843e0578b052cf9f49f', '1629281327', 'it', '2021-08-18 12:08:47');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
@@ -668,9 +668,9 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   `UpdatedBy` varchar(50) NOT NULL,
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionHistoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~96 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~95 rows (approximately)
 DELETE FROM `sessionhistory`;
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
 INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -769,7 +769,8 @@ INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublic
 	(103, '103', 'TECH0000000003', 'TOKN000000000103', 'cffebc864d190b2b559150a844bffad80b22a455e9fa6e763e', '1629112847', 't', '2021-08-16 13:20:47'),
 	(104, '104', 'ITADM00001', 'TOKN000000000104', '8d95f1b6135420bae4fc2147836113625755724a78876d3573', '1629114216', 'it', '2021-08-16 13:43:36'),
 	(105, '105', 'ITADM00001', 'TOKN000000000105', 'e27497e7b5c6a850318f103acc9b69eba708b3a9fc8599638d', '1629134559', 'it', '2021-08-16 19:22:39'),
-	(106, '106', 'ITADM00001', 'TOKN000000000106', 'dd0b89919e8ee7c922b233f75afd0a0b9e98bf8d5201f007a6', '1629256786', 'it', '2021-08-18 05:19:46');
+	(106, '106', 'ITADM00001', 'TOKN000000000106', 'dd0b89919e8ee7c922b233f75afd0a0b9e98bf8d5201f007a6', '1629256786', 'it', '2021-08-18 05:19:46'),
+	(107, '107', 'ITADM00001', 'TOKN000000000107', '1704b37fb5511b42d1ad4e6f85a06f0843e0578b052cf9f49f', '1629281327', 'it', '2021-08-18 12:08:47');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster
@@ -1630,6 +1631,31 @@ FROM classmaster CM WHERE CM.GradeMasterID = @GRADE ;
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure 3edu_db.GetClassDetailsByID
+DROP PROCEDURE IF EXISTS `GetClassDetailsByID`;
+DELIMITER //
+CREATE PROCEDURE `GetClassDetailsByID`(
+	IN `ClassMasterID` VARCHAR(50)
+)
+BEGIN
+			SELECT   CM.ClassMasterPublicID																																				AS 'ClassMasterPublicID',
+				CM.ClassCode																																									AS 'ClassCode',
+				CM.ClassName																																									AS 'ClassName',
+				CM.Description																																									AS 'Description',
+				CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName, ' (',DPT.DepartmentName,' Dpt.)') 			AS 'Teacher',
+				TM.TeaherMasterPublicID																																						AS 'TeaherMasterPublicID',
+				GM.GradeMasterID																																								AS 'GradeMasterID',
+				GM.Grade																																											AS 'Grade'
+			FROM classmaster CM 
+			JOIN usermaster UM ON UM.PublicID = CM.ClassTeacherID
+			JOIN  teachermaster TM ON TM.TeaherMasterPublicID = CM.ClassTeacherID
+			JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.TeacherPositionID
+			JOIN department DPT ON DPT.ShortHand = TM.DeparmrntCode
+			JOIN grademaster GM ON GM.GradeMasterID = CM.GradeMasterID
+			WHERE CM.IsActive = 1 AND  CM.ClassMasterPublicID = ClassMasterID;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure 3edu_db.GetClassDetailsByPublicID
 DROP PROCEDURE IF EXISTS `GetClassDetailsByPublicID`;
 DELIMITER //
@@ -1684,10 +1710,16 @@ CREATE PROCEDURE `GetClassSubjectsByID`(
 	IN `ClassMasterID` VARCHAR(50)
 )
 BEGIN
-		SELECT SM.SubjectCode AS 												'SujectCode',
-				 CONCAT(SM.SubjectName,' ( ',SM.SubjectCode,' )')		AS 'SubjectName' 
+		SELECT SM.SubjectCode 														AS 'SujectCode',
+				 CONCAT(SM.SubjectName,' ( ',SM.SubjectCode,' )')			AS 'SubjectName',
+				 SM.SubjectName														AS 'Subject',
+				 SM.SubjectCode		 												AS 'SubjectCode',
+				 CM.ClassRoomName		 												AS 'ClassRoomName',
+				 CM.ClassRoomPublicID 												AS 'ClassRoomPublicID' 
 		FROM subjectmater SM
-		JOIN classdetails CD ON CD.SubjectCode = SM.SubjectCode WHERE CD.ClassMasterPublicID = ClassMasterID ;
+		JOIN classdetails CD ON CD.SubjectCode = SM.SubjectCode 
+		JOIN classroom CM ON CM.ClassRoomPublicID = CD.ClassRoomPublicID
+		WHERE CD.ClassMasterPublicID = ClassMasterID AND CD.IsActive = 1;
 END//
 DELIMITER ;
 
