@@ -2,7 +2,7 @@
 require '../../controller/super/SessionStart.php'; 
 include '../../model/SuperModel.php';
 include '../../db_connection/dbconfig.php';
-include '../../controller/admin/TreacherRegistrationController.php';
+
 $tenant_id = $_SESSION['threeedu_tenantid'];
 $school_id = $_SESSION['threeedu_schoolid'];
 
@@ -128,10 +128,10 @@ $stm_province_data = SuperModel::get_provinces();
 <div class="main-body">
 <div class="page-wrapper">
 <div class="page-body">
-     <form onsubmit="event.preventDefault(); " id="teacher_details"  enctype="multipart/form-data" method="POST" action="#" >
+    <form onsubmit="event.preventDefault(); validatepassword();" id="teacher_details" enctype="multipart/form-data"  method="POST" action="../../controller/super/ActionPerformed.php" >
 
-    <button type="submit" style="float: right;" name="btn_reg_teacher" class="btn btn-warning btn-round">Submit</button><br><br><br>
-     
+        <button type="submit" style="float: right;"   class="btn btn-warning btn-round">Submit</button><br><br><br>
+        <input name="btn_create_teacher" type="hidden"/>
          <div class="row">
    
     <div class="col-sm-12">
@@ -206,7 +206,7 @@ $stm_province_data = SuperModel::get_provinces();
 
 </div>
     
-    </div>
+   
     
     
     <div class="row">
@@ -340,14 +340,14 @@ $stm_province_data = SuperModel::get_provinces();
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">NRC</label>
-                          <input max="11" required="" name="nrc" type="text" class="form-control">
+                          <input max="11"  name="nrc" type="text" class="form-control">
                         </div>
                       </div>
                     
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Passport</label>
-                          <input required="" name="passport" type="text" class="form-control">
+                          <input  name="passport" type="text" class="form-control">
                         </div>
                       </div>
                     
@@ -414,7 +414,7 @@ $stm_province_data = SuperModel::get_provinces();
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Secondary Address</label>
-                          <textarea required="" type="date"  name="secondary_address" class="form-control"  rows="3" ></textarea>
+                          <textarea  type="date"  name="secondary_address" class="form-control"  rows="3" ></textarea>
                         </div>
                       </div>
                     
@@ -493,7 +493,7 @@ $stm_province_data = SuperModel::get_provinces();
     </div>
     
 
-      </form>
+    
  
     
     

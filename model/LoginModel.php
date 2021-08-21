@@ -105,8 +105,8 @@ class Login {
                
                
                
-//              Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand']);
-//             header('location:/TTMS/view/hod/');  
+   Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id,$User['TenantID'],$User['SchoolPublicID']);
+             header('location:/threeedu/view/teacher/');  
            }
            else if ($User['PositionID'] == 3)
                {

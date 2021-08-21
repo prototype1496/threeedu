@@ -19,8 +19,7 @@ class SuperModel {
         $stm = $conn->prepare($query);
         $stm->execute(array(':tenant_id' => $tenant_id));
         $row = $stm->fetch(PDO::FETCH_ASSOC);
-        
-      
+
         return $row;
     }
 
@@ -50,7 +49,7 @@ class SuperModel {
     }
 
     //Reports End
-public static function get_all_subjectts() {
+    public static function get_all_subjectts() {
 
         $Connection = new Connection();
         $conn = $Connection->connect();
@@ -64,78 +63,72 @@ public static function get_all_subjectts() {
 
         return $stm;
     }
+
     public static function get_class_rooms_by_tenant_id($tenatnt_id) {
 
         $Connection = new Connection();
         $conn = $Connection->connect();
 
-         $query = "CALL GetClassRoomsByID(:tenant_id);";
+        $query = "CALL GetClassRoomsByID(:tenant_id);";
 
         $stm = $conn->prepare($query);
         $stm->execute(array(':tenant_id' => $tenatnt_id));
-        
+
         return $stm;
-        
     }
-    
-    
-public static function get_school_details_by_tenant_id($tenatnt_id) {
+
+    public static function get_school_details_by_tenant_id($tenatnt_id) {
 
         $Connection = new Connection();
         $conn = $Connection->connect();
 
-         $query = "CALL GetSchoolDetailsByTenatID(:tenant_id);";
+        $query = "CALL GetSchoolDetailsByTenatID(:tenant_id);";
 
         $stm = $conn->prepare($query);
         $stm->execute(array(':tenant_id' => $tenatnt_id));
         $row = $stm->fetch(PDO::FETCH_ASSOC);
         return $row;
-        
     }
-    
-       public static function get_teacher_details_by_tenant_id($tenatnt_id) {
+
+    public static function get_teacher_details_by_tenant_id($tenatnt_id) {
 
         $Connection = new Connection();
         $conn = $Connection->connect();
 
-         $query = "CALL GetTeacherDetailsByID(:tenant_id);";
+        $query = "CALL GetTeacherDetailsByID(:tenant_id);";
 
         $stm = $conn->prepare($query);
         $stm->execute(array(':tenant_id' => $tenatnt_id));
 
         return $stm;
-        
     }
-    
-    
-       public static function get_active_grades_by_tenant_id($tenatnt_id) {
+
+    public static function get_active_grades_by_tenant_id($tenatnt_id) {
 
         $Connection = new Connection();
         $conn = $Connection->connect();
 
-         $query = "CALL GetAllActivesGradesByTenantID(:tenant_id);";
+        $query = "CALL GetAllActivesGradesByTenantID(:tenant_id);";
 
         $stm = $conn->prepare($query);
         $stm->execute(array(':tenant_id' => $tenatnt_id));
 
         return $stm;
-        
     }
-    
-    
-      public static function get_all_active_calsses($tenatnt_id) {
+
+    public static function get_all_active_calsses($tenatnt_id) {
 
         $Connection = new Connection();
         $conn = $Connection->connect();
 
-         $query = "CALL GetAllActiveClasses(:tenant_id);";
+        $query = "CALL GetAllActiveClasses(:tenant_id);";
 
         $stm = $conn->prepare($query);
         $stm->execute(array(':tenant_id' => $tenatnt_id));
 
         return $stm;
-        
     }
+
     public static function get_timtable($class_masster_id) {
 
         $Connection = new Connection();
@@ -161,9 +154,8 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
 
         return $row['class'];
     }
-    
-    
-     public static function get_class_details_by_id($class_masster_id) {
+
+    public static function get_class_details_by_id($class_masster_id) {
 
         $Connection = new Connection();
         $conn = $Connection->connect();
@@ -274,11 +266,6 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
         }
     }
 
-    
-    
-    
-    
-    
     public static function update_time_table($tem_data, $day) {
         //the below function creates a session in the databes for every log in 
         try {
@@ -326,23 +313,20 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
         }
     }
 
-    public static function add_class($calss_master_id,$class_teacher_id,$grade_id,$class_name,$class_code,$discription,$updatedby,$tenant_id, $tem_data) {
+    public static function add_class($calss_master_id, $class_teacher_id, $grade_id, $class_name, $class_code, $discription, $updatedby, $tenant_id, $tem_data) {
         //the below function creates a session in the databes for every log in 
         try {
             $Connection = new Connection();
             $conn = $Connection->connect();
 
-           
             $conn->beginTransaction();
             // print_r(count($tem_data[0]));
             //$args  = array_fill(0, count($tem_data[0]), '?');
             //Insets data new session into the session table
             $query = "INSERT INTO classmaster (ClassMasterPublicID,ClassTeacherID, GradeMasterID, ClassName, ClassCode, Description, UpdatedBy, TenantID,IsActive) VALUES (:ClassMasterPublicID,:ClassTeacherID,:GradeMasterID, :ClassName,:ClassCode, :Description, :UpdatedBy, :TenantID,1)";
             $stm = $conn->prepare($query);
-             $stm->execute(array(':ClassMasterPublicID' => $calss_master_id,':ClassTeacherID' => $class_teacher_id, ':GradeMasterID' => $grade_id, ':ClassName' => $class_name, ':ClassCode' => $class_code, ':Description' => $discription, ':UpdatedBy' => $updatedby, ':TenantID' => $tenant_id));
+            $stm->execute(array(':ClassMasterPublicID' => $calss_master_id, ':ClassTeacherID' => $class_teacher_id, ':GradeMasterID' => $grade_id, ':ClassName' => $class_name, ':ClassCode' => $class_code, ':Description' => $discription, ':UpdatedBy' => $updatedby, ':TenantID' => $tenant_id));
 
-            
-          
             $query1 = "INSERT INTO classdetails (ClassDetailsPublicID,ClassMasterPublicID, SubjectCode, ClassRoomPublicID, UpdatedBy) VALUES (?,?, ?, ?, ?)";
             $stm2 = $conn->prepare($query1);
             // print_r($stm);
@@ -357,20 +341,78 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
 
                 //  
             }
-             
-             
+
+
             //print_r($stm);
             $conn->commit();
             $conn = Null;
             return TRUE;
         } catch (Exception $exc) {
             $conn->rollBack();
-            echo $exc->getMessage();
+            //echo $exc->getMessage();
             return FALSE;
         }
     }
     
     
+    
+    public static function create_teacher($teacher_id, $pic_url, $nrc, $passport, $username, $password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id, $subject_data) {
+        //the below function creates a session in the databes for every log in 
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+            // print_r(count($tem_data[0]));
+            //$args  = array_fill(0, count($tem_data[0]), '?');
+            //Insets data new session into the session table
+            $query = "INSERT INTO usermaster(PublicID, ProfilPicURL, NRC, Passport, UserName, Password, FirstName, LastName, OtherName, EmailAddress, ContactNo, GenderID, MaritalStatusID, DOB, UserTypeID, UpdatedBy, IsActive,TenantID)VALUES (:PublicID, :ProfilPicURL, :NRC, :Passport, :UserName, :Password, :FirstName, :LastName, :OtherName, :EmailAddress, :ContactNo, :GenderID, :MaritalStatusID, :DOB, :UserTypeID, :UpdatedBy, 1,:TenantID)";
+            $stm = $conn->prepare($query);
+            $stm->execute(array(':PublicID'=>$teacher_id, ':ProfilPicURL'=>$pic_url, ':NRC'=>$nrc, ':Passport'=>$passport, ':UserName'=>$username, ':Password'=>$password, ':FirstName'=>$first_name, ':LastName'=>$last_name, ':OtherName'=>$other_name, ':EmailAddress'=>$email_address, ':ContactNo'=>$concat_no, ':GenderID'=>$gender_id, ':MaritalStatusID'=>$marital_status_id, ':DOB'=>$dob, ':UserTypeID'=>$user_type, ':UpdatedBy'=>$UpdatedBy,':TenantID'=>$tenant_id));
+
+            
+            $query2 = "INSERT INTO teachermaster (TeaherMasterPublicID, TeacherPositionID, DeparmrntCode, UpdatedBy, IsActive) VALUES (:TeaherMasterPublicID, :TeacherPositionID, :DeparmrntCode, :UpdatedBy, 1)";
+            $stm2 = $conn->prepare($query2);
+            $stm2->execute(array(':TeaherMasterPublicID'=>$teacher_id, ':TeacherPositionID'=>$position_id, ':DeparmrntCode'=>$department_id, ':UpdatedBy'=>$UpdatedBy));
+
+            
+            
+             $query3 = "INSERT INTO address (PrimaryAddress, SecondaryAddress, DistrictID, IdentificationID) VALUES (:PrimaryAddress, :SecondaryAddress, :DistrictID, :IdentificationID)";
+            $stm3 = $conn->prepare($query3);
+             $stm3->execute(array(':PrimaryAddress'=>$pramary_address, ':SecondaryAddress'=>$secondary_address, ':DistrictID'=>$district_id, ':IdentificationID'=>$teacher_id));
+//            
+//            
+            $query4 = "INSERT INTO teacherdetails (TeacherDetailsPublicID, TeacherMasterPublicID, SubjectCode, UpdatedBy) VALUES (?,?,?,?)";
+            $stm4 = $conn->prepare($query4);
+    
+            // print_r($subject_data);
+            foreach ($subject_data as $subject_data) {
+                // print_r($subject_data);
+                if (!empty($subject_data[0])) {
+                    // print_r($subject_data);
+                    $stm4->execute($subject_data);
+                } else {
+                    
+                }
+
+                //  
+            }
+
+
+            //print_r($stm);
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+           // echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
+    
+    
+
     public static function add_acessment($tem_data) {
         //the below function creates a session in the databes for every log in 
         try {
@@ -888,8 +930,6 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
         }
     }
 
-    
-
     public static function get_subjects_by_class_id($class_master_id) {
 
         $Connection = new Connection();
@@ -916,11 +956,11 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
 
         $query = "CALL GetPositions();";
         $stm = $conn->query($query);
-      
+
         return $stm;
     }
-    
-        public static function get_departments_school_id($school_id) {
+
+    public static function get_departments_school_id($school_id) {
 
         $Connection = new Connection();
         $conn = $Connection->connect();
@@ -930,12 +970,9 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
         $stm = $conn->prepare($query);
         $stm->execute(array(':shcool_id' => $school_id));
 
-
         return $stm;
     }
-    
-    
-   
+
     public static function get_all_teachers_in_department($department_code) {
 
         $Connection = new Connection();
@@ -968,8 +1005,7 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
         return $row;
     }
 
-    
-       public static function get_marital_status() {
+    public static function get_marital_status() {
 
         $Connection = new Connection();
         $conn = $Connection->connect();
@@ -983,8 +1019,6 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
 
         return $stm;
     }
-   
-
 
     public static function get_gender() {
 
@@ -1000,9 +1034,10 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
 
         return $stm;
     }
+
 //3ed section end 
-    
-    
+
+
     public static function get_leave_types() {
 
         $Connection = new Connection();
@@ -1122,8 +1157,6 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
         return $stm;
     }
 
- 
-
     public static function get_country_code() {
 
         $Connection = new Connection();
@@ -1138,8 +1171,6 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
 
         return $stm;
     }
-
-    
 
     public static function get_all_school_depatments() {
 
@@ -1163,7 +1194,7 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
 
         $query = "CALL GetProvinces();";
         $stm = $conn->query($query);
-       
+
         return $stm;
     }
 
@@ -1413,8 +1444,6 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
                 echo "<option value=" . $row['districtId'] . ">" . $row['name'] . "</option>";
                 //echo "<option vlaue='21'>".$row['name']."</option>";name
             }
-
-          
         } else {
 
             echo "<option required='' value='' disabled='disabled' selected='selected'>Select District</option>";
