@@ -2,7 +2,7 @@
 require_once '../../controller/super/SessionStart.php';
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/SuperModel.php';
-require_once '../../lib/grid/dbcon.php';
+
 $tenant_id = $_SESSION['threeedu_tenantid'];
 $stm = SuperModel::get_all_active_calsses($tenant_id);
 $row= SuperModel::get_school_details_by_tenant_id($tenant_id);

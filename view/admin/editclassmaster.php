@@ -122,7 +122,8 @@ $get_class_details = SuperModel::get_class_details_by_id($class_master_id);
                                 <div class="main-body">
                                     <div class="page-wrapper">
                                         <div class="page-body">
-                        <form method="POST" action="../../controller/super/ActionPerformed.php">
+<!--                                            ../../controller/super/ActionPerformed.php-->
+                        <form method="POST" action="#">
                             <div>
                                 <button name="btn_update_class" class="btn btn-primary waves-effect waves-light add" style="float: right;" type="submit">Submit</button> <br><br><br><br>
                             </div>
@@ -264,9 +265,9 @@ $get_class_details = SuperModel::get_class_details_by_id($class_master_id);
                                                                     <?php echo $data['ClassRoomName'] ?>
                                                                  <input value="<?php echo $data['ClassRoomPublicID'] ?>" type="hidden" name="class_room[]" /> 
                                                                 </td>
-                                                                <td>  <a class="add" title="Add" data-toggle="tooltip" id="0"><i class="fa fa-user-plus"></i></a> 
+                                                                <td>  <input type="checkbox"  name="chk_subject" value="1" checked>&nbsp;&nbsp;
                                                                         <a class="edit" title="Edit" data-toggle="tooltip" id="1"><i class="fa fa-pencil"></i></a>
-                                                                          <a class="delete" title="Delete"  id="2"><i class="fa fa-trash-o"></i></a>  
+                                                                            
                                                                 </td>
                                                                 
                                                             </tr>

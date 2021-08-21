@@ -909,9 +909,33 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
         return $stm;
     }
 
-    //3ed section end 
-    //This is the section for teacher's reoprt 
+    public static function get_teacher_positions() {
 
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetPositions();";
+        $stm = $conn->query($query);
+      
+        return $stm;
+    }
+    
+        public static function get_departments_school_id($school_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAllDepartmentsByShoolID(:shcool_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':shcool_id' => $school_id));
+
+
+        return $stm;
+    }
+    
+    
+   
     public static function get_all_teachers_in_department($department_code) {
 
         $Connection = new Connection();
@@ -944,7 +968,22 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
         return $row;
     }
 
-    //This is the end of the teacher report 
+    
+       public static function get_marital_status() {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetMaritalStatus();";
+        $stm = $conn->query($query);
+        // $stm->execute(array(':username' => $User->username));
+        //$stm->execute();
+        //print_r($stm);
+
+
+        return $stm;
+    }
+   
 
 
     public static function get_gender() {
@@ -961,7 +1000,9 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
 
         return $stm;
     }
-
+//3ed section end 
+    
+    
     public static function get_leave_types() {
 
         $Connection = new Connection();
@@ -1081,20 +1122,7 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
         return $stm;
     }
 
-    public static function get_marital_status() {
-
-        $Connection = new Connection();
-        $conn = $Connection->connect();
-
-        $query = "CALL GetMaritalStatus();";
-        $stm = $conn->query($query);
-        // $stm->execute(array(':username' => $User->username));
-        //$stm->execute();
-        //print_r($stm);
-
-
-        return $stm;
-    }
+ 
 
     public static function get_country_code() {
 
@@ -1111,20 +1139,7 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
         return $stm;
     }
 
-    public static function get_teacher_positions() {
-
-        $Connection = new Connection();
-        $conn = $Connection->connect();
-
-        $query = "CALL GetPositions();";
-        $stm = $conn->query($query);
-        // $stm->execute(array(':username' => $User->username));
-        //$stm->execute();
-        //print_r($stm);
-
-
-        return $stm;
-    }
+    
 
     public static function get_all_school_depatments() {
 
@@ -1148,11 +1163,7 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
 
         $query = "CALL GetProvinces();";
         $stm = $conn->query($query);
-        // $stm->execute(array(':username' => $User->username));
-        //$stm->execute();
-        //print_r($stm);
-
-
+       
         return $stm;
     }
 
@@ -1395,7 +1406,7 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
 
             //What the beow lines of code are doing is they are loading a districts and displying them in a dropdown using php
 
-            echo "  <div class='form-group'>  <div class='col-md-2'>    <select class='form-control' name='district_id' required='required' ><option value='' selected disabled=''>Select District</option>";
+            echo "<option required='' value='' disabled='disabled' selected='selected'>Select District</option>";
             while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
 
 
@@ -1403,10 +1414,10 @@ public static function get_school_details_by_tenant_id($tenatnt_id) {
                 //echo "<option vlaue='21'>".$row['name']."</option>";name
             }
 
-            echo"</select>";
+          
         } else {
 
-            echo "  <div class='col-md-2'> <select class='form-control' name='district_id' required='required'><option value=''  selected disabled='' >Select District</option> </select>  </div>";
+            echo "<option required='' value='' disabled='disabled' selected='selected'>Select District</option>";
         }
     }
 

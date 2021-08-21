@@ -22,7 +22,7 @@
 
     
     <li class="">
-        <a href="dashboard-crm.html">
+        <a href="teacherregistration.php">
             <span class="pcoded-mtext">Teacher Registration</span>
         </a>
     </li>
@@ -32,6 +32,8 @@
         </a>
     </li>
 
+    
+     
 
 </ul>
 </li>
