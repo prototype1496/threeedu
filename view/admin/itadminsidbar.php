@@ -119,7 +119,7 @@
                             </a>
                         </li>
                          <li class="">
-                            <a href="#">
+                             <a href="classroommaster.php">
                                 <span class="pcoded-mtext">Class Room Master</span>
                             </a>
                         </li>
