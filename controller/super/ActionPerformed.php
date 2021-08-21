@@ -1135,9 +1135,41 @@ if (isset($_POST['btn_reg_pupil'])) {
         $pic_url = $location . $file_new_name;
 
         //print_r(count($data));
+          if (add_teacher_details($pic_url,$subject_data,$teacher_id, $nrc, $passport, $username, $hushed_password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id))
+          { 
+              move_uploaded_file($file_temp, $pic_url); 
+              
+              echo "<script>               
+            $(document).ready(
+             
+            function(){
+                
+               $.jnoty('Teacher Added Successfuly', {
+            sticky: false,
+            header: 'Success',
+            theme: 'jnoty-success',
+            close: function() {window.location.replace('/threeedu/view/admin/teacherregistration.php')},
+            });   
+            }); 
+            </script>";
+          }else {
+               echo "<script>               
+            $(document).ready(
+             
+            function(){
+                
+               $.jnoty('Teacher Can Not Be Added Please Try Later', {
+            sticky: false,
+            header: 'Erro',
+            theme: 'jnoty-danger',
+            close: function() {window.location.replace('/threeedu/view/admin/teacherregistration.php')},
+            });   
+            }); 
+            </script>";
+              
+          }
 
-        add_teacher_details($pic_url,$subject_data,$teacher_id, $nrc, $passport, $username, $hushed_password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id);
-            move_uploaded_file($file_temp, $pic_url);
+       
         } else {
 
         $pic_url = "../../uploads/defult.png";
@@ -1151,34 +1183,11 @@ function add_teacher_details($pic_url,$subject_data,$teacher_id, $nrc, $passport
     if (count($subject_data) > 0) {
 
         if (SuperModel::create_teacher($teacher_id, $pic_url, $nrc, $passport, $username, $hushed_password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id, $subject_data)) {
+            return TRUE;
             
-            echo "<script>               
-            $(document).ready(
-             
-            function(){
-                
-               $.jnoty('Teacher Added Successfuly', {
-            sticky: false,
-            header: 'Success',
-            theme: 'jnoty-success',
-            close: function() {window.location.replace('/threeedu/view/admin/teacherregistration.php')},
-            });   
-            }); 
-            </script>";
         } else {
-            echo "<script>               
-            $(document).ready(
-             
-            function(){
-                
-               $.jnoty('Teacher Can Not Be Added Please Try Later', {
-            sticky: false,
-            header: 'Erro',
-            theme: 'jnoty-danger',
-            close: function() {window.location.replace('/threeedu/view/admin/teacherregistration.php')},
-            });   
-            }); 
-            </script>";
+             return FALSE;
+           
         }
     } else {
         echo "<script>               
