@@ -599,7 +599,7 @@ Received
       <?php while($row_data = $stm_get_atendance_history->fetch(PDO::FETCH_ASSOC))
                             
                     {
-                          $public_id = $row_data['PublicID'];
+                       
                             ?>
 <tr>
    
@@ -631,7 +631,7 @@ Received
 <th>Reason</th>
 <th>Status</th>
 <th>Marked Date</th>
-<th></th>
+
 </tr>
 </tfoot>
 </table>   
