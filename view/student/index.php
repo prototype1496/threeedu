@@ -1,4 +1,11 @@
-<?php require '../../controller/super/SessionStart.php'; ?>
+<?php 
+require '../../controller/super/SessionStart.php'; 
+require '../../db_connection/dbconfig.php'; 
+require '../../model/SuperModel.php'; 
+   $student_pulic_id  =  $_SESSION['threeedu_public_id'];
+   
+$get_stuednt_details = SuperModel::get_student_details_by_student_public_id($student_pulic_id);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,7 +48,7 @@
 
 <link rel="stylesheet" type="text/css" href="../../files/assets/icon/feather/css/feather.css">
 
-<link rel="stylesheet" type="text/css" href="../../files/assets/css/style.css">
+<link rel="stylesheet" type="text/css" href="../../files/assets/css/style_student.css">
 <link rel="stylesheet" type="text/css" href="../../files/assets/css/jquery.mCustomScrollbar.css">
 </head>
 <body>
@@ -96,42 +103,14 @@
 <div class="pcoded-wrapper">
 
 
-<!--side bar start  -->
-<?php require './sidbar.php'; ?>
-<!--side bar end  -->
 
 
-<div class="pcoded-content">
+<div class="">
 <div class="pcoded-inner-content">
 
 <div class="main-body">
 <div class="page-wrapper">
 
-<div class="page-header">
-<div class="row align-items-end">
-<div class="col-lg-8">
-<div class="page-header-title">
-<div class="d-inline">
-<h4>User Profile</h4>
-<span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
-</div>
-</div>
-</div>
-<div class="col-lg-4">
-<div class="page-header-breadcrumb">
-<ul class="breadcrumb-title">
-<li class="breadcrumb-item">
-<a href="index.html"> <i class="feather icon-home"></i> </a>
-</li>
-<li class="breadcrumb-item"><a href="#!">User Profile</a>
-</li>
-<li class="breadcrumb-item"><a href="#!">User Profile</a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
 
 
 <div class="page-body">
@@ -145,14 +124,14 @@
 <div class="col-md-12">
 <div class="media-left">
 <a href="#" class="profile-image">
-<img class="user-img img-radius" src="../../files/assets/images/user-profile/user-img.jpg" alt="user-img">
+<img class="user-img img-radius" src="<?php echo $get_stuednt_details['ProfilePic']; ?>" alt="user-img">
 </a>
 </div>
 <div class="media-body row">
 <div class="col-lg-12">
 <div class="user-title">
-<h2>Josephin Villa</h2>
-<span class="text-white">Web designer</span>
+<h2><?php echo $get_stuednt_details['Name']; ?></h2>
+<span class="text-white">Student <?php echo $get_stuednt_details['ClassName']; ?></span>
 </div>
 </div>
 <div>
@@ -217,23 +196,23 @@
 <tbody>
 <tr>
 <th scope="row">Full Name</th>
-<td>Josephine Villa</td>
+<td><?php echo $get_stuednt_details['Name']; ?></td>
 </tr>
 <tr>
 <th scope="row">Gender</th>
-<td>Female</td>
+<td><?php echo $get_stuednt_details['Gender']; ?></td>
 </tr>
 <tr>
 <th scope="row">Birth Date</th>
-<td>October 25th, 1990</td>
+<td><?php echo $get_stuednt_details['DOB']; ?></td>
 </tr>
 <tr>
 <th scope="row">Marital Status</th>
-<td>Single</td>
+<td><?php echo $get_stuednt_details['MaritalStatus']; ?></td>
 </tr>
 <tr>
 <th scope="row">Location</th>
-<td>New York, USA</td>
+<td><?php echo $get_stuednt_details['Address']; ?></td>
 </tr>
 </tbody>
 </table>
@@ -244,26 +223,27 @@
 <div class="table-responsive">
 <table class="table">
 <tbody>
+    <tr>
+<th scope="row">Student No</th>
+<td><a href="#!"><?php echo $get_stuednt_details['StudenNo']; ?></a></td>
+</tr>
 <tr>
 <th scope="row">Email</th>
-<td><a href="#!"><span class="__cf_email__" data-cfemail="3f7b5a52507f5a475e524f535a115c5052">[email&#160;protected]</span></a></td>
+<td><a href="#!"><span class="__cf_email__" ><?php echo$get_stuednt_details['EmailAddress']; ?></span></a></td>
 </tr>
 <tr>
-<th scope="row">Mobile Number</th>
-<td>(0123) - 4567891</td>
+<th scope="row">Contact Number</th>
+<td><?php echo $get_stuednt_details['ContactNo']; ?></td>
 </tr>
 <tr>
-<th scope="row">Twitter</th>
-<td>@xyz</td>
+<th scope="row">Male Guardian Name</th>
+<td><?php echo $get_stuednt_details['GuardianMaleName']; ?></td>
 </tr>
 <tr>
-<th scope="row">Skype</th>
-<td>demo.skype</td>
+<th scope="row">Female Guardian Name</th>
+<td><?php echo $get_stuednt_details['GuardianFemaleName']; ?></td>
 </tr>
-<tr>
-<th scope="row">Website</th>
-<td><a href="#!">www.demo.com</a></td>
-</tr>
+
 </tbody>
 </table>
 </div>

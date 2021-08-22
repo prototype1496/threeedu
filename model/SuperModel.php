@@ -942,6 +942,23 @@ class SuperModel {
 
         return $row;
     }
+    
+    
+    public static function get_student_details_by_student_public_id($studentMasterPublicID) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAllStudentDetailsByPublicID(:studentMasterPublicID);";
+        $stm = $conn->prepare($query);
+
+        $stm->execute(array(':studentMasterPublicID' => $studentMasterPublicID));
+
+        $row = $stm->fetch(PDO::FETCH_ASSOC);
+
+        return $row;
+    }
+    
 
     public static function regiter_pupil($first_name, $last_name, $other_name, $gender_id, $dob, $marital_status_id, $class_id, $subject_code_1, $subject_code_2, $subject_code_3, $subject_code_4, $subject_code_5, $subject_code_6, $subject_code_7, $subject_code_8, $male_gardian_name, $female_gardian_name, $gardian_contact_no, $address, $StudentMasterPublicID, $StudentNo, $file_temp, $UpdatedBy, $email_address) {
         //the below function creates a session in the databes for every log in 

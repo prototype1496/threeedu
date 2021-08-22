@@ -185,7 +185,7 @@ $get_classrooms = SuperModel::get_class_rooms_by_tenant_id($tenant_id);
     
     <div class="row">
     <div class="col-sm-12">
-    <div class="card">
+    <div class="">
       
          
                 
@@ -193,7 +193,7 @@ $get_classrooms = SuperModel::get_class_rooms_by_tenant_id($tenant_id);
                     
                       
                   <div class="col-md-12">
-                                                <div class="card-block">
+                                                <div class="">
                                                     <div class="table-responsive">
                                                         <table class="table table-striped table-bordered" id="edu_example-3">
                                                                 <thead>
