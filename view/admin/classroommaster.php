@@ -1,15 +1,19 @@
+<link href="../../lib/Toast/jquery.toast.min.css" rel="stylesheet" type="text/css"/>
+<script src="../../lib/grid/jquery-3.5.1.min.js" type="text/javascript"></script>
+<script src="../../lib/Toast/alerts.js" type="text/javascript"></script>
+<script src="../../lib/Toast/jquery.toast.min.js" type="text/javascript"></script>
 <?php 
 require '../../controller/super/SessionStart.php'; 
 include '../../model/SuperModel.php';
 include '../../db_connection/dbconfig.php';
+include '../../controller/super/MaterController.php';
 
 $tenant_id = $_SESSION['threeedu_tenantid'];
 $school_id = $_SESSION['threeedu_schoolid'];
-
-
 $get_classrooms = SuperModel::get_class_rooms_by_tenant_id($tenant_id);
 
 ?>
+<?php ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,7 +48,7 @@ $get_classrooms = SuperModel::get_class_rooms_by_tenant_id($tenant_id);
 <link rel="stylesheet" type="text/css" href="../../files/assets/css/style.css">
 <link rel="stylesheet" type="text/css" href="../../files/assets/css/jquery.mCustomScrollbar.css">
 
-<link href="../../lib/Toast/jquery.toast.min.css" rel="stylesheet" type="text/css"/>
+
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -125,10 +129,11 @@ $get_classrooms = SuperModel::get_class_rooms_by_tenant_id($tenant_id);
 <div class="main-body">
 <div class="page-wrapper">
 <div class="page-body">
-    <form onsubmit="event.preventDefault(); validatepassword();" id="teacher_details" enctype="multipart/form-data"  method="POST" action="../../controller/super/ActionPerformed.php" >
+<!--    -->
+<form  enctype="multipart/form-data"   method="POST" action="classroommaster.php" >
 
-        <button type="submit" style="float: right;"   class="btn btn-warning btn-round">Submit</button><br><br><br>
-        <input name="btn_create_teacher" type="hidden"/>
+        <button name="btn_class_rooom_master" type="submit" style="float: right;"   class="btn btn-warning btn-round">Submit</button><br><br><br>
+        
          <div class="row">
    
     <div class="col-sm-12">
@@ -208,10 +213,12 @@ $get_classrooms = SuperModel::get_class_rooms_by_tenant_id($tenant_id);
                                                                 
                                                                 <td>
                                                                     <?php echo $data['ClassRoomName'] ?>
-                                                                    <input value="<?php echo $data['ClassRoomPublicID'] ?>" type="hidden" name="subject_name[]" />     
+                                                                    <input  id="txt_data_name" value="<?php echo $data['ClassRoomName'];?>" type="hidden" name="class_room_name[]" /> 
+                                                                    <input  value="<?php echo $data['ClassRoomPublicID'];?>" type="hidden" name="class_room_public_id[]"  />
                                                                 </td>
                                                                
                                                                 <td>  <input type="checkbox"  name="chk_subject" value="1" checked>&nbsp;&nbsp;
+                                                                    <a class="add" title="Add" data-toggle="tooltip" id="0"><i class="fa fa-user-plus"></i></a>
                                                                         <a class="edit" title="Edit" data-toggle="tooltip" id="1"><i class="fa fa-pencil"></i></a>
                                                                             
                                                                 </td>
@@ -278,7 +285,7 @@ $get_classrooms = SuperModel::get_class_rooms_by_tenant_id($tenant_id);
 </div>
 
 
- <script src="../../lib/grid/jquery-3.5.1.min.js" type="text/javascript"></script>
+ 
 <script type="960c3b30522fb895a4c59633-text/javascript" src="../../files/bower_components/jquery-ui/js/jquery-ui.min.js"></script>
 <script type="960c3b30522fb895a4c59633-text/javascript" src="../../files/bower_components/popper.js/js/popper.min.js"></script>
 <script type="960c3b30522fb895a4c59633-text/javascript" src="../../files/bower_components/bootstrap/js/bootstrap.min.js"></script>
@@ -296,8 +303,7 @@ $get_classrooms = SuperModel::get_class_rooms_by_tenant_id($tenant_id);
 
 
 
-<script src="../../lib/Toast/alerts.js" type="text/javascript"></script>
-<script src="../../lib/Toast/jquery.toast.min.js" type="text/javascript"></script>
+
 <!--      script for grid-->
 <script src="../../lib/grid/grid_classroom_master.js" type="text/javascript"></script>
          <!--          script fro grid end -->
@@ -327,3 +333,6 @@ $get_classrooms = SuperModel::get_class_rooms_by_tenant_id($tenant_id);
 
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dashboard-crm.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:45:54 GMT -->
 </html>
+
+
+<!--This is donne becasue of the notification java script-->

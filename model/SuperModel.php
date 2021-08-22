@@ -355,6 +355,43 @@ class SuperModel {
     }
     
     
+    public static function add_class_room($class_room_data) {
+        //the below function creates a session in the databes for every log in 
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+           
+            $query = "INSERT INTO classroom (ClassRoomPublicID, ClassRoomName, UpdatedBy, TenantID,IsActive) VALUES(?,?,?,?,1) ON DUPLICATE KEY UPDATE ClassRoomName=VALUES(ClassRoomName)";
+            $stm = $conn->prepare($query);
+    
+            // print_r($subject_data);
+            foreach ($class_room_data as $class_room_data) {
+                 //print_r($class_room_data);
+                if (!empty($class_room_data[0])) {
+                    // print_r($class_room_data);
+                    $stm->execute($class_room_data);
+                    
+                } else {
+                    
+                }
+
+                //  
+            }
+
+
+            //print_r($stm);
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+           echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
     
     public static function create_teacher($teacher_id, $pic_url, $nrc, $passport, $username, $password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id, $subject_data) {
         //the below function creates a session in the databes for every log in 
