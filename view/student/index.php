@@ -1,10 +1,40 @@
 <?php 
 require '../../controller/super/SessionStart.php'; 
 require '../../db_connection/dbconfig.php'; 
-require '../../model/SuperModel.php'; 
+require_once '../../model/TeacherModel.php';
+require_once '../../model/SuperModel.php';
    $student_pulic_id  =  $_SESSION['threeedu_public_id'];
    
 $get_stuednt_details = SuperModel::get_student_details_by_student_public_id($student_pulic_id);
+
+
+$stm = TeacherModel::get_all_student_details();
+
+$classes = SuperModel::get_all_classes_with_mapped_subjects();
+$classmaster_id = $get_stuednt_details['ClassMasterPublicID'];
+ $monday  = array();
+            $tuesday  = array();
+            $wednsday  = array();
+            $thursday  = array();
+            $friday  = array();
+            $periods = array();
+
+            $classmaster_id  = $classmaster_id;
+            $get_timtable_data = SuperModel::get_timtable($classmaster_id);
+            
+            $classname =  SuperModel::get_class_name($classmaster_id);
+           
+            while($row = $get_timtable_data->fetch(PDO::FETCH_ASSOC)){
+             array_push($monday,$row['SubjectCodeM']);
+             array_push($tuesday,$row['SubjectCodeT']);
+             array_push($wednsday,$row['SubjectCodeW']);
+             array_push($thursday,$row['SubjectCodeTH']);
+             array_push($friday,$row['SubjectCodeF']);
+             array_push($periods,$row['PeriodName']);
+          
+            }
+            
+         
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -158,7 +188,7 @@ $get_stuednt_details = SuperModel::get_student_details_by_student_public_id($stu
 <div class="slide"></div>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-toggle="tab" href="#binfo" role="tab">User's Services</a>
+<a class="nav-link" data-toggle="tab" href="#binfo" role="tab">Time Table</a>
 <div class="slide"></div>
 </li>
 <li class="nav-item">
@@ -385,194 +415,123 @@ $get_stuednt_details = SuperModel::get_student_details_by_student_public_id($stu
 
 <div class="card">
 <div class="card-header">
-<h5 class="card-header-text">User Services</h5>
+<h5 class="card-header-text">Time Table </h5>
 </div>
-<div class="card-block">
-<div class="row">
-<div class="col-md-6">
-<div class="card b-l-success business-info services m-b-20">
-<div class="card-header">
-<div class="service-header">
-<a href="#">
-<h5 class="card-header-text">Shivani Hero</h5>
-</a>
-</div>
-<span class="dropdown-toggle addon-btn text-muted f-right service-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="tooltip">
-</span>
-<div class="dropdown-menu dropdown-menu-right b-none services-list">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i> Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i> Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i> View</a>
-</div>
-</div>
-<div class="card-block">
-<div class="row">
-<div class="col-sm-12">
- <p class="task-detail">Lorem ipsum dolor sit amet, consectet ur adipisicing elit, sed do eiusmod temp or incidi dunt ut labore et.Lorem ipsum dolor sit amet, consecte.</p>
-</div>
+      
 
-</div>
+     <div class="card">
+                                    <?php if (isset($classname)){
+                                           ?>
+                                    
+                                       <h2><b>Class Time Table For <?php echo $classname; ?></b></h2><br> 
+                                        
+                                  
+                                    
+                                    <div class="card-block table-border-style">
+                                        <div class="table-responsive">
+                                            <table class="table table-styling table-hover table-striped table-primary">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Days</th>
+                                                         <?php  
+                                                         
+                                                       $headers = $periods;
+                                                       
 
-</div>
+                                                      foreach ($headers as $key => $value) {
 
-</div>
-</div>
-<div class="col-md-6">
-<div class="card b-l-danger business-info services">
-<div class="card-header">
-<div class="service-header">
-<a href="#">
-<h5 class="card-header-text">Dress and Sarees</h5>
-</a>
-</div>
-<span class="dropdown-toggle addon-btn text-muted f-right service-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="tooltip">
-</span>
-<div class="dropdown-menu dropdown-menu-right b-none services-list">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i> Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i> Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i> View</a>
-</div>
-</div>
-<div class="card-block">
-<div class="row">
-<div class="col-sm-12">
-<p class="task-detail">Lorem ipsum dolor sit amet, consectet ur adipisicing elit, sed do eiusmod temp or incidi dunt ut labore et.Lorem ipsum dolor sit amet, consecte.</p>
-</div>
+                                                                             ?>
 
-</div>
+                                                 <?php ?>
+                                                 <th><?php echo $value; ?></th>
 
-</div>
+                                                 <?php } ?>
+                                                     
+                                                    </tr>
+                                                    
+                                                                               
+<tr>
+   
+    <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Monday</td>
+     <?php foreach ($monday as $key => $value) {
+                         
+                      ?>
+    <td><?php echo $value ?></td>
+       
+     <?php   } ?>
+ 
+   
+</tr>
 
-</div>
-</div>
-<div class="col-md-6">
-<div class="card b-l-info business-info services">
-<div class="card-header">
-<div class="service-header">
-<a href="#">
-<h5 class="card-header-text">Shivani Auto Port</h5>
-</a>
-</div>
-<span class="dropdown-toggle addon-btn text-muted f-right service-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="tooltip">
-</span>
-<div class="dropdown-menu dropdown-menu-right b-none services-list">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i> Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i> Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i> View</a>
-</div>
-</div>
-<div class="card-block">
-<div class="row">
-<div class="col-sm-12">
-<p class="task-detail">Lorem ipsum dolor sit amet, consectet ur adipisicing elit, sed do eiusmod temp or incidi dunt ut labore et.Lorem ipsum dolor sit amet, consecte.</p>
-</div>
+                                                                               
+<tr>
+   
+    <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Tuesday</td>
+     <?php foreach ($tuesday as $key => $value) {
+                         
+                      ?>
+    <td><?php echo $value ?></td>
+       
+     <?php   } ?>
+   
+</tr>
 
-</div>
 
-</div>
+                                                                               
+<tr>
+   
+    <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Wednesday</td>
+     <?php foreach ($wednsday as $key => $value) {
+                         
+                      ?>
+    <td><?php echo $value ?></td>
+       
+     <?php   } ?>
+   
+</tr>
 
-</div>
-</div>
-<div class="col-md-6">
-<div class="card b-l-warning business-info services">
-<div class="card-header">
-<div class="service-header">
-<a href="#">
-<h5 class="card-header-text">Hair stylist</h5>
- </a>
-</div>
-<span class="dropdown-toggle addon-btn text-muted f-right service-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="tooltip">
-</span>
-<div class="dropdown-menu dropdown-menu-right b-none services-list">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i> Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i> Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i> View</a>
-</div>
-</div>
-<div class="card-block">
-<div class="row">
-<div class="col-sm-12">
-<p class="task-detail">Lorem ipsum dolor sit amet, consectet ur adipisicing elit, sed do eiusmod temp or incidi dunt ut labore et.Lorem ipsum dolor sit amet, consecte.</p>
-</div>
 
-</div>
+                                                                               
+<tr>
+   
+    <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Thursday </td>
+     <?php foreach ($thursday as $key => $value) {
+                         
+                      ?>
+    <td><?php echo $value ?></td>
+       
+     <?php   } ?>
+   
+</tr>
 
-</div>
 
-</div>
-</div>
-<div class="col-md-6">
-<div class="card b-l-danger business-info services">
-<div class="card-header">
-<div class="service-header">
-<a href="#">
-<h5 class="card-header-text">BMW India</h5>
-</a>
-</div>
-<span class="dropdown-toggle addon-btn text-muted f-right service-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="tooltip">
-</span>
-<div class="dropdown-menu dropdown-menu-right b-none services-list">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i> Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i> Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i> View</a>
-</div>
-</div>
-<div class="card-block">
-<div class="row">
-<div class="col-sm-12">
-<p class="task-detail">Lorem ipsum dolor sit amet, consectet ur adipisicing elit, sed do eiusmod temp or incidi dunt ut labore et.Lorem ipsum dolor sit amet, consecte.</p>
-</div>
+                                                                               
+<tr>
+   
+    <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Friday</td>
+     <?php foreach ($friday as $key => $value) {
+                         
+                      ?>
+    <td><?php echo $value ?></td>
+       
+     <?php   } ?>
+  
+</tr>
 
+                                                </thead>
+                                                
+                                            </table>
+                                        </div>
+                                    </div>
+                                       
+                                        <?php } else { ?>
+                                       
+                                      <center>  <h5>Please Select Class</h5>
+                                                   <img src="../../img/timetable.png"/></center>
+                                       
+                                      <?php } ?>
+                                </div>
 </div>
-
-</div>
-
-</div>
-</div>
-<div class="col-md-6">
-<div class="card b-l-success business-info services">
-<div class="card-header">
-<div class="service-header">
-<a href="#">
-<h5 class="card-header-text">Shivani Hero</h5>
-</a>
-</div>
-<span class="dropdown-toggle addon-btn text-muted f-right service-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="tooltip">
-</span>
-<div class="dropdown-menu dropdown-menu-right b-none services-list">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i> Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i> Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i> View</a>
-</div>
-</div>
-<div class="card-block">
-<div class="row">
-<div class="col-sm-12">
-<p class="task-detail">Lorem ipsum dolor sit amet, consectet ur adipisicing elit, sed do eiusmod temp or incidi dunt ut labore et.Lorem ipsum dolor sit amet, consecte.</p>
-</div>
-
-</div>
-
-</div>
-
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col-lg-12">
-<div class="card">
-<div class="card-header">
-<h5 class="card-header-text">Profit</h5>
-</div>
-<div class="card-block">
-<div id="main" style="height:300px;width: 100%;"></div>
-</div>
-</div>
-</div>
-</div>
-
 </div>
 
 
@@ -1857,6 +1816,12 @@ Schedule
 <script src="../../files/assets/pages/ckeditor/ckeditor.js" type="fc62f3ba96b90a09d14681a9-text/javascript"></script>
 
 <script src="../../files/assets/pages/chart/echarts/js/echarts-all.js" type="fc62f3ba96b90a09d14681a9-text/javascript"></script>
+
+
+
+<script type="fc62f3ba96b90a09d14681a9-text/javascript" src="../../files/assets/pages/advance-elements/select2-custom.js"></script>
+
+
 
 <script type="fc62f3ba96b90a09d14681a9-text/javascript" src="../../files/bower_components/i18next/js/i18next.min.js"></script>
 <script type="fc62f3ba96b90a09d14681a9-text/javascript" src="../../files/bower_components/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
