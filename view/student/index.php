@@ -3,8 +3,9 @@ require '../../controller/super/SessionStart.php';
 require '../../db_connection/dbconfig.php'; 
 require_once '../../model/TeacherModel.php';
 require_once '../../model/SuperModel.php';
+
    $student_pulic_id  =  $_SESSION['threeedu_public_id'];
-   
+   $stm_get_atendance_history = SuperModel::get_single_studnet_attendance_report_by_id($student_pulic_id);
 $get_stuednt_details = SuperModel::get_student_details_by_student_public_id($student_pulic_id);
 
 
@@ -192,7 +193,7 @@ $classmaster_id = $get_stuednt_details['ClassMasterPublicID'];
 <div class="slide"></div>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-toggle="tab" href="#contacts" role="tab">User's Contacts</a>
+<a class="nav-link" data-toggle="tab" href="#contacts" role="tab">Attendance</a>
 <div class="slide"></div>
 </li>
 <li class="nav-item">
@@ -541,63 +542,34 @@ $classmaster_id = $get_stuednt_details['ClassMasterPublicID'];
 
 <div class="card">
 <div class="card-header contact-user">
-<img class="img-radius img-40" src="../../files/assets/images/avatar-4.jpg" alt="contact-user">
-<h5 class="m-l-10">John Doe</h5>
+    <img class="img-radius img-40" src="<?php echo $get_stuednt_details['PicURL'];?>" alt="School Logo">
+<h5 class="m-l-10">History</h5>
 </div>
 <div class="card-block">
 <ul class="list-group list-contacts">
-<li class="list-group-item active"><a href="#">All Contacts</a></li>
-<li class="list-group-item"><a href="#">Recent Contacts</a></li>
-<li class="list-group-item"><a href="#">Favourite Contacts</a></li>
+<li class="list-group-item active"><a href="#">Total Attendance</a></li>
+<li class="list-group-item"><a href="#">Present Days: 0</a></li>
+<li class="list-group-item"><a href="#">Absent Days: 0</a></li>
 </ul>
 </div>
  <div class="card-block groups-contact">
-<h4>Groups</h4>
+<h4>Awards</h4>
 <ul class="list-group">
 <li class="list-group-item justify-content-between">
-Project
-<span class="badge badge-primary badge-pill">30</span>
+Received
+<span class="badge badge-primary badge-pill">0</span>
 </li>
-<li class="list-group-item justify-content-between">
-Notes
-<span class="badge badge-success badge-pill">20</span>
-</li>
-<li class="list-group-item justify-content-between">
-Activity
-<span class="badge badge-info badge-pill">100</span>
-</li>
-<li class="list-group-item justify-content-between">
-Schedule
-<span class="badge badge-danger badge-pill">50</span>
-</li>
+
 </ul>
 </div>
 </div>
+<!--    This is for proper alignment div below -->
 <div class="card">
-<div class="card-header">
-<h4 class="card-title">Contacts<span class="f-15"> (100)</span></h4>
-</div>
-<div class="card-block">
-<div class="connection-list">
-<a href="#"><img class="img-fluid img-radius" src="../../files/assets/images/user-profile/follower/f-1.jpg" alt="f-1" data-toggle="tooltip" data-placement="top" data-original-title="Airi Satou">
-</a>
-<a href="#"><img class="img-fluid img-radius" src="../../files/assets/images/user-profile/follower/f-2.jpg" alt="f-2" data-toggle="tooltip" data-placement="top" data-original-title="Angelica Ramos">
-</a>
-<a href="#"><img class="img-fluid img-radius" src="../../files/assets/images/user-profile/follower/f-3.jpg" alt="f-3" data-toggle="tooltip" data-placement="top" data-original-title="Ashton Cox">
-</a>
-<a href="#"><img class="img-fluid img-radius" src="../../files/assets/images/user-profile/follower/f-4.jpg" alt="f-4" data-toggle="tooltip" data-placement="top" data-original-title="Cara Stevens">
-</a>
-<a href="#"><img class="img-fluid img-radius" src="../../files/assets/images/user-profile/follower/f-5.jpg" alt="f-5" data-toggle="tooltip" data-placement="top" data-original-title="Garrett Winters">
-</a>
-<a href="#"><img class="img-fluid img-radius" src="../../files/assets/images/user-profile/follower/f-1.jpg" alt="f-6" data-toggle="tooltip" data-placement="top" data-original-title="Cedric Kelly">
-</a>
-<a href="#"><img class="img-fluid img-radius" src="../../files/assets/images/user-profile/follower/f-3.jpg" alt="f-7" data-toggle="tooltip" data-placement="top" data-original-title="Brielle Williamson">
-</a>
-<a href="#"><img class="img-fluid img-radius" src="../../files/assets/images/user-profile/follower/f-5.jpg" alt="f-8" data-toggle="tooltip" data-placement="top" data-original-title="Jena Gaines">
-</a>
+<div class="">
+
 </div>
 </div>
-</div>
+<!--   END  This is for proper alignment div below -->
 
 </div>
 <div class="col-xl-9">
@@ -606,950 +578,66 @@ Schedule
 
 <div class="card">
 <div class="card-header">
-<h5 class="card-header-text">Contacts</h5>
+
 </div>
 <div class="card-block contact-details">
 <div class="data_table_main table-responsive dt-responsive">
-<table id="simpletable" class="table  table-striped table-bordered nowrap">
+
+ <table id="simpletable" class="table  table-striped table-bordered nowrap">
 <thead>
 <tr>
+<th>Student ID</th>
 <th>Name</th>
-<th>Email</th>
-<th>Mobileno.</th>
-<th>Favourite</th>
-<th>Action</th>
+<th>Class</th>
+<th>Reason</th>
+<th>Status</th>
+<th>Marked Date</th>
+
 </tr>
- </thead>
+</thead>
 <tbody>
+      <?php while($row_data = $stm_get_atendance_history->fetch(PDO::FETCH_ASSOC))
+                            
+                    {
+                          $public_id = $row_data['PublicID'];
+                            ?>
 <tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8beae9e8bab9b8cbece6eae2e7a5e8e4e6">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
+   
+         <td><?php echo $row_data['StudentNo'];?></td>
+        
+        <td ><?php echo $row_data['Name'];?></td>
+        <td ><?php echo $row_data['ClassName'];?></td>
+          <td ><?php echo $row_data['Reason'];?></td>
+            <td ><?php echo $row_data['Statue'];?></td>
+              <td ><?php echo $row_data['MarkedOn'];?></td>
+                
+       
+
+
 </tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7f1e1d1c4e4d4c3f18121e1613511c1012">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star-o" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c6a7a4a5f7f4f586a1aba7afaae8a5a9ab">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
- <a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cfaeadacfefdfc8fa8a2aea6a3e1aca0a2">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3352515002010073545e525a5f1d505c5e">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star-o" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a2c3c0c1939091e2c5cfc3cbce8cc1cdcf">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0766656436353447606a666e6b2964686a">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="afcecdcc9e9d9cefc8c2cec6c381ccc0c2">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dcbdbebfedeeef9cbbb1bdb5b0f2bfb3b1">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
- <a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="81e0e3e2b0b3b2c1e6ece0e8edafe2eeec">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star-o" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
- <td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f9989b9ac8cbcab99e94989095d79a9694">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="28494a4b191a1b684f45494144064b4745">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
- <a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6302010052515023040e020a0f4d000c0e">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
- <tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5130333260636211363c30383d7f323e3c">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e2838081d3d0d1a2858f838b8ecc818d8f">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star-o" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dabbb8b9ebe8e99abdb7bbb3b6f4b9b5b7">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
- </div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0f6e6d6c3e3d3c4f68626e6663216c6062">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star-o" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="44252627757677042329252d286a272b29">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button> 
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dfbebdbceeedec9fb8b2beb6b3f1bcb0b2">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="18797a7b292a2b587f75797174367b7775">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star-o" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fa9b9899cbc8c9ba9d979b9396d4999597">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9afbf8f9aba8a9dafdf7fbf3f6b4f9f5f7">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
- <a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8cedeeefbdbebfccebe1ede5e0a2efe3e1">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star-o" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0e6f6c6d3f3c3d4e69636f6762206d6163">[email&#160;protected]</a></td>
-<td>9989988988</td>
- <td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2c4d4e4f1d1e1f6c4b414d4540024f4341">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5736353466656417303a363e3b7934383a">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
- <td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="64050607555657240309050d084a070b09">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="74151617454647341319151d185a171b19">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
- <a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bcdddedf8d8e8ffcdbd1ddd5d092dfd3d1">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
- </tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b8d9dadb898a8bf8dfd5d9d1d496dbd7d5">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b3d2d1d0828180f3d4ded2dadf9dd0dcde">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
- <a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4726252476757407202a262e2b6924282a">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3756555406050477505a565e5b1954585a">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="79181b1a484b4a391e14181015571a1614">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1776757426252457707a767e7b3974787a">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
- <a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6a0b08095b58592a0d070b030644090507">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1c7d7e7f2d2e2f5c7b717d7570327f7371">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
- <td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1e7f7c7d2f2c2d5e79737f7772307d7173">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="19787b7a282b2a597e74787075377a7674">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f8999a9bc9cacbb89f95999194d69b9795">[email&#160;protected]</a></td>
- <td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9ffefdfcaeadacdff8f2fef6f3b1fcf0f2">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
- <a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1273707123202152757f737b7e3c717d7f">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
- <tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2041424311121360474d41494c0e434f4d">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0263606133303142656f636b6e2c616d6f">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6302010052515023040e020a0f4d000c0e">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
- </td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0263606133303142656f636b6e2c616d6f">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dcbdbebfedeeef9cbbb1bdb5b0f2bfb3b1">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
- <div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7213101143404132151f131b1e5c111d1f">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
- <a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4627242577747506212b272f2a6825292b">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bcdddedf8d8e8ffcdbd1ddd5d092dfd3d1">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
-<tr>
-<td>Garrett Winters</td>
-<td><a href="https://colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8aebe8e9bbb8b9caede7ebe3e6a4e9e5e7">[email&#160;protected]</a></td>
-<td>9989988988</td>
-<td><i class="fa fa-star" aria-hidden="true"></i></td>
-<td class="dropdown">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-<div class="dropdown-menu dropdown-menu-right b-none contact-menu">
-<a class="dropdown-item" href="#!"><i class="icofont icofont-edit"></i>Edit</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-delete"></i>Delete</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye-alt"></i>View</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-tasks-alt"></i>Project</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-ui-note"></i>Notes</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-eye"></i>Activity</a>
-<a class="dropdown-item" href="#!"><i class="icofont icofont-badge"></i>Schedule</a>
-</div>
-</td>
-</tr>
+
+     <?php } ?>
+
+
+
+
+
 </tbody>
 <tfoot>
 <tr>
+<th>Student ID</th>
 <th>Name</th>
-<th>Email</th>
-<th>Mobileno.</th>
-<th>Favourite</th>
-<th>Action</th>
+<th>Class</th>
+<th>Reason</th>
+<th>Status</th>
+<th>Marked Date</th>
+<th></th>
 </tr>
 </tfoot>
-</table>
+</table>   
+    
+    
+    
 </div>
 </div>
 </div>

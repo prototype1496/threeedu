@@ -47,6 +47,23 @@ class SuperModel {
 
         return $stm;
     }
+    
+    
+     public static function get_single_studnet_attendance_report_by_id($PUBLICID) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetStudentAttendanceReportByPublicID(:public_id);";
+        
+        
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':public_id' => $PUBLICID));
+    
+
+        return $stm;
+       
+    }
 
     //Reports End
     public static function get_all_subjectts() {
