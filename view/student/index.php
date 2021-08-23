@@ -587,7 +587,7 @@ Received
 <thead>
 <tr>
 <th>Student ID</th>
-<th>Name</th>
+
 <th>Class</th>
 <th>Reason</th>
 <th>Status</th>
@@ -605,7 +605,7 @@ Received
    
          <td><?php echo $row_data['StudentNo'];?></td>
         
-        <td ><?php echo $row_data['Name'];?></td>
+       
         <td ><?php echo $row_data['ClassName'];?></td>
           <td ><?php echo $row_data['Reason'];?></td>
             <td ><?php echo $row_data['Statue'];?></td>
@@ -626,7 +626,7 @@ Received
 <tfoot>
 <tr>
 <th>Student ID</th>
-<th>Name</th>
+
 <th>Class</th>
 <th>Reason</th>
 <th>Status</th>
