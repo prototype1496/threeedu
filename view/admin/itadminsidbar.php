@@ -118,6 +118,12 @@
                                 <span class="pcoded-mtext">Assessment Type master</span>
                             </a>
                         </li>
+                        
+                         <li class="">
+                             <a href="grademmaster.php">
+                                <span class="pcoded-mtext">Grade Master</span>
+                            </a>
+                        </li>
                          <li class="">
                              <a href="classroommaster.php">
                                 <span class="pcoded-mtext">Class Room Master</span>

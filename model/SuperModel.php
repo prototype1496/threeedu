@@ -47,22 +47,18 @@ class SuperModel {
 
         return $stm;
     }
-    
-    
-     public static function get_single_studnet_attendance_report_by_id($PUBLICID) {
+
+    public static function get_single_studnet_attendance_report_by_id($PUBLICID) {
 
         $Connection = new Connection();
         $conn = $Connection->connect();
 
         $query = "CALL GetStudentAttendanceReportByPublicID(:public_id);";
-        
-        
+
         $stm = $conn->prepare($query);
         $stm->execute(array(':public_id' => $PUBLICID));
-    
 
         return $stm;
-       
     }
 
     //Reports End
@@ -370,26 +366,24 @@ class SuperModel {
             return FALSE;
         }
     }
-    
-    
-    public static function add_class_room($class_room_data) {
+
+    public static function add_grade($grade_data) {
         //the below function creates a session in the databes for every log in 
         try {
             $Connection = new Connection();
             $conn = $Connection->connect();
 
             $conn->beginTransaction();
-           
-            $query = "INSERT INTO classroom (ClassRoomPublicID, ClassRoomName, UpdatedBy, TenantID,IsActive) VALUES(?,?,?,?,1) ON DUPLICATE KEY UPDATE ClassRoomName=VALUES(ClassRoomName)";
+
+            $query = "INSERT INTO grademaster (`GradeMasterID`,`Grade`, `TenantID`, `UpdatedBy`, `IsActive`)  VALUES(?,?,?,?,1) ON DUPLICATE KEY UPDATE Grade=VALUES(Grade),TenantID=VALUES(TenantID),UpdatedBy=VALUES(UpdatedBy)";
             $stm = $conn->prepare($query);
-    
+
             // print_r($subject_data);
-            foreach ($class_room_data as $class_room_data) {
-                 //print_r($class_room_data);
-                if (!empty($class_room_data[0])) {
+            foreach ($grade_data as $grade_data) {
+                //print_r($grade_data);
+                if (!empty($grade_data[0])) {
                     // print_r($class_room_data);
-                    $stm->execute($class_room_data);
-                    
+                    $stm->execute($grade_data);
                 } else {
                     
                 }
@@ -404,12 +398,47 @@ class SuperModel {
             return TRUE;
         } catch (Exception $exc) {
             $conn->rollBack();
-           echo $exc->getMessage();
+            echo $exc->getMessage();
             return FALSE;
         }
     }
-    
-    
+
+    public static function add_class_room($class_room_data) {
+        //the below function creates a session in the databes for every log in 
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+
+            $query = "INSERT INTO classroom (ClassRoomPublicID, ClassRoomName, UpdatedBy, TenantID,IsActive) VALUES(?,?,?,?,1) ON DUPLICATE KEY UPDATE ClassRoomName=VALUES(ClassRoomName)";
+            $stm = $conn->prepare($query);
+
+            // print_r($subject_data);
+            foreach ($class_room_data as $class_room_data) {
+                //print_r($class_room_data);
+                if (!empty($class_room_data[0])) {
+                    // print_r($class_room_data);
+                    $stm->execute($class_room_data);
+                } else {
+                    
+                }
+
+                //  
+            }
+
+
+            //print_r($stm);
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+            // echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+
     public static function create_teacher($teacher_id, $pic_url, $nrc, $passport, $username, $password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id, $subject_data) {
         //the below function creates a session in the databes for every log in 
         try {
@@ -422,23 +451,20 @@ class SuperModel {
             //Insets data new session into the session table
             $query = "INSERT INTO usermaster(PublicID, ProfilPicURL, NRC, Passport, UserName, Password, FirstName, LastName, OtherName, EmailAddress, ContactNo, GenderID, MaritalStatusID, DOB, UserTypeID, UpdatedBy, IsActive,TenantID)VALUES (:PublicID, :ProfilPicURL, :NRC, :Passport, :UserName, :Password, :FirstName, :LastName, :OtherName, :EmailAddress, :ContactNo, :GenderID, :MaritalStatusID, :DOB, :UserTypeID, :UpdatedBy, 1,:TenantID)";
             $stm = $conn->prepare($query);
-            $stm->execute(array(':PublicID'=>$teacher_id, ':ProfilPicURL'=>$pic_url, ':NRC'=>$nrc, ':Passport'=>$passport, ':UserName'=>$username, ':Password'=>$password, ':FirstName'=>$first_name, ':LastName'=>$last_name, ':OtherName'=>$other_name, ':EmailAddress'=>$email_address, ':ContactNo'=>$concat_no, ':GenderID'=>$gender_id, ':MaritalStatusID'=>$marital_status_id, ':DOB'=>$dob, ':UserTypeID'=>$user_type, ':UpdatedBy'=>$UpdatedBy,':TenantID'=>$tenant_id));
+            $stm->execute(array(':PublicID' => $teacher_id, ':ProfilPicURL' => $pic_url, ':NRC' => $nrc, ':Passport' => $passport, ':UserName' => $username, ':Password' => $password, ':FirstName' => $first_name, ':LastName' => $last_name, ':OtherName' => $other_name, ':EmailAddress' => $email_address, ':ContactNo' => $concat_no, ':GenderID' => $gender_id, ':MaritalStatusID' => $marital_status_id, ':DOB' => $dob, ':UserTypeID' => $user_type, ':UpdatedBy' => $UpdatedBy, ':TenantID' => $tenant_id));
 
-            
             $query2 = "INSERT INTO teachermaster (TeaherMasterPublicID, TeacherPositionID, DeparmrntCode, UpdatedBy, IsActive) VALUES (:TeaherMasterPublicID, :TeacherPositionID, :DeparmrntCode, :UpdatedBy, 1)";
             $stm2 = $conn->prepare($query2);
-            $stm2->execute(array(':TeaherMasterPublicID'=>$teacher_id, ':TeacherPositionID'=>$position_id, ':DeparmrntCode'=>$department_id, ':UpdatedBy'=>$UpdatedBy));
+            $stm2->execute(array(':TeaherMasterPublicID' => $teacher_id, ':TeacherPositionID' => $position_id, ':DeparmrntCode' => $department_id, ':UpdatedBy' => $UpdatedBy));
 
-            
-            
-             $query3 = "INSERT INTO address (PrimaryAddress, SecondaryAddress, DistrictID, IdentificationID) VALUES (:PrimaryAddress, :SecondaryAddress, :DistrictID, :IdentificationID)";
+            $query3 = "INSERT INTO address (PrimaryAddress, SecondaryAddress, DistrictID, IdentificationID) VALUES (:PrimaryAddress, :SecondaryAddress, :DistrictID, :IdentificationID)";
             $stm3 = $conn->prepare($query3);
-             $stm3->execute(array(':PrimaryAddress'=>$pramary_address, ':SecondaryAddress'=>$secondary_address, ':DistrictID'=>$district_id, ':IdentificationID'=>$teacher_id));
+            $stm3->execute(array(':PrimaryAddress' => $pramary_address, ':SecondaryAddress' => $secondary_address, ':DistrictID' => $district_id, ':IdentificationID' => $teacher_id));
 //            
 //            
             $query4 = "INSERT INTO teacherdetails (TeacherDetailsPublicID, TeacherMasterPublicID, SubjectCode, UpdatedBy) VALUES (?,?,?,?)";
             $stm4 = $conn->prepare($query4);
-    
+
             // print_r($subject_data);
             foreach ($subject_data as $subject_data) {
                 // print_r($subject_data);
@@ -459,13 +485,10 @@ class SuperModel {
             return TRUE;
         } catch (Exception $exc) {
             $conn->rollBack();
-           // echo $exc->getMessage();
+            // echo $exc->getMessage();
             return FALSE;
         }
     }
-    
-    
-    
 
     public static function add_acessment($tem_data) {
         //the below function creates a session in the databes for every log in 
@@ -959,8 +982,7 @@ class SuperModel {
 
         return $row;
     }
-    
-    
+
     public static function get_student_details_by_student_public_id($studentMasterPublicID) {
 
         $Connection = new Connection();
@@ -975,7 +997,6 @@ class SuperModel {
 
         return $row;
     }
-    
 
     public static function regiter_pupil($first_name, $last_name, $other_name, $gender_id, $dob, $marital_status_id, $class_id, $subject_code_1, $subject_code_2, $subject_code_3, $subject_code_4, $subject_code_5, $subject_code_6, $subject_code_7, $subject_code_8, $male_gardian_name, $female_gardian_name, $gardian_contact_no, $address, $StudentMasterPublicID, $StudentNo, $file_temp, $UpdatedBy, $email_address) {
         //the below function creates a session in the databes for every log in 

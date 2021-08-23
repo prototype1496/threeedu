@@ -447,26 +447,28 @@ CREATE TABLE IF NOT EXISTS `grademaster` (
   `GradeMasterID` int(11) NOT NULL AUTO_INCREMENT,
   `Grade` int(11) NOT NULL,
   `IsActive` char(1) NOT NULL DEFAULT '0',
-  `TenantID` varbinary(400) NOT NULL,
+  `TenantID` varchar(50) NOT NULL DEFAULT '',
+  `UpdatedBy` varchar(50) NOT NULL,
+  `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`GradeMasterID`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.grademaster: ~12 rows (approximately)
+-- Dumping data for table 3edu_db.grademaster: ~14 rows (approximately)
 DELETE FROM `grademaster`;
 /*!40000 ALTER TABLE `grademaster` DISABLE KEYS */;
-INSERT INTO `grademaster` (`GradeMasterID`, `Grade`, `IsActive`, `TenantID`) VALUES
-	(1, 1, '1', _binary 0x35666537353937652d663761312d313165622d613831632d313036326535633233353239),
-	(2, 2, '1', _binary 0x35666537353937652d663761312d313165622d613831632d313036326535633233353239),
-	(3, 3, '1', _binary 0x35666537353937652d663761312d313165622d613831632d313036326535633233353239),
-	(4, 4, '1', _binary 0x35666537353937652d663761312d313165622d613831632d313036326535633233353239),
-	(5, 5, '1', _binary 0x35666537353937652d663761312d313165622d613831632d313036326535633233353239),
-	(6, 6, '1', _binary 0x35666537353937652d663761312d313165622d613831632d313036326535633233353239),
-	(7, 7, '1', _binary 0x35666537353937652d663761312d313165622d613831632d313036326535633233353239),
-	(8, 8, '1', _binary 0x35666537353937652d663761312d313165622d613831632d313036326535633233353239),
-	(9, 9, '1', _binary 0x35666537353937652d663761312d313165622d613831632d313036326535633233353239),
-	(10, 10, '1', _binary 0x35666537353937652d663761312d313165622d613831632d313036326535633233353239),
-	(11, 11, '1', _binary 0x35666537353937652d663761312d313165622d613831632d313036326535633233353239),
-	(12, 12, '1', _binary 0x35666537353937652d663761312d313165622d613831632d313036326535633233353239);
+INSERT INTO `grademaster` (`GradeMasterID`, `Grade`, `IsActive`, `TenantID`, `UpdatedBy`, `UpdatedOn`) VALUES
+	(1, 1, '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'it', '2021-08-22 22:42:22'),
+	(2, 2, '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'it', '2021-08-22 22:42:22'),
+	(3, 3, '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'it', '2021-08-22 22:42:22'),
+	(4, 4, '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'it', '2021-08-22 22:42:22'),
+	(5, 5, '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'it', '2021-08-22 22:42:22'),
+	(6, 6, '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'it', '2021-08-22 22:42:22'),
+	(7, 7, '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'it', '2021-08-22 22:42:22'),
+	(8, 8, '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'it', '2021-08-22 22:42:22'),
+	(9, 9, '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'it', '2021-08-22 22:42:22'),
+	(10, 10, '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'it', '2021-08-22 22:42:22'),
+	(11, 11, '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'it', '2021-08-22 22:42:22'),
+	(12, 12, '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'it', '2021-08-22 22:42:22');
 /*!40000 ALTER TABLE `grademaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.gradingmaster
@@ -619,7 +621,7 @@ DELETE FROM `sequencemaster`;
 INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 89, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 123, '2019-11-01 20:00:03'),
+	(3, 'TOKN', 124, '2019-11-01 20:00:03'),
 	(4, 'EMIL', 3, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
 	(6, 'SCHL', 2, '2019-11-17 18:52:58'),
@@ -646,15 +648,16 @@ CREATE TABLE IF NOT EXISTS `session` (
   PRIMARY KEY (`SessionID`),
   KEY `FK_session_usermaster` (`UserMasterPublicID`),
   CONSTRAINT `FK_session_usermaster` FOREIGN KEY (`UserMasterPublicID`) REFERENCES `usermaster` (`PublicID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.session: ~3 rows (approximately)
+-- Dumping data for table 3edu_db.session: ~4 rows (approximately)
 DELETE FROM `session`;
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
 INSERT INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(120, '202000041', 'TOKN000000000120', 'ded346951f1db8eeaa836276b1a89f73752c350b4dd1fe9308', '1629644352', 's', '2021-08-22 16:59:13'),
 	(122, 'TECH0000000003', 'TOKN000000000122', '97651468aeb9c0b9d38214d79ea2a5155866f83f9bebf50a89', '1629655461', 't', '2021-08-22 20:04:21'),
-	(123, 'SDNT00000000035', 'TOKN000000000123', 'aea64054d8b4996fbe091b818b95a5a39f652ccc4d93734db7', '1629655527', 'SN2021040', '2021-08-22 20:05:27');
+	(123, 'SDNT00000000035', 'TOKN000000000123', 'aea64054d8b4996fbe091b818b95a5a39f652ccc4d93734db7', '1629655527', 'SN2021040', '2021-08-22 20:05:27'),
+	(124, 'ITADM00001', 'TOKN000000000124', '9975803062fa954c49f1207780a43fafa2e78186e255a6adf0', '1629658553', 'it', '2021-08-22 20:55:53');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
@@ -669,16 +672,17 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   `UpdatedBy` varchar(50) NOT NULL,
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionHistoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~4 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~5 rows (approximately)
 DELETE FROM `sessionhistory`;
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
 INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(120, '120', '202000041', 'TOKN000000000120', 'ded346951f1db8eeaa836276b1a89f73752c350b4dd1fe9308', '1629644352', 's', '2021-08-22 16:59:13'),
 	(121, '121', 'SDNT00000000035', 'TOKN000000000121', '6b2dba56e25335b7406ba187f2af10c3fafbc19b3986a8e172', '1629647125', 'SN2021040', '2021-08-22 17:45:25'),
 	(122, '122', 'TECH0000000003', 'TOKN000000000122', '97651468aeb9c0b9d38214d79ea2a5155866f83f9bebf50a89', '1629655461', 't', '2021-08-22 20:04:21'),
-	(123, '123', 'SDNT00000000035', 'TOKN000000000123', 'aea64054d8b4996fbe091b818b95a5a39f652ccc4d93734db7', '1629655527', 'SN2021040', '2021-08-22 20:05:27');
+	(123, '123', 'SDNT00000000035', 'TOKN000000000123', 'aea64054d8b4996fbe091b818b95a5a39f652ccc4d93734db7', '1629655527', 'SN2021040', '2021-08-22 20:05:27'),
+	(124, '124', 'ITADM00001', 'TOKN000000000124', '9975803062fa954c49f1207780a43fafa2e78186e255a6adf0', '1629658553', 'it', '2021-08-22 20:55:53');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster
