@@ -449,7 +449,7 @@ class SuperModel {
             // print_r(count($tem_data[0]));
             //$args  = array_fill(0, count($tem_data[0]), '?');
             //Insets data new session into the session table
-            $query = "INSERT INTO usermaster(PublicID, ProfilPicURL, NRC, Passport, UserName, Password, FirstName, LastName, OtherName, EmailAddress, ContactNo, GenderID, MaritalStatusID, DOB, UserTypeID, UpdatedBy, IsActive,TenantID)VALUES (:PublicID, :ProfilPicURL, :NRC, :Passport, :UserName, :Password, :FirstName, :LastName, :OtherName, :EmailAddress, :ContactNo, :GenderID, :MaritalStatusID, :DOB, :UserTypeID, :UpdatedBy, 1,:TenantID)";
+            $query = "INSERT INTO usermaster(PublicID, ProfilPicURL, NRC, Passport, UserName, Password, FirstName, LastName, OtherName, EmailAddress, ContactNo, GenderID, MaritalStatusID, DOB, UserTypeID, UpdatedBy, IsActive,TenantID)VALUES (:PublicID, :ProfilPicURL, :NRC, :Passport, :UserName, :Password, :FirstName, :LastName, :OtherName, :EmailAddress, :ContactNo, :GenderID, :MaritalStatusID, :DOB, :UserTypeID, :UpdatedBy, 0,:TenantID)";
             $stm = $conn->prepare($query);
             $stm->execute(array(':PublicID' => $teacher_id, ':ProfilPicURL' => $pic_url, ':NRC' => $nrc, ':Passport' => $passport, ':UserName' => $username, ':Password' => $password, ':FirstName' => $first_name, ':LastName' => $last_name, ':OtherName' => $other_name, ':EmailAddress' => $email_address, ':ContactNo' => $concat_no, ':GenderID' => $gender_id, ':MaritalStatusID' => $marital_status_id, ':DOB' => $dob, ':UserTypeID' => $user_type, ':UpdatedBy' => $UpdatedBy, ':TenantID' => $tenant_id));
 
