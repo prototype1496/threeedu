@@ -707,6 +707,11 @@ if (isset($_POST['btn_reg_pupil'])) {
     $classmaster_id = trim(filter_input(INPUT_POST, 'classid', FILTER_DEFAULT));
     //echo $classmaster_id;
     header("Location:/threeedu/view/admin/viwetimetable.php?classmasterid=$classmaster_id");
+} else if (isset($_POST['btn_load_time_table_head'])) {
+
+    $classmaster_id = trim(filter_input(INPUT_POST, 'classid', FILTER_DEFAULT));
+    //echo $classmaster_id;
+    header("Location:/threeedu/view/headteacher/viwetimetable.php?classmasterid=$classmaster_id");
 } else if (isset($_POST['btn_load_time_table_student'])) {
 
     $classmaster_id = trim(filter_input(INPUT_POST, 'classid', FILTER_DEFAULT));

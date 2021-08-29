@@ -5,7 +5,7 @@
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dashboard-crm.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:45:47 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<title>Teacher Dashboared </title>
+<title>Head Teacher Dashboard </title>
 
 
 <!--[if lt IE 10]>
@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="../../files/assets/pages/chart/radial/css/radial.css" type="text/css" media="all">
 
 <link rel="stylesheet" type="text/css" href="../../files/assets/icon/feather/css/feather.css">
-
+<link rel="stylesheet" type="text/css" href="../../files/assets/icon/icofont/css/icofont.css">
 <link rel="stylesheet" type="text/css" href="../../files/assets/css/style.css">
 <link rel="stylesheet" type="text/css" href="../../files/assets/css/jquery.mCustomScrollbar.css">
 </head>
@@ -92,112 +92,260 @@
 
 
 
+
+
+
 <div class="pcoded-content">
-<div class="pcoded-inner-content">
-<div class="main-body">
-<div class="page-wrapper">
-<div class="page-body">
-    
-    
-<div class="row">
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <div class="page-body">
 
-    <div class="col-xl-12 col-md-12">
-<div class="card bg-c-white  text-white">
-<div class="card-block">
-<div class="row align-items-center">
-    <div class="col">
 
- <div class="big-icon">
-     <img src="../../img/Home.png" />
+                    <div class="card page-header p-0">
+                        <div class="card-block front-icon-breadcrumb row align-items-end">
+                            <div class="breadcrumb-header col">
+                                <div class="big-icon">
+                                    <i class="icofont icofont-home "></i>
+                                </div>
+                                <div class="d-inline-block">
+                                    <h4 class="m-b-30">School Admin Dashboard</h4>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+                    <div class="row">
+
+
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-c-blue text-white">
+                                <a href='studentregistration.php'>
+                                    <div class="card-block">
+
+
+                                        <div class="row align-items-center">
+                                            <div class="col">
+
+                                                <h5 class="m-b-0  text-white">Student Registration</h5>
+                                                <img src="../../img/StudentRegistration_AdminWS (2).png" />
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-c-blue text-white">
+                                <a href='viwestudent.php'>
+                                    <div class="card-block">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+
+                                                <h5 class="m-b-0  text-white">Student Profiles</h5>
+                                                <img src="../../img/StudentProfiles_AdminWS.png" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-c-blue text-white">
+                                <a href='studentassecmentreport.php'>
+                                    <div class="card-block">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+
+                                                <h5 class="m-b-0  text-white">Student Assessment</h5>
+                                                <img src="../../img/StudentAssement_AdminWS.png" />
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-c-blue text-white">
+                                <a href='#'>
+                                    <div class="card-block">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+
+                                                <h5 class="m-b-0  text-white">Dashboard </h5>
+                                                <img src="../../img/AdminDashboard_AdminWS.png" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-c-blue text-white">
+                                <a href='teacherregistration.php'>
+                                    <div class="card-block">
+
+
+                                        <div class="row align-items-center">
+                                            <div class="col">
+
+                                                <h5 class="m-b-0  text-white">Teacher Registration</h5>
+                                                <img src="../../img/Teacher Registration_AdminWS.png" />
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-c-blue text-white">
+                                <a href='#'>
+                                    <div class="card-block">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+
+                                                <h5 class="m-b-0  text-white">Teachers Profiles</h5>
+                                                <img src="../../img/TeacherProfile_AdminWS.png" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-c-blue text-white">
+                                <a href='viwetimetable.php'>
+                                    <div class="card-block">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+
+                                                <h5 class="m-b-0  text-white">TimeTable Master</h5>
+                                                
+                                                <img src="../../img/TimeTable_AdminWS.png" />
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-c-blue text-white">
+                                <a href='#'>
+                                    <div class="card-block">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+
+                                                <h5 class="m-b-0  text-white">Exams </h5>
+                                                <img src="../../img/Exams AdminWS.png" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+                    </div>
+                  
+                </div>
+            </div>
         </div>
-    
-</div>
-</div>
-</div>
-</div>
-        
+
     </div>
-    
-<div class="col-xl-3 col-md-6">
-    <a href="viwestudent.php">
-<div class="card bg-c-pink  text-white">
-<div class="card-block">
-<div class="row align-items-center">
-    <div class="col">
-<p class=" h5 m-b-10">Student Profile</p>
 
-</div>
- <div class="big-icon">
-<img src="../../img/StudentProfile.png" />
-        </div>
-    
-</div>
-</div>
-</div>
-        </a>
-</div>
-    
-    
-    
-<div class="col-xl-3 col-md-6">
-<div class="card bg-c-pink  text-white">
-<div class="card-block">
-<div class="row align-items-center">
-    <div class="col">
-<p class=" h5 m-b-10">Student Attendance</p>
-
-</div>
- <div class="big-icon">
-     <img src="../../img/Student_Attendance.png" />
-        </div>
-    
-</div>
-</div>
-</div>
-</div>
-    
- <div class="col-xl-3 col-md-6">
-<div class="card bg-c-pink  text-white">
-<div class="card-block">
-<div class="row align-items-center">
-    <div class="col">
-<p class=" h5 m-b-10">Assessment Grading</p>
-
-</div>
- <div class="big-icon">
-     <img src="../../img/StudentAssement.png" />
-        </div>
-    
-</div>
-</div>
-</div>
-</div>
-    
-    <div class="col-xl-3 col-md-6">
-<div class="card bg-c-pink  text-white">
-<div class="card-block">
-<div class="row align-items-center">
-    <div class="col">
-<p class=" h5 m-b-10">Lesson Plan</p>
-
-</div>
- <div class="big-icon">
-     <img src="../../img/LessonPlanup.png" />
-        </div>
-    
-</div>
-</div>
-</div>
 </div>
 
 
-</div>
-</div>
-</div>
-
-</div>
-</div>
-</div>
 </div>
 </div>
 </div>

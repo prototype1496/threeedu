@@ -167,8 +167,7 @@ $classmaster_id = $get_stuednt_details['ClassMasterPublicID'];
 </div>
 <div>
  <div class="pull-right cover-btn">
-<button type="button" class="btn btn-primary m-r-10 m-b-5"><i class="icofont icofont-plus"></i> Follow</button>
-<button type="button" class="btn btn-primary"><i class="icofont icofont-ui-messaging"></i> Message</button>
+     <h1 class="text-white"><?php echo $get_stuednt_details['StudenNo']; ?></h1>
 </div>
 </div>
 </div>
@@ -197,7 +196,7 @@ $classmaster_id = $get_stuednt_details['ClassMasterPublicID'];
 <div class="slide"></div>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-toggle="tab" href="#review" role="tab">Reviews</a>
+<a class="nav-link" data-toggle="tab" href="#review" role="tab">Academic  Results</a>
 <div class="slide"></div>
 </li>
 </ul>
