@@ -11,15 +11,11 @@
 
     
     <li class="">
-        <a href="dashboard-crm.html">
+        <a href="teacherregistration.php">
             <span class="pcoded-mtext">Teacher Registration</span>
         </a>
     </li>
-     <li class="">
-        <a href="dashboard-crm.html">
-            <span class="pcoded-mtext">Student Registration</span>
-        </a>
-    </li>
+
     
       <li class="">
           <a href="lessionplaninbox.php">
@@ -34,7 +30,7 @@
 
 
 <li class="">
-<a href="#">
+<a href="teacherregistration.php">
 <span class="pcoded-micon"><i class="feather icon-home"></i></span>
 <span class="pcoded-mtext">Teacher Registration</span>
 </a>
@@ -44,7 +40,7 @@
 
 
 <li class="">
-<a href="#">
+<a href="viweteachers.php">
 <span class="pcoded-micon"><i class="feather icon-hash"></i></span>
 <span class="pcoded-mtext">Teacher Profile</span>
 </a>
@@ -52,13 +48,7 @@
 </li>
 
 
-<li class="">
-<a href="#">
-<span class="pcoded-micon"><i class="feather icon-check-square"></i></span>
-<span class="pcoded-mtext">Teacher Attendance</span>
-</a>
 
-</li>
 
 
 <li class="">
@@ -80,22 +70,7 @@
 </li>
 
 
-<li class="">
-<a href="#">
-<span class="pcoded-micon"><i class="feather icon-refresh-ccw"></i></span>
-<span class="pcoded-mtext">Student Assements</span>
-</a>
 
-</li>
-
-
-<li class="">
-<a href="#">
-<span class="pcoded-micon"><i class="feather icon-check-square"></i></span>
-<span class="pcoded-mtext">Attendance Overviwe</span>
-</a>
-
-</li>
 
 
 <li class="">

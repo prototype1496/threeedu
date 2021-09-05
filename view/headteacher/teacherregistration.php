@@ -126,7 +126,7 @@ $stm_province_data = SuperModel::get_provinces();
 <div class="page-body">
     <form onsubmit="event.preventDefault(); validatepassword();" id="teacher_details" enctype="multipart/form-data"  method="POST" action="../../controller/super/ActionPerformed.php" >
 
-        <button type="submit" style="float: right;"   class="btn btn-warning btn-round">Submit</button><br><br><br>
+        
         <input name="btn_create_teacher" type="hidden"/>
          <div class="row">
    
@@ -476,20 +476,20 @@ $stm_province_data = SuperModel::get_provinces();
                                                     </div>
                 
                 
-              
+           
         
               
                
-            </form>
+         
             
         </div>
-        
+         
     </div>
     
     </div>
     
-
-    
+<br> <button type="submit" style="float: right;"   class="btn btn-warning btn-round">Submit</button>
+       </form>
  
     
     

@@ -103,6 +103,19 @@ class SuperModel {
         return $row;
     }
 
+    public static function get_all_teacher_details_by_tenant_id($tenatnt_id,$teacher_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAllTeacherDetailsByID(:tenant_id,:teacher_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenatnt_id,':teacher_id' => $teacher_id));
+        $row = $stm->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    
     public static function get_teacher_details_by_tenant_id($tenatnt_id) {
 
         $Connection = new Connection();
