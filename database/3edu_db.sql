@@ -624,7 +624,7 @@ DELETE FROM `sequencemaster`;
 INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 91, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 140, '2019-11-01 20:00:03'),
+	(3, 'TOKN', 144, '2019-11-01 20:00:03'),
 	(4, 'EMIL', 3, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
 	(6, 'SCHL', 2, '2019-11-17 18:52:58'),
@@ -651,7 +651,7 @@ CREATE TABLE IF NOT EXISTS `session` (
   PRIMARY KEY (`SessionID`),
   KEY `FK_session_usermaster` (`UserMasterPublicID`),
   CONSTRAINT `FK_session_usermaster` FOREIGN KEY (`UserMasterPublicID`) REFERENCES `usermaster` (`PublicID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=145 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_db.session: ~6 rows (approximately)
 DELETE FROM `session`;
@@ -659,10 +659,10 @@ DELETE FROM `session`;
 INSERT INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(120, '202000041', 'TOKN000000000120', 'ded346951f1db8eeaa836276b1a89f73752c350b4dd1fe9308', '1629644352', 's', '2021-08-22 16:59:13'),
 	(126, 'TECH00000000080', 'TOKN000000000126', '84e67696a545489c6e2e17b4b79d1f1c4a6591555e4e7623aa', '1629703557', 'TES', '2021-08-23 09:25:57'),
-	(133, 'TECH0000000003', 'TOKN000000000133', 'e9f8aa0192f7612884701fbba15dc08f108d5ce7d851c8dab3', '1630053870', 't', '2021-08-27 10:44:30'),
 	(134, 'SDNT00000000035', 'TOKN000000000134', 'bbbe4ce8c35041d01deb23c2197ba172aa00638d896a791128', '1630073320', 'SN2021040', '2021-08-27 16:08:41'),
-	(139, 'ITADM00001', 'TOKN000000000139', '4d52be5c7da01f4cbd6bf546daa26bd76c855dc3fbc32a9fe6', '1630260653', 'it', '2021-08-29 20:10:53'),
-	(140, 'TECH0000000001', 'TOKN000000000140', 'b1e38a75897e1de37a2c427da79cb50dbdac8f307558681ab8', '1630260668', 'h', '2021-08-29 20:11:08');
+	(141, 'TECH0000000003', 'TOKN000000000141', '043e684892791ae92f40ccc125cabb41510345fc2c61f6635d', '1630304174', 't', '2021-08-30 08:16:16'),
+	(143, 'ITADM00001', 'TOKN000000000143', '9216dead31fb3f510cb0d8d392791c40fd346dd96f3bbf8ee6', '1630833802', 'it', '2021-09-05 11:23:22'),
+	(144, 'TECH0000000001', 'TOKN000000000144', '04331bce7356641a3dd7b25cdaf52d009e3b71faf2390aea85', '1630833842', 'h', '2021-09-05 11:24:03');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
@@ -677,9 +677,9 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   `UpdatedBy` varchar(50) NOT NULL,
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionHistoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=145 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~15 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~21 rows (approximately)
 DELETE FROM `sessionhistory`;
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
 INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -703,7 +703,11 @@ INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublic
 	(137, '137', 'ITADM00001', 'TOKN000000000137', '2928fafc1c876795ab8104f7f64fc48950fea00651e38cfc42', '1630259853', 'it', '2021-08-29 19:57:33'),
 	(138, '138', 'TECH0000000001', 'TOKN000000000138', '4a4d7a1a22c0591cd4c8f5c26e75eb5b82c67bb023cb23dfb0', '1630259869', 'h', '2021-08-29 19:57:49'),
 	(139, '139', 'ITADM00001', 'TOKN000000000139', '4d52be5c7da01f4cbd6bf546daa26bd76c855dc3fbc32a9fe6', '1630260653', 'it', '2021-08-29 20:10:53'),
-	(140, '140', 'TECH0000000001', 'TOKN000000000140', 'b1e38a75897e1de37a2c427da79cb50dbdac8f307558681ab8', '1630260668', 'h', '2021-08-29 20:11:08');
+	(140, '140', 'TECH0000000001', 'TOKN000000000140', 'b1e38a75897e1de37a2c427da79cb50dbdac8f307558681ab8', '1630260668', 'h', '2021-08-29 20:11:08'),
+	(141, '141', 'TECH0000000003', 'TOKN000000000141', '043e684892791ae92f40ccc125cabb41510345fc2c61f6635d', '1630304174', 't', '2021-08-30 08:16:16'),
+	(142, '142', 'TECH0000000001', 'TOKN000000000142', 'a1b7e33bd42610aadcc4bf2e34e94ffab8c80f42db21f1ed28', '1630827806', 'h', '2021-09-05 09:43:27'),
+	(143, '143', 'ITADM00001', 'TOKN000000000143', '9216dead31fb3f510cb0d8d392791c40fd346dd96f3bbf8ee6', '1630833802', 'it', '2021-09-05 11:23:22'),
+	(144, '144', 'TECH0000000001', 'TOKN000000000144', '04331bce7356641a3dd7b25cdaf52d009e3b71faf2390aea85', '1630833842', 'h', '2021-09-05 11:24:03');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster
@@ -1569,6 +1573,34 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure 3edu_db.GetAllTeacherDetailsByID
+DROP PROCEDURE IF EXISTS `GetAllTeacherDetailsByID`;
+DELIMITER //
+CREATE PROCEDURE `GetAllTeacherDetailsByID`(
+	IN `TenantID` VARCHAR(400),
+	IN `TeacherID` VARCHAR(50)
+)
+BEGIN
+SELECT TM.TeaherMasterPublicID																																					AS 'TeaherMasterPublicID',
+		 CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName) 														AS 'TeacherName',
+		 UM.FirstName,
+		 UM.OtherName,
+		 UM.LastName,
+		 DPT.DepartmentName,
+		 UM.NRC,
+		  UM.ContactNo,
+		 DATE_FORMAT(UM.DOB, "%d %b, %Y")	AS 'DOB',
+		 UM.ProfilPicURL,
+		 UM.UserName,
+		 IF(UM.EmailAddress IS NULL, 'None', UM.EmailAddress  )  AS 'EmailAddress'
+FROM teachermaster TM 
+JOIN usermaster UM ON UM.PublicID = TM.TeaherMasterPublicID 
+JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.TeacherPositionID
+JOIN department DPT ON DPT.ShortHand = TM.DeparmrntCode
+WHERE UM.TenantID = TenantID AND UM.IsActive = 1 AND TM.IsActive = 1 AND TM.TeaherMasterPublicID = TeacherID AND  TPM.TeacherPositionMasterID NOT IN (2,3);
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure 3edu_db.GetAllTeacherLessionPlanDocuments
 DROP PROCEDURE IF EXISTS `GetAllTeacherLessionPlanDocuments`;
 DELIMITER //
@@ -2217,12 +2249,15 @@ SELECT TM.TeaherMasterPublicID																																					AS 'TeaherMas
 		 UM.FirstName,
 		 UM.OtherName,
 		 UM.LastName,
-		 DPT.DepartmentName
+		 DPT.DepartmentName,
+		 UM.NRC,
+		  UM.ContactNo,
+		 DATE_FORMAT(UM.DOB, "%d %b, %Y")	AS 'DOB'
 FROM teachermaster TM 
 JOIN usermaster UM ON UM.PublicID = TM.TeaherMasterPublicID 
 JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.TeacherPositionID
 JOIN department DPT ON DPT.ShortHand = TM.DeparmrntCode
-WHERE UM.TenantID = TenantID AND UM.IsActive = 1 AND TM.IsActive = 1 AND TPM.TeacherPositionMasterID NOT IN (1,3);
+WHERE UM.TenantID = TenantID AND UM.IsActive = 1 AND TM.IsActive = 1 AND TPM.TeacherPositionMasterID NOT IN (2,3);
 END//
 DELIMITER ;
 
