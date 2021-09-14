@@ -154,6 +154,22 @@ class SuperModel {
 
         return $stm;
     }
+    
+        public static function get_all_grades_by_id($tenatnt_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAllActivesGradesByTenantID(:tenant_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenatnt_id));
+
+        return $stm;
+    }
+    
+    
+    
 
     public static function get_timtable($class_masster_id) {
 
@@ -452,6 +468,55 @@ class SuperModel {
         }
     }
 
+    
+      public static function create_school($it_id, $pic_url, $nrc, $passport, $username, $password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $pramary_address, $secondary_address, $district_id, $tenant_id,$emmisno,$shcoolname,$schoolmotto,$web_site,$max_term,$tel,$phoneno,$longitude,$latitude,$school_description,$logo_pic_url,$school_id,$shortname) {
+        //the below function creates a session in the databes for every log in 
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+            // print_r(count($tem_data[0]));
+            //$args  = array_fill(0, count($tem_data[0]), '?');
+            //Insets data new session into the session table
+            
+            
+             $query5 = "INSERT INTO tenantmaster (TenantID, TenantName) VALUES (:TenantID,:TenantName)";
+            $stm5 = $conn->prepare($query5);
+            $stm5->execute(array(':TenantID' =>$tenant_id, ':TenantName' =>$shcoolname));
+         
+            
+            $query4 = "INSERT INTO schoolmaster (PublicID, EMISNO, PicURL, SchoolName, SchoolMotto, SchoolURl, SchoolDescription, MaxTerms, Longitude, Latitude, Tel, PhoneNo, IsActive, UpdatedBy, TenantID,ShortName) VALUES (:PublicID, :EMISNO, :PicURL, :SchoolName, :SchoolMotto, :SchoolURl, :SchoolDescription, :MaxTerms, :Longitude, :Latitude, :Tel, :PhoneNo, 1, :UpdatedBy, :TenantID,:ShortName)";
+            $stm4 = $conn->prepare($query4);
+            $stm4->execute(array(':PublicID' =>$school_id, ':EMISNO' =>$emmisno, ':PicURL' =>$logo_pic_url, ':SchoolName' =>$shcoolname, ':SchoolMotto' =>$schoolmotto, ':SchoolURl' =>$web_site, ':SchoolDescription' =>$school_description, ':MaxTerms' =>$max_term, ':Longitude' =>$longitude, ':Latitude' =>$latitude, ':Tel' =>$tel, ':PhoneNo' =>$phoneno, ':UpdatedBy' =>$UpdatedBy, ':TenantID' =>$tenant_id,':ShortName'=>$shortname));
+         
+
+            
+            
+            $query = "INSERT INTO usermaster(PublicID, ProfilPicURL, NRC, Passport, UserName, Password, FirstName, LastName, OtherName, EmailAddress, ContactNo, GenderID, MaritalStatusID, DOB, UserTypeID, UpdatedBy, IsActive,TenantID)VALUES (:PublicID, :ProfilPicURL, :NRC, :Passport, :UserName, :Password, :FirstName, :LastName, :OtherName, :EmailAddress, :ContactNo, :GenderID, :MaritalStatusID, :DOB, :UserTypeID, :UpdatedBy, 0,:TenantID)";
+            $stm = $conn->prepare($query);
+            $stm->execute(array(':PublicID' => $it_id, ':ProfilPicURL' => $pic_url, ':NRC' => $nrc, ':Passport' => $passport, ':UserName' => $username, ':Password' => $password, ':FirstName' => $first_name, ':LastName' => $last_name, ':OtherName' => $other_name, ':EmailAddress' => $email_address, ':ContactNo' => $concat_no, ':GenderID' => $gender_id, ':MaritalStatusID' => $marital_status_id, ':DOB' => $dob, ':UserTypeID' => $user_type, ':UpdatedBy' => $UpdatedBy, ':TenantID' => $tenant_id));
+
+  
+            $query3 = "INSERT INTO address (PrimaryAddress, SecondaryAddress, DistrictID, IdentificationID) VALUES (:PrimaryAddress, :SecondaryAddress, :DistrictID, :IdentificationID)";
+            $stm3 = $conn->prepare($query3);
+            $stm3->execute(array(':PrimaryAddress' => $pramary_address, ':SecondaryAddress' => $secondary_address, ':DistrictID' => $district_id, ':IdentificationID' => $it_id));
+
+            
+            
+
+            //print_r($stm);
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+             echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
+    
     public static function create_teacher($teacher_id, $pic_url, $nrc, $passport, $username, $password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id, $subject_data) {
         //the below function creates a session in the databes for every log in 
         try {

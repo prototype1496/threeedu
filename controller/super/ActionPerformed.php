@@ -1163,7 +1163,7 @@ if (isset($_POST['btn_reg_pupil'])) {
              
             function(){
                 
-               $.jnoty('Teacher Can Not Be Added Please Try Later', {
+               $.jnoty('Teacher Can Not Be Added Please Try Agin and Check If Subject Was Added', {
             sticky: false,
             header: 'Erro',
             theme: 'jnoty-danger',
@@ -1200,7 +1200,7 @@ if (isset($_POST['btn_reg_pupil'])) {
              
             function(){
                 
-               $.jnoty('Teacher Can Not Be Added Please Try Later', {
+               $.jnoty('Teacher Can Not Be Added Please Try Agin and Check If Subject Was Added', {
             sticky: false,
             header: 'Erro',
             theme: 'jnoty-danger',
@@ -1213,6 +1213,7 @@ if (isset($_POST['btn_reg_pupil'])) {
         
     }
 }
+
 
 //Beaceue the btn_create_teeacher is big we have a separate function to avoid boiler plate code
 function add_teacher_details($pic_url,$subject_data,$teacher_id, $nrc, $passport, $username, $hushed_password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id) {
@@ -1231,7 +1232,7 @@ function add_teacher_details($pic_url,$subject_data,$teacher_id, $nrc, $passport
              
             function(){
                 
-               $.jnoty('Teacher Must Be Assigned To At list One Cource', {
+               $.jnoty('Teacher Must Be Assigned To At list One Subject', {
             sticky: false,
             header: 'Erro',
             theme: 'jnoty-danger',

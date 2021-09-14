@@ -244,8 +244,223 @@ require_once '../../model/SuperModel.php';
             </script>";
         }
     }
-}
- else if (isset ($_POST['text']))
+}else if (isset($_POST['btn_create_teacher'])) {
+    $teacher_id = SuperModel::get_sequence_id(1);
+
+    $username = trim(filter_input(INPUT_POST, 'username', FILTER_DEFAULT));
+
+    $password = trim(filter_input(INPUT_POST, 'password', FILTER_DEFAULT));
+ 
+    $first_name = trim(filter_input(INPUT_POST, 'first_name', FILTER_DEFAULT));
+    $last_name = trim(filter_input(INPUT_POST, 'last_name', FILTER_DEFAULT));
+
+    $other_name = trim(filter_input(INPUT_POST, 'other_name', FILTER_DEFAULT));
+
+    $gender_id = trim(filter_input(INPUT_POST, 'gender_id', FILTER_DEFAULT));
+
+    $dob = trim(filter_input(INPUT_POST, 'dob', FILTER_DEFAULT));
+
+    $marital_status_id = trim(filter_input(INPUT_POST, 'marital_status_id', FILTER_DEFAULT));
+
+    $position_id = trim(filter_input(INPUT_POST, 'position_id', FILTER_DEFAULT));
+
+    $department_id = trim(filter_input(INPUT_POST, 'department_id', FILTER_DEFAULT));
+
+    $nrc = trim(filter_input(INPUT_POST, 'nrc', FILTER_DEFAULT));
+
+    $passport = trim(filter_input(INPUT_POST, 'passport', FILTER_DEFAULT));
+
+    $concat_no = trim(filter_input(INPUT_POST, 'concat_no', FILTER_DEFAULT));
+
+    $email_address = trim(filter_input(INPUT_POST, 'email_address', FILTER_DEFAULT));
+
+    $district_id = trim(filter_input(INPUT_POST, 'district_id', FILTER_DEFAULT));
+    $pramary_address = trim(filter_input(INPUT_POST, 'pramary_address', FILTER_DEFAULT));
+
+    $secondary_address = trim(filter_input(INPUT_POST, 'secondary_address', FILTER_DEFAULT));
+
+    $user_type = 3; //teacher usertype
+
+    $subject_code = isset($_POST['subject_name']) ? $_POST['subject_name'] : array(0 => 0);
+
+
+    
+    
+    //Make values Null if they are empty 
+    if (!isset($other_name) || $other_name == Null || $other_name == "" || empty($other_name)) {
+
+        $other_name = NULL;
+    }
+
+
+
+    if (!isset($nrc) || $nrc == Null || $nrc == "" || empty($nrc)) {
+
+        $nrc = NULL;
+    }
+
+    if (!isset($passport) || $passport == Null || $passport == "" || empty($passport)) {
+
+        $passport = NULL;
+    }
+
+
+
+    if (!isset($email_address) || $email_address == Null || $email_address == "" || empty($email_address)) {
+
+        $email_address = NULL;
+    }
+
+
+    if (!isset($secondary_address) || $secondary_address == Null || $secondary_address == "" || empty($secondary_address)) {
+
+        $secondary_address = NULL;
+    }
+        //End  values Null if they are empty 
+
+
+    $hushed_password =  password_hash($password, PASSWORD_DEFAULT);
+    $UpdatedBy = $_SESSION['threeedu_username'];
+    $tenant_id = $_SESSION['threeedu_tenantid'];
+    
+    
+     $count = 0;
+        $subject_data = array();
+
+        // print_r(strlen($student_no[0])) ; 
+        $size_of_id_array = sizeof($subject_code);
+
+        //The Loop below is used add data throm the subects into one array that will be used to add data to the teacher deetails TBL
+        foreach ($subject_code as $key => $value) {
+
+            if (empty($subject_code[$count])) {
+                $subject_code_data = NULL;
+            } else {
+                $subject_code_data = $subject_code[$count];
+            }
+
+            $teacher_details_id = SuperModel::get_sequence_id(20);
+            array_push($subject_data, array($teacher_details_id, $teacher_id, $subject_code_data, $UpdatedBy));
+            $count++;
+        }
+    
+
+    if (isset($_FILES["profile_pic"]["name"]) && !empty($_FILES["profile_pic"]["name"])) {
+
+
+        $location = "../../uploads/teacher_profile/";
+        $file_new_name = $teacher_id . '_' . $_FILES["profile_pic"]["name"]; // New and unique name of uploaded file
+        // $file_name = $_FILES["profile_pic"]["name"];
+        $file_temp = $_FILES["profile_pic"]["tmp_name"];
+
+      
+
+       
+
+        $pic_url = $location . $file_new_name;
+
+        //print_r(count($data));
+          if (add_teacher_details($pic_url,$subject_data,$teacher_id, $nrc, $passport, $username, $hushed_password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id))
+          { 
+              move_uploaded_file($file_temp, $pic_url); 
+              
+              echo "<script>               
+            $(document).ready(
+             
+            function(){
+                
+               $.jnoty('Teacher Added Successfuly', {
+            sticky: false,
+            header: 'Success',
+            theme: 'jnoty-success',
+            close: function() {window.location.replace('/threeedu/view/headteacher/teacherregistration.php')},
+            });   
+            }); 
+            </script>";
+          }else {
+               echo "<script>               
+            $(document).ready(
+             
+            function(){
+                
+               $.jnoty('Teacher Can Not Be Added Please Try Agin and Check If Subject Was Added', {
+            sticky: false,
+            header: 'Erro',
+            theme: 'jnoty-danger',
+            close: function() {window.location.replace('/threeedu/view/admin/teacherregistration.php')},
+            });   
+            }); 
+            </script>";
+              
+          }
+
+       
+        } else {
+
+        $pic_url = "../../uploads/defult.png";
+        if(add_teacher_details($pic_url,$subject_data,$teacher_id, $nrc, $passport, $username, $hushed_password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id))
+        {
+            
+           echo "<script>               
+            $(document).ready(
+             
+            function(){
+                
+               $.jnoty('Teacher Added Successfuly', {
+            sticky: false,
+            header: 'Success',
+            theme: 'jnoty-success',
+            close: function() {window.location.replace('/threeedu/view/admin/teacherregistration.php')},
+            });   
+            }); 
+            </script>";   
+        }else {
+               echo "<script>               
+            $(document).ready(
+             
+            function(){
+                
+               $.jnoty('Teacher Can Not Be Added Please Try Agin and Check If Subject Was Added', {
+            sticky: false,
+            header: 'Erro',
+            theme: 'jnoty-danger',
+            close: function() {window.location.replace('/threeedu/view/admin/teacherregistration.php')},
+            });   
+            }); 
+            </script>";
+              
+          }
+        
+    }
+} else if (isset ($_POST['text']))
  {
      echo 'Test';  
  }
+
+//Beaceue the btn_create_teeacher is big we have a separate function to avoid boiler plate code
+function add_teacher_details($pic_url,$subject_data,$teacher_id, $nrc, $passport, $username, $hushed_password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id) {
+    if (count($subject_data) > 0) {
+
+        if (SuperModel::create_teacher($teacher_id, $pic_url, $nrc, $passport, $username, $hushed_password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id, $subject_data)) {
+            return TRUE;
+            
+        } else {
+             return FALSE;
+           
+        }
+    } else {
+        echo "<script>               
+            $(document).ready(
+             
+            function(){
+                
+               $.jnoty('Teacher Must Be Assigned To At list One Subject', {
+            sticky: false,
+            header: 'Erro',
+            theme: 'jnoty-danger',
+            close: function() {window.location.replace('/threeedu/view/admin/teacherregistration.php')},
+            });   
+            }); 
+            </script>";
+    }
+}

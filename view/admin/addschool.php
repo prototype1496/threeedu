@@ -19,7 +19,7 @@ $stm_province_data = SuperModel::get_provinces();
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dashboard-crm.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:45:47 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<title>Teacher Registration </title>
+<title>Add School </title>
 
 
 <!--[if lt IE 10]>
@@ -108,7 +108,11 @@ $stm_province_data = SuperModel::get_provinces();
 
                         <!--side bar start  -->
                         <?php
-                        require './sidbar.php';
+                        if ($_SESSION['threeedu_user_id'] == 1) {
+                            require './sidbar.php';
+                        } else if ($_SESSION['threeedu_user_id'] == 4) {
+                            require './itadminsidbar.php';
+                        }
                         ?>
                         <!--side bar end  -->
 
@@ -124,10 +128,9 @@ $stm_province_data = SuperModel::get_provinces();
 <div class="main-body">
 <div class="page-wrapper">
 <div class="page-body">
-    <form onsubmit="event.preventDefault(); validatepassword();" id="teacher_details" enctype="multipart/form-data"  method="POST" action="../../controller/super/ActionPerformed.php" >
+    <form onsubmit="event.preventDefault(); validatepassword();" id="teacher_details" enctype="multipart/form-data"  method="POST" action="../../controller/admin/ActionPerformed.php" >
 
-        
-        
+       
          <div class="row">
    
     <div class="col-sm-12">
@@ -140,7 +143,7 @@ $stm_province_data = SuperModel::get_provinces();
                                                 <div class="">
                                                     <div class="">
                                                         
-                                                     Teacher Registration
+                                                     Add School
                                                     </div>
                                                 </div>
                                             </div>
@@ -150,7 +153,7 @@ $stm_province_data = SuperModel::get_provinces();
                                                       
                                                        
                                                         <li class="breadcrumb-item">
-                                                         / Teacher / Registration Model
+                                                         / School / Registration Model
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -163,31 +166,105 @@ $stm_province_data = SuperModel::get_provinces();
        
     </div>
         <div class="card-block">
-          
-                
-                <div class="row">
+          <div class="row">
+                    
+                    <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">EMISNO</label>
+                          <input required=""  type="text" name="emmisno" class="form-control">
+                        </div>
+                      </div>
+                    
            <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Username</label>
-                          <input required=""  minlength="4" name="username" type="text" class="form-control">
+                          <label class="bmd-label-floating">School Name </label>
+                          <input required="" min="3"  name="shcoolname" type="text" class="form-control">
                         </div>
                       </div>
                     
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Password</label>
-                          <input required="" minlength="6" id="password" name="password" type="password" class="form-control">
+                          <label class="bmd-label-floating">School Motto</label>
+                          <input   name="schoolmotto" type="text" class="form-control">
                         </div>
                       </div>
                     
-                     <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Confirm Password</label>
-                          <input required="" minlength="6" id="confirm_password" name="confirm_password" type="password" class="form-control">
-                        </div>
-                      </div>
+                     
             
         </div>
+            
+             <div class="form-group row">
+                  <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Short Name</label>
+                          <input type="text" required="" name="shortname" class="form-control" />
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Logo</label>
+                          <input type="file" accept="image/png, image/jpeg" name="logo_pic" class="form-control" />
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Web Site</label>
+                          <input name="web_site" type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Max Terms</label>
+                          <input required=""  name="max_term"  type="number" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+            
+            
+            <div class="form-group row">
+                      
+                      
+                  <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Tel</label>
+                          <input name="tel" type="text" class="form-control">
+                        </div>
+                      </div>
+                
+                  <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Phone No</label>
+                          <input required=""  name="phoneno" type="text" class="form-control">
+                        </div>
+                      </div>
+                
+                  <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Longitude</label>
+                          <input required=""  name="longitude" type="text" class="form-control">
+                        </div>
+                      </div>
+                
+                 <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Latitude</label>
+                          <input required="" name="latitude" type="text" class="form-control">
+                        </div>
+                      </div>
+                     
+                    
+            
+            
+            <div class="col-md-12">
+                        <div class="">
+                          <label class="bmd-label-floating">Description</label>
+                         
+                          <textarea rows="3" name="school_description" class="form-control"> </textarea>
+                        </div>
+                      </div>
+                     </div>
+                    </div>
+           
         </div>
     </div>
     
@@ -211,9 +288,29 @@ $stm_province_data = SuperModel::get_provinces();
     <div class="card">
         
         <div class="card-block">
-         
+            <div class="form-group row">
+         <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Username</label>
+                          <input required=""  minlength="4" name="username" type="text" class="form-control">
+                        </div>
+                      </div>
+                    
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Password</label>
+                          <input required="" minlength="6" id="password" name="password" type="password" class="form-control">
+                        </div>
+                      </div>
+                    
+                     <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Confirm Password</label>
+                          <input required="" minlength="6" id="confirm_password" name="confirm_password" type="password" class="form-control">
+                        </div>
+                      </div>
                 
-              <div class="form-group row">
+              
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">First Name</label>
@@ -293,44 +390,10 @@ $stm_province_data = SuperModel::get_provinces();
                         </div>
                       </div>
                        
-                 <div class="col-md-4">
-                        <div class="form-group">
-                           <label class="bmd-label-floating">Position</label>
-                          <div class="form-select-list">
-                              <select required="" class="form-control custom-select-value" name="position_id">
-                                            <option value="" disabled="disabled" selected="selected">Select Position</option>
-                                            <?php 
-                                                 while($stm_position_data_row =$stm_position_data ->fetch(PDO::FETCH_ASSOC) ){ ?> 
-                                                  <option value="<?php echo $stm_position_data_row['TeacherPositionMasterID']; ?>">  <?php echo $stm_position_data_row['PositionName']; ?>  </option>
-                                                <?php } ?>
-                                           
-                                                    
-                                                
-                                               
-                                       </select>
-                                    </div>
-                        </div>
-                      </div>
+                 
                     
                     
-                     <div class="col-md-4">
-                        <div class="form-group">
-                           <label class="bmd-label-floating">Department</label>
-                          <div class="form-select-list">
-                              <select  required="" class="form-control custom-select-value" name="department_id">
-                                            <option value="" disabled="disabled" selected="selected">Select Department</option>
-                                           <?php 
-                                                 while($stm_depatment_data_row = $stm_depatment_data->fetch(PDO::FETCH_ASSOC) ){ ?> 
-                                                  <option value="<?php echo $stm_depatment_data_row['DepartmentID']; ?>">  <?php echo $stm_depatment_data_row['DepartmentName']; ?>  </option>
-                                                <?php } ?>
-                                           
-                                                    
-                                                
-                                               
-                                       </select>
-                                    </div>
-                        </div>
-                      </div>
+                     
                     
                     
                       <div class="col-md-4">
@@ -353,7 +416,7 @@ $stm_province_data = SuperModel::get_provinces();
         
         </div>
     </div>
-    
+     </div>
     <div class="row">
     <div class="col-sm-12">
     <div class="card">
@@ -403,14 +466,14 @@ $stm_province_data = SuperModel::get_provinces();
                        <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Primary Address</label>
-                          <textarea required="" type="date"  name="pramary_address" class="form-control"  rows="3" ></textarea>
+                          <textarea required="" type="text"  name="pramary_address" class="form-control"  rows="3" ></textarea>
                         </div>
                       </div>
                     
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Secondary Address</label>
-                          <textarea  type="date"  name="secondary_address" class="form-control"  rows="3" ></textarea>
+                          <textarea  type="text"  name="secondary_address" class="form-control"  rows="3" ></textarea>
                         </div>
                       </div>
                     
@@ -425,7 +488,9 @@ $stm_province_data = SuperModel::get_provinces();
         </div>
         
     </div>
-    
+    <button type="submit" style="float: right;"   class="btn btn-warning btn-round">Submit</button><br><br><br>
+        <input name="btn_add_school" type="hidden"/>
+            </form>
     </div>
     
 
@@ -434,69 +499,11 @@ $stm_province_data = SuperModel::get_provinces();
     
     
 
-
+   
 </div>
     
     
-    
-    <div class="row">
-    <div class="col-sm-12">
-    <div class="card">
-        
-        <div class="card-block">
-         
-                
-                <div class="form-group row">
-                    
-                      
-                  <div class="col-md-12">
-                                                <div class="card-block">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-striped table-bordered" id="edu_example-3">
-                                                                <thead>
-                                                                    <tr>
-                                                                           
-                                                                        <th>Subject</th>
-                                                                 
-
-                                                                        <th>Actions</th>
-                                                                    </tr>
-                                                                </thead>
-                                                            <tbody>
-                                                               
-                                                               
-                                                               
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                   
-                                                    <button type="button" class="btn btn-primary waves-effect waves-light add-new"><i class="fa fa-plus"></i> Add New</button>
-                                                </div>
-                                                    
-                                                    </div>
-                
-                
-           
-        
-              
-               
-         
-            
-        </div>
-         
-    </div>
-    
-    </div>
-   <input name="btn_create_teacher" type="hidden"/> <!-- this is the id to check if the registration is for a teacher-->
-<br> <button type="submit" style="float: right;"   class="btn btn-warning btn-round">Submit</button>
-       </form>
  
-    
-    
-
-
-</div>
-</div>
 
 
 </div>

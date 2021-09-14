@@ -74,7 +74,7 @@
 
 
 <li class="">
-<a href="#">
+<a href="viwetimetable.php">
 <span class="pcoded-micon"><i class="feather icon-edit"></i></span>
 <span class="pcoded-mtext">Time Table Master</span>
 </a>

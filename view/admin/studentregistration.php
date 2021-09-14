@@ -2,7 +2,7 @@
 require '../../controller/super/SessionStart.php'; 
 include '../../model/SuperModel.php';
 include '../../db_connection/dbconfig.php';
-
+$tenant_id = $_SESSION['threeedu_tenantid'];
 //$get_department_stm = SuperModel:: get_teacher_departments();
 //$get_position_stm = SuperModel:: get_teacher_positions();
 $get_subjets_stm  = SuperModel:: get_all_subjectts();
@@ -13,6 +13,8 @@ $get_subjets_stm5 = SuperModel:: get_all_subjectts();
 $get_subjets_stm6 = SuperModel:: get_all_subjectts();
 $get_subjets_stm7 = SuperModel:: get_all_subjectts();
 $get_subjets_stm8 = SuperModel:: get_all_subjectts();
+
+$grade = SuperModel:: get_active_grades_by_tenant_id($tenant_id);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -216,7 +218,7 @@ $get_subjets_stm8 = SuperModel:: get_all_subjectts();
                                             <option value="" disabled="disabled" selected="selected">Select Marital Status</option>
                                             <option value="1">Married</option>
                                                 <option value="2">Widow</option>
-                                                <option value="3">Devorced</option>
+                                                <option value="3">Divorced</option>
                                                 <option value="4">Single</option>
                                        </select>
                                     </div>
@@ -244,18 +246,13 @@ $get_subjets_stm8 = SuperModel:: get_all_subjectts();
                           <div class="form-select-list">
                               <select id="grade_id" onclick="get_class()"  required="" class="form-control custom-select-value" name="grade_id">
                                             <option value="" disabled="disabled" selected="selected">Select Grade</option>
-                                            <option value="1">1</option>
-                                             <option value="2">2</option>
-                                              <option value="3">3</option>
-                                               <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                 <option value="6">6</option>
-                                                  <option value="7">7</option>
-                                                   <option value="8">8</option>
-                                                    <option value="9">9</option>
-                                                     <option value="10">10</option>
-                                                      <option value="11">11</option>
-                                                       <option value="12">12</option>
+                                                                                                
+                            <?php
+                              while ($row = $grade->fetch(PDO::FETCH_ASSOC)) {
+                                  ?>
+                                  <option value="<?php echo $row['GradeMasterID']; ?>"><?php echo $row['Grade']; ?></option>
+
+                              <?php } ?>
                                                     
                                                 
                                                
