@@ -53,6 +53,12 @@
         </a>
     </li>
      
+      <li class="">
+          <a href="activatedeactivateschool.php">
+            <span class="pcoded-mtext">Activate/Deactivate School</span>
+        </a>
+    </li>
+     
     
     
 

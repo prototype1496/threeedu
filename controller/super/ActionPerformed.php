@@ -926,7 +926,7 @@ if (isset($_POST['btn_reg_pupil'])) {
              
             function(){
                 
-               $.jnoty('Class Added Please Try Later', {
+               $.jnoty('Class Not Added Please Try Later and Check If Subject Was Entered', {
             sticky: false,
             header: 'Erro',
             theme: 'jnoty-danger',
@@ -1014,7 +1014,7 @@ if (isset($_POST['btn_reg_pupil'])) {
              
             function(){
                 
-               $.jnoty('Class Added Please Try Later', {
+               $.jnoty('Class  Not Added Please Try Later and Check If Subject Was Entered', {
             sticky: false,
             header: 'Erro',
             theme: 'jnoty-danger',
