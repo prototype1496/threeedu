@@ -420,4 +420,120 @@ if (isset($_POST['btn_reg_pupil'])) {
             </script>";
               
           }
+}else if (isset($_POST['btn_update_school'])) {
+   
+    $school_id = trim(filter_input(INPUT_POST, 'school_public_id', FILTER_DEFAULT));
+    
+     $emmisno = trim(filter_input(INPUT_POST, 'emmisno', FILTER_DEFAULT));
+     $shcoolname = trim(filter_input(INPUT_POST, 'shcoolname', FILTER_DEFAULT));
+      $shortname = trim(filter_input(INPUT_POST, 'shortname', FILTER_DEFAULT));
+     $schoolmotto = trim(filter_input(INPUT_POST, 'schoolmotto', FILTER_DEFAULT));
+     $web_site = trim(filter_input(INPUT_POST, 'web_site', FILTER_DEFAULT));
+     $max_term = trim(filter_input(INPUT_POST, 'max_term', FILTER_DEFAULT));
+     $tel = trim(filter_input(INPUT_POST, 'tel', FILTER_DEFAULT));
+     $phoneno = trim(filter_input(INPUT_POST, 'phoneno', FILTER_DEFAULT));
+     $longitude = trim(filter_input(INPUT_POST, 'longitude', FILTER_DEFAULT));
+     $latitude = trim(filter_input(INPUT_POST, 'latitude', FILTER_DEFAULT));
+     $school_description = trim(filter_input(INPUT_POST, 'school_description', FILTER_DEFAULT));
+    
+        
+    
+      
+    
+    
+    
+    
+    
+     if (!isset($schoolmotto) || $schoolmotto == Null || $schoolmotto == "" || empty($schoolmotto)) {
+
+        $schoolmotto = NULL;
+    }
+    
+    
+     if (!isset($web_site) || $web_site == Null || $web_site == "" || empty($web_site)) {
+
+        $web_site = NULL;
+    }
+    
+     if (!isset($tel) || $tel == Null || $tel == "" || empty($tel)) {
+
+        $tel = NULL;
+    }
+    
+    
+     if (!isset($school_description) || $school_description == Null || $school_description == "" || empty($school_description)) {
+
+        $school_description = NULL;
+    }
+    
+    
+    
+        //End  values Null if they are empty 
+
+
+    $UpdatedBy = $_SESSION['threeedu_username'];
+    
+
+    
+    
+    $logo_pic_url;
+    $pic_url;
+    $movable_pic_url;  
+    $movable_logo_pic_url;
+    
+
+  
+    
+    
+    if (isset($_FILES["logo_pic"]["name"]) && !empty($_FILES["logo_pic"]["name"])) {
+        
+        $location_logo = "../../uploads/shcool_logos/";
+        $file_new_name_logo = $school_id . '_' . $_FILES["logo_pic"]["name"]; // New and unique name of uploaded file
+        // $file_name = $_FILES["profile_pic"]["name"];
+        $file_temp_logo = $_FILES["logo_pic"]["tmp_name"];
+         $logo_pic_url = $location_logo . $file_new_name_logo;
+          $movable_logo_pic_url=$logo_pic_url;
+    }else{
+         $logo_pic_url = "../../uploads/shcool_logos/defult_school.png";
+    }
+    
+
+        //print_r(count($data));
+          if (SuperModel::create_school($emmisno,$shcoolname,$schoolmotto,$web_site,$max_term,$tel,$phoneno,$longitude,$latitude,$school_description,$logo_pic_url,$school_id,$shortname))
+          { 
+               if (isset($_FILES["logo_pic"]["name"]) && !empty($_FILES["logo_pic"]["name"])) {
+                     move_uploaded_file($file_temp_logo, $movable_logo_pic_url); 
+               }
+             
+              
+              
+              echo "<script>               
+            $(document).ready(
+             
+            function(){
+                
+               $.jnoty('School Added Successfuly', {
+            sticky: false,
+            header: 'Success',
+            theme: 'jnoty-success',
+            close: function() {window.location.replace('/threeedu/view/admin/addschool.php')},
+            });   
+            }); 
+            </script>";
+          }else {
+               echo "<script>               
+            $(document).ready(
+             
+            function(){
+                
+               $.jnoty('School Can Not Be Added Please Try Agin Later', {
+            sticky: false,
+            header: 'Erro',
+            theme: 'jnoty-danger',
+            close: function() {window.location.replace('/threeedu/view/admin/addschool.php')},
+            });   
+            }); 
+            </script>";
+              
+          }
 }

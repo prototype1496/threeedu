@@ -33,12 +33,29 @@ class SysAdminModel {
             return TRUE;
         } catch (Exception $exc) {
             $conn->rollBack();
-            echo $exc->getMessage();
+           // echo $exc->getMessage();
             return FALSE;
         }
     }
     
+     public static function get_all_shcool_data_by_id($school_id) {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAllSchoolDetailsBySchoolID(:school_id);";
+        
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':school_id' => $school_id));
+       
+        $row = $stm->fetch(PDO::FETCH_ASSOC);
+
     
+            return $row;
+      
+                 }
+                 
+                 
     public static function get_all_school_details() {
        
         $Connection = new Connection();

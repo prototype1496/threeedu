@@ -511,6 +511,40 @@ class SuperModel {
             return TRUE;
         } catch (Exception $exc) {
             $conn->rollBack();
+            // echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
+    
+    
+     public static function update_school($emmisno,$shcoolname,$schoolmotto,$web_site,$max_term,$tel,$phoneno,$longitude,$latitude,$school_description,$logo_pic_url,$school_id,$shortname) {
+        //the below function creates a session in the databes for every log in 
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+            // print_r(count($tem_data[0]));
+            //$args  = array_fill(0, count($tem_data[0]), '?');
+            //Insets data new session into the session table
+            
+            
+            
+            $query4 = "INSERT INTO schoolmaster (PublicID, EMISNO, PicURL, SchoolName, SchoolMotto, SchoolURl, SchoolDescription, MaxTerms, Longitude, Latitude, Tel, PhoneNo, IsActive, UpdatedBy, TenantID,ShortName) VALUES (:PublicID, :EMISNO, :PicURL, :SchoolName, :SchoolMotto, :SchoolURl, :SchoolDescription, :MaxTerms, :Longitude, :Latitude, :Tel, :PhoneNo, 1, :UpdatedBy, :TenantID,:ShortName)";
+            $stm4 = $conn->prepare($query4);
+            $stm4->execute(array(':PublicID' =>$school_id, ':EMISNO' =>$emmisno, ':PicURL' =>$logo_pic_url, ':SchoolName' =>$shcoolname, ':SchoolMotto' =>$schoolmotto, ':SchoolURl' =>$web_site, ':SchoolDescription' =>$school_description, ':MaxTerms' =>$max_term, ':Longitude' =>$longitude, ':Latitude' =>$latitude, ':Tel' =>$tel, ':PhoneNo' =>$phoneno, ':UpdatedBy' =>$UpdatedBy, ':ShortName'=>$shortname));
+         
+
+            
+            
+
+            //print_r($stm);
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
              echo $exc->getMessage();
             return FALSE;
         }

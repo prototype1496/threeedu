@@ -688,7 +688,7 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   PRIMARY KEY (`SessionHistoryID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=178 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~55 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~57 rows (approximately)
 DELETE FROM `sessionhistory`;
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
 INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -1480,6 +1480,33 @@ BEGIN
 				 IF(SM.IsActive=1,'Yes','No') AS 'IsActive'
 		 
 		FROM schoolmaster SM ORDER BY SM.IsActive DESC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllSchoolDetailsBySchoolID
+DROP PROCEDURE IF EXISTS `GetAllSchoolDetailsBySchoolID`;
+DELIMITER //
+CREATE PROCEDURE `GetAllSchoolDetailsBySchoolID`(
+	IN `SCHOOLPUBLICID` VARCHAR(50)
+)
+BEGIN
+		SELECT SM.PublicID 				AS 'PublicID',
+				 SM.EMISNO	 				AS 'EMISNO',
+				 SM.PicURL					AS 'PicURL',
+				 SM.SchoolName				AS 'SchoolName',
+				 SM.ShortName				AS 'ShortName',
+				 SM.SchoolMotto			AS 'SchoolMotto',
+				 SM.SchoolURl				AS 'SchoolURl',
+				 SM.SchoolDescription	AS 'SchoolDescription',
+				 SM.MaxTerms				AS 'MaxTerms',
+				 SM.Longitude				AS 'Longitude',
+				 SM.Latitude				AS 'Latitude',
+				 SM.Tel						AS 'Tel',
+				 SM.PhoneNo					AS 'PhoneNo',
+				 SM.TenantID				AS 'TenantID',
+				 IF(SM.IsActive=1,'Yes','No') AS 'IsActive'
+		 
+		FROM schoolmaster SM WHERE SM.PublicID =  SCHOOLPUBLICID;
 END//
 DELIMITER ;
 

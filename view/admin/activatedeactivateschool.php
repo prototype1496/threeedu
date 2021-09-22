@@ -179,9 +179,9 @@ $stm = SysAdminModel::get_all_school_details();
        <td ><?php echo $row['IsActive'];?></td>
 
 <td>
-    <button onclick="redirectWithID('<?php echo $public_id;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit-2"></i></button>
+    <button onclick="redirectWithID('<?php echo $public_id;?>')" style="padding: 3px 5px; font-size: 12px; line-height:2 ; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit-2"></i></button>
   
-    <button onclick="redirectResetWithID('<?php echo $public_id;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-power"></i></button>
+    <button onclick="redirectResetWithID('<?php echo $public_id;?>')" style="padding: 3px 5px; font-size: 12px; line-height: 2; border-radius: 3px;" class="btn btn-info"><i class="feather icon-power"></i></button>
   </td>
 </tr>
 
@@ -318,7 +318,7 @@ $stm = SysAdminModel::get_all_school_details();
 
 <script>
  function redirectWithID(id){
-         window.location.href = "/threeedu/view/admin/profile.php?id="+id;
+         window.location.href = "/threeedu/view/admin/editschool.php?id="+id;
         
     }
     
