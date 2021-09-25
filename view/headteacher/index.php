@@ -259,7 +259,7 @@
 
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-c-blue text-white">
-                                <a href='#'>
+                                <a href='viweteachers.php'>
                                     <div class="card-block">
                                         <div class="row align-items-center">
                                             <div class="col">

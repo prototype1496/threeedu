@@ -4,7 +4,8 @@ require '../../controller/super/SessionStart.php';
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/TeacherModel.php';
 require_once '../../model/SuperModel.php';
-$stm = TeacherModel::get_all_student_details();
+$tenant_id = $_SESSION['threeedu_tenantid'];
+$stm = TeacherModel::get_all_student_details($tenant_id);
 
 $classmaster_id = "";
 $period_ids = array();

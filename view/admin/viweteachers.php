@@ -1,9 +1,9 @@
 <?php 
 require '../../controller/super/SessionStart.php'; 
 require_once '../../db_connection/dbconfig.php';
-require_once '../../model/TeacherModel.php';
+require_once '../../model/SuperModel.php';
 $tenant_id = $_SESSION['threeedu_tenantid'];
-$stm = TeacherModel::get_all_student_details($tenant_id);
+$stm = SuperModel::get_teacher_details_by_tenant_id($tenant_id);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,7 @@ $stm = TeacherModel::get_all_student_details($tenant_id);
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dt-ext-buttons-html-5-data-export.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:48:50 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<title>Student Details </title>
+<title>Teacher Details </title>
 
 
 <!--[if lt IE 10]>
@@ -120,7 +120,7 @@ $stm = TeacherModel::get_all_student_details($tenant_id);
 
 <div class="card">
     <div class="card-header ">
-        <h4>Students Information </h4>      
+        <h4>Teacher Information </h4>      
    <hr>     
     </div>
 <div class="card-block">
@@ -128,9 +128,9 @@ $stm = TeacherModel::get_all_student_details($tenant_id);
 <table id="excel-bg" class="table table-striped table-bordered nowrap">
 <thead>
 <tr>
-<th>Student No.</th>
-<th>Name</th>
-
+    <th>ID</th>
+<th>Teacher</th>
+<th>NRC</th>
 <th>Contact No.</th>
 <th>DOB</th>
 
@@ -141,12 +141,12 @@ $stm = TeacherModel::get_all_student_details($tenant_id);
       <?php while($row = $stm->fetch(PDO::FETCH_ASSOC))
                             
                     {
-                          $public_id = $row['PublicID'];
+                          $public_id = $row['TeaherMasterPublicID'];
                             ?>
 <tr>
      <td><?php echo $public_id;?></td>
-         <td><?php echo $row['Name'];?></td>
-        
+         <td><?php echo $row['Teacher'];?></td>
+        <td ><?php echo $row['NRC'];?></td>
         <td ><?php echo $row['ContactNo'];?></td>
         <td ><?php echo $row['DOB'];?></td>
        
@@ -165,9 +165,9 @@ $stm = TeacherModel::get_all_student_details($tenant_id);
 </tbody>
 <tfoot>
 <tr>
-<th>Student No.</th>
-<th>Name</th>
-
+     <th>ID</th>
+<th>Teacher</th>
+<th>NRC</th>
 <th>Contact No.</th>
 <th>DOB</th>
 <th></th>
@@ -287,7 +287,7 @@ $stm = TeacherModel::get_all_student_details($tenant_id);
 
 <script>
  function redirectWithID(id){
-         window.location.href = "/threeedu/view/headteacher/profile.php?id="+id;
+         window.location.href = "/threeedu/view/headteacher/teacherprofile.php?id="+id;
         
     }
 </script>

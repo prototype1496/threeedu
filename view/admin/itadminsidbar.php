@@ -73,6 +73,15 @@
                         </a>
 
                     </li>
+                    
+                    
+                    <li class="">
+                        <a href="viweteachers.php">
+
+                            <span class="pcoded-mtext">Teacher Profile</span>
+                        </a>
+
+                    </li>
 
 
                 

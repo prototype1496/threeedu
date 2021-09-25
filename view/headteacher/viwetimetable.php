@@ -3,9 +3,10 @@ require '../../controller/super/SessionStart.php';
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/TeacherModel.php';
 require_once '../../model/SuperModel.php';
-$stm = TeacherModel::get_all_student_details();
+$tenant_id = $_SESSION['threeedu_tenantid'];
+$stm = TeacherModel::get_all_student_details($tenant_id);
 
-$classes = SuperModel::get_all_classes_with_mapped_subjects();
+$classes = SuperModel::get_all_classes_with_mapped_subjects($tenant_id);
 $classmaster_id = "";
 $monday = array();
 $tuesday = array();
