@@ -200,7 +200,7 @@ $get_departments = SuperModel::get_departments_school_id($school_id);
                                                                                                                     
                                                                                                                         <th>Department Name</th>
 
-<!--                                                                                                                        <th>Department Short Name</th>-->
+                                                                                                                        <th>Department Short Name</th>
                                                                                                                         <th>Actions</th>
                                                                                                                     </tr>
                                                                                                                 </thead>
@@ -212,15 +212,17 @@ $get_departments = SuperModel::get_departments_school_id($school_id);
                                                                                                                              
                                                                                                                             
                                                                                                                            
-<!--                                                                                                                            <td>
-                                                                                                                               
-                                                                                                                                <input  id="txt_data_shortname" value="<?php echo $data['ShortHand']; ?>" type="text" name="department_shortname[]" /> 
-                                                                                                                                
-                                                                                                                            </td>-->
+                                                                                                                           
                                                                                                                                   <td>
                                                                                                                                  <?php echo $data['DepartmentName'] ?>
                                                                                                                                 <input  id="txt_data_name" value="<?php echo $data['DepartmentName']; ?>" type="hidden" name="grade_name[]" /> 
                                                                                                                                 <input  value="<?php echo $data['DepartmentID']; ?>" type="hidden" name="grade_public_id[]"  />
+                                                                                                                            </td>
+                                                                                                                            
+                                                                                                                             <td>
+                                                                                                                                 <?php echo $data['ShortHand'] ?>
+                                                                                                                                <input  id="dpt_short_name" value="<?php echo $data['ShortHand']; ?>" type="hidden" name="dpt_short_name[]" /> 
+                                                                                                                                
                                                                                                                             </td>
                                                                                                                             
                                                                                                                             <td>  <input type="checkbox"  name="chk_subject" value="1" checked>&nbsp;&nbsp;
