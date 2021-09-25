@@ -609,7 +609,7 @@ INSERT INTO `schoolmaster` (`SchoolID`, `PublicID`, `EMISNO`, `PicURL`, `SchoolN
 	(2, 'SCHL0000000001', 'E43435', '../../uploads/shcool_logos/defult_school.png', 'Lusaka Secondary School', '', 'Quality And Ealencey', '', 'ThisSchool Aims at bringing out the best n your ch', 3, 3.3311, 322.2252, '+262222147', '+260998854878', '1', 'a', '2020-01-24 16:56:52', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(4, 'SCHL0000000004', 'E43434', '../../uploads/shcool_logos/defult_school.png', 'Sacred Hart Convert School', '', NULL, NULL, NULL, 3, 434.45466, 33434.34376, '+262222147', '+260998854878', '1', 'a', '2021-04-27 06:08:14', 'a29294e8-f7a1-11eb-a81c-1062e5c23529'),
 	(17, 'SCHL0000000007', 'EMISn2212', '../../uploads/shcool_logos/SCHL0000000007_FVH-Logo.png', 'TESTTTEW', 'TEST', 'TEING IS TESTING', 'www.tick.some', 'SDFSDFSF', 3, 343534535, -1515, '0977512255', '+260977100587', '1', 'a', '2021-09-14 14:42:34', 'TES614098baeb6188.42391041'),
-	(19, 'SCHL0000000009', 'EMISn22123', '../../uploads/shcool_logos/SCHL0000000009_FVH-Logo.png', 'rrrrrrrrrr', 'TEST2', 'TEING IS TESTING', 'www.tick.some', 'SDFSDFSF', 3, 343534535, -1515, '09775122556', '+2609771005687', '1', 'a', '2021-09-14 15:51:02', 'rrr6140a8c632d934.43595166');
+	(19, 'SCHL0000000009', 'EMISNO2123', '../../uploads/shcool_logos/SCHL0000000009_FVH-Logo.png', 'Wakanda', 'Wakanda', 'Wakanda Forever', 'www.tick.some', 'Try this', 3, 343534535, -151, '09775122556', '+2609771005687', '1', 'a', '2021-09-14 15:51:02', 'rrr6140a8c632d934.43595166');
 /*!40000 ALTER TABLE `schoolmaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sequencemaster
@@ -629,7 +629,7 @@ DELETE FROM `sequencemaster`;
 INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 93, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 177, '2019-11-01 20:00:03'),
+	(3, 'TOKN', 181, '2019-11-01 20:00:03'),
 	(4, 'EMIL', 3, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
 	(6, 'SCHL', 9, '2019-11-17 18:52:58'),
@@ -658,7 +658,7 @@ CREATE TABLE IF NOT EXISTS `session` (
   PRIMARY KEY (`SessionID`),
   KEY `FK_session_usermaster` (`UserMasterPublicID`),
   CONSTRAINT `FK_session_usermaster` FOREIGN KEY (`UserMasterPublicID`) REFERENCES `usermaster` (`PublicID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=178 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=182 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_db.session: ~8 rows (approximately)
 DELETE FROM `session`;
@@ -668,10 +668,10 @@ INSERT INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`,
 	(126, 'TECH00000000080', 'TOKN000000000126', '84e67696a545489c6e2e17b4b79d1f1c4a6591555e4e7623aa', '1629703557', 'TES', '2021-08-23 09:25:57'),
 	(148, 'SDNT00000000035', 'TOKN000000000148', '15ffb9521f2400ec76f70607d81303b9b3473785f541507eaa', '1630898177', 'SN2021040', '2021-09-06 05:16:17'),
 	(156, 'TECH0000000001', 'TOKN000000000156', '68ec4e9f77353b9fa7cae0561b71a6ea5a63296c17e1db5322', '1631630515', 'h', '2021-09-14 16:41:56'),
-	(169, 'ITADM00001', 'TOKN000000000169', '6badb9c2396acbf1c63602773f32112f8fcc278646b7f5a62e', '1632026974', 'it', '2021-09-19 06:49:34'),
 	(173, 'ITAD00000000023', 'TOKN000000000173', '2fb186368387fbd84c79053e9be61de264252f7a1fc9e1d8ff', '1632317998', 'ta', '2021-09-22 15:39:58'),
 	(175, 'TECH0000000003', 'TOKN000000000175', '7219658df9bc7c6bc09930367450229b38f29b46fc2363fc88', '1632318078', 't', '2021-09-22 15:41:18'),
-	(177, 'ADMIN00001', 'TOKN000000000177', '5dde77156be7f296f8f3036bc3500a45a94ed9f37febafc6bc', '1632318782', 'a', '2021-09-22 15:53:02');
+	(178, 'ITADM00001', 'TOKN000000000178', 'd8990339aee5a63de2c6c0a881fbc0780bf318523bde5b33ca', '1632403195', 'it', '2021-09-23 15:19:55'),
+	(181, 'ADMIN00001', 'TOKN000000000181', '7e862daec9bbb00200c334e6229d2fc4facf37c6fc377f45ca', '1632544417', 'a', '2021-09-25 06:33:38');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
@@ -686,9 +686,9 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   `UpdatedBy` varchar(50) NOT NULL,
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionHistoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=178 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=182 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~57 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~52 rows (approximately)
 DELETE FROM `sessionhistory`;
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
 INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -749,7 +749,11 @@ INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublic
 	(174, '174', 'TECH0000000003', 'TOKN000000000174', 'faf30212c9e0ec44032da91d6fc2c44556967dad3b2bbf878f', '1632318027', 't', '2021-09-22 15:40:27'),
 	(175, '175', 'TECH0000000003', 'TOKN000000000175', '7219658df9bc7c6bc09930367450229b38f29b46fc2363fc88', '1632318078', 't', '2021-09-22 15:41:18'),
 	(176, '176', 'ADMIN00001', 'TOKN000000000176', 'd04925762c6a470156230f8da2fdf8e22b718dbd313fe7cfd0', '1632318747', 'a', '2021-09-22 15:52:27'),
-	(177, '177', 'ADMIN00001', 'TOKN000000000177', '5dde77156be7f296f8f3036bc3500a45a94ed9f37febafc6bc', '1632318782', 'a', '2021-09-22 15:53:02');
+	(177, '177', 'ADMIN00001', 'TOKN000000000177', '5dde77156be7f296f8f3036bc3500a45a94ed9f37febafc6bc', '1632318782', 'a', '2021-09-22 15:53:02'),
+	(178, '178', 'ITADM00001', 'TOKN000000000178', 'd8990339aee5a63de2c6c0a881fbc0780bf318523bde5b33ca', '1632403195', 'it', '2021-09-23 15:19:55'),
+	(179, '179', 'ADMIN00001', 'TOKN000000000179', '352cc8095761a483c1f2ffe3e65e435ed43e566cd89c58454f', '1632403222', 'a', '2021-09-23 15:20:23'),
+	(180, '180', 'ADMIN00001', 'TOKN000000000180', '04f99cea299e3c9d1d4603da45e12179602e8f0e77effc6e3b', '1632466407', 'a', '2021-09-24 08:53:27'),
+	(181, '181', 'ADMIN00001', 'TOKN000000000181', '7e862daec9bbb00200c334e6229d2fc4facf37c6fc377f45ca', '1632544417', 'a', '2021-09-25 06:33:38');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster

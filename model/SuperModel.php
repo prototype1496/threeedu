@@ -518,7 +518,7 @@ class SuperModel {
     
     
     
-     public static function update_school($emmisno,$shcoolname,$schoolmotto,$web_site,$max_term,$tel,$phoneno,$longitude,$latitude,$school_description,$logo_pic_url,$school_id,$shortname) {
+     public static function update_school($emmisno,$shcoolname,$schoolmotto,$web_site,$max_term,$tel,$phoneno,$longitude,$latitude,$school_description,$school_id,$shortname,$UpdatedBy) {
         //the below function creates a session in the databes for every log in 
         try {
             $Connection = new Connection();
@@ -531,9 +531,9 @@ class SuperModel {
             
             
             
-            $query4 = "INSERT INTO schoolmaster (PublicID, EMISNO, PicURL, SchoolName, SchoolMotto, SchoolURl, SchoolDescription, MaxTerms, Longitude, Latitude, Tel, PhoneNo, IsActive, UpdatedBy, TenantID,ShortName) VALUES (:PublicID, :EMISNO, :PicURL, :SchoolName, :SchoolMotto, :SchoolURl, :SchoolDescription, :MaxTerms, :Longitude, :Latitude, :Tel, :PhoneNo, 1, :UpdatedBy, :TenantID,:ShortName)";
+            $query4 = "UPDATE schoolmaster SET EMISNO=:EMISNO,SchoolName=:SchoolName,ShortName=:ShortName,SchoolMotto=:SchoolMotto,SchoolURl=:SchoolURl,SchoolDescription=:SchoolDescription,MaxTerms=:MaxTerms,Longitude=:Longitude,Latitude=:Latitude,Tel=:Tel,PhoneNo=:PhoneNo,UpdatedBy=:UpdatedBy WHERE PublicID=:PublicID";
             $stm4 = $conn->prepare($query4);
-            $stm4->execute(array(':PublicID' =>$school_id, ':EMISNO' =>$emmisno, ':PicURL' =>$logo_pic_url, ':SchoolName' =>$shcoolname, ':SchoolMotto' =>$schoolmotto, ':SchoolURl' =>$web_site, ':SchoolDescription' =>$school_description, ':MaxTerms' =>$max_term, ':Longitude' =>$longitude, ':Latitude' =>$latitude, ':Tel' =>$tel, ':PhoneNo' =>$phoneno, ':UpdatedBy' =>$UpdatedBy, ':ShortName'=>$shortname));
+            $stm4->execute(array(':EMISNO' =>$emmisno, ':SchoolName' =>$shcoolname, ':ShortName' =>$shcoolname, ':SchoolMotto' =>$schoolmotto, ':SchoolURl' =>$web_site, ':SchoolDescription' =>$school_description, ':MaxTerms' =>$max_term, ':Longitude' =>$longitude, ':Latitude' =>$latitude, ':Tel' =>$tel, ':PhoneNo' =>$phoneno,':UpdatedBy' =>$UpdatedBy,':PublicID' =>$school_id,));
          
 
             
@@ -545,7 +545,7 @@ class SuperModel {
             return TRUE;
         } catch (Exception $exc) {
             $conn->rollBack();
-             echo $exc->getMessage();
+             //echo $exc->getMessage();
             return FALSE;
         }
     }

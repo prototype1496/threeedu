@@ -145,7 +145,7 @@ $stm = SysAdminModel::get_all_school_details();
 
 <div class="card">
     <div class="card-header ">
-        <h4>Students Information </h4>      
+        <h4>School Information </h4>      
    <hr>     
     </div>
 <div class="card-block">

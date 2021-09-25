@@ -8,6 +8,10 @@ $tenant_id = $_SESSION['threeedu_tenantid'];
 
 $school_id = $_GET['id'];
 
+if(!isset($school_id)){
+    header('location:/threeedu/view/admin/activatedeactivateschool.php');
+}
+
 $stm_school_data = SysAdminModel::get_all_shcool_data_by_id($school_id);
 
 
@@ -131,7 +135,7 @@ $stm_school_data = SysAdminModel::get_all_shcool_data_by_id($school_id);
 
         <button type="submit" style="float: right;"   class="btn btn-warning btn-round">Submit</button><br><br><br>
         <input name="btn_update_school" type="hidden"/>
-        <input name="school_public_id" <?php echo $stm_school_data['PublicID']; ?> type="hidden"/>
+        <input name="school_public_id" value= "<?php echo $stm_school_data['PublicID']; ?>" type="hidden"/>
          <div class="row">
    
     <div class="col-sm-12">
@@ -195,25 +199,25 @@ $stm_school_data = SysAdminModel::get_all_shcool_data_by_id($school_id);
         </div>
             
              <div class="form-group row">
-                  <div class="col-md-3">
+                  <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Short Name</label>
                           <input type="text" required="" value="<?php echo $stm_school_data['ShortName']; ?>" name="shortname" class="form-control" />
                         </div>
                       </div>
-                      <div class="col-md-3">
+<!--                      <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Logo</label>
                           <input type="file" value="<?php echo $stm_school_data['PicURL']; ?>" accept="image/png, image/jpeg" name="logo_pic" class="form-control" />
                         </div>
-                      </div>
-                      <div class="col-md-3">
+                      </div>-->
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Web Site</label>
                           <input name="web_site" value="<?php echo $stm_school_data['SchoolURl']; ?>" type="text" class="form-control">
                         </div>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Max Terms</label>
                           <input required="" value="<?php echo $stm_school_data['MaxTerms']; ?>"  name="max_term"  type="number" class="form-control">
@@ -260,7 +264,7 @@ $stm_school_data = SysAdminModel::get_all_shcool_data_by_id($school_id);
                         <div class="">
                           <label class="bmd-label-floating">Description</label>
                          
-                          <textarea rows="3" value="<?php echo $stm_school_data['SchoolDescription']; ?>" name="school_description" class="form-control"> </textarea>
+                          <textarea rows="3"  name="school_description" class="form-control"><?php echo $stm_school_data['SchoolDescription']; ?> </textarea>
                         </div>
                       </div>
                      </div>
