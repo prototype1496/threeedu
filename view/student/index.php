@@ -5,11 +5,12 @@ require_once '../../model/TeacherModel.php';
 require_once '../../model/SuperModel.php';
 
    $student_pulic_id  =  $_SESSION['threeedu_public_id'];
+   $tenant_id  =  $_SESSION['threeedu_tenantid'];
    $stm_get_atendance_history = SuperModel::get_single_studnet_attendance_report_by_id($student_pulic_id);
 $get_stuednt_details = SuperModel::get_student_details_by_student_public_id($student_pulic_id);
 
 
-$stm = TeacherModel::get_all_student_details();
+$stm = TeacherModel::get_all_student_details($tenant_id);
 
 $classes = SuperModel::get_all_classes_with_mapped_subjects();
 $classmaster_id = $get_stuednt_details['ClassMasterPublicID'];
@@ -155,7 +156,7 @@ $classmaster_id = $get_stuednt_details['ClassMasterPublicID'];
 <div class="col-md-12">
 <div class="media-left">
 <a href="#" class="profile-image">
-<img class="user-img img-radius" src="<?php echo $get_stuednt_details['ProfilePic']; ?>" alt="user-img">
+<img class="user-img img-100" src="<?php echo $get_stuednt_details['ProfilePic']; ?>" alt="user-img">
 </a>
 </div>
 <div class="media-body row">
