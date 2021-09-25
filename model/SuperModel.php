@@ -396,6 +396,43 @@ class SuperModel {
         }
     }
 
+    
+    public static function add_deparments($department_data) {
+        //the below function creates a session in the databes for every log in 
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+
+            $query = "INSERT INTO department (`DepartmentID`,`DepartmentName`, `SchoolMasterID`, `UpdatedBy`, `IsActive`)  VALUES(?,?,?,?,1) ON DUPLICATE KEY UPDATE DepartmentName=VALUES(DepartmentName),UpdatedBy=VALUES(UpdatedBy)";
+            $stm = $conn->prepare($query);
+
+            // print_r($subject_data);
+            foreach ($department_data as $department_data) {
+                //print_r($grade_data);
+                if (!empty($department_data[0])) {
+                    // print_r($class_room_data);
+                    $stm->execute($department_data);
+                } else {
+                    
+                }
+
+                //  
+            }
+
+
+            //print_r($stm);
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+            echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
     public static function add_grade($grade_data) {
         //the below function creates a session in the databes for every log in 
         try {
@@ -427,7 +464,7 @@ class SuperModel {
             return TRUE;
         } catch (Exception $exc) {
             $conn->rollBack();
-            echo $exc->getMessage();
+           // echo $exc->getMessage();
             return FALSE;
         }
     }

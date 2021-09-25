@@ -153,6 +153,13 @@
                                 <span class="pcoded-mtext">Subject Master</span>
                             </a>
                         </li>
+                          <li class="">
+                              <a href="departmentmaster.php">
+                                <span class="pcoded-mtext">Department Master</span>
+                            </a>
+                        </li>
+
+                        
 
 
 

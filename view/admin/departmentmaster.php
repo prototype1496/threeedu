@@ -10,7 +10,7 @@ include '../../controller/super/MaterController.php';
 
 $tenant_id = $_SESSION['threeedu_tenantid'];
 $school_id = $_SESSION['threeedu_schoolid'];
-$get_grades = SuperModel::get_active_grades_by_tenant_id($tenant_id);
+$get_departments = SuperModel::get_departments_school_id($school_id);
 ?>
 <?php ?>
 <!DOCTYPE html>
@@ -19,7 +19,7 @@ $get_grades = SuperModel::get_active_grades_by_tenant_id($tenant_id);
     <!-- Mirrored from colorlib.com//polygon/adminty/default/dashboard-crm.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:45:47 GMT -->
     <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
     <head>
-        <title>Grade Master</title>
+        <title>Department Master</title>
 
 
         <!--[if lt IE 10]>
@@ -129,9 +129,9 @@ $get_grades = SuperModel::get_active_grades_by_tenant_id($tenant_id);
                                         <div class="page-wrapper">
                                             <div class="page-body">
                                                 <!--    -->
-                                                <form  enctype="multipart/form-data"   method="POST" action="grademmaster.php" >
+                                                <form  enctype="multipart/form-data"   method="POST" action="departmentmaster.php" >
 
-                                                    <button name="btn_class_grade_master" type="submit" style="float: right;"   class="btn btn-warning btn-round">Submit</button><br><br><br>
+                                                    <button name="btn_depatment_master" type="submit" style="float: right;"   class="btn btn-warning btn-round">Submit</button><br><br><br>
 
                                                     <div class="row">
 
@@ -145,7 +145,7 @@ $get_grades = SuperModel::get_active_grades_by_tenant_id($tenant_id);
                                                                             <div class="">
                                                                                 <div class="">
 
-                                                                                    Grade Master
+                                                                                    Department Master
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -155,7 +155,7 @@ $get_grades = SuperModel::get_active_grades_by_tenant_id($tenant_id);
 
 
                                                                                     <li class="breadcrumb-item">
-                                                                                        / Master / Grade Model
+                                                                                        / Master / Department Model
                                                                                     </li>
                                                                                 </ul>
                                                                             </div>
@@ -197,24 +197,32 @@ $get_grades = SuperModel::get_active_grades_by_tenant_id($tenant_id);
                                                                                                             <table class="table table-striped table-bordered" id="edu_example-3">
                                                                                                                 <thead>
                                                                                                                     <tr>
+                                                                                                                    
+                                                                                                                        <th>Department Name</th>
 
-                                                                                                                        <th>Grade Name</th>
-
-
+<!--                                                                                                                        <th>Department Short Name</th>-->
                                                                                                                         <th>Actions</th>
                                                                                                                     </tr>
                                                                                                                 </thead>
                                                                                                                 <tbody>
 
-                                                                                                                    <?php while ($data = $get_grades->fetch(PDO::FETCH_ASSOC)) { ?> 
+                                                                                                                    <?php while ($data = $get_departments->fetch(PDO::FETCH_ASSOC)) { ?> 
                                                                                                                         <tr>
-
-                                                                                                                            <td>
-                                                                                                                  <?php echo $data['Grade'] ?>
-                                                                                                                                <input  id="txt_data_name" value="<?php echo $data['Grade']; ?>" type="hidden" name="grade_name[]" /> 
-                                                                                                                                <input  value="<?php echo $data['GradeMasterID']; ?>" type="hidden" name="grade_public_id[]"  />
+                                                                                                                            
+                                                                                                                             
+                                                                                                                            
+                                                                                                                           
+<!--                                                                                                                            <td>
+                                                                                                                               
+                                                                                                                                <input  id="txt_data_shortname" value="<?php echo $data['ShortHand']; ?>" type="text" name="department_shortname[]" /> 
+                                                                                                                                
+                                                                                                                            </td>-->
+                                                                                                                                  <td>
+                                                                                                                                 <?php echo $data['DepartmentName'] ?>
+                                                                                                                                <input  id="txt_data_name" value="<?php echo $data['DepartmentName']; ?>" type="hidden" name="grade_name[]" /> 
+                                                                                                                                <input  value="<?php echo $data['DepartmentID']; ?>" type="hidden" name="grade_public_id[]"  />
                                                                                                                             </td>
-
+                                                                                                                            
                                                                                                                             <td>  <input type="checkbox"  name="chk_subject" value="1" checked>&nbsp;&nbsp;
                                                                                                                                 <a class="add" title="Add" data-toggle="tooltip" id="0"><i class="fa fa-user-plus"></i></a>
                                                                                                                                 <a class="edit" title="Edit" data-toggle="tooltip" id="1"><i class="fa fa-pencil"></i></a>
@@ -303,7 +311,7 @@ $get_grades = SuperModel::get_active_grades_by_tenant_id($tenant_id);
 
 
                                     <!--      script for grid-->
-                                    <script src="../../lib/grid/grid_grade_master.js" type="text/javascript"></script>
+                                    <script src="../../lib/grid/grid_department_master.js" type="text/javascript"></script>
                                     <!--          script fro grid end -->
 
                                     <script src="../../files/assets/pages/widget/gauge/gauge.min.js" type="960c3b30522fb895a4c59633-text/javascript"></script>
