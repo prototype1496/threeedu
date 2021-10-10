@@ -103,9 +103,16 @@ $stm = SuperModel::get_teacher_details_by_tenant_id($tenant_id);
     
     
    
-<!--side bar start  -->
-<?php require './sidbar.php'; ?>
-<!--side bar end  --> 
+  <?php
+                        if ($_SESSION['threeedu_user_id'] == 1)
+                            {
+                             require './sidbar.php';
+                            } 
+                        else if ($_SESSION['threeedu_user_id'] == 4) 
+                        {
+                            require './itadminsidbar.php';
+                        }
+                        ?>
 
 <div class="pcoded-content">
 <div class="pcoded-inner-content">
