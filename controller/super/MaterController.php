@@ -157,6 +157,7 @@ if (isset($_POST['btn_class_rooom_master'])) {
 else if (isset($_POST['btn_depatment_master'])) {
 
     $grade_name = isset($_POST['grade_name']) ? $_POST['grade_name'] : array(0 => 0);
+     $dpt_short_name = isset($_POST['dpt_short_name']) ? $_POST['dpt_short_name'] : array(0 => 0);
     $grade_public_id = isset($_POST['grade_public_id']) ? $_POST['grade_public_id'] : array(0 => 0);
 
     $UpdatedBy = $_SESSION['threeedu_username'];
@@ -171,6 +172,12 @@ else if (isset($_POST['btn_depatment_master'])) {
     //The Loop below is used add data throm the subects into one array that will be used to add data to the teacher deetails TBL
     foreach ($grade_name as $key => $value) {
 
+          if (empty($dpt_short_name[$count])) {
+            $dpt_short_name = NULL;
+        } else {
+            $dpt_short_name = $grade_name[$count];
+        }
+        
         if (empty($grade_name[$count])) {
             $grade_name_data = NULL;
         } else {
@@ -186,11 +193,11 @@ else if (isset($_POST['btn_depatment_master'])) {
         if (empty($grade_public_id_data) || $grade_public_id_data == NULL || $grade_public_id_data == "") {
 
             //$class_room_id = SuperModel::get_sequence_id(21);
-            array_push($data, array('NULL', $grade_name_data, $school_id, $UpdatedBy));
+            array_push($data, array('NULL', $grade_name_data,$dpt_short_name, $school_id, $UpdatedBy));
             $count++;
         } else {
 
-            array_push($data, array($grade_public_id_data, $grade_name_data, $school_id, $UpdatedBy));
+            array_push($data, array($grade_public_id_data,$dpt_short_name, $grade_name_data, $school_id, $UpdatedBy));
             $count++;
         }
     }

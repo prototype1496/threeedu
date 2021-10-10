@@ -1195,19 +1195,19 @@ if (isset($_POST['btn_reg_pupil'])) {
             }); 
             </script>";   
         }else {
-               echo "<script>               
-            $(document).ready(
-             
-            function(){
-                
-               $.jnoty('Teacher Can Not Be Added Please Try Agin and Check If Subject Was Added', {
-            sticky: false,
-            header: 'Erro',
-            theme: 'jnoty-danger',
-            close: function() {window.location.replace('/threeedu/view/admin/teacherregistration.php')},
-            });   
-            }); 
-            </script>";
+//               echo "<script>               
+//            $(document).ready(
+//             
+//            function(){
+//                
+//               $.jnoty('Teacher Can Not Be Added Please Try Agin and Check If Subject Was Added', {
+//            sticky: false,
+//            header: 'Erro',
+//            theme: 'jnoty-danger',
+//            close: function() {window.location.replace('/threeedu/view/admin/teacherregistration.php')},
+//            });   
+//            }); 
+//            </script>";
               
           }
         

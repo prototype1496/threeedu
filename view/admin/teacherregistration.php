@@ -325,7 +325,7 @@ $stm_province_data = SuperModel::get_provinces();
                                             <option value="" disabled="disabled" selected="selected">Select Department</option>
                                            <?php 
                                                  while($stm_depatment_data_row = $stm_depatment_data->fetch(PDO::FETCH_ASSOC) ){ ?> 
-                                                  <option value="<?php echo $stm_depatment_data_row['DepartmentID']; ?>">  <?php echo $stm_depatment_data_row['DepartmentName']; ?>  </option>
+                                                  <option value="<?php echo $stm_depatment_data_row['ShortHand']; ?>">  <?php echo $stm_depatment_data_row['DepartmentName']; ?>  </option>
                                                 <?php } ?>
                                            
                                                     

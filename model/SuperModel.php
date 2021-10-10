@@ -405,7 +405,7 @@ class SuperModel {
 
             $conn->beginTransaction();
 
-            $query = "INSERT INTO department (`DepartmentID`,`DepartmentName`, `SchoolMasterID`, `UpdatedBy`, `IsActive`)  VALUES(?,?,?,?,1) ON DUPLICATE KEY UPDATE DepartmentName=VALUES(DepartmentName),UpdatedBy=VALUES(UpdatedBy)";
+            $query = "INSERT INTO department (`DepartmentID`,`DepartmentName`,ShortHand,`SchoolMasterID`, `UpdatedBy`, `IsActive`)  VALUES(?,?,?,?,?,1) ON DUPLICATE KEY UPDATE DepartmentName=VALUES(DepartmentName),ShortHand=VALUES(ShortHand),UpdatedBy=VALUES(UpdatedBy)";
             $stm = $conn->prepare($query);
 
             // print_r($subject_data);
@@ -634,7 +634,7 @@ class SuperModel {
             return TRUE;
         } catch (Exception $exc) {
             $conn->rollBack();
-            // echo $exc->getMessage();
+            echo $exc->getMessage();
             return FALSE;
         }
     }
