@@ -984,15 +984,29 @@ class SuperModel {
 
         return $stm;
     }
+    
+    
+     public static function get_all_classes_by_tenant_id($tenant_id) {
+        //this is a where you should 
+        $Connection = new Connection();
+        $conn = $Connection->connect();
 
-    public static function get_all_classes_with_mapped_subjects() {
+        $query = "CALL GetAllClassesByTenantID(:tenant_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenant_id));
+        return $stm;
+    }
+
+    public static function get_all_classes_with_mapped_subjects($tenant_id) {
 
         $Connection = new Connection();
         $conn = $Connection->connect();
 
-        $query = "CALL GetAllClassesWithMappedSubjects();";
+        $query = "CALL GetAllClassesWithMappedSubjects(:tenant_id);";
 
-        $stm = $conn->query($query);
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenant_id));
 
         return $stm;
     }

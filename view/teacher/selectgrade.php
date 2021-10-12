@@ -1,11 +1,19 @@
-<?php require '../../controller/super/SessionStart.php'; ?>
+<?php 
+require '../../controller/super/SessionStart.php'; 
+require_once '../../model/SuperModel.php';
+require_once '../../db_connection/dbconfig.php';
+$tenant_id = $_SESSION['threeedu_tenantid'];
+
+
+$stm = SuperModel::get_active_grades_by_tenant_id($tenant_id);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dashboard-crm.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:45:47 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<title>Teacher Dashboared </title>
+<title>Select Grade</title>
 
 
 <!--[if lt IE 10]>
@@ -117,14 +125,18 @@
 </div>
         
     </div>
-    
+    <?php while($row = $stm->fetch(PDO::FETCH_ASSOC))
+                            
+                    {
+                          
+                            ?>  
 <div class="col-xl-3 col-md-3">
-    <a href="selectclass.php?grade=1">
+    <a href="selectclass.php?grade=<?php echo $row['GradeMasterID']; ?>">
 <div class="card bg-c-pink  text-white">
 <div class="card-block">
 <div class="row align-items-center">
     <div class="col">
-<p class=" h3 m-b-10">Grade 1</p>
+<p class=" h3 m-b-10">Grade <?php echo $row['Grade']; ?></p>
 
 </div>
  
@@ -135,199 +147,7 @@
         </a>
 </div>
     
-    
-    <div class="col-xl-3 col-md-3">
-    <a href="selectclass.php?grade=2">
-<div class="card bg-c-pink  text-white">
-<div class="card-block">
-<div class="row align-items-center">
-    <div class="col">
-<p class=" h3 m-b-10">Grade 2</p>
-
-</div>
- 
-    
-</div>
-</div>
-</div>
-        </a>
-</div>
-    
-    
-    <div class="col-xl-3 col-md-3">
-    <a href="selectclass.php?grade=3">
-<div class="card bg-c-pink  text-white">
-<div class="card-block">
-<div class="row align-items-center">
-    <div class="col">
-<p class=" h3 m-b-10">Grade 3</p>
-
-</div>
- 
-    
-</div>
-</div>
-</div>
-        </a>
-</div>
-    
-    
-    <div class="col-xl-3 col-md-3">
-    <a href="selectclass.php?grade=4">
-<div class="card bg-c-pink  text-white">
-<div class="card-block">
-<div class="row align-items-center">
-    <div class="col">
-<p class=" h3 m-b-10">Grade 4</p>
-
-</div>
- 
-    
-</div>
-</div>
-</div>
-        </a>
-</div>
-    
-    
-    <div class="col-xl-3 col-md-3">
-    <a href="selectclass.php?grade=5">
-<div class="card bg-c-pink  text-white">
-<div class="card-block">
-<div class="row align-items-center">
-    <div class="col">
-<p class=" h3 m-b-10">Grade 5</p>
-
-</div>
- 
-    
-</div>
-</div>
-</div>
-        </a>
-</div>
-    
-    
-    
-    <div class="col-xl-3 col-md-3">
-    <a href="selectclass.php?grade=6">
-<div class="card bg-c-pink  text-white">
-<div class="card-block">
-<div class="row align-items-center">
-    <div class="col">
-<p class=" h3 m-b-10">Grade 6</p>
-
-</div>
- 
-    
-</div>
-</div>
-</div>
-        </a>
-</div>
-    
-    
-    
-    <div class="col-xl-3 col-md-3">
-    <a href="selectclass.php?grade=7">
-<div class="card bg-c-pink  text-white">
-<div class="card-block">
-<div class="row align-items-center">
-    <div class="col">
-<p class=" h3 m-b-10">Grade 7</p>
-
-</div>
- 
-    
-</div>
-</div>
-</div>
-        </a>
-</div>
-    
-    
-    <div class="col-xl-3 col-md-3">
-    <a href="selectclass.php?grade=8">
-<div class="card bg-c-pink  text-white">
-<div class="card-block">
-<div class="row align-items-center">
-    <div class="col">
-<p class=" h3 m-b-10">Grade 8</p>
-
-</div>
- 
-    
-</div>
-</div>
-</div>
-        </a>
-</div>
-    
-    
-    <div class="col-xl-3 col-md-3">
-    <a href="selectclass.php?grade=9">
-<div class="card bg-c-pink  text-white">
-<div class="card-block">
-<div class="row align-items-center">
-    <div class="col">
-<p class=" h3 m-b-10">Grade 9</p>
-
-</div>
- 
-    
-</div>
-</div>
-</div>
-        </a>
-</div>
-    
-    
-    <div class="col-xl-3 col-md-3">
-    <a href="selectclass.php?grade=10">
-<div class="card bg-c-pink  text-white">
-<div class="card-block">
-<div class="row align-items-center">
-    <div class="col">
-<p class=" h4 m-b-10">Grade 10</p>
-
-</div>
- 
-    
-</div>
-</div>
-</div>
-        </a>
-</div>
-    
-    
-    <div class="col-xl-3 col-md-3">
-    <a href="selectclass.php?grade=11">
-<div class="card bg-c-pink  text-white">
-<div class="card-block">
-<div class="row align-items-center">
-    <div class="col">
-<p class=" h4 m-b-10">Grade 11</p>
-
-</div>
- 
-    
-</div>
-</div>
-</div>
-        </a>
-</div>
-    
-    
-    <div class="col-xl-3 col-md-3">
-    <a href="selectclass.php?grade=12">
-<div class="card bg-c-pink  text-white">
-<div class="card-block">
-<div class="row align-items-center">
-    <div class="col">
-<p class=" h4 m-b-10">Grade 12</p>
-
-</div>
- 
+                    <?php } ?> 
     
 </div>
 </div>

@@ -3,9 +3,12 @@ require '../../controller/super/SessionStart.php';
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/TeacherModel.php';
 require_once '../../model/SuperModel.php';
-$stm = TeacherModel::get_all_student_details();
 
-$classes = SuperModel::get_all_classes();
+$tenant_id = $_SESSION['threeedu_tenantid'];
+$school_id = $_SESSION['threeedu_schoolid'];
+$stm = TeacherModel::get_all_student_details($tenant_id);
+
+$classes = SuperModel::get_all_classes_by_tenant_id($tenant_id);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +16,7 @@ $classes = SuperModel::get_all_classes();
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dt-ext-buttons-html-5-data-export.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:48:50 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<title>Student Details </title>
+<title>Student Assessment </title>
 
 
 <!--[if lt IE 10]>

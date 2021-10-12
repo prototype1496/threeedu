@@ -15,7 +15,7 @@ if ($_GET['grade']){
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dashboard-crm.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:45:47 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<title>Teacher Dashboared </title>
+<title>Select Class </title>
 
 
 <!--[if lt IE 10]>
