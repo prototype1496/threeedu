@@ -89,6 +89,19 @@ class SuperModel {
 
         return $stm;
     }
+    
+    public static function get_all_periods($class_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAllPeriods(:class_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':class_id' => $class_id));
+
+        return $stm;
+    }
 
     public static function get_school_details_by_tenant_id($tenatnt_id) {
 
@@ -397,6 +410,34 @@ class SuperModel {
     }
 
     
+    
+    public static function add_time_table_master($calss_master_id,$period_id,$time_from,$to_time,$UpdatedBy) {
+        //the below function creates a session in the databes for every log in 
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+         
+            $query = "INSERT INTO `3edu_db`.`timetablemaster` (`ClassMasterID`, `PeriodMasterID`, `TimeFrom`, `TimeTo`, `IsActive`, `UpdatedBy`) VALUES (:ClassMasterID, :PeriodMasterID, :TimeFrom, :TimeTo, '1', :UpdatedBy);";
+            $stm = $conn->prepare($query);
+            $stm->execute(array(':ClassMasterID' => $calss_master_id, ':PeriodMasterID' => $period_id, ':TimeFrom' => $time_from, ':TimeTo' => $to_time, ':UpdatedBy' => $UpdatedBy));
+
+            
+
+
+            //print_r($stm);
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+            echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
+    
     public static function add_deparments($department_data) {
         //the below function creates a session in the databes for every log in 
         try {
@@ -405,7 +446,7 @@ class SuperModel {
 
             $conn->beginTransaction();
 
-            $query = "INSERT INTO department (`DepartmentID`,`DepartmentName`,ShortHand,`SchoolMasterID`, `UpdatedBy`, `IsActive`)  VALUES(?,?,?,?,?,1) ON DUPLICATE KEY UPDATE DepartmentName=VALUES(DepartmentName),ShortHand=VALUES(ShortHand),UpdatedBy=VALUES(UpdatedBy)";
+            $query = "INSERT INTO department (`DepartmentID`,`DepartmentName`,ShortHand,`SchoolMasterID`, `UpdatedBy`, `IsActive`)  VALUES(?,?,?,?,?,1) ON DUPLICATE KEY UPDATE DepartmentName=VALUES(DepartmentName),UpdatedBy=VALUES(UpdatedBy)";
             $stm = $conn->prepare($query);
 
             // print_r($subject_data);
@@ -1260,6 +1301,19 @@ class SuperModel {
         return $row;
     }
 
+    
+   public static function get_all_period_types() {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAllActivePeriods();";
+        $stm = $conn->query($query);
+    
+        return $stm;
+    } 
+    
+    
     public static function get_marital_status() {
 
         $Connection = new Connection();

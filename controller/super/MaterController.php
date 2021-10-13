@@ -236,4 +236,43 @@ else if (isset($_POST['btn_depatment_master'])) {
             }); 
             </script>";
     }
+    
+    
+    
+    
+    
+   // btn_submit_period
+}
+else if (isset($_POST['btn_submit_period'])) {
+   $calss_master_id =  trim(filter_input(INPUT_POST, 'calss_master_id', FILTER_DEFAULT));
+    $period_id = trim(filter_input(INPUT_POST, 'period_master_id', FILTER_DEFAULT));
+     $time_from = trim(filter_input(INPUT_POST, 'time_from', FILTER_DEFAULT));
+      $to_time = trim(filter_input(INPUT_POST, 'time_to', FILTER_DEFAULT));
+ 
+
+    $UpdatedBy = $_SESSION['threeedu_username'];
+    $school_id = $_SESSION['threeedu_schoolid'];
+
+
+    if (SuperModel::add_time_table_master($calss_master_id,$period_id,$time_from,$to_time,$UpdatedBy)){
+        
+         echo "<script>               
+            $(document).ready(
+             
+            function(){
+                showSuccessToast('Period Added Successfully');
+              
+            }); 
+            
+            </script>";
+    }else{
+        echo "<script>               
+            $(document).ready(
+             
+            function(){
+                showInfoToast('Period Not Added Please Try Again Later');
+               
+            }); 
+            </script>";
+    }
 }

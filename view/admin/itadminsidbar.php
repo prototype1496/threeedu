@@ -160,7 +160,37 @@
                         </li>
 
                         
+    <li class="pcoded-hasmenu ">
+                <a href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="feather icon-box"></i></span>
+                    <span class="pcoded-mtext">Time Table Masters</span>
+                </a>
+                <ul class="pcoded-submenu">
 
+
+
+
+                        <li class="">
+                            <a href="#">
+                                <span class="pcoded-mtext">Period Master</span>
+                            </a>
+                        </li>
+                        
+                         <li class="">
+                             <a href="selectgrade.php">
+                                <span class="pcoded-mtext">Time Table Master</span>
+                            </a>
+                        </li>
+                        
+                        
+                        
+
+                        
+
+
+
+                </ul>
+            </li>
 
 
                 </ul>

@@ -2,8 +2,13 @@
 require '../../controller/super/SessionStart.php'; 
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/SuperModel.php';
-$tenant_id = $_SESSION['threeedu_tenantid'];
-$stm = SuperModel::get_teacher_details_by_tenant_id($tenant_id);
+require_once '../../controller/super/MaterController.php';
+
+ $class_id = $_GET['classid'];
+
+$stm = SuperModel::get_all_periods($class_id);
+
+$stm_period_data = SuperModel::get_all_period_types();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +16,7 @@ $stm = SuperModel::get_teacher_details_by_tenant_id($tenant_id);
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dt-ext-buttons-html-5-data-export.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:48:50 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<title>Teacher Details </title>
+<title>Student Assessment </title>
 
 
 <!--[if lt IE 10]>
@@ -103,31 +108,110 @@ $stm = SuperModel::get_teacher_details_by_tenant_id($tenant_id);
     
     
    
-  <?php
-                        if ($_SESSION['threeedu_user_id'] == 1)
-                            {
-                             require './sidbar.php';
-                            } 
-                        else if ($_SESSION['threeedu_user_id'] == 4) 
-                        {
+ <!--side bar start  -->
+                        <?php
+                        if ($_SESSION['threeedu_user_id'] == 1) {
+                            require './sidbar.php';
+                        } else if ($_SESSION['threeedu_user_id'] == 4) {
                             require './itadminsidbar.php';
                         }
                         ?>
+                        <!--side bar end  -->
 
 <div class="pcoded-content">
 <div class="pcoded-inner-content">
 
 <div class="main-body">
+<div class="page-wrapper">
+
+<div class="page-header">
+<div class="row align-items-end">
+<div class="col-lg-8">
 
 
+ </ul>
+</div>
+</div>
+</div>
+</div>
+    <form method="POST" action="timetablemaster.php?classid=<?php echo $class_id; ?>"> 
 
 <div class="page-body">
 <div class="row">
 <div class="col-sm-12">
+    
+                      <div class="card">
+                                                  
+                                                   <div class="card-block">
+                                                        <div class="form-group row">
+                                                            
+                                                            <input type="hidden" value="<?php echo $class_id; ?>" name="calss_master_id" />    
+                                                        <div class="col-md-3">
+                        <div class="form-group">
+                           <label class="bmd-label-floating">Period</label>
+                          <div class="form-select-list">
+                                        <select  required="" class="form-control custom-select-value" name="period_master_id">
+                                            <option value="" disabled="disabled" selected="selected">Select Period</option>
+                                           
+                                                <?php 
+                                                 while($stm_period_data_row =$stm_period_data->fetch(PDO::FETCH_ASSOC) ){ ?> 
+                                                  <option value="<?php echo $stm_period_data_row['PeriodMasterID']; ?>">  <?php echo $stm_period_data_row['PeriodName']; ?>  </option>
+                                                <?php } ?>
+                                                
+                                       </select>
+                                    </div>
+                        </div>
+                      </div>
+                                                       
+                                                       
+                               <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">FROM</label>
+                          <input required=""  minlength="4" name="time_from" type="time" class="form-control">
+                        </div>
+                      </div>   
+                                                       
+                                                                              
+                                                       
+                               <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">TO</label>
+                          <input required=""  minlength="4" name="time_to" type="time" class="form-control">
+                        </div>
+                      </div> 
+                                                            
+                                                                  <div class="col-md-3">
+                        <div class="form-group">
+                           <br>
+                            <input name="btn_submit_period" type="submit" class="btn btn-grd-primary">
+                        </div>
+                      </div> 
+                                                               
+                             </div>                            
+                                      </form>                  
+<div class="page-header">
+<div class="row align-items-end">
+<div class="col-lg-8">
+<div class="page-header-title">
+<div class="d-inline">
+   
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+   </div>                                           
+                                                  
+                                                  
+        </div>
+    
+    
 
 <div class="card">
     <div class="card-header ">
-        <h4>Teacher Information </h4>      
+        <h4>Existing Periods</h4>      
    <hr>     
     </div>
 <div class="card-block">
@@ -135,32 +219,35 @@ $stm = SuperModel::get_teacher_details_by_tenant_id($tenant_id);
 <table id="excel-bg" class="table table-striped table-bordered nowrap">
 <thead>
 <tr>
-    <th>ID</th>
-<th>Teacher</th>
-<th>NRC</th>
-<th>Contact No.</th>
-<th>DOB</th>
+<th>Period</th>
+<th>From</th>
 
-<th></th>
+<th>To</th>
+<th>Active</th>
+
+<th>Act/Dec</th>
 </tr>
 </thead>
 <tbody>
       <?php while($row = $stm->fetch(PDO::FETCH_ASSOC))
                             
                     {
-                          $public_id = $row['TeaherMasterPublicID'];
+                      
                             ?>
 <tr>
-     <td><?php echo $public_id;?></td>
-         <td><?php echo $row['Teacher'];?></td>
-        <td ><?php echo $row['NRC'];?></td>
-        <td ><?php echo $row['ContactNo'];?></td>
-        <td ><?php echo $row['DOB'];?></td>
+   
+         <td><?php echo $row['PeriodName'];?></td>
+        
+        <td ><?php echo $row['TimeForm'];?></td>
+        <td ><?php echo $row['TimeTo'];?></td>
+     <td ><?php echo $row['Active'];?></td>
        
 
 <td>
-    <button onclick="redirectWithID('<?php echo $public_id;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-eye"></i></button>
-  </td>
+    <button onclick="redirectWithID('<?php echo $public_id;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-power"></i></button>
+    
+  
+</td>
 </tr>
 
      <?php } ?>
@@ -172,12 +259,11 @@ $stm = SuperModel::get_teacher_details_by_tenant_id($tenant_id);
 </tbody>
 <tfoot>
 <tr>
-     <th>ID</th>
-<th>Teacher</th>
-<th>NRC</th>
-<th>Contact No.</th>
-<th>DOB</th>
-<th></th>
+<th>Period</th>
+<th>From</th>
+
+<th>To</th>
+<th>Action</th>
 </tr>
 </tfoot>
 </table>
@@ -272,16 +358,22 @@ $stm = SuperModel::get_teacher_details_by_tenant_id($tenant_id);
 <script src="../../files/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
 <script src="../../files/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
 
+
+
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/i18next/js/i18next.min.js"></script>
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/bower_components/jquery-i18next/js/jquery-i18next.min.js"></script>
+
+
 
 <script src="../../files/assets/pages/data-table/extensions/buttons/js/extension-btns-custom.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
 <script src="../../files/assets/js/pcoded.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
 <script src="../../files/assets/js/vartical-layout.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
 <script src="../../files/assets/js/jquery.mCustomScrollbar.concat.min.js" type="028b4b5e88a856df25e89945-text/javascript"></script>
 <script type="028b4b5e88a856df25e89945-text/javascript" src="../../files/assets/js/script.js"></script>
+
+
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13" type="028b4b5e88a856df25e89945-text/javascript"></script>
 <script type="028b4b5e88a856df25e89945-text/javascript">
@@ -294,7 +386,7 @@ $stm = SuperModel::get_teacher_details_by_tenant_id($tenant_id);
 
 <script>
  function redirectWithID(id){
-         window.location.href = "/threeedu/view/admin/teacherprofile.php?id="+id;
+         window.location.href = "/threeedu/view/teacher/profile.php?id="+id;
         
     }
 </script>
