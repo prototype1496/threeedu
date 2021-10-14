@@ -275,4 +275,105 @@ else if (isset($_POST['btn_submit_period'])) {
             }); 
             </script>";
     }
+}else if (isset($_GET['classid']) && isset($_GET['timetablemaster'])) {
+    
+     $class_id =trim(filter_input(INPUT_GET, 'classid', FILTER_DEFAULT));
+    $titeble_master_id =trim(filter_input(INPUT_GET, 'timetablemaster', FILTER_DEFAULT));
+    
+    $UpdatedBy = $_SESSION['threeedu_username'];
+ 
+
+        if (SuperModel::updated_period_status($titeble_master_id,$UpdatedBy)) {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+               window.location.replace('/threeedu/view/admin/timetablemaster.php?classid=$class_id')
+          
+                
+              
+            }); 
+            
+            </script>";
+        } else {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+           
+                showInfoToast('Error in updateing Status Please Try Again Later');
+               window.location.replace('/threeedu/view/admin/timetablemaster.php?classid=$class_id');
+            }); 
+            </script>";
+        }
+  
+}else if (isset($_POST['btn_submit_accement_type'])) {
+     
+     $assescment_type = trim(filter_input(INPUT_POST, 'assescment_type', FILTER_DEFAULT));
+   
+  
+        $tenant_id = $_SESSION['threeedu_tenantid'];
+    $UpdatedBy = $_SESSION['threeedu_username'];
+ 
+
+
+        if (SuperModel::add_assement_type($assescment_type,$UpdatedBy,$tenant_id)) {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+               window.location.replace('/threeedu/view/admin/assessmetypemaster.php);
+          
+                
+              
+            }); 
+            
+            </script>";
+        } else {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+           
+                showInfoToast('Error in updateing Status Please Try Again Later');
+                window.location.replace('/threeedu/view/admin/assessmetypemaster.php);
+            }); 
+            </script>";
+        }
+  
 }
+else if (isset($_GET['assecemnt_type_master_id'])) {
+    
+     $assecemnt_type_master_id =trim(filter_input(INPUT_GET, 'assecemnt_type_master_id', FILTER_DEFAULT));
+   
+    $UpdatedBy = $_SESSION['threeedu_username'];
+ 
+     
+
+        if (SuperModel::updated_asscecment_type_status($assecemnt_type_master_id,$UpdatedBy)) {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+               window.location.replace('/threeedu/view/admin/assessmetypemaster.php')
+          
+                
+              
+            }); 
+            
+            </script>";
+        } else {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+           
+                showInfoToast('Error in updateing Status Please Try Again Later');
+               window.location.replace('/threeedu/view/admin/assessmetypemaster.php');
+            }); 
+            </script>";
+        }
+  
+}
+
+

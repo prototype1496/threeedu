@@ -5,6 +5,7 @@ require_once '../../db_connection/dbconfig.php';
 require_once '../../model/TeacherModel.php';
 require_once '../../model/SuperModel.php';
 $tenant_id = $_SESSION['threeedu_tenantid'];
+$school_id = $_SESSION['threeedu_schoolid'];
 $stm = TeacherModel::get_all_student_details($tenant_id);
 
 $classmaster_id = "";
@@ -22,7 +23,7 @@ if (isset($_GET['id']) && isset($_GET['day'])) {
     $day_of_week = $_GET['day'];
     $classmaster_id = trim(filter_input(INPUT_GET, 'id', FILTER_DEFAULT));
 
-    $subjects = SuperModel::get_subjects_by_class_id($classmaster_id);
+    $subjects = SuperModel::get_subjects_by_class_id($classmaster_id,$school_id);
 
     while ($row = $subjects->fetch(PDO::FETCH_ASSOC)) {
         $subjects_arry[$row['SujectCode']] = $row['SubjectName'];

@@ -2,13 +2,10 @@
 require '../../controller/super/SessionStart.php';
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/SuperModel.php';
-require_once '../../controller/super/MaterController.php';
+require '../../controller/super/MaterController.php';
 
-$class_id = $_GET['classid'];
-
-$stm = SuperModel::get_all_periods($class_id);
-
-$stm_period_data = SuperModel::get_all_period_types();
+$tenant_id = $_SESSION['threeedu_tenantid'];
+$stm = SuperModel::get_all_asscecemnt_types_by_tenant_id($tenant_id);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -97,7 +94,7 @@ $stm_period_data = SuperModel::get_all_period_types();
 
 
                 <!--nva bar start  -->
-                <?php require'./navbar.php'; ?>
+<?php require'./navbar.php'; ?>
                 <!--nva bar end  -->
 
 
@@ -109,13 +106,13 @@ $stm_period_data = SuperModel::get_all_period_types();
 
 
                         <!--side bar start  -->
-                        <?php
-                        if ($_SESSION['threeedu_user_id'] == 1) {
-                            require './sidbar.php';
-                        } else if ($_SESSION['threeedu_user_id'] == 4) {
-                            require './itadminsidbar.php';
-                        }
-                        ?>
+<?php
+if ($_SESSION['threeedu_user_id'] == 1) {
+    require './sidbar.php';
+} else if ($_SESSION['threeedu_user_id'] == 4) {
+    require './itadminsidbar.php';
+}
+?>
                         <!--side bar end  -->
 
                         <div class="pcoded-content">
@@ -134,10 +131,11 @@ $stm_period_data = SuperModel::get_all_period_types();
                                             </div>
                                         </div>
                                     </div>
-                                    <form method="POST" action="timetablemaster.php?classid=<?php echo $class_id; ?>"> 
-
+                                   
+                                    <form method="POST" action="assessmetypemaster.php"> 
                                         <div class="page-body">
                                             <div class="row">
+                                                
                                                 <div class="col-sm-12">
 
                                                     <div class="card">
@@ -145,44 +143,18 @@ $stm_period_data = SuperModel::get_all_period_types();
                                                         <div class="card-block">
                                                             <div class="form-group row">
 
-                                                                <input type="hidden" value="<?php echo $class_id; ?>" name="calss_master_id" />    
                                                                 <div class="col-md-3">
                                                                     <div class="form-group">
-                                                                        <label class="bmd-label-floating">Period</label>
-                                                                        <div class="form-select-list">
-                                                                            <select  required="" class="form-control custom-select-value" name="period_master_id">
-                                                                                <option value="" disabled="disabled" selected="selected">Select Period</option>
-
-                                                                                <?php while ($stm_period_data_row = $stm_period_data->fetch(PDO::FETCH_ASSOC)) { ?> 
-                                                                                    <option value="<?php echo $stm_period_data_row['PeriodMasterID']; ?>">  <?php echo $stm_period_data_row['PeriodName']; ?>  </option>
-                                                                                <?php } ?>
-
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <label class="bmd-label-floating">FROM</label>
-                                                                        <input required=""  minlength="4" name="time_from" type="time" class="form-control">
+                                                                        <label class="bmd-label-floating">Assessment Type Name</label>
+                                                                        <input required=""  name="assescment_type" type="text" class="form-control">
                                                                     </div>
                                                                 </div>   
 
 
-
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <label class="bmd-label-floating">TO</label>
-                                                                        <input required=""  minlength="4" name="time_to" type="time" class="form-control">
-                                                                    </div>
-                                                                </div> 
-
                                                                 <div class="col-md-3">
                                                                     <div class="form-group">
                                                                         <br>
-                                                                        <input name="btn_submit_period" type="submit" class="btn btn-grd-primary">
+                                                                        <input name="btn_submit_accement_type" type="submit" class="btn btn-grd-primary">
                                                                     </div>
                                                                 </div> 
 
@@ -210,7 +182,7 @@ $stm_period_data = SuperModel::get_all_period_types();
 
                                                     <div class="card">
                                                         <div class="card-header ">
-                                                            <h4>Existing Periods</h4>      
+                                                            <h4>Existing Assessment Types</h4>      
                                                             <hr>     
                                                         </div>
                                                         <div class="card-block">
@@ -218,31 +190,28 @@ $stm_period_data = SuperModel::get_all_period_types();
                                                                 <table id="excel-bg" class="table table-striped table-bordered nowrap">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th>Period</th>
-                                                                            <th>From</th>
+                                                                            <th>Assessment Type</th>
 
-                                                                            <th>To</th>
                                                                             <th>Active</th>
 
-                                                                            <th>Act/Dec</th>
+                                                                            <th>Activate/Deactivate</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <?php
-                                                                        while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
-                                                                            $time_table_master_id = $row['TimeTableMasterID']
-                                                                            ?>
+<?php
+while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+    $assecemnt_type_id = $row['AssementTypeID']
+    ?>
                                                                             <tr>
 
-                                                                                <td><?php echo $row['PeriodName']; ?></td>
+                                                                                <td><?php echo $row['AssementTypeName']; ?></td>
 
-                                                                                <td ><?php echo $row['TimeForm']; ?></td>
-                                                                                <td ><?php echo $row['TimeTo']; ?></td>
                                                                                 <td ><?php echo $row['Active']; ?></td>
 
 
+
                                                                                 <td>
-                                                                                    <button onclick="redirectWithID('<?php echo $class_id; ?>', '<?php echo $time_table_master_id; ?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-power"></i></button>
+                                                                                    <button onclick="redirectWithID('<?php echo $assecemnt_type_id; ?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-power"></i></button>
 
 
                                                                                 </td>
@@ -257,11 +226,11 @@ $stm_period_data = SuperModel::get_all_period_types();
                                                                     </tbody>
                                                                     <tfoot>
                                                                         <tr>
-                                                                            <th>Period</th>
-                                                                            <th>From</th>
+                                                                            <th>Assessment Type</th>
 
-                                                                            <th>To</th>
-                                                                            <th>Action</th>
+                                                                            <th>Active</th>
+
+                                                                            <th>Activate/Deactivate</th>
                                                                         </tr>
                                                                     </tfoot>
                                                                 </table>
@@ -383,8 +352,8 @@ $stm_period_data = SuperModel::get_all_period_types();
     </script>
 
     <script>
-            function redirectWithID(id, time_table_master_id) {
-                window.location.href = "/threeedu/view/admin/timetablemaster.php?classid=" + id + "&timetablemaster=" + time_table_master_id;
+            function redirectWithID(id) {
+                window.location.href = "/threeedu/view/admin/assessmetypemaster.php?assecemnt_type_master_id=" + id;
 
             }
     </script>

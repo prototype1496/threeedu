@@ -38,6 +38,8 @@ class SysAdminModel {
         }
     }
     
+    
+    
      public static function get_all_shcool_data_by_id($school_id) {
        
         $Connection = new Connection();

@@ -10,13 +10,13 @@ $super_maodel = new SuperModel();
 
 
 if($_GET['id']==1){
-    $super_maodel->get_all_subjects($_GET['class_id']);
+    $super_maodel->get_all_subjects($_GET['class_id'],$_GET['school_id']);
  
         
 }
 elseif ($_GET['id']==2)
     {
-    $super_maodel->get_all_acessment_types($_GET['class_id'],$_GET['subject_id']);
+    $super_maodel->get_all_acessment_types($_GET['class_id'],$_GET['subject_id'],$_GET['tenant_id']);
 }
 
 elseif ($_GET['id']==3)

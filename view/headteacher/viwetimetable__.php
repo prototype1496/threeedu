@@ -134,7 +134,7 @@ if (isset($_GET['classmasterid'])) {
 
                         <!--side bar start  -->
                         <?php
-                       require './sidbar.php';
+                        require './sidbar.php';
                         ?>
                         <!--side bar end  --> 
 

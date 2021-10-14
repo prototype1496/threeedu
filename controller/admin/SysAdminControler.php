@@ -32,7 +32,7 @@ if (isset($_GET['schoolid'])) {
             function(){
            
                 showInfoToast('Error in updateing Status Please Try Again Later');
-               
+                window.location.replace('/threeedu/view/admin/activatedeactivateschool.php')
             }); 
             </script>";
         }

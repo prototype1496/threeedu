@@ -2,7 +2,7 @@
 require '../../controller/super/SessionStart.php'; 
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/SuperModel.php';
-
+$tenant_id = $_SESSION['threeedu_tenantid'];
 $stm = SuperModel::get_studnet_assecment_mark_report();
 ?>
 <!DOCTYPE html>
@@ -143,7 +143,7 @@ $stm = SuperModel::get_studnet_assecment_mark_report();
 <th>Name</th>
 
 <th>Grade</th>
-<th>Subject</th>
+
 <th>Assessment Type</th>
 <th>Score</th>
 <th>Marked Date</th>
@@ -162,7 +162,7 @@ $stm = SuperModel::get_studnet_assecment_mark_report();
         
         <td ><?php echo $row['Name'];?></td>
         <td ><?php echo $row['ClassName'];?></td>
-          <td ><?php echo $row['SubjectName'];?></td>
+       
             <td ><?php echo $row['AssecementName'];?></td>
               <td ><?php echo $row['Score'];?></td>
                  <td ><?php echo $row['MarkedOn'];?></td>
@@ -186,7 +186,7 @@ $stm = SuperModel::get_studnet_assecment_mark_report();
 <th>Name</th>
 
 <th>Grade</th>
-<th>Subject</th>
+
 <th>Assecment Type</th>
 <th>Score</th>
 <th>Marked Date</th>

@@ -1,9 +1,9 @@
 
 function get_subjects()
 {
-   
+    var school_id = document.getElementById("school_id").value;
      var class_id = document.getElementById("selected_class_id").value;
-     var temp_parm = "class_id="+class_id;
+     var temp_parm = "class_id="+class_id+"&school_id="+school_id;
      
      
     xmlhttp = new XMLHttpRequest();
@@ -15,9 +15,10 @@ function get_subjects()
 
 function get_assesment_types()
 {
+    var tenant_id = document.getElementById("tenant_id").value;
     var class_id = document.getElementById("selected_class_id").value;
      var subject_id = document.getElementById("subject_id").value;
-     var temp_parm = "class_id="+class_id+"&&subject_id="+subject_id;
+     var temp_parm = "class_id="+class_id+"&&subject_id="+subject_id+"&tenant_id="+tenant_id;
      
      
     xmlhttp = new XMLHttpRequest();

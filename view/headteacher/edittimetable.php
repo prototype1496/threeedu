@@ -5,6 +5,7 @@ require_once '../../db_connection/dbconfig.php';
 require_once '../../model/TeacherModel.php';
 require_once '../../model/SuperModel.php';
 $tenant_id = $_SESSION['threeedu_tenantid'];
+$school_id = $_SESSION['threeedu_schoolid'];
 $stm = TeacherModel::get_all_student_details($tenant_id);
 
 $classmaster_id = "";
@@ -22,7 +23,7 @@ if (isset($_GET['id']) && isset($_GET['day'])) {
     $day_of_week = $_GET['day'];
     $classmaster_id = trim(filter_input(INPUT_GET, 'id', FILTER_DEFAULT));
 
-    $subjects = SuperModel::get_subjects_by_class_id($classmaster_id);
+   $subjects = SuperModel::get_subjects_by_class_id($classmaster_id,$school_id);
 
     while ($row = $subjects->fetch(PDO::FETCH_ASSOC)) {
         $subjects_arry[$row['SujectCode']] = $row['SubjectName'];
@@ -326,7 +327,7 @@ if (isset($_GET['id']) && isset($_GET['day'])) {
                                                                                                                 <div class="form-group">
                                                                                                                     <select id="" onchange=""  name="subject_code[]" class="js-example-data-array col-sm-4">
                                                                                                                         <option value="<?PHP echo substr($key, 0, -1); ?>"  selected="selected" ><?PHP echo $value; ?></option>
-
+                                                                                                                                <option value=""   >Free Period</option>
                                                                                                             <?php
                                                                                                             foreach ($subjects_arry as $key => $value) {
                                                                                                                 ?>
@@ -355,7 +356,7 @@ if (isset($_GET['id']) && isset($_GET['day'])) {
                                                                                                                 <div class="form-group">
                                                                                                                     <select id="" onchange=""  name="subject_code[]" class="js-example-data-array col-sm-4">
                                                                                                                         <option value="<?PHP echo substr($key, 0, -1); ?>"  selected="selected" ><?PHP echo $value; ?></option>
-
+                                                                                                                                <option value=""   >Free Period</option>
                                                                                                                 <?php
                                                                                                                 foreach ($subjects_arry as $key => $value) {
                                                                                                                     ?>
@@ -376,7 +377,7 @@ if (isset($_GET['id']) && isset($_GET['day'])) {
 
 
 
-                                                                                                        foreach ($thursday as $key => $value) {
+                                                                                                        foreach ($friday as $key => $value) {
                                                                                                             ?>
                                                                                                             <div class="col-sm-6">
                                                                                                                 <input type="hidden" name="timtable_deatails_id[]" value="<?php echo $period_ids[$key]; ?>"/>
@@ -384,7 +385,7 @@ if (isset($_GET['id']) && isset($_GET['day'])) {
                                                                                                                 <div class="form-group">
                                                                                                                     <select id="" onchange=""  name="subject_code[]" class="js-example-data-array col-sm-4">
                                                                                                                         <option value="<?PHP echo substr($key, 0, -1); ?>"  selected="selected" ><?PHP echo $value; ?></option>
-
+                                                                                                                                <option value=""   >Free Period</option>
                                                                                                                         <?php
                                                                                                                         foreach ($subjects_arry as $key => $value) {
                                                                                                                             ?>

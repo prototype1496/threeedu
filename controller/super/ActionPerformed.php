@@ -93,7 +93,7 @@ if (isset($_POST['btn_reg_pupil'])) {
             sticky: false,
             header: 'Success',
             theme: 'jnoty-success',
-            close: function() {window.location.replace('/threeedu/view/admin/studentregistration.php')},
+            close: function() {window.location.replace('/threeedu/view/headteacher/studentregistration.php')},
             });   
             }); 
             </script>";
@@ -107,7 +107,7 @@ if (isset($_POST['btn_reg_pupil'])) {
             sticky: false,
             header: 'Erro',
             theme: 'jnoty-danger',
-            close: function() {window.location.replace('/threeedu/view/admin/studentregistration.php')},
+            close: function() {window.location.replace('/threeedu/view/headteacher/studentregistration.php')},
             });   
             }); 
             </script>";

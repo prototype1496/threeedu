@@ -120,11 +120,13 @@ $classes = SuperModel::get_all_classes_by_tenant_id($tenant_id);
 <div class="main-body">
 
 
-
+    <input type="hidden" id="school_id" value="<?php echo $school_id; ?>">
 <div class="page-body">
 <div class="row">
 <div class="col-sm-12">
     <form method="post" action="../../controller/super/ActionPerformed.php" >
+        <input type="hidden" id="tenant_id"  name="tenant_id" value="<?php echo $tenant_id; ?>"/>
+        
 <div class="card">
    
 <div class="card-block">
@@ -172,7 +174,7 @@ $classes = SuperModel::get_all_classes_by_tenant_id($tenant_id);
    </div>
  <hr>   
  <div id="assesmenttypeid" class="col-sm-12 col-xl-3 m-b-20">
-     <button class="form-control btn-info align-items-end" name="btn_accessment" value="btn_attendace" type="submit" >Submit Gradding</button>
+     <button class="form-control btn-info align-items-end" name="btn_accessment" value="btn_attendace" type="submit" >Submit Grading</button>
      
  </div>
  

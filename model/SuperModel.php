@@ -103,6 +103,20 @@ class SuperModel {
         return $stm;
     }
 
+    
+     public static function get_all_asscecemnt_types_by_tenant_id($tenant_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAllActiveAssecmentTypesBYTenantID(:tenant_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenant_id));
+
+        return $stm;
+    }
+    
     public static function get_school_details_by_tenant_id($tenatnt_id) {
 
         $Connection = new Connection();
@@ -263,6 +277,32 @@ class SuperModel {
         return $stm;
     }
 
+    
+    
+     public static function add_assement_type($assescment_type,$UpdatedBy,$tenant_id) {
+     //the below function adds the assementtype type to the assementtype table
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+
+            $query = "INSERT INTO `assementtypemaster` (`AssementTypeName`,`UpdatedBy`, `TenantID`,`IsActive`) VALUES (:AssementTypeName,:UpdatedBy,:TenantID,1);";
+            $stm = $conn->prepare($query);
+
+            $stm->execute(array(':AssementTypeName' => $assescment_type,':UpdatedBy' => $UpdatedBy,':TenantID' => $tenant_id));
+
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+            echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
+    
     public static function add_seuence($sequence) {
         //the below function creates a session in the databes for every log in 
         try {
@@ -778,7 +818,7 @@ class SuperModel {
         $conn = $Connection->connect();
 
         // this is the stored procidure from the datbaes that is loading the subjects after passing in an class ID 
-        $query = "CALL GetClassSubjectsByClassMasterID(:class_id);";
+        $query = "CALL GetClassSubjectsByClassMasterID(:class_id,:school_id);";
 
         $stm = $conn->prepare($query);
         $stm->execute(array(':class_id' => $classid));
@@ -1052,18 +1092,18 @@ class SuperModel {
         return $stm;
     }
 
-    function get_all_subjects($class_id) {
+    function get_all_subjects($class_id,$school_id) {
         //This function is used to load the districts whih a given province ID
         $Connection = new Connection();
         $conn = $Connection->connect();
 
         // this is the stored procidure from the datbaes that is loading the destrics after passing in an province ID 
-        $query = "CALL GetSubjectsByClassMasterPublicID(:class_id);";
+        $query = "CALL GetSubjectsByClassMasterPublicID(:class_id,:school_id);";
 
 ///maonpwe
 
         $stm = $conn->prepare($query);
-        $stm->execute(array(':class_id' => $class_id));
+        $stm->execute(array(':class_id' => $class_id,':school_id' => $school_id));
 
         if ($stm->rowCount() > 0) {
 
@@ -1081,18 +1121,18 @@ class SuperModel {
         }
     }
 
-    function get_all_acessment_types($class_id, $subject_code) {
+    function get_all_acessment_types($class_id, $subject_code,$tenant_id) {
         //This function is used to load the districts whih a given province ID
         $Connection = new Connection();
         $conn = $Connection->connect();
 
         // this is the stored procidure from the datbaes that is loading the destrics after passing in an province ID 
-        $query = "CALL GetAssecmentTypeBySubjectCode(:class_id,:subject_code);";
+        $query = "CALL GetAssecmentTypeBySubjectCode(:class_id,:subject_code,:tenant_id);";
 
 ///maonpwe
 
         $stm = $conn->prepare($query);
-        $stm->execute(array(':class_id' => $class_id, ':subject_code' => $subject_code));
+        $stm->execute(array(':class_id' => $class_id, ':subject_code' => $subject_code,':tenant_id' => $tenant_id));
 
         if ($stm->rowCount() > 0) {
 
@@ -1226,15 +1266,15 @@ class SuperModel {
         }
     }
 
-    public static function get_subjects_by_class_id($class_master_id) {
+    public static function get_subjects_by_class_id($class_master_id,$school_id) {
 
         $Connection = new Connection();
         $conn = $Connection->connect();
 
-        $query = "CALL GetClassSubjectsByID(:class_master_id);";
+        $query = "CALL GetClassSubjectsByID(:class_master_id,:school_id);";
 
         $stm = $conn->prepare($query);
-        $stm->execute(array(':class_master_id' => $class_master_id));
+        $stm->execute(array(':class_master_id' => $class_master_id,':school_id' => $school_id));
 
         //$stm = $conn->query($query);
         // $stm->execute(array(':username' => $User->username));
@@ -1952,6 +1992,58 @@ class SuperModel {
         $row = $stm->fetch(PDO::FETCH_ASSOC);
 
         return $row;
+    }
+    
+    
+    
+    
+     public static function updated_period_status($ClassMasterID,$UpdatedBy) {
+        //the below function creates a session in the databes for every log in 
+    
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+
+            $query = "CALL UpdateClassActiveStatusByID(:Classid,:UpdatedBy)";
+            $stm = $conn->prepare($query);
+
+            $stm->execute(array(':Classid'=>$ClassMasterID,':UpdatedBy'=>$UpdatedBy));
+            $conn->commit();
+            
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+           // echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
+    
+     public static function updated_asscecment_type_status($assecemnt_type_master_id,$UpdatedBy) {
+        //the below function creates a session in the databes for every log in 
+    
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+
+            $query = "CALL UpdateAssecemntTypeActiveStatusByID(:assecemnt_type_master_id,:UpdatedBy)";
+            $stm = $conn->prepare($query);
+
+            $stm->execute(array(':assecemnt_type_master_id'=>$assecemnt_type_master_id,':UpdatedBy'=>$UpdatedBy));
+            $conn->commit();
+            
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+           // echo $exc->getMessage();
+            return FALSE;
+        }
     }
 
 }

@@ -125,7 +125,7 @@
 
 
                         <li class="">
-                            <a href="#">
+                            <a href="assessmetypemaster.php">
                                 <span class="pcoded-mtext">Assessment Type master</span>
                             </a>
                         </li>
