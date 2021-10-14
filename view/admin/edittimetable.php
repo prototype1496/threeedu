@@ -332,7 +332,7 @@ if (isset($_GET['id']) && isset($_GET['day'])) {
                                                                                                                 <div class="form-group">
                                                                                                                     <select id="" onchange=""  name="subject_code[]" class="js-example-data-array col-sm-4">
                                                                                                                         <option value="<?PHP echo substr($key, 0, -1); ?>"  selected="selected" ><?PHP echo $value; ?></option>
-
+                                                                                                                         <option value=""   >Free Period</option>
                                                                                                             <?php
                                                                                                             foreach ($subjects_arry as $key => $value) {
                                                                                                                 ?>
@@ -361,7 +361,7 @@ if (isset($_GET['id']) && isset($_GET['day'])) {
                                                                                                                 <div class="form-group">
                                                                                                                     <select id="" onchange=""  name="subject_code[]" class="js-example-data-array col-sm-4">
                                                                                                                         <option value="<?PHP echo substr($key, 0, -1); ?>"  selected="selected" ><?PHP echo $value; ?></option>
-
+                                                                                                                         <option value=""   >Free Period</option>
                                                                                                                 <?php
                                                                                                                 foreach ($subjects_arry as $key => $value) {
                                                                                                                     ?>
@@ -382,7 +382,7 @@ if (isset($_GET['id']) && isset($_GET['day'])) {
 
 
 
-                                                                                                        foreach ($thursday as $key => $value) {
+                                                                                                        foreach ($friday as $key => $value) {
                                                                                                             ?>
                                                                                                             <div class="col-sm-6">
                                                                                                                 <input type="hidden" name="timtable_deatails_id[]" value="<?php echo $period_ids[$key]; ?>"/>
@@ -390,7 +390,7 @@ if (isset($_GET['id']) && isset($_GET['day'])) {
                                                                                                                 <div class="form-group">
                                                                                                                     <select id="" onchange=""  name="subject_code[]" class="js-example-data-array col-sm-4">
                                                                                                                         <option value="<?PHP echo substr($key, 0, -1); ?>"  selected="selected" ><?PHP echo $value; ?></option>
-
+                                                                                                                         <option value=""   >Free Period</option>
                                                                                                                         <?php
                                                                                                                         foreach ($subjects_arry as $key => $value) {
                                                                                                                             ?>
