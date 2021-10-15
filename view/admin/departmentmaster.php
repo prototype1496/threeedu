@@ -216,7 +216,7 @@ $get_departments = SuperModel::get_departments_school_id($school_id);
                                                                                                                                   <td>
                                                                                                                                  <?php echo $data['DepartmentName'] ?>
                                                                                                                                 <input  id="txt_data_name" value="<?php echo $data['DepartmentName']; ?>" type="hidden" name="grade_name[]" /> 
-                                                                                                                                <input  value="<?php echo $data['DepartmentID']; ?>" type="hidden" name="grade_public_id[]"  />
+                                                                                                                                <input   id = "grade_public_id"  value="<?php echo $data['DepartmentID']; ?>" type="hidden" name="grade_public_id[]"  />
                                                                                                                             </td>
                                                                                                                             
                                                                                                                              <td>
@@ -225,7 +225,7 @@ $get_departments = SuperModel::get_departments_school_id($school_id);
                                                                                                                                 
                                                                                                                             </td>
                                                                                                                             
-                                                                                                                            <td>  <input type="checkbox"  name="chk_subject" value="1" checked>&nbsp;&nbsp;
+                                                                                                                            <td>  <input  type="checkbox"  name="chk_subject" value="1" checked>&nbsp;&nbsp;
                                                                                                                                 <a class="add" title="Add" data-toggle="tooltip" id="0"><i class="fa fa-user-plus"></i></a>
                                                                                                                                 <a class="edit" title="Edit" data-toggle="tooltip" id="1"><i class="fa fa-pencil"></i></a>
 

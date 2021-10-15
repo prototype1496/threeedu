@@ -165,7 +165,11 @@ else if (isset($_POST['btn_depatment_master'])) {
 
     $count = 0;
     $data = array();
-
+//   print_r($grade_name) ;    echo '<br>'; 
+//   print_r($dpt_short_name) ; echo '<br>';
+//    print_r($grade_public_id) ; 
+    
+    //print_r($dpt_short_name) ; 
     // print_r(strlen($student_no[0])) ; 
     $size_of_id_array = sizeof($grade_name);
 
@@ -175,7 +179,7 @@ else if (isset($_POST['btn_depatment_master'])) {
           if (empty($dpt_short_name[$count])) {
             $dpt_short_name = NULL;
         } else {
-            $dpt_short_name = $grade_name[$count];
+            $dpt_short_name_data = $dpt_short_name[$count];
         }
         
         if (empty($grade_name[$count])) {
@@ -193,11 +197,11 @@ else if (isset($_POST['btn_depatment_master'])) {
         if (empty($grade_public_id_data) || $grade_public_id_data == NULL || $grade_public_id_data == "") {
 
             //$class_room_id = SuperModel::get_sequence_id(21);
-            array_push($data, array('NULL', $grade_name_data,$dpt_short_name, $school_id, $UpdatedBy));
+            array_push($data, array('NULL', $grade_name_data, strtoupper($dpt_short_name_data), $school_id, $UpdatedBy));
             $count++;
         } else {
 
-            array_push($data, array($grade_public_id_data,$dpt_short_name, $grade_name_data, $school_id, $UpdatedBy));
+            array_push($data, array($grade_public_id_data,$grade_name_data, $dpt_short_name_data, $school_id,$UpdatedBy));
             $count++;
         }
     }

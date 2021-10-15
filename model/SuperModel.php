@@ -493,7 +493,7 @@ class SuperModel {
             foreach ($department_data as $department_data) {
                 //print_r($grade_data);
                 if (!empty($department_data[0])) {
-                    // print_r($class_room_data);
+                    //print_r($department_data);
                     $stm->execute($department_data);
                 } else {
                     
@@ -509,7 +509,7 @@ class SuperModel {
             return TRUE;
         } catch (Exception $exc) {
             $conn->rollBack();
-            echo $exc->getMessage();
+           // echo $exc->getMessage();
             return FALSE;
         }
     }
