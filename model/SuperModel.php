@@ -314,7 +314,7 @@ class SuperModel {
 
             $conn->beginTransaction();
 
-            $query = "INSERT INTO `subjectmater` (SubjectName, SubjectCode, DepartmentCode, SubjectDiscription, SchoolID, UpdatedBy, IsActive) VALUES (:SubjectName,:SubjectCode,:DepartmentCode,:SubjectDiscription,:SchoolID,:UpdatedBy,1);";
+            $query = "INSERT INTO `subjectmater` (SubjectName, SubjectCode, DepartmentCode, SubjectDiscription, SchoolID, UpdatedBy, IsActive) VALUES (:SubjectName,:SubjectCode,:DepartmentCode,:SubjectDiscription,:SchoolID,:UpdatedBy,1)ON DUPLICATE KEY UPDATE SubjectName=VALUES(SubjectName),UpdatedBy=VALUES(UpdatedBy);";
             $stm = $conn->prepare($query);
 
             $stm->execute(array(':SubjectName' => $subject_name,':SubjectCode' => $subject_code,':DepartmentCode' => $department_id,':SubjectDiscription'=>$discrtption,':SchoolID'=>$school_id,':UpdatedBy' => $UpdatedBy));
@@ -2139,6 +2139,31 @@ class SuperModel {
             $stm = $conn->prepare($query);
 
             $stm->execute(array(':period_master_id'=>$period_master_id,':UpdatedBy'=>$UpdatedBy));
+            $conn->commit();
+            
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+           // echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
+    
+    public static function updated_subject_master_status($subject_master_id,$UpdatedBy) {
+        //the below function creates a session in the databes for every log in 
+    
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+
+            $query = "CALL UpdateSubjectMaterActiveStatusByID(:subject_master_id,:UpdatedBy)";
+            $stm = $conn->prepare($query);
+
+            $stm->execute(array(':subject_master_id'=>$subject_master_id,':UpdatedBy'=>$UpdatedBy));
             $conn->commit();
             
             $conn = Null;

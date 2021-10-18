@@ -482,3 +482,36 @@ else if (isset($_GET['assecemnt_type_master_id'])) {
         }
   
 }
+else if (isset($_GET['subject_master_id'])) {
+    
+     $subject_master_id =trim(filter_input(INPUT_GET, 'subject_master_id', FILTER_DEFAULT));
+   
+    $UpdatedBy = $_SESSION['threeedu_username'];
+ 
+     
+
+        if (SuperModel::updated_subject_master_status($subject_master_id,$UpdatedBy)) {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+               window.location.replace('/threeedu/view/admin/subjectmaster.php')
+          
+                
+              
+            }); 
+            
+            </script>";
+        } else {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+           
+                showInfoToast('Error in updateing Status Please Try Again Later');
+               window.location.replace('/threeedu/view/admin/subjectmaster.php');
+            }); 
+            </script>";
+        }
+
+}

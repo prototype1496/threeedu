@@ -237,7 +237,7 @@ $stm_deartment_data = SuperModel::get_departments_school_id($school_id);
 
                                                                                 <td>
                                                                                     <button onclick="redirectWithID('<?php echo $subject_master_id; ?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-power"></i></button>
-                                                                                     <button onclick="redirectWithID('<?php echo $subject_master_id; ?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit-2"></i></button>
+                                                                                     <button onclick="redirectEditWithID('<?php echo $subject_master_id; ?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit-2"></i></button>
 
 
                                                                                 </td>
@@ -379,8 +379,13 @@ $stm_deartment_data = SuperModel::get_departments_school_id($school_id);
     </script>
 
     <script>
-            function redirectWithID(id, time_table_master_id) {
-                window.location.href = "/threeedu/view/admin/timetablemaster.php?classid=" + id + "&timetablemaster=" + time_table_master_id;
+            function redirectWithID(subject_master_id ) {
+                window.location.href = "/threeedu/view/admin/subjectmaster.php?subject_master_id=" + subject_master_id;
+
+            }
+            
+             function redirectEditWithID(id, time_table_master_id) {
+                window.location.href = "/threeedu/view/admin/subjectmaster.php?classid=" + id + "&timetablemaster=" + time_table_master_id;
 
             }
     </script>

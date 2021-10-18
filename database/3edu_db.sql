@@ -1068,13 +1068,13 @@ CREATE TABLE IF NOT EXISTS `subjectmater` (
   KEY `FK_subjectmater_schoolmaster` (`SchoolID`),
   CONSTRAINT `FK_subjectmater_department` FOREIGN KEY (`DepartmentCode`) REFERENCES `department` (`DepartmentID`) ON UPDATE CASCADE,
   CONSTRAINT `FK_subjectmater_schoolmaster` FOREIGN KEY (`SchoolID`) REFERENCES `schoolmaster` (`PublicID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.subjectmater: ~32 rows (approximately)
+-- Dumping data for table 3edu_db.subjectmater: ~33 rows (approximately)
 DELETE FROM `subjectmater`;
 /*!40000 ALTER TABLE `subjectmater` DISABLE KEYS */;
 INSERT INTO `subjectmater` (`SubjectMaterID`, `SubjectName`, `SubjectCode`, `DepartmentCode`, `SubjectDiscription`, `SchoolID`, `UpdatedBy`, `UpdatedOn`, `IsActive`) VALUES
-	(1, 'Mathematics', 'MATH', 1, NULL, 'SCHL0000000001', 'SYS', '2020-05-24 13:52:00', '1'),
+	(1, 'Mathematics', 'MATH', 1, NULL, 'SCHL0000000001', 'HAHHA', '2020-05-24 13:52:00', '1'),
 	(2, 'English', 'ENG', 1, NULL, 'SCHL0000000001', 'Sys', '2020-05-24 13:52:05', '1'),
 	(3, 'History', 'HIST', 1, NULL, 'SCHL0000000001', 'SYS', '2020-05-24 13:53:10', '1'),
 	(4, 'Additional Mathematics', 'ADMA', 1, NULL, 'SCHL0000000001', 'SYS', '2020-05-24 13:57:24', '1'),
@@ -1105,7 +1105,8 @@ INSERT INTO `subjectmater` (`SubjectMaterID`, `SubjectName`, `SubjectCode`, `Dep
 	(31, 'Socials Studies ', 'SCST', 1, NULL, 'SCHL0000000001', 'SYS', '2021-05-22 10:47:05', '1'),
 	(32, 'Zambian Language ', 'ZMLG', 1, NULL, 'SCHL0000000001', 'SYS', '2021-05-22 10:47:57', '1'),
 	(33, 'Physical Education', 'PYED', 1, NULL, 'SCHL0000000001', 'SYS', '2021-05-22 10:53:24', '1'),
-	(34, 'Matthematics', 'MATH', 1, NULL, 'SCHL0000000009', 'SYS', '2021-10-14 18:22:56', '1');
+	(34, 'Matthematics', 'MATH', 1, NULL, 'SCHL0000000009', 'ta', '2021-10-14 18:22:56', '0'),
+	(38, 'English', 'ENG', 34, '', 'SCHL0000000009', 'ta', '2021-10-18 08:40:33', '1');
 /*!40000 ALTER TABLE `subjectmater` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.teacherdetails
@@ -1194,7 +1195,7 @@ CREATE TABLE IF NOT EXISTS `teachermaster` (
   CONSTRAINT `FK_teachermaster_teacherpositionmaster` FOREIGN KEY (`TeacherPositionID`) REFERENCES `teacherpositionmaster` (`TeacherPositionMasterID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.teachermaster: ~8 rows (approximately)
+-- Dumping data for table 3edu_db.teachermaster: ~9 rows (approximately)
 DELETE FROM `teachermaster`;
 /*!40000 ALTER TABLE `teachermaster` DISABLE KEYS */;
 INSERT INTO `teachermaster` (`TeacherID`, `TeaherMasterPublicID`, `TeacherPositionID`, `DeparmrntCode`, `StartDate`, `EndDate`, `UpdatedBy`, `UpdatedOn`, `IsActive`) VALUES
@@ -1917,7 +1918,7 @@ SELECT SM.SubjectMaterID                                                   AS 'S
 		 IF(SM.IsActive = 1, 'Yes','No')													AS 'Active' 
 FROM subjectmater SM
 JOIN department DPT ON DPT.DepartmentID = SM.DepartmentCode
-WHERE SM.SchoolID = @SCHOOLID AND DPT.IsActive = 1 AND SM.IsActive = 1 ORDER BY SM.IsActive, SM.SubjectName, SM.DepartmentCode ASC;
+WHERE SM.SchoolID = @SCHOOLID AND DPT.IsActive = 1  ORDER BY SM.IsActive, SM.SubjectName, SM.DepartmentCode ASC;
 END//
 DELIMITER ;
 
@@ -3021,6 +3022,25 @@ UPDATE schoolmaster SET UpdatedBy = UpdatedBy_, `IsActive` =  CASE
 SET @ACTIVESTATUS  = (SELECT SM.IsActive FROM schoolmaster SM WHERE SM.PublicID = SchoolPublicID);
 
 UPDATE tenantmaster SET IsActive = @ACTIVESTATUS WHERE TenantID = @TENANTID;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.UpdateSubjectMaterActiveStatusByID
+DROP PROCEDURE IF EXISTS `UpdateSubjectMaterActiveStatusByID`;
+DELIMITER //
+CREATE PROCEDURE `UpdateSubjectMaterActiveStatusByID`(
+	IN `SUBJECTMASTERID_` VARCHAR(50),
+	IN `UpdatedBy_` VARCHAR(50)
+)
+BEGIN
+SET @PublicID = SUBJECTMASTERID_;
+UPDATE subjectmater  SET UpdatedBy = UpdatedBy_, `IsActive` =  CASE  
+	WHEN  `IsActive` = 1	THEN  0
+	WHEN  `IsActive` = 0	THEN  1
+	ELSE 
+	`IsActive`
+	END  
+	WHERE SubjectMaterID = @PublicID;
 END//
 DELIMITER ;
 
