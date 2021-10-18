@@ -10,16 +10,10 @@
 <ul class="pcoded-submenu">
 
     
-    <li class="">
-        <a href="teacherregistration.php">
-            <span class="pcoded-mtext">Teacher Registration</span>
-        </a>
-    </li>
-
     
       <li class="">
           <a href="lessionplaninbox.php">
-            <span class="pcoded-mtext">Lession Plan</span>
+            <span class="pcoded-mtext">Lesson Plan</span>
         </a>
     </li>
 
@@ -101,7 +95,7 @@
 
 
 
-<li class="pcoded-hasmenu ">
+<!--<li class="pcoded-hasmenu ">
 <a href="javascript:void(0)">
 <span class="pcoded-micon"><i class="feather icon-inbox"></i></span>
 <span class="pcoded-mtext">Masters</span>
@@ -138,7 +132,7 @@
 
 </ul>
     
-</li>
+</li>-->
 
  
     <li class="pcoded-hasmenu ">

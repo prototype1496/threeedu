@@ -12,7 +12,7 @@ $get_stuednt_details = SuperModel::get_student_details_by_student_public_id($stu
 
 $stm = TeacherModel::get_all_student_details($tenant_id);
 
-$classes = SuperModel::get_all_classes_with_mapped_subjects();
+$classes = SuperModel::get_all_classes_with_mapped_subjects($tenant_id);
 $classmaster_id = $get_stuednt_details['ClassMasterPublicID'];
  $monday  = array();
             $tuesday  = array();

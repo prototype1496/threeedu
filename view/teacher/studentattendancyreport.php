@@ -2,8 +2,8 @@
 require '../../controller/super/SessionStart.php'; 
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/SuperModel.php';
-
-$stm = SuperModel::get_studnet_attendance_report();
+$tenant_id = $_SESSION['threeedu_tenantid'];
+$stm = SuperModel::get_studnet_attendance_report($tenant_id);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -309,8 +309,8 @@ $stm = SuperModel::get_studnet_attendance_report();
 
 <script>
  function redirectWithID(id){
-         window.location.href = "/threeedu/view/teacher/profile.php?id="+id;
-        
+        // window.location.href = "/threeedu/view/teacher/profile.php?id="+id;
+         window.location.href = "#";
     }
 </script>
 <script src="../../files/rocket-loader.min.js" data-cf-settings="028b4b5e88a856df25e89945-|49" defer=""></script></body>

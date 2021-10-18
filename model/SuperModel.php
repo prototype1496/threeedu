@@ -26,24 +26,30 @@ class SuperModel {
     //DASHBORDS EDN
     //Reports
 
-    public static function get_studnet_assecment_mark_report() {
+    public static function get_studnet_assecment_mark_report($tenant_id) {
 
         $Connection = new Connection();
         $conn = $Connection->connect();
 
-        $query = "CALL GetStudentAsscementMarkReport();";
-        $stm = $conn->query($query);
+        $query = "CALL GetStudentAsscementMarkReport(:tenant_id);";
+        
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenant_id));
+        
 
         return $stm;
     }
 
-    public static function get_studnet_attendance_report() {
+    public static function get_studnet_attendance_report($TenantID) {
 
         $Connection = new Connection();
         $conn = $Connection->connect();
 
-        $query = "CALL GetStudentAttendanceReport();";
-        $stm = $conn->query($query);
+        $query = "CALL GetStudentAttendanceReport(:tenant_id);";
+        
+
+         $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $TenantID));
 
         return $stm;
     }
@@ -279,15 +285,15 @@ class SuperModel {
         return $stm;
     }
 
-    public static function get_all_teacher_lession_document() {
+    public static function get_all_teacher_lession_document($tenant_id) {
 
         $Connection = new Connection();
         $conn = $Connection->connect();
 
-        $query = "CALL GetAllTeacherLessionPlanDocuments();";
+        $query = "CALL GetAllTeacherLessionPlanDocuments(:tenant_id);";
 
-        $stm = $conn->prepare($query);
-        $stm->execute();
+     $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenant_id));
 
         return $stm;
     }
@@ -804,7 +810,7 @@ class SuperModel {
             // print_r(count($tem_data[0]));
             //$args  = array_fill(0, count($tem_data[0]), '?');
             //Insets data new session into the session table
-            $query = "INSERT INTO `studnetassesment` (`StudentMasterPublicID`, `AssecemntTypeMasterID`, `ClassMasterPublicID`, `Score`, `Commment`, `UpdatedBy`,`AssecementName`) VALUES (?, ?, ?, ?, ?, ?,?);";
+            $query = "INSERT INTO `studnetassesment` (`StudentMasterPublicID`, `AssecemntTypeMasterID`, `ClassMasterPublicID`, `Score`, `Commment`, `UpdatedBy`,`AssecementName`,`SubjectMasterID`) VALUES (?, ?, ?, ?, ?, ?,?,?);";
             $stm = $conn->prepare($query);
 
             // print_r($stm);
@@ -1186,7 +1192,7 @@ class SuperModel {
             while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
 
 
-                echo "<option value=" . $row['SujectCode'] . ">" . $row['SubjectName'] . "</option>";
+                echo "<option value=" . $row['SubjectMaterID'] . ">" . $row['SubjectName'] . "</option>";
                 //echo "<option vlaue='21'>".$row['name']."</option>";name
             }
         } else {

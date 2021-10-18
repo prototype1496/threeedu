@@ -13,7 +13,7 @@ $stm = SuperModel::get_teacher_lession_document_by_ID($teacher_puplic_id);
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dt-ext-buttons-html-5-data-export.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:48:50 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<title>Viwe Lesson Plan </title>
+<title>View Lesson Plan </title>
 
 
 <!--[if lt IE 10]>

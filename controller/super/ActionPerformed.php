@@ -598,6 +598,8 @@ if (isset($_POST['btn_reg_pupil'])) {
 
     $accecment_type_name = trim(filter_input(INPUT_POST, 'accecment_type_name', FILTER_DEFAULT));
 
+    $subject_id = trim(filter_input(INPUT_POST, 'subject_id', FILTER_DEFAULT));
+    
     $assecemnt_type_id = trim(filter_input(INPUT_POST, 'accesmenttype_id', FILTER_DEFAULT));
     $UpdatedBy = $_SESSION['threeedu_username'];
 
@@ -624,7 +626,7 @@ if (isset($_POST['btn_reg_pupil'])) {
                 $comment_data = $comment[$count];
             }
 
-            array_push($data, array($student__public_id[$count], $assecemnt_type_id, $class_id, $score[$count], $comment_data, $UpdatedBy, strtolower($accecment_type_name)));
+            array_push($data, array($student__public_id[$count], $assecemnt_type_id, $class_id, $score[$count], $comment_data, $UpdatedBy, strtolower($accecment_type_name),$subject_id));
             $count++;
         }
     }

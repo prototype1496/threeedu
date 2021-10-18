@@ -2,8 +2,8 @@
 require '../../controller/super/SessionStart.php'; 
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/SuperModel.php';
-
-$stm = SuperModel::get_studnet_assecment_mark_report();
+$tenant_id = $_SESSION['threeedu_tenantid'];
+$stm = SuperModel::get_studnet_assecment_mark_report($tenant_id);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,7 @@ $stm = SuperModel::get_studnet_assecment_mark_report();
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dt-ext-buttons-html-5-data-export.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:48:50 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<title>Student Details </title>
+<title>Student Assessment </title>
 
 
 <!--[if lt IE 10]>
@@ -131,7 +131,7 @@ $stm = SuperModel::get_studnet_assecment_mark_report();
 
 <div class="card">
     <div class="card-header ">
-        <h4>Students Assement Marks </h4>      
+        <h4>Students Assessment Marks </h4>      
    <hr>     
     </div>
 <div class="card-block">
@@ -144,7 +144,7 @@ $stm = SuperModel::get_studnet_assecment_mark_report();
 
 <th>Grade</th>
 <th>Subject</th>
-<th>Assecment Type</th>
+<th>Assessment Type</th>
 <th>Score</th>
 <th>Marked Date</th>
 <th></th>
@@ -162,7 +162,7 @@ $stm = SuperModel::get_studnet_assecment_mark_report();
         
         <td ><?php echo $row['Name'];?></td>
         <td ><?php echo $row['ClassName'];?></td>
-          <td ><?php echo $row['SubjectName'];?></td>
+        <td ><?php echo $row['Subject'];?></td>
             <td ><?php echo $row['AssecementName'];?></td>
               <td ><?php echo $row['Score'];?></td>
                  <td ><?php echo $row['MarkedOn'];?></td>
@@ -187,7 +187,8 @@ $stm = SuperModel::get_studnet_assecment_mark_report();
 
 <th>Grade</th>
 <th>Subject</th>
-<th>Assecment Type</th>
+
+<th>Assessment Type</th>
 <th>Score</th>
 <th>Marked Date</th>
 <th></th>
@@ -313,8 +314,8 @@ $stm = SuperModel::get_studnet_assecment_mark_report();
 
 <script>
  function redirectWithID(id){
-         window.location.href = "/threeedu/view/teacher/profile.php?id="+id;
-        
+         //window.location.href = "/threeedu/view/teacher/profile.php?id="+id;
+        window.location.href = "#";
     }
 </script>
 <script src="../../files/rocket-loader.min.js" data-cf-settings="028b4b5e88a856df25e89945-|49" defer=""></script></body>

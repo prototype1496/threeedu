@@ -247,7 +247,7 @@ if (isset($_GET['id']) && isset($_GET['day'])) {
 
 
 
-                                                                                        <form action="../../controller/admin/ActionPerformed.php" method="POST" >
+                                                                                        <form action="../../controller/teacher/ActionPerformed.php" method="POST" >
 
                                                                                             <input type="hidden" name="day_of_week" value="<?php echo $day_of_week; ?>"/>
                                                                                             <input type="hidden" name="class_master_id" value="<?php echo $classmaster_id; ?>"/>

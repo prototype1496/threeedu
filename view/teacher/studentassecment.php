@@ -353,7 +353,8 @@ $classes = SuperModel::get_all_classes_by_tenant_id($tenant_id);
 
 <script>
  function redirectWithID(id){
-         window.location.href = "/threeedu/view/teacher/profile.php?id="+id;
+        // window.location.href = "/threeedu/view/teacher/profile.php?id="+id;
+          window.location.href = "#";
         
     }
 </script>

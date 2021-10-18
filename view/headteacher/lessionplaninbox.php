@@ -3,8 +3,8 @@ require '../../controller/super/SessionStart.php';
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/TeacherModel.php';
 require_once '../../model/SuperModel.php';
-
-$stm = SuperModel::get_all_teacher_lession_document();       
+$tenant_id = $_SESSION['threeedu_tenantid'];
+$stm = SuperModel::get_all_teacher_lession_document($tenant_id);       
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +12,7 @@ $stm = SuperModel::get_all_teacher_lession_document();
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dt-ext-buttons-html-5-data-export.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:48:50 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<title>Viwe Lesson Plan </title>
+<title>View Lesson Plan </title>
 
 
 <!--[if lt IE 10]>
