@@ -378,6 +378,71 @@ else if (isset($_GET['assecemnt_type_master_id'])) {
             </script>";
         }
   
+}else if (isset($_POST['btn_submit_period_master'])) {
+     
+     $period_name = trim(filter_input(INPUT_POST, 'period_name', FILTER_DEFAULT));
+   $sequence = trim(filter_input(INPUT_POST, 'sequence', FILTER_DEFAULT));
+   
+  
+        $school_id = $_SESSION['threeedu_schoolid'];
+    $UpdatedBy = $_SESSION['threeedu_username'];
+ 
+ 
+
+        if (SuperModel::add_period_master($period_name,$sequence,$school_id,$UpdatedBy)) {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+               window.location.replace('/threeedu/view/admin/periodmaster.php);
+          
+                
+              
+            }); 
+            
+            </script>";
+        } else {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+           
+                showInfoToast('Something whent wrong Please Try Again Later');
+                window.location.replace('/threeedu/view/admin/periodmaster.php);
+            }); 
+            </script>";
+        }
+  
+}else if (isset($_GET['period_master_id'])) {
+    
+     $period_master_id =trim(filter_input(INPUT_GET, 'period_master_id', FILTER_DEFAULT));
+   
+    $UpdatedBy = $_SESSION['threeedu_username'];
+ 
+     
+
+        if (SuperModel::updated_period_master_status($period_master_id,$UpdatedBy)) {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+               window.location.replace('/threeedu/view/admin/periodmaster.php')
+          
+                
+              
+            }); 
+            
+            </script>";
+        } else {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+           
+                showInfoToast('Error in updateing Status Please Try Again Later');
+               window.location.replace('/threeedu/view/admin/periodmaster.php');
+            }); 
+            </script>";
+        }
+
 }
-
-

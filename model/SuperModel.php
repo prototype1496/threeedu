@@ -102,6 +102,19 @@ class SuperModel {
 
         return $stm;
     }
+      public static function get_all_periods_masters_by_id($school_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAllPeriodsBySchoolID(:school_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':school_id' => $school_id));
+
+        return $stm;
+    }
+    
 
     
      public static function get_all_asscecemnt_types_by_tenant_id($tenant_id) {
@@ -278,6 +291,29 @@ class SuperModel {
     }
 
     
+      public static function add_period_master($period_name,$sequence,$school_id,$UpdatedBy) {
+     //the below function adds the assementtype type to the assementtype table
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+
+            $query = "INSERT INTO `periodmaster` (PeriodName, SchoolID, SequenceID, IsActive, UpdatedBy) VALUES (:PeriodName,:SchoolID,:SequenceID,1,:UpdatedBy);";
+            $stm = $conn->prepare($query);
+
+            $stm->execute(array(':PeriodName' => $period_name,':SchoolID' => $school_id,':SequenceID' => $sequence,':UpdatedBy' => $UpdatedBy));
+
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+            echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
     
      public static function add_assement_type($assescment_type,$UpdatedBy,$tenant_id) {
      //the below function adds the assementtype type to the assementtype table
@@ -297,7 +333,7 @@ class SuperModel {
             return TRUE;
         } catch (Exception $exc) {
             $conn->rollBack();
-            echo $exc->getMessage();
+           // echo $exc->getMessage();
             return FALSE;
         }
     }
@@ -1342,15 +1378,20 @@ class SuperModel {
     }
 
     
-   public static function get_all_period_types() {
+   public static function get_all_period_types($school_id) {
 
         $Connection = new Connection();
         $conn = $Connection->connect();
 
-        $query = "CALL GetAllActivePeriods();";
-        $stm = $conn->query($query);
-    
+       
+          $query = "CALL GetAllActivePeriods(:shcool_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':shcool_id' => $school_id));
+
         return $stm;
+    
+        
     } 
     
     
@@ -2035,6 +2076,31 @@ class SuperModel {
             $stm = $conn->prepare($query);
 
             $stm->execute(array(':assecemnt_type_master_id'=>$assecemnt_type_master_id,':UpdatedBy'=>$UpdatedBy));
+            $conn->commit();
+            
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+           // echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
+    
+    public static function updated_period_master_status($period_master_id,$UpdatedBy) {
+        //the below function creates a session in the databes for every log in 
+    
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+
+            $query = "CALL UpdatePeriodMaterActiveStatusByID(:period_master_id,:UpdatedBy)";
+            $stm = $conn->prepare($query);
+
+            $stm->execute(array(':period_master_id'=>$period_master_id,':UpdatedBy'=>$UpdatedBy));
             $conn->commit();
             
             $conn = Null;

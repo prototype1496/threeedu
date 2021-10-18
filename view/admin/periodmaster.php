@@ -4,11 +4,11 @@ require_once '../../db_connection/dbconfig.php';
 require_once '../../model/SuperModel.php';
 require_once '../../controller/super/MaterController.php';
 
-$class_id = $_GET['classid'];
 $school_id = $_SESSION['threeedu_schoolid'];
-$stm = SuperModel::get_all_periods($class_id);
 
-$stm_period_data = SuperModel::get_all_period_types($school_id);
+$stm = SuperModel::get_all_periods_masters_by_id($school_id);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -134,7 +134,7 @@ $stm_period_data = SuperModel::get_all_period_types($school_id);
                                             </div>
                                         </div>
                                     </div>
-                                    <form method="POST" action="timetablemaster.php?classid=<?php echo $class_id; ?>"> 
+                                    <form method="POST" action="periodmaster.php"> 
 
                                         <div class="page-body">
                                             <div class="row">
@@ -145,28 +145,14 @@ $stm_period_data = SuperModel::get_all_period_types($school_id);
                                                         <div class="card-block">
                                                             <div class="form-group row">
 
-                                                                <input type="hidden" value="<?php echo $class_id; ?>" name="calss_master_id" />    
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <label class="bmd-label-floating">Period</label>
-                                                                        <div class="form-select-list">
-                                                                            <select  required="" class="form-control custom-select-value" name="period_master_id">
-                                                                                <option value="" disabled="disabled" selected="selected">Select Period</option>
-
-                                                                                <?php while ($stm_period_data_row = $stm_period_data->fetch(PDO::FETCH_ASSOC)) { ?> 
-                                                                                    <option value="<?php echo $stm_period_data_row['PeriodMasterID']; ?>">  <?php echo $stm_period_data_row['PeriodName']; ?>  </option>
-                                                                                <?php } ?>
-
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                    
+                                                                
 
 
                                                                 <div class="col-md-3">
                                                                     <div class="form-group">
-                                                                        <label class="bmd-label-floating">FROM</label>
-                                                                        <input required=""  minlength="4" name="time_from" type="time" class="form-control">
+                                                                        <label class="bmd-label-floating">Period Name</label>
+                                                                        <input required=""  name="period_name" type="text" class="form-control">
                                                                     </div>
                                                                 </div>   
 
@@ -174,15 +160,15 @@ $stm_period_data = SuperModel::get_all_period_types($school_id);
 
                                                                 <div class="col-md-3">
                                                                     <div class="form-group">
-                                                                        <label class="bmd-label-floating">TO</label>
-                                                                        <input required=""  minlength="4" name="time_to" type="time" class="form-control">
+                                                                        <label class="bmd-label-floating">Sequence</label>
+                                                                        <input required=""  name="sequence" type="text" class="form-control">
                                                                     </div>
                                                                 </div> 
 
                                                                 <div class="col-md-3">
                                                                     <div class="form-group">
                                                                         <br>
-                                                                        <input name="btn_submit_period" type="submit" class="btn btn-grd-primary">
+                                                                        <input name="btn_submit_period_master" type="submit" class="btn btn-grd-primary">
                                                                     </div>
                                                                 </div> 
 
@@ -218,31 +204,32 @@ $stm_period_data = SuperModel::get_all_period_types($school_id);
                                                                 <table id="excel-bg" class="table table-striped table-bordered nowrap">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th>Period</th>
-                                                                            <th>From</th>
+                                                                            <th>Period Name</th>
+                                                                            <th>Sequence ID</th>
 
-                                                                            <th>To</th>
+                                                                        
                                                                             <th>Active</th>
 
-                                                                            <th>Act/Dec</th>
+                                                                            <th>Action</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
                                                                         <?php
                                                                         while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
-                                                                            $time_table_master_id = $row['TimeTableMasterID']
+                                                                            $periodmaster_id = $row['PeriodMasterID']
                                                                             ?>
                                                                             <tr>
 
                                                                                 <td><?php echo $row['PeriodName']; ?></td>
 
-                                                                                <td ><?php echo $row['TimeForm']; ?></td>
-                                                                                <td ><?php echo $row['TimeTo']; ?></td>
+                                                                                <td ><?php echo $row['SequenceID']; ?></td>
                                                                                 <td ><?php echo $row['Active']; ?></td>
+                                                                               
 
 
                                                                                 <td>
-                                                                                    <button onclick="redirectWithID('<?php echo $class_id; ?>', '<?php echo $time_table_master_id; ?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-power"></i></button>
+                                                                                    <button onclick="redirectWithID('<?php echo $periodmaster_id; ?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-power"></i></button>
+                                                                                     <button onclick="redirectWithID('<?php echo $periodmaster_id; ?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit-2"></i></button>
 
 
                                                                                 </td>
@@ -257,10 +244,9 @@ $stm_period_data = SuperModel::get_all_period_types($school_id);
                                                                     </tbody>
                                                                     <tfoot>
                                                                         <tr>
-                                                                            <th>Period</th>
-                                                                            <th>From</th>
-
-                                                                            <th>To</th>
+                                                                         <th>Period Name</th>
+                                                                            <th>Sequence ID</th>
+                                                                            <th>Active</th>
                                                                             <th>Action</th>
                                                                         </tr>
                                                                     </tfoot>
@@ -383,8 +369,8 @@ $stm_period_data = SuperModel::get_all_period_types($school_id);
     </script>
 
     <script>
-            function redirectWithID(id, time_table_master_id) {
-                window.location.href = "/threeedu/view/admin/timetablemaster.php?classid=" + id + "&timetablemaster=" + time_table_master_id;
+            function redirectWithID(periodmaster_id) {
+                window.location.href = "periodmaster.php?period_master_id=" + periodmaster_id;
 
             }
     </script>

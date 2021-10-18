@@ -149,7 +149,7 @@
                         
                         
                         <li class="">
-                            <a href="#">
+                            <a href="subjectmaster.php">
                                 <span class="pcoded-mtext">Subject Master</span>
                             </a>
                         </li>
@@ -171,7 +171,7 @@
 
 
                         <li class="">
-                            <a href="#">
+                            <a href="periodmaster.php">
                                 <span class="pcoded-mtext">Period Master</span>
                             </a>
                         </li>
