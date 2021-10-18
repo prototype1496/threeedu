@@ -90,6 +90,21 @@ class SuperModel {
         return $stm;
     }
     
+    
+    public static function get_all_subjets_by_id($school_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAllSubjectsBySchooID(:school_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':school_id' => $school_id));
+
+        return $stm;
+    }
+    
+    
     public static function get_all_periods($class_id) {
 
         $Connection = new Connection();
@@ -291,6 +306,29 @@ class SuperModel {
     }
 
     
+      public static function add_subject_master($subject_name,$subject_code,$department_id,$discrtption,$school_id,$UpdatedBy) {
+     //the below function adds the assementtype type to the assementtype table
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+
+            $query = "INSERT INTO `subjectmater` (SubjectName, SubjectCode, DepartmentCode, SubjectDiscription, SchoolID, UpdatedBy, IsActive) VALUES (:SubjectName,:SubjectCode,:DepartmentCode,:SubjectDiscription,:SchoolID,:UpdatedBy,1);";
+            $stm = $conn->prepare($query);
+
+            $stm->execute(array(':SubjectName' => $subject_name,':SubjectCode' => $subject_code,':DepartmentCode' => $department_id,':SubjectDiscription'=>$discrtption,':SchoolID'=>$school_id,':UpdatedBy' => $UpdatedBy));
+
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+            echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
       public static function add_period_master($period_name,$sequence,$school_id,$UpdatedBy) {
      //the below function adds the assementtype type to the assementtype table
         try {
@@ -309,7 +347,7 @@ class SuperModel {
             return TRUE;
         } catch (Exception $exc) {
             $conn->rollBack();
-            echo $exc->getMessage();
+           // echo $exc->getMessage();
             return FALSE;
         }
     }

@@ -445,4 +445,40 @@ else if (isset($_GET['assecemnt_type_master_id'])) {
             </script>";
         }
 
+}else if (isset($_POST['btn_submit_subject_master'])) {
+      $department_id = trim(filter_input(INPUT_POST, 'department_id', FILTER_DEFAULT));
+       $subject_code = trim(filter_input(INPUT_POST, 'subject_code', FILTER_DEFAULT));
+     $subject_name= trim(filter_input(INPUT_POST, 'subject_name', FILTER_DEFAULT));
+   $discrtption= trim(filter_input(INPUT_POST, 'discrtption', FILTER_DEFAULT));
+   
+  
+        $school_id = $_SESSION['threeedu_schoolid'];
+    $UpdatedBy = $_SESSION['threeedu_username'];
+ 
+    
+
+        if (SuperModel::add_subject_master($subject_name,$subject_code,$department_id,$discrtption,$school_id,$UpdatedBy)) {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+               window.location.replace('threeedu/view/admin/subjectmaster.php);
+          
+                
+              
+            }); 
+            
+            </script>";
+        } else {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+           
+                showInfoToast('Something whent wrong Please Try Again Later');
+                window.location.replace('threeedu/view/admin/subjectmaster.php);
+            }); 
+            </script>";
+        }
+  
 }
