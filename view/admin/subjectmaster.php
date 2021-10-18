@@ -156,7 +156,7 @@ $stm_deartment_data = SuperModel::get_departments_school_id($school_id);
                                                                         <label class="bmd-label-floating">Department</label>
                                                                         <div class="form-select-list">
                                                                             <select  required="" class="form-control custom-select-value" name="department_id">
-                                                                                <option value="" disabled="disabled" selected="selected">Select Period</option>
+                                                                                <option value="" disabled="disabled" selected="selected">Select Department</option>
 
                                                                                 <?php while ($stm_depatment_data_row = $stm_deartment_data->fetch(PDO::FETCH_ASSOC)) { ?> 
                                                                                     <option value="<?php echo $stm_depatment_data_row['DepartmentID']; ?>">  <?php echo $stm_depatment_data_row['Department']; ?>  </option>
