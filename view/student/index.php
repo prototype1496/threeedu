@@ -647,176 +647,96 @@ Received
 </div>
 </div>
 </div>
-
 <div class="tab-pane" id="review" role="tabpanel">
+<div class="row">
+<div class="col-xl-3">
+
+
+<!--    This is for proper alignment div below -->
+<div class="card">
+<div class="">
+
+</div>
+</div>
+<!--   END  This is for proper alignment div below -->
+
+</div>
+<div class="col-xl-12">
+<div class="row">
+<div class="col-sm-12">
+
 <div class="card">
 <div class="card-header">
-<h5 class="card-header-text">Review</h5>
-</div>
-<div class="card-block">
-<ul class="media-list">
-<li class="media">
-<div class="media-left">
-<a href="#">
-<img class="media-object img-radius comment-img" src="../../files/assets/images/avatar-1.jpg" alt="Generic placeholder image">
-</a>
-</div>
-<div class="media-body">
- <h6 class="media-heading">Sortino media<span class="f-12 text-muted m-l-5">Just now</span></h6>
-<div class="stars-example-css review-star">
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-</div>
-<p class="m-b-0">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-<div class="m-b-25">
-<span><a href="#!" class="m-r-10 f-12">Reply</a></span><span><a href="#!" class="f-12">Edit</a> </span>
-</div>
-<hr>
 
-<div class="media mt-2">
-<a class="media-left" href="#">
-<img class="media-object img-radius comment-img" src="../../files/assets/images/avatar-2.jpg" alt="Generic placeholder image">
-</a>
-<div class="media-body">
-<h6 class="media-heading">Larry heading <span class="f-12 text-muted m-l-5">Just now</span></h6>
-<div class="stars-example-css review-star">
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
 </div>
-<p class="m-b-0"> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-<div class="m-b-25">
-<span><a href="#!" class="m-r-10 f-12">Reply</a></span><span><a href="#!" class="f-12">Edit</a> </span>
-</div>
- <hr>
+<div class="card-block contact-details">
+<div class="data_table_main table-responsive dt-responsive">
 
-<div class="media mt-2">
-<div class="media-left">
-<a href="#">
-<img class="media-object img-radius comment-img" src="../../files/assets/images/avatar-3.jpg" alt="Generic placeholder image">
-</a>
-</div>
-<div class="media-body">
-<h6 class="media-heading">Colleen Hurst <span class="f-12 text-muted m-l-5">Just now</span></h6>
-<div class="stars-example-css review-star">
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-</div>
-<p class="m-b-0">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-<div class="m-b-25">
-<span><a href="#!" class="m-r-10 f-12">Reply</a></span><span><a href="#!" class="f-12">Edit</a> </span>
-</div>
-</div>
-<hr>
+ <table id="simpletable" class="table  table-striped table-bordered nowrap">
+<thead>
+<tr>
+<th>Student ID</th>
+
+<th>Class</th>
+<th>Reason</th>
+<th>Status</th>
+<th>Marked Date</th>
+
+</tr>
+</thead>
+<tbody>
+      <?php while($row_data = $stm_get_atendance_history->fetch(PDO::FETCH_ASSOC))
+                            
+                    {
+                       
+                            ?>
+<tr>
+   
+         <td><?php echo $row_data['StudentNo'];?></td>
+        
+       
+        <td ><?php echo $row_data['ClassName'];?></td>
+          <td ><?php echo $row_data['Reason'];?></td>
+            <td ><?php echo $row_data['Statue'];?></td>
+              <td ><?php echo $row_data['MarkedOn'];?></td>
+                
+       
+
+
+</tr>
+
+     <?php } ?>
+
+
+
+
+
+</tbody>
+<tfoot>
+<tr>
+<th>Student ID</th>
+
+<th>Class</th>
+<th>Reason</th>
+<th>Status</th>
+<th>Marked Date</th>
+
+</tr>
+</tfoot>
+</table>   
+    
+    
+    
 </div>
 </div>
 </div>
 
-<div class="media mt-2">
-<div class="media-left">
-<a href="#">
-<img class="media-object img-radius comment-img" src="../../files/assets/images/avatar-1.jpg" alt="Generic placeholder image">
-</a>
-</div>
- <div class="media-body">
-<h6 class="media-heading">Cedric Kelly<span class="f-12 text-muted m-l-5">Just now</span></h6>
-<div class="stars-example-css review-star">
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-</div>
-<p class="m-b-0">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-<div class="m-b-25">
-<span><a href="#!" class="m-r-10 f-12">Reply</a></span><span><a href="#!" class="f-12">Edit</a> </span>
-</div>
-<hr>
 </div>
 </div>
-<div class="media mt-2">
-<a class="media-left" href="#">
-<img class="media-object img-radius comment-img" src="../../files/assets/images/avatar-4.jpg" alt="Generic placeholder image">
-</a>
-<div class="media-body">
-<h6 class="media-heading">Larry heading <span class="f-12 text-muted m-l-5">Just now</span></h6>
-<div class="stars-example-css review-star">
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
 </div>
-<p class="m-b-0"> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-<div class="m-b-25">
- <span><a href="#!" class="m-r-10 f-12">Reply</a></span><span><a href="#!" class="f-12">Edit</a> </span>
 </div>
-<hr>
+</div>
 
-<div class="media mt-2">
-<div class="media-left">
-<a href="#">
-<img class="media-object img-radius comment-img" src="../../files/assets/images/avatar-3.jpg" alt="Generic placeholder image">
-</a>
-</div>
-<div class="media-body">
-<h6 class="media-heading">Colleen Hurst <span class="f-12 text-muted m-l-5">Just now</span></h6>
-<div class="stars-example-css review-star">
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-</div>
-<p class="m-b-0">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-<div class="m-b-25">
-<span><a href="#!" class="m-r-10 f-12">Reply</a></span><span><a href="#!" class="f-12">Edit</a> </span>
-</div>
-</div>
-<hr>
-</div>
-</div>
-</div>
-<div class="media mt-2">
-<div class="media-left">
-<a href="#">
-<img class="media-object img-radius comment-img" src="../../files/assets/images/avatar-2.jpg" alt="Generic placeholder image">
- </a>
-</div>
-<div class="media-body">
-<h6 class="media-heading">Mark Doe<span class="f-12 text-muted m-l-5">Just now</span></h6>
-<div class="stars-example-css review-star">
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-<i class="icofont icofont-star"></i>
-</div>
-<p class="m-b-0">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-<div class="m-b-25">
-<span><a href="#!" class="m-r-10 f-12">Reply</a></span><span><a href="#!" class="f-12">Edit</a> </span>
-</div>
-<hr>
-</div>
-</div>
-</div>
-</li>
-</ul>
-<div class="input-group">
-<input type="text" class="form-control" placeholder="Right addon">
-<span class="input-group-addon"><i class="icofont icofont-send-mail"></i></span>
-</div>
-</div>
-</div>
-</div>
 </div>
 
 </div>
