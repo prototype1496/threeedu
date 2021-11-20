@@ -81,6 +81,14 @@ $(document).ready(function() {
         "info": true,
         "searching": true
     });
+    
+      $('#simpletable2').DataTable({
+        "paging": true,
+        "ordering": true,
+        "bLengthChange": true,
+        "info": true,
+        "searching": true
+    });
 
     $("a[data-toggle=\"tab\"]").on("shown.bs.tab", function(e) {
         $($.fn.dataTable.tables(true)).DataTable().columns.adjust();

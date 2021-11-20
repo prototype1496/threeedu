@@ -715,7 +715,7 @@ DELETE FROM `sequencemaster`;
 INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 105, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 235, '2019-11-01 20:00:03'),
+	(3, 'TOKN', 244, '2019-11-01 20:00:03'),
 	(4, 'EMIL', 3, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
 	(6, 'SCHL', 10, '2019-11-17 18:52:58'),
@@ -744,26 +744,27 @@ CREATE TABLE IF NOT EXISTS `session` (
   PRIMARY KEY (`SessionID`),
   KEY `FK_session_usermaster` (`UserMasterPublicID`),
   CONSTRAINT `FK_session_usermaster` FOREIGN KEY (`UserMasterPublicID`) REFERENCES `usermaster` (`PublicID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=236 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=245 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.session: ~13 rows (approximately)
+-- Dumping data for table 3edu_db.session: ~15 rows (approximately)
 DELETE FROM `session`;
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
 INSERT INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(126, 'TECH00000000080', 'TOKN000000000126', '84e67696a545489c6e2e17b4b79d1f1c4a6591555e4e7623aa', '1629703557', 'TES', '2021-08-23 09:25:57'),
-	(148, 'SDNT00000000035', 'TOKN000000000148', '15ffb9521f2400ec76f70607d81303b9b3473785f541507eaa', '1630898177', 'SN2021040', '2021-09-06 05:16:17'),
-	(184, 'SDNT00000000032', 'TOKN000000000184', '74fe7423c924eaec4625f1e508f4bdbab15726423620e77d17', '1632570014', 'SN202137', '2021-09-25 13:40:14'),
 	(190, 'ITADM00001', 'TOKN000000000190', 'c54a42784c296fe7e1bf9c9567f971be19ef5c2575c15e3d14', '1632573983', 'it', '2021-09-25 14:46:23'),
 	(210, 'TECH0000000003', 'TOKN000000000210', 'df256f5fa1bc711efcb3db7be7eda015d71de09855a7c93424', '1634223423', 't', '2021-10-14 16:57:03'),
 	(212, 'TECH0000000001', 'TOKN000000000212', '03d8dff42809cdeccb99e1cbadcec6f58b874057b27e378c8d', '1634226000', 'h', '2021-10-14 17:40:00'),
 	(221, 'TECH000000000103', 'TOKN000000000221', '1da195fd8817eaa88adfc2bee0080edd575a9cefb004427225', '1634231351', 'Helen', '2021-10-14 19:09:11'),
 	(223, 'TECH000000000101', 'TOKN000000000223', 'e93e840c79e47121d31bbae514b6ca5ed4752a0d0eb62db067', '1634279436', 'Mwaka', '2021-10-15 08:30:36'),
 	(225, 'ITAD00000000023', 'TOKN000000000225', '08eacd72a4841c3f3d922fa575b3d78773c4824620fab1c764', '1634529757', 'ta', '2021-10-18 06:02:37'),
-	(226, 'ADMIN00001', 'TOKN000000000226', '4deb6dc9c2eae2408d9834f2e24986647862d5bb270413efc4', '1634545112', 'a', '2021-10-18 10:18:32'),
 	(232, 'TECH000000000104', 'TOKN000000000232', '4699f78b39d549cc4211fd653d813bb11fbdff5afcf23499b6', '1634551240', 'nakamba', '2021-10-18 12:00:40'),
-	(233, 'SDNT00000000039', 'TOKN000000000233', '8976a29feba63661a8f743e930b8b8eb9a5effd5e51f477ab6', '1634556820', 'SN2021044', '2021-10-18 13:33:40'),
 	(234, 'TECH000000000105', 'TOKN000000000234', 'db26e83cc80598c8682e1a8fbcac7e4f8c58ee61ba194b20f1', '1634556867', 'alinani', '2021-10-18 13:34:28'),
-	(235, 'ITAD00000000024', 'TOKN000000000235', '5503220a332d40c5f655fdcc0f7c573c503871323590cd861d', '1634557485', 'ali_admin', '2021-10-18 13:44:45');
+	(235, 'ITAD00000000024', 'TOKN000000000235', '5503220a332d40c5f655fdcc0f7c573c503871323590cd861d', '1634557485', 'ali_admin', '2021-10-18 13:44:45'),
+	(238, 'SDNT00000000032', 'TOKN000000000238', '01ede60520df9c2a7e54586c361d29d64135e5b6920a9d3c22', '1637387879', 'SN202137', '2021-11-20 07:57:59'),
+	(239, 'SDNT00000000036', 'TOKN000000000239', '6ce38cc9e7e54512bae425ee55ccccd7631e709597c0adb2e4', '1637388125', 'SN2021041', '2021-11-20 08:02:05'),
+	(241, 'ADMIN00001', 'TOKN000000000241', '1f145c9d02ff9088810745131e171746f13ba878dc1fd4a14b', '1637388253', 'a', '2021-11-20 08:04:13'),
+	(243, 'SDNT00000000035', 'TOKN000000000243', 'cd031b4f4371c6891bb282890ca9f9bb9230fb47de0ee2e79d', '1637388377', 'SN2021040', '2021-11-20 08:06:18'),
+	(244, 'SDNT00000000039', 'TOKN000000000244', 'c3a5545b7ad9ffe728dd127652f7b559b62bd55d50c92ea1aa', '1637390063', 'SN2021044', '2021-11-20 08:34:23');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
@@ -778,9 +779,9 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   `UpdatedBy` varchar(50) NOT NULL,
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionHistoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=236 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=245 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~95 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~102 rows (approximately)
 DELETE FROM `sessionhistory`;
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
 INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -899,7 +900,16 @@ INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublic
 	(232, '232', 'TECH000000000104', 'TOKN000000000232', '4699f78b39d549cc4211fd653d813bb11fbdff5afcf23499b6', '1634551240', 'nakamba', '2021-10-18 12:00:40'),
 	(233, '233', 'SDNT00000000039', 'TOKN000000000233', '8976a29feba63661a8f743e930b8b8eb9a5effd5e51f477ab6', '1634556820', 'SN2021044', '2021-10-18 13:33:40'),
 	(234, '234', 'TECH000000000105', 'TOKN000000000234', 'db26e83cc80598c8682e1a8fbcac7e4f8c58ee61ba194b20f1', '1634556867', 'alinani', '2021-10-18 13:34:28'),
-	(235, '235', 'ITAD00000000024', 'TOKN000000000235', '5503220a332d40c5f655fdcc0f7c573c503871323590cd861d', '1634557485', 'ali_admin', '2021-10-18 13:44:45');
+	(235, '235', 'ITAD00000000024', 'TOKN000000000235', '5503220a332d40c5f655fdcc0f7c573c503871323590cd861d', '1634557485', 'ali_admin', '2021-10-18 13:44:45'),
+	(236, '236', 'SDNT00000000035', 'TOKN000000000236', '916c67a316863a4f0c1c13cd4901f48514952b3cc8614f5701', '1637207857', 'SN2021040', '2021-11-18 05:57:37'),
+	(237, '237', 'SDNT00000000035', 'TOKN000000000237', 'd6d23641aed210b552050e342219ca22ede104c9adb48efa41', '1637387480', 'SN2021040', '2021-11-20 07:51:22'),
+	(238, '238', 'SDNT00000000032', 'TOKN000000000238', '01ede60520df9c2a7e54586c361d29d64135e5b6920a9d3c22', '1637387879', 'SN202137', '2021-11-20 07:57:59'),
+	(239, '239', 'SDNT00000000036', 'TOKN000000000239', '6ce38cc9e7e54512bae425ee55ccccd7631e709597c0adb2e4', '1637388125', 'SN2021041', '2021-11-20 08:02:05'),
+	(240, '240', 'SDNT00000000039', 'TOKN000000000240', '5bd200f7db20188a69d5bf5935f38a710ff72dbc8bb8875a2c', '1637388217', 'SN2021044', '2021-11-20 08:03:37'),
+	(241, '241', 'ADMIN00001', 'TOKN000000000241', '1f145c9d02ff9088810745131e171746f13ba878dc1fd4a14b', '1637388253', 'a', '2021-11-20 08:04:13'),
+	(242, '242', 'SDNT00000000039', 'TOKN000000000242', 'eb573f39de92b16fda814031b536fb45f4e5b4be4966374e86', '1637388338', 'SN2021044', '2021-11-20 08:05:38'),
+	(243, '243', 'SDNT00000000035', 'TOKN000000000243', 'cd031b4f4371c6891bb282890ca9f9bb9230fb47de0ee2e79d', '1637388377', 'SN2021040', '2021-11-20 08:06:18'),
+	(244, '244', 'SDNT00000000039', 'TOKN000000000244', 'c3a5545b7ad9ffe728dd127652f7b559b62bd55d50c92ea1aa', '1637390063', 'SN2021044', '2021-11-20 08:34:23');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster
@@ -1323,7 +1333,7 @@ CREATE TABLE IF NOT EXISTS `timetabledetails` (
   CONSTRAINT `FK_timetabledetails_timetablemaster` FOREIGN KEY (`TimeTableMaterD`) REFERENCES `timetablemaster` (`TimeTableMasterID`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.timetabledetails: ~22 rows (approximately)
+-- Dumping data for table 3edu_db.timetabledetails: ~23 rows (approximately)
 DELETE FROM `timetabledetails`;
 /*!40000 ALTER TABLE `timetabledetails` DISABLE KEYS */;
 INSERT INTO `timetabledetails` (`TimeTableDetailsID`, `TimeTableMaterD`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `UpdatedBy`, `UpdatedOn`, `AddedOn`) VALUES
@@ -1471,7 +1481,7 @@ INSERT INTO `usermaster` (`UserMasterID`, `PublicID`, `ProfilPicURL`, `NRC`, `Pa
 	(49, 'TECH000000000101', '../../uploads/teacher_profile/TECH000000000101_marcal.jpg', '515151/81/', NULL, 'Mwaka', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Mwaka', 'Vwalika', NULL, 'Mwaka@gmail.com', '0977100586', 2, 4, '1996-01-01', 3, 'ta', '2021-10-10 15:12:00', '1', '0', '0', 'rrr6140a8c632d934.43595166'),
 	(50, 'TECH000000000102', '../../uploads/teacher_profile/TECH000000000102_marcal.jpg', '515151/81/', NULL, 'MwakaV', '$2y$10$NEEvM3ov25/vIfLDPgMiwe.0MlQv.OIA8DPs7cHcai59rvHtg.3se', 'Mwaka', 'Vwalika', NULL, 'Mwaka@gmail.com', '0977100588', 2, 4, '1996-01-01', 3, 'ta', '2021-10-10 15:13:52', '0', '0', '0', 'rrr6140a8c632d934.43595166'),
 	(51, 'TECH000000000103', '../../uploads/defult.png', '5542555/18', NULL, 'Helen', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Hellen', 'Phiri', NULL, 'heramaureenscents@gmail.com', '0977100588', 2, 2, '1996-02-08', 3, 'ta', '2021-10-12 12:27:32', '1', '0', '0', 'rrr6140a8c632d934.43595166'),
-	(52, 'SDNT00000000036', '../../uploads/defult.png', NULL, NULL, 'SN2021041', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Liko', 'Mwnza', NULL, NULL, NULL, 2, 4, '2003-01-01', 2, 'ta', '2021-10-14 17:46:42', '0', '0', '0', 'rrr6140a8c632d934.43595166'),
+	(52, 'SDNT00000000036', '../../uploads/defult.png', NULL, NULL, 'SN2021041', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Liko', 'Mwnza', NULL, NULL, NULL, 2, 4, '2003-01-01', 2, 'ta', '2021-10-14 17:46:42', '1', '0', '0', 'rrr6140a8c632d934.43595166'),
 	(53, 'SDNT00000000037', '../../uploads/defult.png', NULL, NULL, 'SN2021042', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Muke', 'Mambwe', NULL, NULL, NULL, 2, 4, '2003-01-01', 2, 'Mwaka', '2021-10-14 17:48:40', '0', '0', '0', 'rrr6140a8c632d934.43595166'),
 	(54, 'SDNT00000000038', '../../uploads/defult.png', NULL, NULL, 'SN2021043', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Vilkinga', 'Makayi', NULL, NULL, NULL, 2, 4, '2003-01-01', 2, 'Mwaka', '2021-10-14 17:49:55', '0', '0', '0', 'rrr6140a8c632d934.43595166'),
 	(55, 'ITAD00000000024', '../../uploads/it_profile/ITAD00000000024_images.png', NULL, '74444/45/40', 'ali_admin', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Alinuswe', 'Mwandobo', 'Boston', 'alinuswemwandobo@gmail.com', '09756666666', 1, 4, '1996-10-31', 4, 'a', '2021-10-18 10:21:53', '1', '0', '0', 'Ama616d2ea1a78213.69918222'),
@@ -1567,6 +1577,33 @@ BEGIN
 		
 		UPDATE teachermaster SET `IsActive` = 0 WHERE PublicUserID = @PUBLCID;
 		UPDATE usermaster  SET `IsActive` = 0 , `Password` = 'DEACTIVATED' WHERE `UserMasterID` = UserMasterID_ ;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAccessmentByStudentPublicID
+DROP PROCEDURE IF EXISTS `GetAccessmentByStudentPublicID`;
+DELIMITER //
+CREATE PROCEDURE `GetAccessmentByStudentPublicID`(
+	IN `STUDENTPUBLICID` VARCHAR(100)
+)
+BEGIN
+		SELECT   STA.StudnetAssesmenID																									AS 'PublicID',
+					STM.StudentNo																												AS 'StudentNo',
+					CONCAT(STM.FirstName,IF(STM.OtherName IS NULL,' ',CONCAT(' ',STM.OtherName,' ')),STM.LastName )	AS 'Name',
+					CONCAT(CM.ClassName,' (',CM.ClassCode,')')																		AS 'ClassName',
+				   CONCAT(SM.SubjectName,' (',SM.SubjectCode,')')																	AS 'Subject',
+					CONCAT(ASTM.AssementTypeName, ' (',STA.AssecementName,')')													AS 'AssecementName',
+					CONCAT(STA.Score,' %')																									AS 'Score',
+				   DATE_FORMAT(STA.UpdatedOn, "%d %b, %Y") 					   												   AS 'MarkedOn'
+				   
+					
+		FROM studnetassesment STA
+		JOIN studentmaster STM ON STM.StudentMasterPublicID = STA.StudentMasterPublicID 
+		JOIN assementtypemaster ASTM ON ASTM.AssementTypeID = STA.AssecemntTypeMasterID
+		
+		JOIN classmaster CM ON CM.ClassMasterPublicID = STA.ClassMasterPublicID AND STM.StudentMasterPublicID = STUDENTPUBLICID
+		JOIN subjectmater SM ON SM.SubjectMaterID = STA.SubjectMasterID
+		ORDER BY CM.GradeMasterID, SM.SubjectName,STA.AddedOn ASC;
 END//
 DELIMITER ;
 
@@ -2054,6 +2091,33 @@ BEGIN
 		FROM assementtypemaster ATM
 		WHERE ATM.IsActive = 1 AND ATM.TenantID=TENANTMASTERID  ORDER BY ATM.AssementTypeName ASC ;
 	--	AND ATM.SubjectCode = @SUBJECTCODE AND ATM.GradeMasterID = @GRADEID
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAssecmwntTye
+DROP PROCEDURE IF EXISTS `GetAssecmwntTye`;
+DELIMITER //
+CREATE PROCEDURE `GetAssecmwntTye`(
+	IN `StudentMasterPublicID_` INT
+)
+BEGIN
+		SELECT   STA.StudnetAssesmenID																									AS 'PublicID',
+					STM.StudentNo																												AS 'StudentNo',
+					CONCAT(STM.FirstName,IF(STM.OtherName IS NULL,' ',CONCAT(' ',STM.OtherName,' ')),STM.LastName )	AS 'Name',
+					CONCAT(CM.ClassName,' (',CM.ClassCode,')')																		AS 'ClassName',
+				   CONCAT(SM.SubjectName,' (',SM.SubjectCode,')')																	AS 'Subject',
+					CONCAT(ASTM.AssementTypeName, ' (',STA.AssecementName,')')													AS 'AssecementName',
+					CONCAT(STA.Score,' %')																									AS 'Score',
+				   DATE_FORMAT(STA.UpdatedOn, "%d %b, %Y") 					   												   AS 'MarkedOn'
+				   
+					
+		FROM studnetassesment STA
+		JOIN studentmaster STM ON STM.StudentMasterPublicID = STA.StudentMasterPublicID 
+		JOIN assementtypemaster ASTM ON ASTM.AssementTypeID = STA.AssecemntTypeMasterID
+		
+		JOIN classmaster CM ON CM.ClassMasterPublicID = STA.ClassMasterPublicID AND STM.StudentMasterPublicID = StudentMasterPublicID_
+		JOIN subjectmater SM ON SM.SubjectMaterID = STA.SubjectMasterID
+		ORDER BY CM.GradeMasterID, STM.StudentNo,STM.FirstName,STM.LastName ASC;
 END//
 DELIMITER ;
 

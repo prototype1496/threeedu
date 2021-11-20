@@ -66,6 +66,20 @@ class SuperModel {
 
         return $stm;
     }
+    
+    
+    public static function get_student_assecemnttype_by_public_id($PUBLICID) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAccessmentByStudentPublicID(:public_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':public_id' => $PUBLICID));
+
+        return $stm;
+    }
 
     //Reports End
     public static function get_all_subjectts() {

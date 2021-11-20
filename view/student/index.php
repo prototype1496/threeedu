@@ -9,6 +9,7 @@ require_once '../../model/SuperModel.php';
    $stm_get_atendance_history = SuperModel::get_single_studnet_attendance_report_by_id($student_pulic_id);
 $get_stuednt_details = SuperModel::get_student_details_by_student_public_id($student_pulic_id);
 
+$get_stdent_asscement = SuperModel::get_student_assecemnttype_by_public_id($student_pulic_id);
 
 $stm = TeacherModel::get_all_student_details($tenant_id);
 
@@ -200,6 +201,8 @@ $classmaster_id = $get_stuednt_details['ClassMasterPublicID'];
 <a class="nav-link" data-toggle="tab" href="#review" role="tab">Academic  Results</a>
 <div class="slide"></div>
 </li>
+
+
 </ul>
 </div>
 
@@ -647,18 +650,11 @@ Received
 </div>
 </div>
 </div>
-<div class="tab-pane" id="review" role="tabpanel">
+
+ <div class="tab-pane" id="review" role="tabpanel">
 <div class="row">
 <div class="col-xl-3">
 
-
-<!--    This is for proper alignment div below -->
-<div class="card">
-<div class="">
-
-</div>
-</div>
-<!--   END  This is for proper alignment div below -->
 
 </div>
 <div class="col-xl-12">
@@ -666,38 +662,35 @@ Received
 <div class="col-sm-12">
 
 <div class="card">
-<div class="card-header">
 
-</div>
 <div class="card-block contact-details">
 <div class="data_table_main table-responsive dt-responsive">
 
- <table id="simpletable" class="table  table-striped table-bordered nowrap">
+ <table id="simpletable2" class="table  table-striped table-bordered nowrap">
 <thead>
 <tr>
-<th>Student ID</th>
-
-<th>Class</th>
-<th>Reason</th>
-<th>Status</th>
+    <th>Grade</th>
+<th>Subject</th>
+<th>Type</th>
+<th>Score</th>
 <th>Marked Date</th>
 
 </tr>
 </thead>
 <tbody>
-      <?php while($row_data = $stm_get_atendance_history->fetch(PDO::FETCH_ASSOC))
+      <?php while($row_data = $get_stdent_asscement->fetch(PDO::FETCH_ASSOC))
                             
                     {
                        
                             ?>
 <tr>
    
-         <td><?php echo $row_data['StudentNo'];?></td>
+         <td><?php echo $row_data['ClassName'];?></td>
         
        
-        <td ><?php echo $row_data['ClassName'];?></td>
-          <td ><?php echo $row_data['Reason'];?></td>
-            <td ><?php echo $row_data['Statue'];?></td>
+        <td ><?php echo $row_data['Subject'];?></td>
+          <td ><?php echo $row_data['AssecementName'];?></td>
+            <td ><?php echo $row_data['Score'];?></td>
               <td ><?php echo $row_data['MarkedOn'];?></td>
                 
        
@@ -714,11 +707,10 @@ Received
 </tbody>
 <tfoot>
 <tr>
-<th>Student ID</th>
-
-<th>Class</th>
-<th>Reason</th>
-<th>Status</th>
+       <th>Grade</th>
+<th>Subject</th>
+<th>Type</th>
+<th>Score</th>
 <th>Marked Date</th>
 
 </tr>
@@ -817,6 +809,7 @@ Received
 <script type="fc62f3ba96b90a09d14681a9-text/javascript" src="../../files/bower_components/datedropper/js/datedropper.min.js"></script>
 
 <script src="../../files/bower_components/datatables.net/js/jquery.dataTables.min.js" type="fc62f3ba96b90a09d14681a9-text/javascript"></script>
+
 <script src="../../files/bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js" type="fc62f3ba96b90a09d14681a9-text/javascript"></script>
 <script src="../../files/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js" type="fc62f3ba96b90a09d14681a9-text/javascript"></script>
 <script src="../../files/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js" type="fc62f3ba96b90a09d14681a9-text/javascript"></script>
@@ -835,7 +828,11 @@ Received
 <script type="fc62f3ba96b90a09d14681a9-text/javascript" src="../../files/bower_components/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
 <script type="fc62f3ba96b90a09d14681a9-text/javascript" src="../../files/bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
 <script type="fc62f3ba96b90a09d14681a9-text/javascript" src="../../files/bower_components/jquery-i18next/js/jquery-i18next.min.js"></script>
+
+<!--this of for the search on the tables -->
 <script src="../../files/assets/pages/user-profile.js" type="fc62f3ba96b90a09d14681a9-text/javascript"></script>
+<!--end this of for the search on the tables -->
+
 <script src="../../files/assets/js/pcoded.min.js" type="fc62f3ba96b90a09d14681a9-text/javascript"></script>
 <script src="../../files/assets/js/vartical-layout.min.js" type="fc62f3ba96b90a09d14681a9-text/javascript"></script>
 <script src="../../files/assets/js/jquery.mCustomScrollbar.concat.min.js" type="fc62f3ba96b90a09d14681a9-text/javascript"></script>

@@ -13,14 +13,14 @@ $LoginModel = new Login();
 
 $db = new Connection();
 
-$requestMethod = $_SERVER["REQUEST_METHOD"];
+//$requestMethod = $_SERVER["REQUEST_METHOD"];
 $userId = null;
-if (isset($uri[2])) {
-    $userId = (int) $uri[2];
-}
+//if (isset($uri[2])) {
+//    $userId = (int) $uri[2];
+//}
 
-$studentApi = new StudentController($db,$requestMethod,$userId);
-$studentApi->init();
+//$studentApi = new StudentController($db,$requestMethod,$userId);
+//$studentApi->init();
 
 include_once './view/Login.php';
 if ($LoginModel->check_login_state()) {
