@@ -99,7 +99,13 @@ $row = SuperModel::get_student_details_by_student_no($student_no);
 
 
 <!--side bar start  -->
-<?php require './sidbar.php'; ?>
+   <?php
+                            if ($_SESSION['threeedu_user_id'] == 1) {
+                                require './sidbar.php';
+                            } else if ($_SESSION['threeedu_user_id'] == 4) {
+                                require './itadminsidbar.php';
+                            }
+                            ?>
 <!--side bar end  -->
 
 
