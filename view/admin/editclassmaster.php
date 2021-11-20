@@ -5,6 +5,7 @@ require_once '../../model/SuperModel.php';
 require_once '../../lib/grid/dbcon.php';
 $class_master_id = trim(filter_input(INPUT_GET, 'id', FILTER_DEFAULT));
 $tenant_id = $_SESSION['threeedu_tenantid'];
+$school_id = $_SESSION['threeedu_schoolid'];
 $stm = SuperModel::get_all_active_calsses($tenant_id);
 $row= SuperModel::get_school_details_by_tenant_id($tenant_id);
 $teacher_details_stm = SuperModel::get_teacher_details_by_tenant_id($tenant_id);
@@ -14,7 +15,7 @@ $get_grades_stm = SuperModel::get_active_grades_by_tenant_id($tenant_id);
      
      header("location: /threeedu/view/admin/classmaster.php");
  }
-$get_maped_subjects = SuperModel::get_subjects_by_class_id($class_master_id);
+$get_maped_subjects = SuperModel::get_subjects_by_class_id($class_master_id,$school_id);
 $get_class_details = SuperModel::get_class_details_by_id($class_master_id);
 
 
@@ -123,7 +124,7 @@ $get_class_details = SuperModel::get_class_details_by_id($class_master_id);
                                     <div class="page-wrapper">
                                         <div class="page-body">
 <!--                                            ../../controller/super/ActionPerformed.php-->
-                        <form method="POST" action="#">
+                        <form method="POST" action="../../controller/super/ActionPerformed.php">
                             <div>
                                 <button name="btn_update_class" class="btn btn-primary waves-effect waves-light add" style="float: right;" type="submit">Submit</button> <br><br><br><br>
                             </div>
@@ -174,19 +175,19 @@ $get_class_details = SuperModel::get_class_details_by_id($class_master_id);
                                                        <div class="card-block">
                                     <div class="row">  
                                         
-                                       
+                                        <input type="hidden" name="class_master_id" value="<?php echo $class_master_id?>"/>
                                 <div class="col-md-4">        
                         <div class="form-group">
                           <div class="form-select-list">
                              
-                                        <select required="" class="form-control custom-select-value" name="grade_id">
-                                            <option value="<?php echo $get_class_details['GradeMasterID']; ?>" disabled="disabled" selected="selected"><?php echo $get_class_details['Grade']; ?></option>
-                                                 <?php 
-                                                 while($grades =$get_grades_stm->fetch(PDO::FETCH_ASSOC) ){ ?> 
-                                                  <option value="<?php echo $grades['GradeMasterID']; ?>">
-                                                      <?php echo $grades['Grade']; ?>
-                                                  </option>
-                                                <?php } ?>
+                                        <select  required="" class="form-control custom-select-value" name="grade_id">
+                                            <option readonly value="<?php echo $get_class_details['GradeMasterID']; ?>"  selected="selected"><?php echo $get_class_details['Grade']; ?></option>
+<!--                                                 <?php 
+//                                                 while($grades =$get_grades_stm->fetch(PDO::FETCH_ASSOC) ){ ?> 
+                                                  <option value="<?php // echo $grades['GradeMasterID']; ?>">
+                                                      <?php // echo $grades['Grade']; ?>
+                                                  </option>-->
+                                                <?php // } ?>
                                                 
                                        </select>
                                     </div>
@@ -256,7 +257,7 @@ $get_class_details = SuperModel::get_class_details_by_id($class_master_id);
                                                                <?php 
                                                  while($data =$get_maped_subjects->fetch(PDO::FETCH_ASSOC) ){ ?> 
                                                             <tr>
-                                                                
+                                                                  <input value="<?php echo $data['ClassDetailsPublicID'] ?>" type="hidden" name="ides[]" />  
                                                                 <td>
                                                                     <?php echo $data['Subject'] ?>
                                                                     <input value="<?php echo $data['SujectCode'] ?>" type="hidden" name="subject_name[]" />     

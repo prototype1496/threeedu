@@ -2,8 +2,9 @@
 require '../../controller/super/SessionStart.php'; 
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/SuperModel.php';
+include '../../controller/super/SuperController.php';
 $tenant_id = $_SESSION['threeedu_tenantid'];
-$stm = SuperModel::get_teacher_details_by_tenant_id($tenant_id);
+$stm = SuperModel::get_complet_teacher_details_by_tenant_id($tenant_id);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -135,11 +136,13 @@ $stm = SuperModel::get_teacher_details_by_tenant_id($tenant_id);
 <table id="excel-bg" class="table table-striped table-bordered nowrap">
 <thead>
 <tr>
+    <th></th>
     <th>ID</th>
 <th>Teacher</th>
 <th>NRC</th>
 <th>Contact No.</th>
 <th>DOB</th>
+<th>Active</th>
 
 <th></th>
 </tr>
@@ -151,16 +154,21 @@ $stm = SuperModel::get_teacher_details_by_tenant_id($tenant_id);
                           $public_id = $row['TeaherMasterPublicID'];
                             ?>
 <tr>
+    <td></td>
      <td><?php echo $public_id;?></td>
          <td><?php echo $row['Teacher'];?></td>
         <td ><?php echo $row['NRC'];?></td>
         <td ><?php echo $row['ContactNo'];?></td>
         <td ><?php echo $row['DOB'];?></td>
-       
+        <td ><?php echo $row['IsActive'];?></td>
 
 <td>
-    <button onclick="redirectWithID('<?php echo $public_id;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-eye"></i></button>
-  </td>
+    <button onclick="redirectWithID('<?php if($row['IsActive'] == "Yes"){echo $public_id;}else{echo "";} ?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-eye"></i></button>
+ 
+   
+    <button onclick="redirectResetWithID('<?php echo $public_id;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-unlock"></i></button>
+ 
+</td>
 </tr>
 
      <?php } ?>
@@ -172,11 +180,13 @@ $stm = SuperModel::get_teacher_details_by_tenant_id($tenant_id);
 </tbody>
 <tfoot>
 <tr>
+        <th></th>
      <th>ID</th>
 <th>Teacher</th>
 <th>NRC</th>
 <th>Contact No.</th>
 <th>DOB</th>
+<th>Active</th>
 <th></th>
 </tr>
 </tfoot>
@@ -295,6 +305,13 @@ $stm = SuperModel::get_teacher_details_by_tenant_id($tenant_id);
 <script>
  function redirectWithID(id){
          window.location.href = "/threeedu/view/admin/teacherprofile.php?id="+id;
+        
+    }
+    
+        function redirectResetWithID(id){
+      
+         window.location.href = "viweteachers.php?teacher_id="+id;
+        
         
     }
 </script>

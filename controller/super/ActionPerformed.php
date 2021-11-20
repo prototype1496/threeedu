@@ -939,7 +939,9 @@ if (isset($_POST['btn_reg_pupil'])) {
         }
     }
 } else if (isset($_POST['btn_update_class'])) {
-    $class_master_id = SuperModel::get_sequence_id(18);
+    //$class_master_id = SuperModel::get_sequence_id(18);
+    
+    $class_master_id = trim(filter_input(INPUT_POST, 'class_master_id', FILTER_DEFAULT));
 
     $grade_id = trim(filter_input(INPUT_POST, 'grade_id', FILTER_DEFAULT));
 
@@ -959,6 +961,7 @@ if (isset($_POST['btn_reg_pupil'])) {
     }
 
 
+     $subject_details_ids = isset($_POST['ides']) ? $_POST['ides'] : array(0 => 0);
     $subject_code = isset($_POST['subject_name']) ? $_POST['subject_name'] : array(0 => 0);
     $class_room_id = isset($_POST['class_room']) ? $_POST['class_room'] : array(0 => 0);
     $count = 0;
@@ -984,9 +987,19 @@ if (isset($_POST['btn_reg_pupil'])) {
             } else {
                 $subject_code_data = $subject_code[$count];
             }
+            
+            
+            if (empty($subject_details_ids[$count])) {
+                $subject_details_ids_data = SuperModel::get_sequence_id(19);
+            } else {
+                $subject_details_ids_data = $subject_details_ids[$count];
+            }
+            
+            
+            
 
-            $class_details_id = SuperModel::get_sequence_id(19);
-            array_push($data, array($class_details_id, $class_master_id, $subject_code_data, $class_room_data, $UpdatedBy));
+            //$class_details_id = SuperModel::get_sequence_id(19);
+            array_push($data, array($subject_details_ids_data, $class_master_id, $subject_code_data, $class_room_data, $UpdatedBy));
             $count++;
         }
     }
@@ -1002,7 +1015,7 @@ if (isset($_POST['btn_reg_pupil'])) {
              
             function(){
                 
-               $.jnoty('Class Added Successfuly', {
+               $.jnoty('Class Updated Successfuly', {
             sticky: false,
             header: 'Success',
             theme: 'jnoty-success',
@@ -1016,7 +1029,7 @@ if (isset($_POST['btn_reg_pupil'])) {
              
             function(){
                 
-               $.jnoty('Class  Not Added Please Try Later and Check If Subject Was Entered', {
+               $.jnoty('Class  Not Updated Please Try Later and Check If Subject Was Entered', {
             sticky: false,
             header: 'Erro',
             theme: 'jnoty-danger',

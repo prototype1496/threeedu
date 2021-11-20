@@ -2,8 +2,9 @@
 require '../../controller/super/SessionStart.php'; 
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/TeacherModel.php';
+include '../../controller/super/SuperController.php';
 $tenant_id = $_SESSION['threeedu_tenantid'];
-$stm = TeacherModel::get_all_student_details($tenant_id);
+$stm = TeacherModel::get_complet_student_details($tenant_id);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -148,11 +149,13 @@ $stm = TeacherModel::get_all_student_details($tenant_id);
 <table id="excel-bg" class="table table-striped table-bordered nowrap">
 <thead>
 <tr>
+    <th></th>
 <th>Student No.</th>
 <th>Name</th>
 
 <th>Contact No.</th>
 <th>DOB</th>
+<th>Active</th>
 
 <th></th>
 </tr>
@@ -164,18 +167,26 @@ $stm = TeacherModel::get_all_student_details($tenant_id);
                           $public_id = $row['PublicID'];
                             ?>
 <tr>
+    <td></td>
      <td><?php echo $public_id;?></td>
          <td><?php echo $row['Name'];?></td>
         
         <td ><?php echo $row['ContactNo'];?></td>
         <td ><?php echo $row['DOB'];?></td>
+       <td ><?php echo $row['Active'];?></td>
        
 
 <td>
-    <button onclick="redirectWithID('<?php echo $public_id;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-eye"></i></button>
-  
+ 
+     <button onclick="redirectWithID('   <?php if ($row['Active'] =="Yes"){
+        
+         echo $public_id;
+        
+    }else {echo '';}?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-eye"></i></button>
+   
     <button onclick="redirectResetWithID('<?php echo $public_id;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-unlock"></i></button>
-  </td>
+ 
+</td>
 </tr>
 
      <?php } ?>
@@ -187,11 +198,14 @@ $stm = TeacherModel::get_all_student_details($tenant_id);
 </tbody>
 <tfoot>
 <tr>
+    <th></th>
 <th>Student No.</th>
 <th>Name</th>
 
 <th>Contact No.</th>
 <th>DOB</th>
+<th>Active</th>
+
 <th></th>
 </tr>
 </tfoot>
@@ -314,7 +328,9 @@ $stm = TeacherModel::get_all_student_details($tenant_id);
     }
     
      function redirectResetWithID(id){
-         window.location.href = "/threeedu/view/resetpassword/ChangePassword.php?name="+id+"&data=";
+      
+         window.location.href = "viwestudent.php?student_id="+id;
+        
         
     }
     

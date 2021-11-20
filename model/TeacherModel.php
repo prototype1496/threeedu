@@ -41,6 +41,22 @@ class TeacherModel {
             return $stm;
       
                  }
+                 
+                 
+        public static function get_complet_student_details($tenant_id) {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetCompletStudentDetails(:tenant_id);";
+        
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenant_id));
+       
+      
+            return $stm;
+      
+                 }
    
                  
                  

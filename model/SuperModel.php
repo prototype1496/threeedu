@@ -191,12 +191,39 @@ class SuperModel {
         return $row;
     }
     
+    
+      public static function get_all_complet_teacher_details_by_tenant_id($tenatnt_id,$teacher_id) {
+  //this function gets all details including the head and deputy head teacher recods by tenant ID 
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetCompleteTeacherDetailsByID(:tenant_id,:teacher_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenatnt_id,':teacher_id' => $teacher_id));
+        $row = $stm->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    
     public static function get_teacher_details_by_tenant_id($tenatnt_id) {
 
         $Connection = new Connection();
         $conn = $Connection->connect();
 
         $query = "CALL GetTeacherDetailsByID(:tenant_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenatnt_id));
+
+        return $stm;
+    }
+    
+        public static function get_complet_teacher_details_by_tenant_id($tenatnt_id) {
+        //this function gets all details including the head and deputy head teacher recods by tenant ID 
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAllTeacherDetailsByTenantID(:tenant_id);";
 
         $stm = $conn->prepare($query);
         $stm->execute(array(':tenant_id' => $tenatnt_id));
@@ -512,11 +539,11 @@ class SuperModel {
             // print_r(count($tem_data[0]));
             //$args  = array_fill(0, count($tem_data[0]), '?');
             //Insets data new session into the session table
-            $query = "INSERT INTO classmaster (ClassMasterPublicID,ClassTeacherID, GradeMasterID, ClassName, ClassCode, Description, UpdatedBy, TenantID,IsActive) VALUES (:ClassMasterPublicID,:ClassTeacherID,:GradeMasterID, :ClassName,:ClassCode, :Description, :UpdatedBy, :TenantID,1)";
+            $query = "INSERT INTO classmaster (ClassMasterPublicID,ClassTeacherID, GradeMasterID, ClassName, ClassCode, Description, UpdatedBy, TenantID,IsActive) VALUES (:ClassMasterPublicID,:ClassTeacherID,:GradeMasterID, :ClassName,:ClassCode, :Description, :UpdatedBy, :TenantID,1) ON DUPLICATE KEY UPDATE  ClassTeacherID=VALUES(ClassTeacherID),ClassName=VALUES(ClassName),ClassCode=VALUES(ClassCode),Description=VALUES(Description),UpdatedBy=VALUES(UpdatedBy)";
             $stm = $conn->prepare($query);
             $stm->execute(array(':ClassMasterPublicID' => $calss_master_id, ':ClassTeacherID' => $class_teacher_id, ':GradeMasterID' => $grade_id, ':ClassName' => $class_name, ':ClassCode' => $class_code, ':Description' => $discription, ':UpdatedBy' => $updatedby, ':TenantID' => $tenant_id));
 
-            $query1 = "INSERT INTO classdetails (ClassDetailsPublicID,ClassMasterPublicID, SubjectCode, ClassRoomPublicID, UpdatedBy) VALUES (?,?, ?, ?, ?)";
+            $query1 = "INSERT INTO classdetails (ClassDetailsPublicID,ClassMasterPublicID, SubjectCode, ClassRoomPublicID, UpdatedBy) VALUES (?,?, ?, ?, ?) ON DUPLICATE KEY UPDATE  SubjectCode=VALUES(SubjectCode),ClassRoomPublicID=VALUES(ClassRoomPublicID),UpdatedBy=VALUES(UpdatedBy)";
             $stm2 = $conn->prepare($query1);
             // print_r($stm);
             foreach ($tem_data as $data) {
@@ -538,7 +565,7 @@ class SuperModel {
             return TRUE;
         } catch (Exception $exc) {
             $conn->rollBack();
-            //echo $exc->getMessage();
+            echo $exc->getMessage();
             return FALSE;
         }
     }
@@ -639,7 +666,7 @@ class SuperModel {
             return TRUE;
         } catch (Exception $exc) {
             $conn->rollBack();
-           // echo $exc->getMessage();
+           //echo $exc->getMessage();
             return FALSE;
         }
     }
@@ -2195,4 +2222,55 @@ class SuperModel {
         }
     }
 
+    
+    
+    
+     public static function updated_student_status($StudentID,$UpdatedBy) {
+        //the below function creates a session in the databes for every log in 
+               
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+
+            $query = "CALL UpdateStudentLokedStatus(:Studentid,:UpdatedBy)";
+            $stm = $conn->prepare($query);
+
+            $stm->execute(array(':Studentid'=>$StudentID,':UpdatedBy'=>$UpdatedBy));
+            $conn->commit();
+            
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+           // echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
+    
+     public static function updated_teacher_status($TeacherID,$UpdatedBy) {
+        //the below function creates a session in the databes for every log in 
+               
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+
+            $query = "CALL UpdateTeacherLockedStatus(:Teacherid,:UpdatedBy)";
+            $stm = $conn->prepare($query);
+
+            $stm->execute(array(':Teacherid'=>$TeacherID,':UpdatedBy'=>$UpdatedBy));
+            $conn->commit();
+            
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+           echo $exc->getMessage();
+            return FALSE;
+        }
+    }
 }

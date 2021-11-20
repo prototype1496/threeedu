@@ -14,7 +14,7 @@ $row = SuperModel::get_student_details_by_student_no($student_no);
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dashboard-crm.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:45:47 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<title>Pupil Profil </title>
+<title>Pupil Profile </title>
 
 
 <!--[if lt IE 10]>
@@ -316,18 +316,88 @@ $row = SuperModel::get_student_details_by_student_no($student_no);
 
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="card">
-                                <H6>Academic Performance Panel</H6>
-                                <br />
-                                <P> Details should load</P>
-                            </div>
+                           
+                               
+                              
+                               
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Academic Performance Panel</h5>
+                                                        
+                                                        <div class="card-header-right">
+                                                            <ul class="list-unstyled card-option">
+                                                                <li><i class="feather icon-maximize full-card"></i></li>
+                                                                <li><i class="feather icon-minus minimize-card"></i></li>
+                                                               
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <div id="sales-analytics" style="height: 265px;"></div>
+                                                    </div>
+                                                </div>
+                                            
+                                
+                                
+                            
                         </div>
                         <div class="col-md-6">
                             <div class="card">
-                                <H6>Payment Details Panel</H6>
-                                <br />
-                                <P> Details should load</P>
+                                
+                               
+                               
+                                    <div class="card-block contact-details">
+                                        <center> <h4>Payment Details Panel</h4></center>
+<div class="data_table_main table-responsive dt-responsive">
 
+ <table id="simpletable2" class="table  table-striped table-bordered nowrap">
+<thead>
+<tr>
+    <th>Amount</th>
+<th>Date Paid</th>
+
+
+</tr>
+</thead>
+<tbody>
+      <?php // while($row_data = $get_stdent_asscement->fetch(PDO::FETCH_ASSOC))
+                            
+//                    {
+                       
+                            ?>
+<tr>
+   
+<!--         <td><?php echo $row_data['ClassName'];?></td>
+        
+       
+        <td ><?php echo $row_data['Subject'];?></td>-->
+        
+             <td></td>     
+          <td></td>   
+
+
+</tr>
+
+     <?php // } ?>
+
+
+
+
+
+</tbody>
+<tfoot>
+<tr>
+     <th>Amount</th>
+<th>Date Paid</th>
+
+</tr>
+</tfoot>
+</table>   
+    
+    
+    
+</div>
+</div>
 
                             </div>
                         </div>
@@ -447,9 +517,15 @@ $row = SuperModel::get_student_details_by_student_no($student_no);
 <script src="../../files/assets/pages/widget/amchart/gauge.js" type="960c3b30522fb895a4c59633-text/javascript"></script>
 <script src="../../files/assets/pages/widget/amchart/pie.js" type="960c3b30522fb895a4c59633-text/javascript"></script>
 <script src="../../files/assets/pages/widget/amchart/light.js" type="960c3b30522fb895a4c59633-text/javascript"></script>
+ <script src="../files/assets/js/jquery.mCustomScrollbar.concat.min.js" type="960c3b30522fb895a4c59633-text/javascript"></script>
 
 <script src="../../files/assets/js/pcoded.min.js" type="960c3b30522fb895a4c59633-text/javascript"></script>
 <script src="../../files/assets/js/vartical-layout.min.js" type="960c3b30522fb895a4c59633-text/javascript"></script>
+
+
+ <script type="960c3b30522fb895a4c59633-text/javascript" src="../../files/assets/pages/dashboard/custom-dashboard.js"></script>
+ 
+ 
 <script src="../../files/assets/js/jquery.mCustomScrollbar.concat.min.js" type="960c3b30522fb895a4c59633-text/javascript"></script>
 <script type="960c3b30522fb895a4c59633-text/javascript" src="../../files/assets/pages/dashboard/crm-dashboard.min.js"></script>
 <script type="960c3b30522fb895a4c59633-text/javascript" src="../../files/assets/js/script.js"></script>

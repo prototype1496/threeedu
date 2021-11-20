@@ -5,7 +5,7 @@ require '../../model/SuperModel.php';
 $tenant_id = $_SESSION['threeedu_tenantid'];
 $teacher_id = trim(filter_input(INPUT_GET, 'id', FILTER_DEFAULT));
 
-$row = SuperModel::get_all_teacher_details_by_tenant_id($tenant_id,$teacher_id);
+$row = SuperModel::get_all_complet_teacher_details_by_tenant_id($tenant_id,$teacher_id);
 
 ?>
 <!DOCTYPE html>
@@ -99,7 +99,18 @@ $row = SuperModel::get_all_teacher_details_by_tenant_id($tenant_id,$teacher_id);
 
 
 <!--side bar start  -->
-<?php require './sidbar.php'; ?>
+ <!--side bar start  -->
+                        <?php
+                        if ($_SESSION['threeedu_user_id'] == 1)
+                            {
+                             require './sidbar.php';
+                            } 
+                        else if ($_SESSION['threeedu_user_id'] == 4) 
+                        {
+                            require './itadminsidbar.php';
+                        }
+                        ?>
+                        <!--side bar end  -->
 <!--side bar end  -->
 
 
@@ -112,7 +123,11 @@ $row = SuperModel::get_all_teacher_details_by_tenant_id($tenant_id,$teacher_id);
             <div class="page-wrapper">
 
                 <div class="page-body">
-
+ <?php if ($teacher_id == "" || !isset($teacher_id)){
+                        
+                             echo '<center><h1><b>Teacher profile inactive<b> </h1></center>';
+                        
+                    }else { ?>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -310,7 +325,7 @@ $row = SuperModel::get_all_teacher_details_by_tenant_id($tenant_id,$teacher_id);
                             </div>
                         </div>
                     </div>
-
+    <?php }?>
 
 
 
