@@ -1,4 +1,12 @@
-<?php   require  '../../controller/super/SessionSet.php';  ?>
+<?php   
+require  '../../controller/super/SessionSet.php';
+if($_SESSION['threeedu_user_id'] == 1 || $_SESSION['threeedu_user_id'] == 4){
+    
+}else{
+    //header('location:/threeedu/');
+    require  '../../controller/super/Logout.php';
+}
+?>
 <nav class="navbar header-navbar pcoded-header">
 <div class="navbar-wrapper">
 <div class="navbar-logo">
