@@ -2,7 +2,7 @@
 require_once '../../controller/super/SessionStart.php';
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/SuperModel.php';
-require_once '../../lib/grid/dbcon.php';
+//require_once '../../lib/grid/dbcon.php';
 $class_master_id = trim(filter_input(INPUT_GET, 'id', FILTER_DEFAULT));
 $tenant_id = $_SESSION['threeedu_tenantid'];
 $school_id = $_SESSION['threeedu_schoolid'];
