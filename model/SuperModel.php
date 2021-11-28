@@ -853,6 +853,33 @@ class SuperModel {
         return $stm;
     }
     
+    
+     public static function get_all_transaction_histoy_by_transaction_id($transactionmaster_public_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->accounts_db_connect();
+
+        $query = "CALL GetBillTransactionHistroryByTransactionID(:student_public_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':student_public_id' => $transactionmaster_public_id));
+
+        return $stm;
+    }
+    
+    
+    public static function get_all_master_transaction_history($student_public_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->accounts_db_connect();
+
+        $query = "CALL GetBillTransactionMasterDataByStudentID(:student_public_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':student_public_id' => $student_public_id));
+
+        return $stm;
+    }
     public static function add_feechrge_room($charge_data) {
         //the below function creates a session in the databes for every log in 
         try {

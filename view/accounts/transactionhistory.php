@@ -12,12 +12,13 @@ $classes = SuperModel::get_all_classes_by_tenant_id($tenant_id);
 
 if (isset($_GET['student_public_id'])){
 
-      $student_public_id =   trim(filter_input(INPUT_GET, 'student_public_id', FILTER_DEFAULT));
-$student_data = SuperModel::get_all_transaction_history($student_public_id);
+$student_public_id =   trim(filter_input(INPUT_GET, 'student_public_id', FILTER_DEFAULT));
+
 $stm_balance_data = SuperModel::get_total_bill_blance($student_public_id);
+$student_master_data = SuperModel::get_all_master_transaction_history($student_public_id);
 }else{
-  $student_data = SuperModel::get_all_transaction_history('');  
-    
+  
+    $student_master_data  = SuperModel::get_all_master_transaction_history('');
 }
 
 ?>
@@ -200,8 +201,22 @@ $stm_balance_data = SuperModel::get_total_bill_blance($student_public_id);
 <div class="dt-responsive table-responsive">
 <table id="excel-bg" class="table table-striped table-bordered nowrap">
 <thead>
-<tr>
-    <th></th>
+
+</thead>
+<tbody id="">
+ <?php
+while ($row1 = $student_master_data->fetch(PDO::FETCH_ASSOC)) {
+
+    ?>
+    <tr>
+         
+         
+          <td colspan="7"><b><?php echo $row1['BillInfo']; ?></b></td>
+      
+
+    </tr>
+    <tr>
+
 <th>Name</th>
 <th>Paid Amount (K)</th>
 <th>Balance (K)</th>
@@ -212,25 +227,37 @@ $stm_balance_data = SuperModel::get_total_bill_blance($student_public_id);
 
 
 </tr>
-</thead>
-<tbody id="">
  <?php
+ 
+ if (isset($_GET['student_public_id'])){
+
+
+$student_data = SuperModel::get_all_transaction_histoy_by_transaction_id($row1['TransactionMasterPublicID']);
+
+
+}else{
+  $student_data = SuperModel::get_all_transaction_histoy_by_transaction_id('');  
+    
+}
+ 
 while ($row = $student_data->fetch(PDO::FETCH_ASSOC)) {
 
     ?>
     <tr>
-          <td></td>
          
-        <td><?php echo $row['Name']; ?></td>
+       
+          <td><?php echo $row['Name']; ?></td>
         <td><?php echo $row['PaidAmout']; ?></td>
         <td><?php echo $row['Balace']; ?></td>
         <td><?php echo $row['PaymentType']; ?></td>
           <td><?php echo $row['ReciptNo']; ?></td>
             <td><?php echo $row['BilledOn']; ?></td>
               <td><?php echo $row['UpdatedBy']; ?></td>
+      
 
     </tr>
-
+    
+    <?php } ?>
 <?php } ?>
 
 
@@ -238,18 +265,7 @@ while ($row = $student_data->fetch(PDO::FETCH_ASSOC)) {
 
 
 </tbody>
-<tfoot>
-<tr>
-<th></th>
-<th>Name</th>
-<th>Paid Amount (K)</th>
-<th>Balance (K)</th>
-<th>Payment Method</th>
-<th>receipt No.</th>
-<th>Billed On</th>
-<th>Billed By</th>
-</tr>
-</tfoot>
+
 </table>
 </div>
  
