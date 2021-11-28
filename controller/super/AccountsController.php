@@ -94,12 +94,12 @@ if (isset($_POST['btn_charge_student'])) {
   
     if (SuperModel::add_bill($tansaction_id,$balance,$student_public_id,$UpdatedBy,$amount)) {
          
-    //header("Location:/threeedu/view/accounts/individualcharge.php?student_public_id$student_public_id");
+    header("Location:/threeedu/view/accounts/individualcharge.php?student_public_id=$student_public_id");
     
         
     }else {
     
-   // header("Location:/threeedu/view/accounts/individualcharge.php?student_public_id=$student_public_id");
+   header("Location:/threeedu/view/accounts/individualcharge.php?student_public_id=$student_public_id");
     
     }
      
