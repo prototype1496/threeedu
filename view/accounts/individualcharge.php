@@ -154,7 +154,7 @@ $stm_balance_data = SuperModel::get_total_bill_blance($student_public_id);
        <div class="row">
            <div class="col-sm-12 col-xl-3 m-b-30">
                
-                <input type="hidden" name="tansaction_id" value="<?php if (isset($stm_balance_data['TransactionMasterPublicID'])){echo $stm_balance_data['Balance'];} ?>">
+                <input type="hidden" name="tansaction_id" value="<?php if (isset($stm_balance_data['TransactionMasterPublicID'])){echo $stm_balance_data['TransactionMasterPublicID'];} ?>">
                
                  <input type="hidden" name="balance" value="<?php if (isset($stm_balance_data['Balance'])){echo $stm_balance_data['Balance'];} ?>">
                

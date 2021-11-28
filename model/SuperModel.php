@@ -489,7 +489,7 @@ class SuperModel {
          $post_amount_update = $balance - $amount;
         try {
             $Connection = new Connection();
-            $conn = $Connection->connect();
+            $conn = $Connection->accounts_db_connect();
 
             $conn->beginTransaction();
 
