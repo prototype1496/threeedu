@@ -485,13 +485,15 @@ class SuperModel {
     
      public static function add_bill($tansaction_id,$balance,$student_public_id,$UpdatedBy,$amount) {
      //the below function adds the assementtype type to the assementtype table
+         
+         $post_amount_update = $balance - $amount;
         try {
             $Connection = new Connection();
             $conn = $Connection->connect();
 
             $conn->beginTransaction();
 
-            $query = "INSERT INTO transactiondetails (TransactionMasterPublicID, ReciptNo, PaidAmout, Balace, PaymentType, PaidBy, RecivedBy, UpdatedBy) VALUES ('$tansaction_id', GetSequence(23), '$amount', '$balance', 1, '$student_public_id', '$UpdatedBy', '$UpdatedBy')";
+            $query = "INSERT INTO transactiondetails (TransactionMasterPublicID, ReciptNo, PaidAmout, Balace, PaymentType, PaidBy, RecivedBy, UpdatedBy) VALUES ('$tansaction_id', GetSequence(23), '$amount', '$post_amount_update', 1, '$student_public_id', '$UpdatedBy', '$UpdatedBy')";
             $stm = $conn->prepare($query);
 
             $stm->execute();
