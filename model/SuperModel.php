@@ -353,6 +353,112 @@ class SuperModel {
     }
 
     
+    //Acounts moduel 
+    
+    public static function get_fee_charge_by_id($term_id,$tenant_master_id,$query_run) {
+
+        $Connection = new Connection();
+        $con = $Connection->accounts_db_connect();
+        
+        if ($query_run == 1){
+          $query = "CALL GetFeeChargesByTermAndTenantID(:TenantMasterID_,:TermID_);";
+        }else{
+            $query = "CALL GetEmptyReult(:TenantMasterID_,:TermID_);"; 
+            
+        }
+
+       $stm = $con->prepare($query);
+        $stm->execute(array(':TenantMasterID_' => $tenant_master_id,':TermID_' => $term_id));
+
+        return $stm;
+    }
+    
+    
+       public static function get_default_fee_charge($term_id,$tenant_master_id) {
+            //we are not using the termid parameter passed in this function 
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+        
+         $query = "CALL GetDefultGradeCharges(:TenantMasterID_,:TermID_);";
+
+       $stm = $conn->prepare($query);
+        $stm->execute(array(':TenantMasterID_' => $tenant_master_id,':TermID_' => $term_id));
+
+        return $stm;
+    }
+    
+  
+    
+    public static function get_active_terms($tenant_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetActiveTermByID(:tenant_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenant_id));
+
+        return $stm;
+    }
+    
+    
+      public static function get_sys_active_terms($tenant_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetSysActiveTermsByID(:tenant_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenant_id));
+
+        
+         $row = $stm->fetch(PDO::FETCH_ASSOC);
+
+        return $row;
+    }
+    
+        
+      public static function get_total_bill_blance($student_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->accounts_db_connect();
+
+        $query = "CALL GetTotalBalance(:student_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':student_id' => $student_id));
+
+        
+         $row = $stm->fetch(PDO::FETCH_ASSOC);
+
+        return $row;
+    }
+    
+    
+    
+    public static function check_if_fee_exists($term_id,$tenant_master_id) {
+
+          $Connection = new Connection();
+        $con = $Connection->accounts_db_connect();
+
+        $query = "CALL CheckIfFessExists(:TenantMasterID_,:TermID_);";
+
+        $stm = $con->prepare($query);
+        $stm->execute(array(':TenantMasterID_' => $tenant_master_id,':TermID_' => $term_id));
+
+         $row = $stm->fetch(PDO::FETCH_ASSOC);
+
+        return $row;
+    }
+    
+    //End Acount Moduel
+    
+    
+    
+    
+    
       public static function add_subject_master($subject_name,$subject_code,$department_id,$discrtption,$school_id,$UpdatedBy) {
      //the below function adds the assementtype type to the assementtype table
         try {
@@ -375,6 +481,31 @@ class SuperModel {
             return FALSE;
         }
     }
+    
+    
+     public static function add_bill($tansaction_id,$balance,$student_public_id,$UpdatedBy,$amount) {
+     //the below function adds the assementtype type to the assementtype table
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+
+            $query = "INSERT INTO transactiondetails (TransactionMasterPublicID, ReciptNo, PaidAmout, Balace, PaymentType, PaidBy, RecivedBy, UpdatedBy) VALUES ('$tansaction_id', GetSequence(23), '$amount', '$balance', 1, '$student_public_id', '$UpdatedBy', '$UpdatedBy')";
+            $stm = $conn->prepare($query);
+
+            $stm->execute();
+
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+            echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
     
       public static function add_period_master($period_name,$sequence,$school_id,$UpdatedBy) {
      //the below function adds the assementtype type to the assementtype table
@@ -703,6 +834,55 @@ class SuperModel {
         } catch (Exception $exc) {
             $conn->rollBack();
             // echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
+      public static function get_all_transaction_history($student_public_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->accounts_db_connect();
+
+        $query = "CALL GetBillTransactionHistory(:student_public_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':student_public_id' => $student_public_id));
+
+        return $stm;
+    }
+    
+    public static function add_feechrge_room($charge_data) {
+        //the below function creates a session in the databes for every log in 
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->accounts_db_connect();
+
+            $conn->beginTransaction();
+
+            $query = "INSERT INTO feecharges (GradeMasterID, Grade, Amount, TermID,TenantMasterID,IsCharged,UpdatedBy) VALUES(?,?,?,?,?,?,?)";
+            $stm = $conn->prepare($query);
+
+            // print_r($subject_data);
+            foreach ($charge_data as $charge_data) {
+                //print_r($class_room_data);
+                if (!empty($charge_data[0])) {
+                    // print_r($class_room_data);
+                    $stm->execute($charge_data);
+                } else {
+                    
+                }
+
+                //  
+            }
+
+
+            //print_r($stm);
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+            echo $exc->getMessage();
             return FALSE;
         }
     }
@@ -1212,6 +1392,10 @@ class SuperModel {
 
         return $stm;
     }
+    
+    
+    
+    
 
     function get_all_subjects($class_id,$school_id) {
         //This function is used to load the districts whih a given province ID
@@ -1309,6 +1493,39 @@ class SuperModel {
             }
         } else {
             
+        }
+    }
+    
+    
+    
+    
+    
+    function get_student_data_by_id($class_id, $assecmenttype_id) {
+         $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        // this is the stored procidure from the datbaes that is loading the destrics after passing in an province ID 
+        $query = "CALL GetAllStudentDetailsByClassMasterPublicID(:class_id,:assecmenttype_id);";
+
+///maonpwe
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':class_id' => $class_id, ':assecmenttype_id' => $assecmenttype_id));
+
+      
+        if ($stm->rowCount() > 0) {
+
+            //What the beow lines of code are doing is they are loading a districts and displying them in a dropdown using php
+            echo "  <option value='' disabled='disabled' selected='selected' >Select Student</option> ";
+            while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+
+
+                echo "<option value=" . $row['StudentMasterPublicID'] . ">" . $row['NameData'] . "</option>";
+                //echo "<option vlaue='21'>".$row['name']."</option>";name
+            }
+        } else {
+
+            echo "  <option value='' disabled='disabled' selected='selected' >Select Student</option> ";
         }
     }
 

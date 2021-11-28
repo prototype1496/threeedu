@@ -14,12 +14,10 @@
 
 
 -- Dumping database structure for 3edu_db
-DROP DATABASE IF EXISTS `3edu_db`;
 CREATE DATABASE IF NOT EXISTS `3edu_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `3edu_db`;
 
 -- Dumping structure for table 3edu_db.address
-DROP TABLE IF EXISTS `address`;
 CREATE TABLE IF NOT EXISTS `address` (
   `AddressID` int(11) NOT NULL AUTO_INCREMENT,
   `PrimaryAddress` varchar(50) NOT NULL,
@@ -52,7 +50,6 @@ INSERT INTO `address` (`AddressID`, `PrimaryAddress`, `SecondaryAddress`, `ZipCo
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.assementtypemaster
-DROP TABLE IF EXISTS `assementtypemaster`;
 CREATE TABLE IF NOT EXISTS `assementtypemaster` (
   `AssementTypeID` int(11) NOT NULL AUTO_INCREMENT,
   `AssementTypeName` varchar(50) NOT NULL,
@@ -83,7 +80,6 @@ INSERT INTO `assementtypemaster` (`AssementTypeID`, `AssementTypeName`, `IsActiv
 /*!40000 ALTER TABLE `assementtypemaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.assementtypemaster_copy
-DROP TABLE IF EXISTS `assementtypemaster_copy`;
 CREATE TABLE IF NOT EXISTS `assementtypemaster_copy` (
   `AssementTypeID` int(11) NOT NULL AUTO_INCREMENT,
   `GradeMasterID` int(11) NOT NULL,
@@ -115,7 +111,6 @@ INSERT INTO `assementtypemaster_copy` (`AssementTypeID`, `GradeMasterID`, `Subje
 /*!40000 ALTER TABLE `assementtypemaster_copy` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.classdetails
-DROP TABLE IF EXISTS `classdetails`;
 CREATE TABLE IF NOT EXISTS `classdetails` (
   `ClassDetailsID` int(11) NOT NULL AUTO_INCREMENT,
   `ClassDetailsPublicID` varchar(50) NOT NULL,
@@ -135,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `classdetails` (
   CONSTRAINT `FK_classdetails_subjectmater` FOREIGN KEY (`SubjectCode`) REFERENCES `subjectmater` (`SubjectCode`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.classdetails: ~39 rows (approximately)
+-- Dumping data for table 3edu_db.classdetails: ~41 rows (approximately)
 DELETE FROM `classdetails`;
 /*!40000 ALTER TABLE `classdetails` DISABLE KEYS */;
 INSERT INTO `classdetails` (`ClassDetailsID`, `ClassDetailsPublicID`, `ClassMasterPublicID`, `SubjectCode`, `ClassRoomPublicID`, `IsActive`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -184,7 +179,6 @@ INSERT INTO `classdetails` (`ClassDetailsID`, `ClassDetailsPublicID`, `ClassMast
 /*!40000 ALTER TABLE `classdetails` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.classmaster
-DROP TABLE IF EXISTS `classmaster`;
 CREATE TABLE IF NOT EXISTS `classmaster` (
   `ClassMasterID` int(11) NOT NULL AUTO_INCREMENT,
   `ClassMasterPublicID` varchar(50) NOT NULL,
@@ -207,7 +201,7 @@ CREATE TABLE IF NOT EXISTS `classmaster` (
   CONSTRAINT `FK_classmaster_teachermaster` FOREIGN KEY (`ClassTeacherID`) REFERENCES `teachermaster` (`TeaherMasterPublicID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.classmaster: ~12 rows (approximately)
+-- Dumping data for table 3edu_db.classmaster: ~15 rows (approximately)
 DELETE FROM `classmaster`;
 /*!40000 ALTER TABLE `classmaster` DISABLE KEYS */;
 INSERT INTO `classmaster` (`ClassMasterID`, `ClassMasterPublicID`, `ClassTeacherID`, `GradeMasterID`, `ClassName`, `ClassCode`, `Description`, `UpdatedBy`, `UpdatedOn`, `AddedOn`, `IsActive`, `TenantID`) VALUES
@@ -229,7 +223,6 @@ INSERT INTO `classmaster` (`ClassMasterID`, `ClassMasterPublicID`, `ClassTeacher
 /*!40000 ALTER TABLE `classmaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.classroom
-DROP TABLE IF EXISTS `classroom`;
 CREATE TABLE IF NOT EXISTS `classroom` (
   `ClassRoomID` int(11) NOT NULL AUTO_INCREMENT,
   `ClassRoomPublicID` varchar(50) NOT NULL,
@@ -264,7 +257,6 @@ INSERT INTO `classroom` (`ClassRoomID`, `ClassRoomPublicID`, `ClassRoomName`, `U
 /*!40000 ALTER TABLE `classroom` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.comboboxvaluemaster
-DROP TABLE IF EXISTS `comboboxvaluemaster`;
 CREATE TABLE IF NOT EXISTS `comboboxvaluemaster` (
   `ComboBoxValueMasterID` int(11) NOT NULL AUTO_INCREMENT,
   `ID` varchar(50) NOT NULL,
@@ -284,7 +276,6 @@ INSERT INTO `comboboxvaluemaster` (`ComboBoxValueMasterID`, `ID`, `Name`, `Value
 /*!40000 ALTER TABLE `comboboxvaluemaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.country
-DROP TABLE IF EXISTS `country`;
 CREATE TABLE IF NOT EXISTS `country` (
   `CountryID` int(11) NOT NULL AUTO_INCREMENT,
   `CountryName` varchar(50) NOT NULL,
@@ -302,7 +293,6 @@ INSERT INTO `country` (`CountryID`, `CountryName`, `ConuntryCode`, `IsActive`) V
 /*!40000 ALTER TABLE `country` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.credentials_tb
-DROP TABLE IF EXISTS `credentials_tb`;
 CREATE TABLE IF NOT EXISTS `credentials_tb` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL,
@@ -318,7 +308,6 @@ DELETE FROM `credentials_tb`;
 /*!40000 ALTER TABLE `credentials_tb` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.department
-DROP TABLE IF EXISTS `department`;
 CREATE TABLE IF NOT EXISTS `department` (
   `DepartmentID` int(11) NOT NULL AUTO_INCREMENT,
   `DepartmentName` varchar(50) NOT NULL,
@@ -354,7 +343,6 @@ INSERT INTO `department` (`DepartmentID`, `DepartmentName`, `ShortHand`, `School
 /*!40000 ALTER TABLE `department` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.district
-DROP TABLE IF EXISTS `district`;
 CREATE TABLE IF NOT EXISTS `district` (
   `DistrictID` int(11) NOT NULL AUTO_INCREMENT,
   `DistrictName` varchar(50) NOT NULL,
@@ -475,7 +463,6 @@ INSERT INTO `district` (`DistrictID`, `DistrictName`, `ProvinceID`, `IsActive`) 
 /*!40000 ALTER TABLE `district` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.emailservice
-DROP TABLE IF EXISTS `emailservice`;
 CREATE TABLE IF NOT EXISTS `emailservice` (
   `EmailServiceID` int(11) NOT NULL AUTO_INCREMENT,
   `EmailSerial` varchar(20) NOT NULL DEFAULT '0',
@@ -499,7 +486,6 @@ INSERT INTO `emailservice` (`EmailServiceID`, `EmailSerial`, `EmailAddress`, `Em
 /*!40000 ALTER TABLE `emailservice` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.gendermaster
-DROP TABLE IF EXISTS `gendermaster`;
 CREATE TABLE IF NOT EXISTS `gendermaster` (
   `GenderMasterID` int(11) NOT NULL AUTO_INCREMENT,
   `Gender` text NOT NULL,
@@ -517,7 +503,6 @@ INSERT INTO `gendermaster` (`GenderMasterID`, `Gender`, `ShortName`, `IsActive`)
 /*!40000 ALTER TABLE `gendermaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.grademaster
-DROP TABLE IF EXISTS `grademaster`;
 CREATE TABLE IF NOT EXISTS `grademaster` (
   `GradeMasterID` int(11) NOT NULL AUTO_INCREMENT,
   `Grade` varchar(50) NOT NULL,
@@ -557,7 +542,6 @@ INSERT INTO `grademaster` (`GradeMasterID`, `Grade`, `IsActive`, `TenantID`, `Up
 /*!40000 ALTER TABLE `grademaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.gradingmaster
-DROP TABLE IF EXISTS `gradingmaster`;
 CREATE TABLE IF NOT EXISTS `gradingmaster` (
   `GradingMasterID` int(11) NOT NULL AUTO_INCREMENT,
   `Grade` char(2) DEFAULT NULL,
@@ -584,7 +568,6 @@ INSERT INTO `gradingmaster` (`GradingMasterID`, `Grade`, `Percentage`, `IsActive
 /*!40000 ALTER TABLE `gradingmaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.maritalstatusmaster
-DROP TABLE IF EXISTS `maritalstatusmaster`;
 CREATE TABLE IF NOT EXISTS `maritalstatusmaster` (
   `MaritalStatusMasterID` int(11) NOT NULL AUTO_INCREMENT,
   `MaritalStatus` varchar(10) NOT NULL,
@@ -604,7 +587,6 @@ INSERT INTO `maritalstatusmaster` (`MaritalStatusMasterID`, `MaritalStatus`, `Is
 /*!40000 ALTER TABLE `maritalstatusmaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.periodmaster
-DROP TABLE IF EXISTS `periodmaster`;
 CREATE TABLE IF NOT EXISTS `periodmaster` (
   `PeriodMasterID` int(11) NOT NULL AUTO_INCREMENT,
   `PeriodName` varchar(50) NOT NULL,
@@ -636,7 +618,6 @@ INSERT INTO `periodmaster` (`PeriodMasterID`, `PeriodName`, `SchoolID`, `Sequenc
 /*!40000 ALTER TABLE `periodmaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.province
-DROP TABLE IF EXISTS `province`;
 CREATE TABLE IF NOT EXISTS `province` (
   `ProvinceID` int(11) NOT NULL AUTO_INCREMENT,
   `ProvinceName` varchar(50) NOT NULL,
@@ -664,7 +645,6 @@ INSERT INTO `province` (`ProvinceID`, `ProvinceName`, `CountryID`, `IsActive`) V
 /*!40000 ALTER TABLE `province` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.schoolmaster
-DROP TABLE IF EXISTS `schoolmaster`;
 CREATE TABLE IF NOT EXISTS `schoolmaster` (
   `SchoolID` int(11) NOT NULL AUTO_INCREMENT,
   `PublicID` varchar(50) CHARACTER SET latin1 NOT NULL,
@@ -703,7 +683,6 @@ INSERT INTO `schoolmaster` (`SchoolID`, `PublicID`, `EMISNO`, `PicURL`, `SchoolN
 /*!40000 ALTER TABLE `schoolmaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sequencemaster
-DROP TABLE IF EXISTS `sequencemaster`;
 CREATE TABLE IF NOT EXISTS `sequencemaster` (
   `SequenceMasterID` int(11) NOT NULL AUTO_INCREMENT,
   `SequnceCode` char(4) NOT NULL,
@@ -711,15 +690,15 @@ CREATE TABLE IF NOT EXISTS `sequencemaster` (
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SequenceMasterID`),
   UNIQUE KEY `SequnceCode` (`SequnceCode`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sequencemaster: ~16 rows (approximately)
+-- Dumping data for table 3edu_db.sequencemaster: ~17 rows (approximately)
 DELETE FROM `sequencemaster`;
 /*!40000 ALTER TABLE `sequencemaster` DISABLE KEYS */;
 INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 105, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 262, '2019-11-01 20:00:03'),
+	(3, 'TOKN', 277, '2019-11-01 20:00:03'),
 	(4, 'EMIL', 3, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
 	(6, 'SCHL', 10, '2019-11-17 18:52:58'),
@@ -730,13 +709,13 @@ INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID
 	(18, 'CLAS', 75, '2021-08-16 12:49:49'),
 	(19, 'CLDT', 99, '2021-08-16 12:50:17'),
 	(20, 'TEDT', 120, '2021-08-21 11:22:16'),
-	(21, 'CLRM', 88, '2021-08-22 11:42:24'),
+	(21, 'CLRM', 118, '2021-08-22 11:42:24'),
 	(22, 'ITAD', 24, '2021-09-06 04:44:36'),
-	(23, '', 0, '2021-09-17 16:46:37');
+	(23, 'BILL', 0, '2021-09-17 16:46:37'),
+	(24, 'ACCO', 0, '2021-11-27 16:15:30');
 /*!40000 ALTER TABLE `sequencemaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.session
-DROP TABLE IF EXISTS `session`;
 CREATE TABLE IF NOT EXISTS `session` (
   `SessionID` int(11) NOT NULL AUTO_INCREMENT,
   `UserMasterPublicID` varchar(50) NOT NULL,
@@ -748,9 +727,9 @@ CREATE TABLE IF NOT EXISTS `session` (
   PRIMARY KEY (`SessionID`),
   KEY `FK_session_usermaster` (`UserMasterPublicID`),
   CONSTRAINT `FK_session_usermaster` FOREIGN KEY (`UserMasterPublicID`) REFERENCES `usermaster` (`PublicID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=263 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=278 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.session: ~16 rows (approximately)
+-- Dumping data for table 3edu_db.session: ~17 rows (approximately)
 DELETE FROM `session`;
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
 INSERT INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -763,17 +742,17 @@ INSERT INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`,
 	(235, 'ITAD00000000024', 'TOKN000000000235', '5503220a332d40c5f655fdcc0f7c573c503871323590cd861d', '1634557485', 'ali_admin', '2021-10-18 13:44:45'),
 	(238, 'SDNT00000000000', 'TOKN000000000238', '01ede60520df9c2a7e54586c361d29d64135e5b6920a9d3c22', '1637387879', 'SN202137', '2021-11-20 07:57:59'),
 	(239, 'SDNT00000000036', 'TOKN000000000239', '6ce38cc9e7e54512bae425ee55ccccd7631e709597c0adb2e4', '1637388125', 'SN2021041', '2021-11-20 08:02:05'),
-	(245, 'TECH0000000003', 'TOKN000000000245', 'fb9d5f56b453bf8e214821256f064c3d9b9a608162776ff705', '1637408118', 't', '2021-11-20 13:35:18'),
 	(249, 'TECH0000000001', 'TOKN000000000249', '1163721899b83d15530d1d2af2b46488b69ca2c312dc5ccc60', '1637415056', 'h', '2021-11-20 15:30:56'),
 	(254, 'SDNT00000000039', 'TOKN000000000254', '0e35fac89d1b300313f46213bc58c730c602a07ea19faee886', '1637423824', 'SN2021044', '2021-11-20 17:57:04'),
 	(255, 'SDNT00000000031', 'TOKN000000000255', '5ed6a5648218de3f6538be91b6c051f7ad0a52664b32849a88', '1637423866', 'SN2021036', '2021-11-20 17:57:46'),
 	(260, 'SDNT00000000035', 'TOKN000000000260', 'e821c51f51a28705dd574470704f90f8e86ca798b2a619f9f8', '1637425467', 'SN2021040', '2021-11-20 18:24:27'),
-	(261, 'ADMIN00001', 'TOKN000000000261', '80583579da9c453ae4d4abbaf9f77cedc1196a50ee85c85c7f', '1637426012', 'a', '2021-11-20 18:33:32'),
-	(262, 'ITADM00001', 'TOKN000000000262', '6f970f999bced3508dffb14e9e238d30faf762bec15f7f3230', '1637426100', 'it', '2021-11-20 18:35:00');
+	(271, 'ITADM00001', 'TOKN000000000271', '18c84d8fa8a305c68dc94856e72d2a10bd748eea1bdee825a6', '1638021781', 'it', '2021-11-27 16:03:01'),
+	(272, 'ADMIN00001', 'TOKN000000000272', 'bd4c2a04a3532641563481e14902c4eff33f7f85293158648a', '1638022394', 'a', '2021-11-27 16:13:14'),
+	(276, 'TECH0000000003', 'TOKN000000000276', '0aea1133bdb4cb58d3caccb2132e2e8120a6ec2388d0a346d1', '1638067315', 't', '2021-11-28 04:41:55'),
+	(277, 'ACCO00001', 'TOKN000000000277', '01a745a3ef690939f79bb300e8248cd183e7377a4b99750889', '1638067537', 'acc', '2021-11-28 04:45:37');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
-DROP TABLE IF EXISTS `sessionhistory`;
 CREATE TABLE IF NOT EXISTS `sessionhistory` (
   `SessionHistoryID` int(11) NOT NULL AUTO_INCREMENT,
   `SessionID` varchar(50) NOT NULL,
@@ -784,9 +763,9 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   `UpdatedBy` varchar(50) NOT NULL,
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionHistoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=263 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=278 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~143 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~144 rows (approximately)
 DELETE FROM `sessionhistory`;
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
 INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -932,11 +911,25 @@ INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublic
 	(259, '259', 'ITADM00001', 'TOKN000000000259', '59fc0c91b91a0b623845d08852756b2e8c7e22b3468dec3ef5', '1637425441', 'it', '2021-11-20 18:24:02'),
 	(260, '260', 'SDNT00000000035', 'TOKN000000000260', 'e821c51f51a28705dd574470704f90f8e86ca798b2a619f9f8', '1637425467', 'SN2021040', '2021-11-20 18:24:27'),
 	(261, '261', 'ADMIN00001', 'TOKN000000000261', '80583579da9c453ae4d4abbaf9f77cedc1196a50ee85c85c7f', '1637426012', 'a', '2021-11-20 18:33:32'),
-	(262, '262', 'ITADM00001', 'TOKN000000000262', '6f970f999bced3508dffb14e9e238d30faf762bec15f7f3230', '1637426100', 'it', '2021-11-20 18:35:00');
+	(262, '262', 'ITADM00001', 'TOKN000000000262', '6f970f999bced3508dffb14e9e238d30faf762bec15f7f3230', '1637426100', 'it', '2021-11-20 18:35:00'),
+	(263, '263', 'ITADM00001', 'TOKN000000000263', 'b7747674303b85ddd78f16016f86a7bd830b40a8c5832cf94e', '1637440649', 'it', '2021-11-20 22:37:29'),
+	(264, '264', 'TECH0000000003', 'TOKN000000000264', 'f81ca94ab82ece652e637742d5c0888e255d6ce35ad0e5ea30', '1637440670', 't', '2021-11-20 22:37:51'),
+	(265, '265', 'ITADM00001', 'TOKN000000000265', '930c5ed79e0bbc4bdb2328e0a54ace810def06dad3be8198e1', '1637440909', 'it', '2021-11-20 22:41:49'),
+	(266, '266', 'ITADM00001', 'TOKN000000000266', '70dfbd10258d8630ebe7ca88391055890e606b6c4ea3f36a43', '1637440916', 'it', '2021-11-20 22:41:56'),
+	(267, '267', 'ITADM00001', 'TOKN000000000267', 'bebd4fa175a202fc6718afcfeaf543a227cbc517611d2c5b29', '1637440947', 'it', '2021-11-20 22:42:27'),
+	(268, '268', 'ITADM00001', 'TOKN000000000268', 'af4c5ed244d6a29b0bc72ff2b19f4c014995c0c5df1543c0fa', '1637441034', 'it', '2021-11-20 22:43:54'),
+	(269, '269', 'ITADM00001', 'TOKN000000000269', '8d9dee18fdcac33e917742e6c054885a13e31c12abf6a69c5f', '1637441156', 'it', '2021-11-20 22:45:57'),
+	(270, '270', 'TECH0000000003', 'TOKN000000000270', '16431646eb9d88d82c0d28aa6cbbb141a17e1c1f8f13fbbb99', '1637441177', 't', '2021-11-20 22:46:17'),
+	(271, '271', 'ITADM00001', 'TOKN000000000271', '18c84d8fa8a305c68dc94856e72d2a10bd748eea1bdee825a6', '1638021781', 'it', '2021-11-27 16:03:01'),
+	(272, '272', 'ADMIN00001', 'TOKN000000000272', 'bd4c2a04a3532641563481e14902c4eff33f7f85293158648a', '1638022394', 'a', '2021-11-27 16:13:14'),
+	(273, '273', 'ACCO00001', 'TOKN000000000273', '146e1e8dd5dc1e82630a1ad74cda16eab12b388acabefd07a1', '1638022883', 'acc', '2021-11-27 16:21:24'),
+	(274, '274', 'ACCO00001', 'TOKN000000000274', 'ae1435cfdc2258d80d050710e42c927fae906d67856cbba4a0', '1638022889', 'acc', '2021-11-27 16:21:29'),
+	(275, '275', 'ACCO00001', 'TOKN000000000275', '663840bc25f06b6127c609e511c32d45223cab1cd6ef5306ec', '1638023069', 'acc', '2021-11-27 16:24:29'),
+	(276, '276', 'TECH0000000003', 'TOKN000000000276', '0aea1133bdb4cb58d3caccb2132e2e8120a6ec2388d0a346d1', '1638067315', 't', '2021-11-28 04:41:55'),
+	(277, '277', 'ACCO00001', 'TOKN000000000277', '01a745a3ef690939f79bb300e8248cd183e7377a4b99750889', '1638067537', 'acc', '2021-11-28 04:45:37');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster
-DROP TABLE IF EXISTS `statusmaster`;
 CREATE TABLE IF NOT EXISTS `statusmaster` (
   `StatusMasterID` int(11) NOT NULL AUTO_INCREMENT,
   `StatueCode` char(4) NOT NULL,
@@ -967,7 +960,6 @@ INSERT INTO `statusmaster` (`StatusMasterID`, `StatueCode`, `Statue`) VALUES
 /*!40000 ALTER TABLE `statusmaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.studentattendance
-DROP TABLE IF EXISTS `studentattendance`;
 CREATE TABLE IF NOT EXISTS `studentattendance` (
   `StudentAttendanceID` int(11) NOT NULL AUTO_INCREMENT,
   `StudentID` varchar(50) NOT NULL,
@@ -1003,7 +995,6 @@ INSERT INTO `studentattendance` (`StudentAttendanceID`, `StudentID`, `ClassID`, 
 /*!40000 ALTER TABLE `studentattendance` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.studentdetails
-DROP TABLE IF EXISTS `studentdetails`;
 CREATE TABLE IF NOT EXISTS `studentdetails` (
   `StudentDetailsID` int(11) NOT NULL AUTO_INCREMENT,
   `StudentDetailsPublicID` varchar(50) NOT NULL,
@@ -1030,7 +1021,6 @@ DELETE FROM `studentdetails`;
 /*!40000 ALTER TABLE `studentdetails` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.studentmaster
-DROP TABLE IF EXISTS `studentmaster`;
 CREATE TABLE IF NOT EXISTS `studentmaster` (
   `StudentMasterID` int(11) NOT NULL AUTO_INCREMENT,
   `StudentMasterPublicID` varchar(50) NOT NULL,
@@ -1052,6 +1042,7 @@ CREATE TABLE IF NOT EXISTS `studentmaster` (
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   `Year` year(4) DEFAULT 2021,
   `IsActive` char(1) NOT NULL DEFAULT '0',
+  `IsGraduated` char(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`StudentMasterID`) USING BTREE,
   UNIQUE KEY `StudentNo` (`StudentNo`),
   UNIQUE KEY `StudentMasterPublicID` (`StudentMasterPublicID`),
@@ -1066,26 +1057,25 @@ CREATE TABLE IF NOT EXISTS `studentmaster` (
 -- Dumping data for table 3edu_db.studentmaster: ~14 rows (approximately)
 DELETE FROM `studentmaster`;
 /*!40000 ALTER TABLE `studentmaster` DISABLE KEYS */;
-INSERT INTO `studentmaster` (`StudentMasterID`, `StudentMasterPublicID`, `ProfilePic`, `StudentNo`, `FirstName`, `LastName`, `OtherName`, `GenderID`, `MaritalStatusID`, `ClassMasterPublicID`, `DOB`, `EmailAddress`, `GuardianContactNo`, `GuardianMaleName`, `GuardianFemaleName`, `Address`, `UpdatedBy`, `UpdatedOn`, `Year`, `IsActive`) VALUES
-	(3, 'SDNT0000000001', '../../uploads/3EDU20210005_images.png', 'SN2021028', 'Alinuswe', 'Banda', NULL, 1, 4, 'CLAS0000000004', '1996-05-22', NULL, '097785684', 'Ali Mwanza', 'Tina Type', 'North mind Bwigimfumu', 'it', '2021-05-22 18:01:06', '2021', '1'),
-	(9, 'SDNT0000000005', '../../uploads/3EDU202100010_reri.jpg', 'SN2021029', 'Samuel', 'Banda', 'Liabwa', 1, 3, 'CLAS0000000004', '1992-01-01', NULL, '0977856258', 'Mwamba Liabwa Banda', 'Mwape Liabwa', 'North Mid Lusaka', 'it', '2021-05-22 22:23:33', '2021', '1'),
-	(17, 'SDNT00000000015', '../../uploads/3EDU20210008_lady.png', 'SN2021030', 'Mwaka', 'Vwalika', 'Candy', 1, 4, 'CLAS0000000004', '2004-01-01', NULL, '0977856258', 'Mwamba Liabwa Vwalika', 'Mwape Vwalika', '204 B provident road Fairview', 'it', '2021-05-22 23:57:34', '2021', '1'),
-	(20, 'SDNT00000000018', '../../uploads/defult.png', 'SN2021031', 'Myday', 'Kasalwe', NULL, 2, 1, 'CLAS0000000004', '2004-05-14', NULL, '0977100587', 'Mwamba Liabwa Banda', NULL, 'Luska Zambia', 'it', '2021-05-23 00:13:35', '2021', '1'),
-	(22, 'SDNT00000000026', '../../uploads/defult.png', 'SN2021032', 'Emmanuel', 'Mwando', 'Lukulu', 1, 2, 'CLAS0000000013', '2021-05-07', NULL, '0977100587', 'sdsd', NULL, 'Lusaka, Chelenge', 'it', '2021-05-23 00:31:30', '2021', '1'),
-	(24, 'SDNT00000000028', '../../uploads/3EDU202100033_lady.png', 'SN2021033', 'Test', 'Pupile', NULL, 1, 4, 'CLAS0000000013', '2000-01-01', 'alinuswemwandobo@gmail.com4', '0977100587', 'Mwamba Liabwa Banda', 'Mwape Liabwa', 'Lusaka, Chelenge', 'it', '2021-05-23 21:59:44', '2021', '1'),
-	(27, 'SDNT00000000029', '../../uploads/defult.png', 'SN2021034', 'Mwazube', 'Mkonde', NULL, 1, 4, 'CLAS0000000008', '2021-07-04', NULL, '', 'Mwaba Kaenga', NULL, 'Lusaka Xelston', 'it', '2021-07-04 12:03:36', '2021', '1'),
-	(29, 'SDNT00000000030', '../../uploads/defult.png', 'SN2021035', 'Emmanuel', 'Mwando', 'Mwando', 1, 4, 'CLAS0000000004', '1996-01-01', 'prototype1496@gmail.com', '0977100587', 'Mwamba Liabwa Banda', 'Banda', '204 B provident road Fairview', 'it', '2021-08-07 16:37:46', '2021', '1'),
-	(30, 'SDNT00000000031', '../../uploads/3EDU202100036_marcal.jpg', 'SN2021036', 'Student', 'X', 'Mwando', 1, 4, 'CLAS0000000004', '1996-01-01', 'prototype1496@gmail.com', '0977100587', 'Mwamba Liabwa Banda', 'Banda', '204 B provident road Fairview', 'it', '2021-08-07 16:38:56', '2021', '1'),
-	(31, 'SDNT00000000032', '../../uploads/3EDU20210005_images.png', 'SN2021037', 'Test J', 'John', NULL, 1, 4, 'CLAS0000000004', '2000-12-31', 'prototype1496@gmail.com', '0977100587', 'Mwamba Liabwa Banda', 'Mwandobo', 'Accara', 'it', '2021-08-07 18:31:50', '2021', '1'),
-	(34, 'SDNT00000000035', '../../uploads/defult.png', 'SN2021040', 'Tenant', 'Tenat Nwe', NULL, 1, 1, 'CLAS0000000004', '1996-01-01', 'prototype1496@gmail.com', '0977100587', 'sdsd', 'Mwando', 'Lusaka, Chelenge', 'it', '2021-08-08 07:45:28', '2021', '1'),
-	(35, 'SDNT00000000036', '../../uploads/SN2021041_images.png', 'SN2021041', 'Liko', 'Mwnza', NULL, 2, 4, 'CLAS00000000067', '2003-01-01', 'prototype1496@gmail.com', '0977100587', 'Mwamba Liabwa Banda', 'Mwandobo', 'C/O.Mr.A.B.Mwandobo Flat 23C MURAMBA ROAD CHILENJE', 'ta', '2021-10-14 17:46:42', '2021', '1'),
-	(36, 'SDNT00000000037', '../../uploads/SN2021042_images.png', 'SN2021042', 'Muke', 'Mambwe', NULL, 2, 4, 'CLAS00000000067', '2003-01-01', NULL, '0973609319', 'Mwamba Liabwa Banda', 'Banda', '204 B provident road Fairview', 'Mwaka', '2021-10-14 17:48:40', '2021', '1'),
-	(37, 'SDNT00000000038', '../../uploads/SN2021043_images.png', 'SN2021043', 'Vilkinga', 'Makayi', NULL, 2, 4, 'CLAS00000000067', '2003-01-01', NULL, '0973609319', 'Mwamba Liabwa Banda', 'Banda', '204 B provident road Fairview', 'Mwaka', '2021-10-14 17:49:55', '2021', '1'),
-	(38, 'SDNT00000000039', '../../uploads/SN2021044_images.png', 'SN2021044', 'Minza', 'Munati', NULL, 1, 4, 'CLAS00000000068', '2003-12-31', 'prototype1496@gmail.com', '0977100587', 'Mwamba Liabwa Banda', 'Mwando', 'Lusaka, Chelenge', 'ali_admin', '2021-10-18 11:36:10', '2021', '1');
+INSERT INTO `studentmaster` (`StudentMasterID`, `StudentMasterPublicID`, `ProfilePic`, `StudentNo`, `FirstName`, `LastName`, `OtherName`, `GenderID`, `MaritalStatusID`, `ClassMasterPublicID`, `DOB`, `EmailAddress`, `GuardianContactNo`, `GuardianMaleName`, `GuardianFemaleName`, `Address`, `UpdatedBy`, `UpdatedOn`, `Year`, `IsActive`, `IsGraduated`) VALUES
+	(3, 'SDNT0000000001', '../../uploads/3EDU20210005_images.png', 'SN2021028', 'Alinuswe', 'Banda', NULL, 1, 4, 'CLAS0000000004', '1996-05-22', NULL, '097785684', 'Ali Mwanza', 'Tina Type', 'North mind Bwigimfumu', 'it', '2021-05-22 18:01:06', '2021', '1', '0'),
+	(9, 'SDNT0000000005', '../../uploads/3EDU202100010_reri.jpg', 'SN2021029', 'Samuel', 'Banda', 'Liabwa', 1, 3, 'CLAS0000000004', '1992-01-01', NULL, '0977856258', 'Mwamba Liabwa Banda', 'Mwape Liabwa', 'North Mid Lusaka', 'it', '2021-05-22 22:23:33', '2021', '1', '0'),
+	(17, 'SDNT00000000015', '../../uploads/3EDU20210008_lady.png', 'SN2021030', 'Mwaka', 'Vwalika', 'Candy', 1, 4, 'CLAS0000000004', '2004-01-01', NULL, '0977856258', 'Mwamba Liabwa Vwalika', 'Mwape Vwalika', '204 B provident road Fairview', 'it', '2021-05-22 23:57:34', '2021', '1', '0'),
+	(20, 'SDNT00000000018', '../../uploads/defult.png', 'SN2021031', 'Myday', 'Kasalwe', NULL, 2, 1, 'CLAS0000000004', '2004-05-14', NULL, '0977100587', 'Mwamba Liabwa Banda', NULL, 'Luska Zambia', 'it', '2021-05-23 00:13:35', '2021', '1', '0'),
+	(22, 'SDNT00000000026', '../../uploads/defult.png', 'SN2021032', 'Emmanuel', 'Mwando', 'Lukulu', 1, 2, 'CLAS0000000013', '2021-05-07', NULL, '0977100587', 'sdsd', NULL, 'Lusaka, Chelenge', 'it', '2021-05-23 00:31:30', '2021', '1', '0'),
+	(24, 'SDNT00000000028', '../../uploads/3EDU202100033_lady.png', 'SN2021033', 'Test', 'Pupile', NULL, 1, 4, 'CLAS0000000013', '2000-01-01', 'alinuswemwandobo@gmail.com4', '0977100587', 'Mwamba Liabwa Banda', 'Mwape Liabwa', 'Lusaka, Chelenge', 'it', '2021-05-23 21:59:44', '2021', '1', '0'),
+	(27, 'SDNT00000000029', '../../uploads/defult.png', 'SN2021034', 'Mwazube', 'Mkonde', NULL, 1, 4, 'CLAS0000000008', '2021-07-04', NULL, '', 'Mwaba Kaenga', NULL, 'Lusaka Xelston', 'it', '2021-07-04 12:03:36', '2021', '1', '0'),
+	(29, 'SDNT00000000030', '../../uploads/defult.png', 'SN2021035', 'Emmanuel', 'Mwando', 'Mwando', 1, 4, 'CLAS0000000004', '1996-01-01', 'prototype1496@gmail.com', '0977100587', 'Mwamba Liabwa Banda', 'Banda', '204 B provident road Fairview', 'it', '2021-08-07 16:37:46', '2021', '1', '0'),
+	(30, 'SDNT00000000031', '../../uploads/3EDU202100036_marcal.jpg', 'SN2021036', 'Student', 'X', 'Mwando', 1, 4, 'CLAS0000000004', '1996-01-01', 'prototype1496@gmail.com', '0977100587', 'Mwamba Liabwa Banda', 'Banda', '204 B provident road Fairview', 'it', '2021-08-07 16:38:56', '2021', '1', '0'),
+	(31, 'SDNT00000000032', '../../uploads/3EDU20210005_images.png', 'SN2021037', 'Test J', 'John', NULL, 1, 4, 'CLAS0000000004', '2000-12-31', 'prototype1496@gmail.com', '0977100587', 'Mwamba Liabwa Banda', 'Mwandobo', 'Accara', 'it', '2021-08-07 18:31:50', '2021', '1', '0'),
+	(34, 'SDNT00000000035', '../../uploads/defult.png', 'SN2021040', 'Tenant', 'Tenat Nwe', NULL, 1, 1, 'CLAS0000000004', '1996-01-01', 'prototype1496@gmail.com', '0977100587', 'sdsd', 'Mwando', 'Lusaka, Chelenge', 'it', '2021-08-08 07:45:28', '2021', '1', '0'),
+	(35, 'SDNT00000000036', '../../uploads/SN2021041_images.png', 'SN2021041', 'Liko', 'Mwnza', NULL, 2, 4, 'CLAS00000000067', '2003-01-01', 'prototype1496@gmail.com', '0977100587', 'Mwamba Liabwa Banda', 'Mwandobo', 'C/O.Mr.A.B.Mwandobo Flat 23C MURAMBA ROAD CHILENJE', 'ta', '2021-10-14 17:46:42', '2021', '1', '0'),
+	(36, 'SDNT00000000037', '../../uploads/SN2021042_images.png', 'SN2021042', 'Muke', 'Mambwe', NULL, 2, 4, 'CLAS00000000067', '2003-01-01', NULL, '0973609319', 'Mwamba Liabwa Banda', 'Banda', '204 B provident road Fairview', 'Mwaka', '2021-10-14 17:48:40', '2021', '1', '0'),
+	(37, 'SDNT00000000038', '../../uploads/SN2021043_images.png', 'SN2021043', 'Vilkinga', 'Makayi', NULL, 2, 4, 'CLAS00000000067', '2003-01-01', NULL, '0973609319', 'Mwamba Liabwa Banda', 'Banda', '204 B provident road Fairview', 'Mwaka', '2021-10-14 17:49:55', '2021', '1', '0'),
+	(38, 'SDNT00000000039', '../../uploads/SN2021044_images.png', 'SN2021044', 'Minza', 'Munati', NULL, 1, 4, 'CLAS00000000068', '2003-12-31', 'prototype1496@gmail.com', '0977100587', 'Mwamba Liabwa Banda', 'Mwando', 'Lusaka, Chelenge', 'ali_admin', '2021-10-18 11:36:10', '2021', '1', '0');
 /*!40000 ALTER TABLE `studentmaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.studnetassesment
-DROP TABLE IF EXISTS `studnetassesment`;
 CREATE TABLE IF NOT EXISTS `studnetassesment` (
   `StudnetAssesmenID` int(11) NOT NULL AUTO_INCREMENT,
   `StudentMasterPublicID` varchar(50) NOT NULL,
@@ -1120,7 +1110,6 @@ INSERT INTO `studnetassesment` (`StudnetAssesmenID`, `StudentMasterPublicID`, `A
 /*!40000 ALTER TABLE `studnetassesment` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.subjectmater
-DROP TABLE IF EXISTS `subjectmater`;
 CREATE TABLE IF NOT EXISTS `subjectmater` (
   `SubjectMaterID` int(11) NOT NULL AUTO_INCREMENT,
   `SubjectName` varchar(50) NOT NULL,
@@ -1185,7 +1174,6 @@ INSERT INTO `subjectmater` (`SubjectMaterID`, `SubjectName`, `SubjectCode`, `Dep
 /*!40000 ALTER TABLE `subjectmater` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.teacherdetails
-DROP TABLE IF EXISTS `teacherdetails`;
 CREATE TABLE IF NOT EXISTS `teacherdetails` (
   `TeacherDetailsID` int(11) NOT NULL AUTO_INCREMENT,
   `TeacherDetailsPublicID` varchar(50) NOT NULL,
@@ -1227,7 +1215,6 @@ INSERT INTO `teacherdetails` (`TeacherDetailsID`, `TeacherDetailsPublicID`, `Tea
 /*!40000 ALTER TABLE `teacherdetails` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.teacherdocument
-DROP TABLE IF EXISTS `teacherdocument`;
 CREATE TABLE IF NOT EXISTS `teacherdocument` (
   `TeacherdocumentID` int(11) NOT NULL AUTO_INCREMENT,
   `Title` varchar(50) NOT NULL,
@@ -1255,7 +1242,6 @@ INSERT INTO `teacherdocument` (`TeacherdocumentID`, `Title`, `DocumentTypeID`, `
 /*!40000 ALTER TABLE `teacherdocument` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.teachermaster
-DROP TABLE IF EXISTS `teachermaster`;
 CREATE TABLE IF NOT EXISTS `teachermaster` (
   `TeacherID` int(11) NOT NULL AUTO_INCREMENT,
   `TeaherMasterPublicID` varchar(50) NOT NULL,
@@ -1279,7 +1265,7 @@ DELETE FROM `teachermaster`;
 /*!40000 ALTER TABLE `teachermaster` DISABLE KEYS */;
 INSERT INTO `teachermaster` (`TeacherID`, `TeaherMasterPublicID`, `TeacherPositionID`, `DeparmrntCode`, `StartDate`, `EndDate`, `UpdatedBy`, `UpdatedOn`, `IsActive`) VALUES
 	(1, 'TECH0000000001', 3, 'Math', '2020-05-24 16:25:03', NULL, 'it', '2020-05-24 16:25:06', '1'),
-	(2, 'TECH0000000003', 4, 'EXAT', '2020-06-15 22:56:50', NULL, 'it', '2020-06-15 22:56:50', '0'),
+	(2, 'TECH0000000003', 4, 'EXAT', '2020-06-15 22:56:50', NULL, 'it', '2020-06-15 22:56:50', '1'),
 	(6, 'TECH00000000068', 1, 'EXAT', '2021-08-21 17:24:46', NULL, 'it', '2021-08-21 17:24:46', '1'),
 	(9, 'TECH00000000079', 1, 'EXAT', '2021-08-21 18:02:09', NULL, 'it', '2021-08-21 18:02:09', '1'),
 	(10, 'TECH00000000080', 4, 'EGLA', '2021-08-21 18:05:08', NULL, 'it', '2021-08-21 18:05:08', '1'),
@@ -1292,7 +1278,6 @@ INSERT INTO `teachermaster` (`TeacherID`, `TeaherMasterPublicID`, `TeacherPositi
 /*!40000 ALTER TABLE `teachermaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.teacherpositionmaster
-DROP TABLE IF EXISTS `teacherpositionmaster`;
 CREATE TABLE IF NOT EXISTS `teacherpositionmaster` (
   `TeacherPositionMasterID` int(11) NOT NULL AUTO_INCREMENT,
   `PositionName` varchar(50) NOT NULL,
@@ -1315,7 +1300,6 @@ INSERT INTO `teacherpositionmaster` (`TeacherPositionMasterID`, `PositionName`, 
 /*!40000 ALTER TABLE `teacherpositionmaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.tenantmaster
-DROP TABLE IF EXISTS `tenantmaster`;
 CREATE TABLE IF NOT EXISTS `tenantmaster` (
   `TenantMasterID` int(11) NOT NULL AUTO_INCREMENT,
   `TenantID` varchar(400) NOT NULL,
@@ -1338,8 +1322,30 @@ INSERT INTO `tenantmaster` (`TenantMasterID`, `TenantID`, `TenantName`, `Updated
 	(12, 'Ama616d2ea1a78213.69918222', 'Amazing Grace', '2021-10-18 10:21:53', '1');
 /*!40000 ALTER TABLE `tenantmaster` ENABLE KEYS */;
 
+-- Dumping structure for table 3edu_db.termmaster
+CREATE TABLE IF NOT EXISTS `termmaster` (
+  `TermMasterID` int(11) NOT NULL AUTO_INCREMENT,
+  `TenantID` varchar(5000) NOT NULL,
+  `TermName` varchar(50) NOT NULL,
+  `IsSysActive` char(1) NOT NULL DEFAULT '0',
+  `IsActive` char(1) NOT NULL DEFAULT '0',
+  `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`TermMasterID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table 3edu_db.termmaster: ~6 rows (approximately)
+DELETE FROM `termmaster`;
+/*!40000 ALTER TABLE `termmaster` DISABLE KEYS */;
+INSERT INTO `termmaster` (`TermMasterID`, `TenantID`, `TermName`, `IsSysActive`, `IsActive`, `UpdatedOn`) VALUES
+	(1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'Term 1', '0', '1', '2021-11-27 15:10:22'),
+	(2, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'Term 2', '0', '1', '2021-11-27 15:10:30'),
+	(3, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'Term 3 ', '1', '1', '2021-11-27 15:10:40'),
+	(4, 'Ama616d2ea1a78213.69918222', 'Term 1', '0', '1', '2021-11-27 15:11:03'),
+	(5, 'Ama616d2ea1a78213.69918222', 'Term 2', '0', '1', '2021-11-27 15:11:11'),
+	(6, 'Ama616d2ea1a78213.69918222', 'Term 3', '1', '1', '2021-11-27 15:11:23');
+/*!40000 ALTER TABLE `termmaster` ENABLE KEYS */;
+
 -- Dumping structure for table 3edu_db.timetabledetails
-DROP TABLE IF EXISTS `timetabledetails`;
 CREATE TABLE IF NOT EXISTS `timetabledetails` (
   `TimeTableDetailsID` int(11) NOT NULL AUTO_INCREMENT,
   `TimeTableMaterD` int(11) NOT NULL,
@@ -1385,7 +1391,6 @@ INSERT INTO `timetabledetails` (`TimeTableDetailsID`, `TimeTableMaterD`, `Monday
 /*!40000 ALTER TABLE `timetabledetails` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.timetablemaster
-DROP TABLE IF EXISTS `timetablemaster`;
 CREATE TABLE IF NOT EXISTS `timetablemaster` (
   `TimeTableMasterID` int(11) NOT NULL AUTO_INCREMENT,
   `ClassMasterID` varchar(50) NOT NULL,
@@ -1427,7 +1432,6 @@ INSERT INTO `timetablemaster` (`TimeTableMasterID`, `ClassMasterID`, `PeriodMast
 /*!40000 ALTER TABLE `timetablemaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.titlemaster
-DROP TABLE IF EXISTS `titlemaster`;
 CREATE TABLE IF NOT EXISTS `titlemaster` (
   `TitleMasterID` int(11) NOT NULL AUTO_INCREMENT,
   `LongName` varchar(50) DEFAULT NULL,
@@ -1447,7 +1451,6 @@ INSERT INTO `titlemaster` (`TitleMasterID`, `LongName`, `ShortName`, `isActive`)
 /*!40000 ALTER TABLE `titlemaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.usermaster
-DROP TABLE IF EXISTS `usermaster`;
 CREATE TABLE IF NOT EXISTS `usermaster` (
   `UserMasterID` int(11) NOT NULL AUTO_INCREMENT,
   `PublicID` varchar(20) NOT NULL,
@@ -1482,14 +1485,14 @@ CREATE TABLE IF NOT EXISTS `usermaster` (
   CONSTRAINT `FK_usermaster_maritalstatusmaster` FOREIGN KEY (`MaritalStatusID`) REFERENCES `maritalstatusmaster` (`MaritalStatusMasterID`) ON UPDATE CASCADE,
   CONSTRAINT `FK_usermaster_tenantmaster` FOREIGN KEY (`TenantID`) REFERENCES `tenantmaster` (`TenantID`) ON UPDATE CASCADE,
   CONSTRAINT `FK_usermaster_usertypemaster` FOREIGN KEY (`UserTypeID`) REFERENCES `usertypemaster` (`UserTypeMasterID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.usermaster: ~23 rows (approximately)
+-- Dumping data for table 3edu_db.usermaster: ~24 rows (approximately)
 DELETE FROM `usermaster`;
 /*!40000 ALTER TABLE `usermaster` DISABLE KEYS */;
 INSERT INTO `usermaster` (`UserMasterID`, `PublicID`, `ProfilPicURL`, `NRC`, `Passport`, `UserName`, `Password`, `FirstName`, `LastName`, `OtherName`, `EmailAddress`, `ContactNo`, `GenderID`, `MaritalStatusID`, `DOB`, `UserTypeID`, `UpdatedBy`, `UpdatedOn`, `IsActive`, `LoginAttempts`, `IsLocked`, `TenantID`) VALUES
 	(1, 'TECH0000000001', '../../uploads/defult.png', '55445/16/1', 'cc', 'h', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Head', 'System', 'Teacher', 'prototype1496@gmail.com', '988755487', 1, 4, '1997-01-02', 3, 'it', '2019-11-14 08:56:25', '1', '0', '0', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
-	(2, 'TECH0000000003', '../../uploads/defult.png', '515151/8/8', '74444/45/45', 't', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Alinuswe', 'Mwandobo', NULL, 'alinuswemwandobo@gmail.com', '977100587', 1, 1, '1996-01-01', 3, 'it', '2020-11-20 11:52:45', '1', '0', '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
+	(2, 'TECH0000000003', '../../uploads/defult.png', '515151/8/8', '74444/45/45', 't', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Alinuswe', 'Mwandobo', NULL, 'alinuswemwandobo@gmail.com', '977100587', 1, 1, '1996-01-01', 3, 'it', '2020-11-20 11:52:45', '1', '0', '0', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(5, 'ADMIN00001', '../../uploads/defult.png', NULL, NULL, 'a', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'System', 'Admin', NULL, 'sys@gmail.com', '097758568', 1, 4, '2021-06-18', 1, 'sys', '2021-06-18 11:00:21', '1', '0', '0', '3edu_29294e8-f7a1-11eb-a81c-1062e5c23520'),
 	(7, 'ITADM00001', '../../uploads/defult.png', NULL, NULL, 'it', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'IT', 'Admin', NULL, NULL, NULL, 1, 4, '2021-08-07', 4, 'sys', '2021-08-07 08:22:21', '1', '0', '0', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(8, 'SDNT00000000031', '../../uploads/defult.png', NULL, NULL, 'SN2021036', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Student', 'X', 'Mwando', NULL, NULL, 1, 4, '1996-01-01', 2, 'it', '2021-08-07 17:49:45', '1', '0', '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
@@ -1510,31 +1513,31 @@ INSERT INTO `usermaster` (`UserMasterID`, `PublicID`, `ProfilPicURL`, `NRC`, `Pa
 	(55, 'ITAD00000000024', '../../uploads/it_profile/ITAD00000000024_images.png', NULL, '74444/45/40', 'ali_admin', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Alinuswe', 'Mwandobo', 'Boston', 'alinuswemwandobo@gmail.com', '09756666666', 1, 4, '1996-10-31', 4, 'a', '2021-10-18 10:21:53', '1', '0', '0', 'Ama616d2ea1a78213.69918222'),
 	(56, 'TECH000000000104', '../../uploads/teacher_profile/TECH000000000104_marcal.jpg', '515151/8/8', NULL, 'nakamba', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Nakamba', 'Nonde', NULL, 'nakmaba.node@gmsil.com', '0977100586', 2, 1, '1996-01-01', 3, 'ali_admin', '2021-10-18 10:42:04', '1', '0', '0', 'Ama616d2ea1a78213.69918222'),
 	(57, 'SDNT00000000039', '../../uploads/defult.png', NULL, NULL, 'SN2021044', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Minza', 'Munati', NULL, NULL, NULL, 1, 4, '2003-12-31', 2, 'ali_admin', '2021-10-18 11:36:10', '1', '0', '0', 'Ama616d2ea1a78213.69918222'),
-	(58, 'TECH000000000105', '../../uploads/defult.png', '515151/8/8', NULL, 'alinuani', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Alinanu', 'Mwaza', NULL, 'heramaureenscents@gmail.com', '0977100588', 1, 1, '1996-12-31', 3, 'ali_admin', '2021-10-18 11:56:49', '1', '0', '0', 'Ama616d2ea1a78213.69918222');
+	(58, 'TECH000000000105', '../../uploads/defult.png', '515151/8/8', NULL, 'alinuani', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Alinanu', 'Mwaza', NULL, 'heramaureenscents@gmail.com', '0977100588', 1, 1, '1996-12-31', 3, 'ali_admin', '2021-10-18 11:56:49', '1', '0', '0', 'Ama616d2ea1a78213.69918222'),
+	(63, 'ACCO00001', '../../uploads/defult.png', NULL, NULL, 'acc', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'School ', 'Accountant', NULL, 'acc@gmail.com', '0975688416', 1, 4, '1996-01-01', 5, 'sys', '2021-11-27 16:16:29', '1', '0', '0', '5fe7597e-f7a1-11eb-a81c-1062e5c23529');
 /*!40000 ALTER TABLE `usermaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.usertypemaster
-DROP TABLE IF EXISTS `usertypemaster`;
 CREATE TABLE IF NOT EXISTS `usertypemaster` (
   `UserTypeMasterID` int(11) NOT NULL AUTO_INCREMENT,
   `UserType` varchar(20) NOT NULL,
   `IsActive` char(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`UserTypeMasterID`),
   UNIQUE KEY `UserType` (`UserType`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.usertypemaster: ~4 rows (approximately)
+-- Dumping data for table 3edu_db.usertypemaster: ~5 rows (approximately)
 DELETE FROM `usertypemaster`;
 /*!40000 ALTER TABLE `usertypemaster` DISABLE KEYS */;
 INSERT INTO `usertypemaster` (`UserTypeMasterID`, `UserType`, `IsActive`) VALUES
 	(1, 'Admin', '1'),
 	(2, 'Student', '1'),
 	(3, 'Teacher', '1'),
-	(4, 'ITAdmin', '1');
+	(4, 'ITAdmin', '1'),
+	(5, 'Acountant', '1');
 /*!40000 ALTER TABLE `usertypemaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.user_tb
-DROP TABLE IF EXISTS `user_tb`;
 CREATE TABLE IF NOT EXISTS `user_tb` (
   `userId` int(11) NOT NULL AUTO_INCREMENT,
   `firstName` varchar(30) NOT NULL,
@@ -1551,7 +1554,6 @@ DELETE FROM `user_tb`;
 /*!40000 ALTER TABLE `user_tb` ENABLE KEYS */;
 
 -- Dumping structure for view 3edu_db.vwsequncemaster
-DROP VIEW IF EXISTS `vwsequncemaster`;
 -- Creating temporary table to overcome VIEW dependency errors
 CREATE TABLE `vwsequncemaster` (
 	`SequenceMasterID` INT(11) NOT NULL,
@@ -1561,7 +1563,6 @@ CREATE TABLE `vwsequncemaster` (
 ) ENGINE=MyISAM;
 
 -- Dumping structure for procedure 3edu_db.ActivateUser
-DROP PROCEDURE IF EXISTS `ActivateUser`;
 DELIMITER //
 CREATE PROCEDURE `ActivateUser`(
 	IN `UserMasterID_` INT
@@ -1581,7 +1582,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.DeactivateUser
-DROP PROCEDURE IF EXISTS `DeactivateUser`;
 DELIMITER //
 CREATE PROCEDURE `DeactivateUser`(
 	IN `UserMasterID_` INT
@@ -1604,7 +1604,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAccessmentByStudentPublicID
-DROP PROCEDURE IF EXISTS `GetAccessmentByStudentPublicID`;
 DELIMITER //
 CREATE PROCEDURE `GetAccessmentByStudentPublicID`(
 	IN `STUDENTPUBLICID` VARCHAR(100)
@@ -1630,8 +1629,21 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure 3edu_db.GetActiveTermByID
+DELIMITER //
+CREATE PROCEDURE `GetActiveTermByID`(
+	IN `TenantID_` VARCHAR(500)
+)
+BEGIN
+			SELECT TM.TermMasterID 'TermMasterID',
+					 TM.TenantID		'TenantID',
+					 TM.TermName		'TermName',
+					 TM.IsSysActive 	'IsSysActive'
+			FROM termmaster TM WHERE TM.TenantID = TenantID_ AND  TM.IsActive;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure 3edu_db.GetAllActiveAssecmentTypesBYTenantID
-DROP PROCEDURE IF EXISTS `GetAllActiveAssecmentTypesBYTenantID`;
 DELIMITER //
 CREATE PROCEDURE `GetAllActiveAssecmentTypesBYTenantID`(
 	IN `TenanantID_` VARCHAR(300)
@@ -1646,7 +1658,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllActiveClasses
-DROP PROCEDURE IF EXISTS `GetAllActiveClasses`;
 DELIMITER //
 CREATE PROCEDURE `GetAllActiveClasses`(
 	IN `TenantID` VARCHAR(400)
@@ -1668,7 +1679,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllActivePeriods
-DROP PROCEDURE IF EXISTS `GetAllActivePeriods`;
 DELIMITER //
 CREATE PROCEDURE `GetAllActivePeriods`(
 	IN `SchoolID` VARCHAR(50)
@@ -1681,7 +1691,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllActivesGradesByTenantID
-DROP PROCEDURE IF EXISTS `GetAllActivesGradesByTenantID`;
 DELIMITER //
 CREATE PROCEDURE `GetAllActivesGradesByTenantID`(
 	IN `TenantID` VARCHAR(400)
@@ -1695,7 +1704,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllClasses
-DROP PROCEDURE IF EXISTS `GetAllClasses`;
 DELIMITER //
 CREATE PROCEDURE `GetAllClasses`()
 BEGIN
@@ -1708,7 +1716,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllClassesByGradeID
-DROP PROCEDURE IF EXISTS `GetAllClassesByGradeID`;
 DELIMITER //
 CREATE PROCEDURE `GetAllClassesByGradeID`(
 	IN `GradeID` INT
@@ -1723,7 +1730,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllClassesByTenantID
-DROP PROCEDURE IF EXISTS `GetAllClassesByTenantID`;
 DELIMITER //
 CREATE PROCEDURE `GetAllClassesByTenantID`(
 	IN `TenantID` VARCHAR(300)
@@ -1738,7 +1744,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllClassesWithMappedSubjects
-DROP PROCEDURE IF EXISTS `GetAllClassesWithMappedSubjects`;
 DELIMITER //
 CREATE PROCEDURE `GetAllClassesWithMappedSubjects`(
 	IN `TenantID_` VARCHAR(500)
@@ -1754,7 +1759,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllDepartmentsByShoolID
-DROP PROCEDURE IF EXISTS `GetAllDepartmentsByShoolID`;
 DELIMITER //
 CREATE PROCEDURE `GetAllDepartmentsByShoolID`(
 	IN `SHOOLID` VARCHAR(50)
@@ -1770,7 +1774,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllPeriods
-DROP PROCEDURE IF EXISTS `GetAllPeriods`;
 DELIMITER //
 CREATE PROCEDURE `GetAllPeriods`(
 	IN `CLASSMASTERID_` VARCHAR(50)
@@ -1792,7 +1795,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllPeriodsBySchoolID
-DROP PROCEDURE IF EXISTS `GetAllPeriodsBySchoolID`;
 DELIMITER //
 CREATE PROCEDURE `GetAllPeriodsBySchoolID`(
 	IN `SchoolID` VARCHAR(50)
@@ -1809,7 +1811,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllSchoolDetails
-DROP PROCEDURE IF EXISTS `GetAllSchoolDetails`;
 DELIMITER //
 CREATE PROCEDURE `GetAllSchoolDetails`()
 BEGIN
@@ -1834,7 +1835,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllSchoolDetailsBySchoolID
-DROP PROCEDURE IF EXISTS `GetAllSchoolDetailsBySchoolID`;
 DELIMITER //
 CREATE PROCEDURE `GetAllSchoolDetailsBySchoolID`(
 	IN `SCHOOLPUBLICID` VARCHAR(50)
@@ -1861,7 +1861,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllStudentDetails
-DROP PROCEDURE IF EXISTS `GetAllStudentDetails`;
 DELIMITER //
 CREATE PROCEDURE `GetAllStudentDetails`(
 	IN `TenantID` VARCHAR(400)
@@ -1890,7 +1889,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllStudentDetailsByClassID
-DROP PROCEDURE IF EXISTS `GetAllStudentDetailsByClassID`;
 DELIMITER //
 CREATE PROCEDURE `GetAllStudentDetailsByClassID`(
 	IN `ClassID` VARCHAR(50)
@@ -1916,10 +1914,9 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllStudentDetailsByClassMasterPublicID
-DROP PROCEDURE IF EXISTS `GetAllStudentDetailsByClassMasterPublicID`;
 DELIMITER //
 CREATE PROCEDURE `GetAllStudentDetailsByClassMasterPublicID`(
-	IN `CLASSMASTERPUBLICID_` VARCHAR(50),
+	IN `CLASSMASTERPUBLICID_` VARCHAR(100),
 	IN `ATENDANCYTYPEID_` INT
 )
 BEGIN
@@ -1929,6 +1926,7 @@ BEGIN
 			SELECT 	SM.StudentMasterPublicID																																AS 'StudentMasterPublicID',
 						SM.StudentNo																																				AS 'StudentNo',
 						CONCAT(SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName,' (',GM.ShortName,')' )		AS 'NameInfo', 
+						CONCAT(SM.StudentNo,'-',SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName,' (',GM.ShortName,')' )		AS 'NameData',
 						CONCAT(SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName )									AS 'Name', 
 						CONCAT(CM.ClassName, ' (',CM.ClassCode,')') 																										AS  'Class',
 					 	SM.GuardianContactNo																																		AS 'ContactNo',
@@ -1943,7 +1941,8 @@ BEGIN
 			FROM studentmaster SM
 			JOIN gendermaster GM ON GM.GenderMasterID = SM.GenderID
 			JOIN maritalstatusmaster MSM ON MSM.MaritalStatusMasterID = SM.MaritalStatusID 
-			JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID WHERE CM.ClassMasterPublicID = @CLASSMASTERPUBLICID  AND SM.IsActive = 1 
+			JOIN usermaster UM ON UM.PublicID = SM.StudentMasterPublicID
+			JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID WHERE CM.ClassMasterPublicID = @CLASSMASTERPUBLICID  AND SM.IsActive = 1 AND UM.IsActive = 1
 		
 			
 			ORDER BY SM.FirstName,SM.LastName,SM.StudentNo ASC;
@@ -1952,7 +1951,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllStudentDetailsByPublicID
-DROP PROCEDURE IF EXISTS `GetAllStudentDetailsByPublicID`;
 DELIMITER //
 CREATE PROCEDURE `GetAllStudentDetailsByPublicID`(
 	IN `PUBLICID_` VARCHAR(50)
@@ -1985,7 +1983,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllStudentDetailsByStudentNo
-DROP PROCEDURE IF EXISTS `GetAllStudentDetailsByStudentNo`;
 DELIMITER //
 CREATE PROCEDURE `GetAllStudentDetailsByStudentNo`(
 	IN `StudentNo` VARCHAR(50)
@@ -2013,7 +2010,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllSubjects
-DROP PROCEDURE IF EXISTS `GetAllSubjects`;
 DELIMITER //
 CREATE PROCEDURE `GetAllSubjects`()
 BEGIN
@@ -2025,7 +2021,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllSubjectsBySchooID
-DROP PROCEDURE IF EXISTS `GetAllSubjectsBySchooID`;
 DELIMITER //
 CREATE PROCEDURE `GetAllSubjectsBySchooID`(
 	IN `SCHOOLID_` VARCHAR(50)
@@ -2046,7 +2041,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllTeacherDetailsByID
-DROP PROCEDURE IF EXISTS `GetAllTeacherDetailsByID`;
 DELIMITER //
 CREATE PROCEDURE `GetAllTeacherDetailsByID`(
 	IN `TenantID` VARCHAR(400),
@@ -2074,7 +2068,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllTeacherDetailsByTenantID
-DROP PROCEDURE IF EXISTS `GetAllTeacherDetailsByTenantID`;
 DELIMITER //
 CREATE PROCEDURE `GetAllTeacherDetailsByTenantID`(
 	IN `TenantID_` VARCHAR(500)
@@ -2100,7 +2093,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAllTeacherLessionPlanDocuments
-DROP PROCEDURE IF EXISTS `GetAllTeacherLessionPlanDocuments`;
 DELIMITER //
 CREATE PROCEDURE `GetAllTeacherLessionPlanDocuments`(
 	IN `TenantID_` VARCHAR(300)
@@ -2124,7 +2116,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAssecmentTypeBySubjectCode
-DROP PROCEDURE IF EXISTS `GetAssecmentTypeBySubjectCode`;
 DELIMITER //
 CREATE PROCEDURE `GetAssecmentTypeBySubjectCode`(
 	IN `CLASSMASTERID` VARCHAR(50),
@@ -2145,7 +2136,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetAssecmwntTye
-DROP PROCEDURE IF EXISTS `GetAssecmwntTye`;
 DELIMITER //
 CREATE PROCEDURE `GetAssecmwntTye`(
 	IN `StudentMasterPublicID_` INT
@@ -2172,7 +2162,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetClassByGreadeID
-DROP PROCEDURE IF EXISTS `GetClassByGreadeID`;
 DELIMITER //
 CREATE PROCEDURE `GetClassByGreadeID`(
 	IN `GradeID` INT
@@ -2188,7 +2177,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetClassDetailsByID
-DROP PROCEDURE IF EXISTS `GetClassDetailsByID`;
 DELIMITER //
 CREATE PROCEDURE `GetClassDetailsByID`(
 	IN `ClassMasterID` VARCHAR(50)
@@ -2213,7 +2201,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetClassDetailsByPublicID
-DROP PROCEDURE IF EXISTS `GetClassDetailsByPublicID`;
 DELIMITER //
 CREATE PROCEDURE `GetClassDetailsByPublicID`(
 	IN `CLASSMASTERID_` VARCHAR(50)
@@ -2229,7 +2216,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetClassRoomsByID
-DROP PROCEDURE IF EXISTS `GetClassRoomsByID`;
 DELIMITER //
 CREATE PROCEDURE `GetClassRoomsByID`(
 	IN `TenantID` VARCHAR(400)
@@ -2242,7 +2228,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetClassSubjectsByClassMasterID
-DROP PROCEDURE IF EXISTS `GetClassSubjectsByClassMasterID`;
 DELIMITER //
 CREATE PROCEDURE `GetClassSubjectsByClassMasterID`(
 	IN `CLASSMASTERID` VARCHAR(50)
@@ -2260,7 +2245,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetClassSubjectsByID
-DROP PROCEDURE IF EXISTS `GetClassSubjectsByID`;
 DELIMITER //
 CREATE PROCEDURE `GetClassSubjectsByID`(
 	IN `ClassMasterID` VARCHAR(50),
@@ -2282,7 +2266,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetCompleteTeacherDetailsByID
-DROP PROCEDURE IF EXISTS `GetCompleteTeacherDetailsByID`;
 DELIMITER //
 CREATE PROCEDURE `GetCompleteTeacherDetailsByID`(
 	IN `TenantID` VARCHAR(500),
@@ -2310,7 +2293,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetCompletStudentDetails
-DROP PROCEDURE IF EXISTS `GetCompletStudentDetails`;
 DELIMITER //
 CREATE PROCEDURE `GetCompletStudentDetails`(
 	IN `TenantID` VARCHAR(500)
@@ -2339,7 +2321,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetCountryCode
-DROP PROCEDURE IF EXISTS `GetCountryCode`;
 DELIMITER //
 CREATE PROCEDURE `GetCountryCode`()
 BEGIN
@@ -2350,7 +2331,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetDashboardUserCounts
-DROP PROCEDURE IF EXISTS `GetDashboardUserCounts`;
 DELIMITER //
 CREATE PROCEDURE `GetDashboardUserCounts`(
 	IN `TENANTID_` VARCHAR(400)
@@ -2380,8 +2360,25 @@ SELECT @TOTALUSERS 																		AS 'TotalUsers',
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure 3edu_db.GetDefultGradeCharges
+DELIMITER //
+CREATE PROCEDURE `GetDefultGradeCharges`(
+	IN `TenantID_` VARCHAR(500),
+	IN `NotUsed` INT
+)
+BEGIN
+			SELECT GM.GradeMasterID												AS 'GradeMasterID',
+					 GM.Grade														AS	'Grade',
+					 0 																AS 'Amount',
+					 'System' 														AS 'UpdatedBy',
+					DATE_FORMAT(CURRENT_TIMESTAMP(), "%d %b, %Y")		AS 'UpdatedOn',
+					'No'																AS  'IsCharged'	
+					 	
+			FROM grademaster GM WHERE GM.TenantID = TenantID_ AND GM.IsActive = 1 ORDER BY GM.GradeMasterID ASC;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure 3edu_db.GetDepartmentByCode
-DROP PROCEDURE IF EXISTS `GetDepartmentByCode`;
 DELIMITER //
 CREATE PROCEDURE `GetDepartmentByCode`(
 	IN `DEPARTMENTCODE_` CHAR(4)
@@ -2398,7 +2395,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetDistrictByProvinceId
-DROP PROCEDURE IF EXISTS `GetDistrictByProvinceId`;
 DELIMITER //
 CREATE PROCEDURE `GetDistrictByProvinceId`(
 	IN `Provinceid` INT
@@ -2415,7 +2411,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GeteacherLessionPlanDocumentsByID
-DROP PROCEDURE IF EXISTS `GeteacherLessionPlanDocumentsByID`;
 DELIMITER //
 CREATE PROCEDURE `GeteacherLessionPlanDocumentsByID`(
 	IN `TeaherMasterPublicID_` VARCHAR(50)
@@ -2439,7 +2434,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetEmailAdressByPositionID
-DROP PROCEDURE IF EXISTS `GetEmailAdressByPositionID`;
 DELIMITER //
 CREATE PROCEDURE `GetEmailAdressByPositionID`(
 	IN `PositionID_` INT
@@ -2453,7 +2447,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetEmailData
-DROP PROCEDURE IF EXISTS `GetEmailData`;
 DELIMITER //
 CREATE PROCEDURE `GetEmailData`()
 BEGIN
@@ -2478,7 +2471,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetEmptyResult
-DROP PROCEDURE IF EXISTS `GetEmptyResult`;
 DELIMITER //
 CREATE PROCEDURE `GetEmptyResult`()
 BEGIN
@@ -2488,7 +2480,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetGender
-DROP PROCEDURE IF EXISTS `GetGender`;
 DELIMITER //
 CREATE PROCEDURE `GetGender`()
 BEGIN
@@ -2499,7 +2490,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetMaritalStatus
-DROP PROCEDURE IF EXISTS `GetMaritalStatus`;
 DELIMITER //
 CREATE PROCEDURE `GetMaritalStatus`()
 BEGIN
@@ -2510,7 +2500,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetMaxTems
-DROP PROCEDURE IF EXISTS `GetMaxTems`;
 DELIMITER //
 CREATE PROCEDURE `GetMaxTems`()
 BEGIN
@@ -2520,7 +2509,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetPositionDetails
-DROP PROCEDURE IF EXISTS `GetPositionDetails`;
 DELIMITER //
 CREATE PROCEDURE `GetPositionDetails`(
 	IN `limitstart_` INT,
@@ -2538,7 +2526,6 @@ BEGIN
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetPositions
-DROP PROCEDURE IF EXISTS `GetPositions`;
 DELIMITER //
 CREATE PROCEDURE `GetPositions`()
     COMMENT 'The sp is used to get the aviable defined positions'
@@ -2550,7 +2537,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetPositonPages
-DROP PROCEDURE IF EXISTS `GetPositonPages`;
 DELIMITER //
 CREATE PROCEDURE `GetPositonPages`(
 	IN `limit_` VARCHAR(50)
@@ -2566,7 +2552,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetProvinces
-DROP PROCEDURE IF EXISTS `GetProvinces`;
 DELIMITER //
 CREATE PROCEDURE `GetProvinces`()
 BEGIN
@@ -2577,7 +2562,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetSchoolDetailsByTenatID
-DROP PROCEDURE IF EXISTS `GetSchoolDetailsByTenatID`;
 DELIMITER //
 CREATE PROCEDURE `GetSchoolDetailsByTenatID`(
 	IN `TenantID_` VARCHAR(400)
@@ -2597,7 +2581,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetSequence
-DROP PROCEDURE IF EXISTS `GetSequence`;
 DELIMITER //
 CREATE PROCEDURE `GetSequence`(
 	IN `SequenceID` INT
@@ -2627,7 +2610,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetSequnces
-DROP PROCEDURE IF EXISTS `GetSequnces`;
 DELIMITER //
 CREATE PROCEDURE `GetSequnces`()
 BEGIN
@@ -2641,7 +2623,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetSessionDetails
-DROP PROCEDURE IF EXISTS `GetSessionDetails`;
 DELIMITER //
 CREATE PROCEDURE `GetSessionDetails`(
 	IN `UserMasterID` INT,
@@ -2660,7 +2641,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetSessionDetailsByUserMasterPublicID
-DROP PROCEDURE IF EXISTS `GetSessionDetailsByUserMasterPublicID`;
 DELIMITER //
 CREATE PROCEDURE `GetSessionDetailsByUserMasterPublicID`(
 	IN `UserMasterPublicID` VARCHAR(50)
@@ -2678,7 +2658,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetStudentAsscementMarkReport
-DROP PROCEDURE IF EXISTS `GetStudentAsscementMarkReport`;
 DELIMITER //
 CREATE PROCEDURE `GetStudentAsscementMarkReport`(
 	IN `TenantID_` VARCHAR(300)
@@ -2705,7 +2684,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetStudentAttendanceReport
-DROP PROCEDURE IF EXISTS `GetStudentAttendanceReport`;
 DELIMITER //
 CREATE PROCEDURE `GetStudentAttendanceReport`(
 	IN `TENANTID` VARCHAR(300)
@@ -2730,7 +2708,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetStudentAttendanceReportByPublicID
-DROP PROCEDURE IF EXISTS `GetStudentAttendanceReportByPublicID`;
 DELIMITER //
 CREATE PROCEDURE `GetStudentAttendanceReportByPublicID`(
 	IN `PUBLIC_ID` VARCHAR(50)
@@ -2754,7 +2731,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetStudentNo
-DROP PROCEDURE IF EXISTS `GetStudentNo`;
 DELIMITER //
 CREATE PROCEDURE `GetStudentNo`(
 	IN `SequenceID` INT
@@ -2785,7 +2761,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetSubjectsByClassMasterPublicID
-DROP PROCEDURE IF EXISTS `GetSubjectsByClassMasterPublicID`;
 DELIMITER //
 CREATE PROCEDURE `GetSubjectsByClassMasterPublicID`(
 	IN `ClassmasterPublicID_` VARCHAR(50),
@@ -2805,7 +2780,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetSuperAdminDashbordUserCount
-DROP PROCEDURE IF EXISTS `GetSuperAdminDashbordUserCount`;
 DELIMITER //
 CREATE PROCEDURE `GetSuperAdminDashbordUserCount`(
 	IN `TENANTID` VARCHAR(400)
@@ -2835,8 +2809,21 @@ SELECT @TOTALUSERS 																		AS 'TotalUsers',
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure 3edu_db.GetSysActiveTermsByID
+DELIMITER //
+CREATE PROCEDURE `GetSysActiveTermsByID`(
+	IN `TenantID_` VARCHAR(500)
+)
+BEGIN
+		SELECT TM.TermMasterID,
+				 TM.TenantID,
+				 TM.TermName	AS 'TermName',
+				 TM.IsSysActive 
+		FROM termmaster TM WHERE TM.TenantID = TenantID_ AND TM.IsSysActive = 1 AND TM.IsActive;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure 3edu_db.GetTeacherDetailsByID
-DROP PROCEDURE IF EXISTS `GetTeacherDetailsByID`;
 DELIMITER //
 CREATE PROCEDURE `GetTeacherDetailsByID`(
 	IN `TenantID` VARCHAR(400)
@@ -2862,7 +2849,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetTeacherDocumentDetailsByID
-DROP PROCEDURE IF EXISTS `GetTeacherDocumentDetailsByID`;
 DELIMITER //
 CREATE PROCEDURE `GetTeacherDocumentDetailsByID`(
 	IN `DOCUMENTID_` INT
@@ -2879,7 +2865,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetTermDetails
-DROP PROCEDURE IF EXISTS `GetTermDetails`;
 DELIMITER //
 CREATE PROCEDURE `GetTermDetails`()
 BEGIN
@@ -2890,7 +2875,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetTermPages
-DROP PROCEDURE IF EXISTS `GetTermPages`;
 DELIMITER //
 CREATE PROCEDURE `GetTermPages`(
 	IN `limit_` VARCHAR(50)
@@ -2909,7 +2893,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetTimeTable
-DROP PROCEDURE IF EXISTS `GetTimeTable`;
 DELIMITER //
 CREATE PROCEDURE `GetTimeTable`(
 	IN `ClassMasterID_` VARCHAR(50)
@@ -2941,7 +2924,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetUserByUsername
-DROP PROCEDURE IF EXISTS `GetUserByUsername`;
 DELIMITER //
 CREATE PROCEDURE `GetUserByUsername`(
 	IN `username` VARCHAR(50)
@@ -2976,7 +2958,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetUserDetailsByID
-DROP PROCEDURE IF EXISTS `GetUserDetailsByID`;
 DELIMITER //
 CREATE PROCEDURE `GetUserDetailsByID`(
 	IN `UserID_` VARCHAR(50)
@@ -3006,7 +2987,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetUserDetailsByPublicID
-DROP PROCEDURE IF EXISTS `GetUserDetailsByPublicID`;
 DELIMITER //
 CREATE PROCEDURE `GetUserDetailsByPublicID`(
 	IN `PublicID` VARCHAR(50)
@@ -3039,7 +3019,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.GetUserEmailByID
-DROP PROCEDURE IF EXISTS `GetUserEmailByID`;
 DELIMITER //
 CREATE PROCEDURE `GetUserEmailByID`(
 	IN `TEACHERID` VARCHAR(50)
@@ -3051,7 +3030,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.SearchActivatedUsers
-DROP PROCEDURE IF EXISTS `SearchActivatedUsers`;
 DELIMITER //
 CREATE PROCEDURE `SearchActivatedUsers`(
 	IN `UserName_` VARCHAR(50),
@@ -3080,7 +3058,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.SearchUsers
-DROP PROCEDURE IF EXISTS `SearchUsers`;
 DELIMITER //
 CREATE PROCEDURE `SearchUsers`(
 	IN `UserName_` VARCHAR(50),
@@ -3109,7 +3086,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.UpdateAssecemntTypeActiveStatusByID
-DROP PROCEDURE IF EXISTS `UpdateAssecemntTypeActiveStatusByID`;
 DELIMITER //
 CREATE PROCEDURE `UpdateAssecemntTypeActiveStatusByID`(
 	IN `AsscementTypePublicID` INT,
@@ -3129,7 +3105,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.UpdateClassActiveStatusByID
-DROP PROCEDURE IF EXISTS `UpdateClassActiveStatusByID`;
 DELIMITER //
 CREATE PROCEDURE `UpdateClassActiveStatusByID`(
 	IN `ClassPublicID` VARCHAR(100),
@@ -3152,7 +3127,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.UpdateEmailSatusCode
-DROP PROCEDURE IF EXISTS `UpdateEmailSatusCode`;
 DELIMITER //
 CREATE PROCEDURE `UpdateEmailSatusCode`(
 	IN `EMAILESERIAL` VARCHAR(50),
@@ -3175,7 +3149,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.UpdatePasswordByUsername
-DROP PROCEDURE IF EXISTS `UpdatePasswordByUsername`;
 DELIMITER //
 CREATE PROCEDURE `UpdatePasswordByUsername`(
 	IN `username_` VARCHAR(50)
@@ -3203,7 +3176,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.UpdatePasswordByUserPublicID
-DROP PROCEDURE IF EXISTS `UpdatePasswordByUserPublicID`;
 DELIMITER //
 CREATE PROCEDURE `UpdatePasswordByUserPublicID`(
 	IN `publicid_` VARCHAR(50)
@@ -3231,7 +3203,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.UpdatePeriodMaterActiveStatusByID
-DROP PROCEDURE IF EXISTS `UpdatePeriodMaterActiveStatusByID`;
 DELIMITER //
 CREATE PROCEDURE `UpdatePeriodMaterActiveStatusByID`(
 	IN `PeriodPublicID` INT,
@@ -3251,7 +3222,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.UpdateSchoolActiveStatusByID
-DROP PROCEDURE IF EXISTS `UpdateSchoolActiveStatusByID`;
 DELIMITER //
 CREATE PROCEDURE `UpdateSchoolActiveStatusByID`(
 	IN `SchoolPublicID` VARCHAR(50),
@@ -3276,7 +3246,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.UpdateStudentLokedStatus
-DROP PROCEDURE IF EXISTS `UpdateStudentLokedStatus`;
 DELIMITER //
 CREATE PROCEDURE `UpdateStudentLokedStatus`(
 	IN `STUDENTNO_` VARCHAR(500),
@@ -3305,7 +3274,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.UpdateSubjectMaterActiveStatusByID
-DROP PROCEDURE IF EXISTS `UpdateSubjectMaterActiveStatusByID`;
 DELIMITER //
 CREATE PROCEDURE `UpdateSubjectMaterActiveStatusByID`(
 	IN `SUBJECTMASTERID_` VARCHAR(50),
@@ -3324,7 +3292,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for procedure 3edu_db.UpdateTeacherLockedStatus
-DROP PROCEDURE IF EXISTS `UpdateTeacherLockedStatus`;
 DELIMITER //
 CREATE PROCEDURE `UpdateTeacherLockedStatus`(
 	IN `PublicID_` VARCHAR(50),
@@ -3353,7 +3320,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for function 3edu_db.GetClassName
-DROP FUNCTION IF EXISTS `GetClassName`;
 DELIMITER //
 CREATE FUNCTION `GetClassName`(`ClassCode` CHAR(5),
 	`SchoolID` VARCHAR(50)
@@ -3381,7 +3347,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for function 3edu_db.GetSequence
-DROP FUNCTION IF EXISTS `GetSequence`;
 DELIMITER //
 CREATE FUNCTION `GetSequence`(`SequenceID` INT
 
@@ -3415,7 +3380,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for function 3edu_db.GetStudntNo
-DROP FUNCTION IF EXISTS `GetStudntNo`;
 DELIMITER //
 CREATE FUNCTION `GetStudntNo`(`SequenceID` INT
 ) RETURNS varchar(50) CHARSET latin1
@@ -3447,7 +3411,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for function 3edu_db.GetTenantIDByClassMasterPublicID
-DROP FUNCTION IF EXISTS `GetTenantIDByClassMasterPublicID`;
 DELIMITER //
 CREATE FUNCTION `GetTenantIDByClassMasterPublicID`(`ClassMasterPublicID_` VARCHAR(100)
 ) RETURNS varchar(100) CHARSET utf8mb4
@@ -3474,7 +3437,6 @@ END//
 DELIMITER ;
 
 -- Dumping structure for trigger 3edu_db.AddStudentToUserMaster
-DROP TRIGGER IF EXISTS `AddStudentToUserMaster`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `AddStudentToUserMaster` AFTER INSERT ON `studentmaster` FOR EACH ROW BEGIN
@@ -3521,7 +3483,6 @@ DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- Dumping structure for trigger 3edu_db.AddTimeTableDeails
-DROP TRIGGER IF EXISTS `AddTimeTableDeails`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `AddTimeTableDeails` AFTER INSERT ON `timetablemaster` FOR EACH ROW BEGIN
@@ -3535,7 +3496,6 @@ DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- Dumping structure for trigger 3edu_db.SessionHistory
-DROP TRIGGER IF EXISTS `SessionHistory`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
 DELIMITER //
 CREATE TRIGGER `SessionHistory` AFTER INSERT ON `session` FOR EACH ROW BEGIN
@@ -3553,7 +3513,6 @@ DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- Dumping structure for view 3edu_db.vwsequncemaster
-DROP VIEW IF EXISTS `vwsequncemaster`;
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `vwsequncemaster`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwsequncemaster` AS SELECT SM.SequenceMasterID AS 'SequenceMasterID',

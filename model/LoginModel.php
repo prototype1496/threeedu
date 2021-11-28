@@ -99,6 +99,11 @@ class Login {
             Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id,$User['TenantID'],$User['SchoolPublicID'],$User['LogoPicURL'],$User['ProfilPicURL']);
               header('location:/threeedu/view/admin/');  
         }
+         else if ($user_type_id == 5) {
+            Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id,$User['TenantID'],$User['SchoolPublicID'],$User['LogoPicURL'],$User['ProfilPicURL']);
+              header('location:/threeedu/view/accounts/');  
+        }
+        
         else if ($user_type_id == 3) {
             
            if ( $User['PositionID'] == 1){

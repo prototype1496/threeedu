@@ -24,5 +24,10 @@ elseif ($_GET['id']==3)
     $super_maodel->get_student_details_by_class_id($_GET['class_id'],$_GET['assecmenttype_id']);
 }
 
+elseif ($_GET['id']==4)
+    {
+    $super_maodel->get_student_data_by_id($_GET['class_id'],$_GET['assecmenttype_id']);
+}
+
 
 
