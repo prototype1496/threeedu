@@ -110,7 +110,7 @@ INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID
 	(20, 'TEDT', 120, '2021-08-21 11:22:16'),
 	(21, 'CLRM', 118, '2021-08-22 11:42:24'),
 	(22, 'TRID', 62, '2021-09-06 04:44:36'),
-	(23, 'BILL', 0, '2021-09-17 16:46:37'),
+	(23, 'BILL', 7, '2021-09-17 16:46:37'),
 	(24, 'ACCO', 0, '2021-11-27 16:15:30'),
 	(25, 'TRAN', 0, '2021-11-28 02:57:12');
 /*!40000 ALTER TABLE `sequencemaster` ENABLE KEYS */;
@@ -134,14 +134,16 @@ CREATE TABLE IF NOT EXISTS `transactiondetails` (
   UNIQUE KEY `ReciptNo` (`ReciptNo`),
   KEY `FK_transactiondetails_transactionmaster` (`TransactionMasterPublicID`),
   CONSTRAINT `FK_transactiondetails_transactionmaster` FOREIGN KEY (`TransactionMasterPublicID`) REFERENCES `transactionmaster` (`TransactionMasterPublicID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_accounts_db.transactiondetails: ~2 rows (approximately)
 DELETE FROM `transactiondetails`;
 /*!40000 ALTER TABLE `transactiondetails` DISABLE KEYS */;
 INSERT INTO `transactiondetails` (`TransactionDetailsID`, `TransactionMasterPublicID`, `ReciptNo`, `PaidAmout`, `Balace`, `PaymentType`, `PaidBy`, `RecivedBy`, `UpdatedBy`, `AddedOn`, `UpdatedOn`, `IsActive`) VALUES
-	(1, 'ITAD00000000057', 'LSK-00001', 100, 700, 1, 'student', 'sys', 'sys', '2021-11-27 15:41:36', '2021-11-28 06:58:14', '1'),
-	(2, 'ITAD00000000057', 'LSK-00002', 200, 500, 1, 'studen', 'sys', 'sys', '2021-11-27 15:43:09', '2021-11-28 06:58:09', '1');
+	(7, 'ITAD00000000057', 'BILL0000000002', 100, 700, 1, 'SDNT00000000031', 'acc', 'acc', '2021-11-28 08:41:16', '2021-11-28 08:41:16', '1'),
+	(10, 'ITAD00000000057', 'BILL0000000005', 100, 600, 1, 'SDNT00000000031', 'acc', 'acc', '2021-11-28 09:28:21', '2021-11-28 09:28:21', '1'),
+	(11, 'ITAD00000000057', 'BILL0000000006', 10.5, 589.5, 1, 'SDNT00000000031', 'acc', 'acc', '2021-11-28 09:28:39', '2021-11-28 09:28:39', '1'),
+	(12, 'ITAD00000000057', 'BILL0000000007', 100.5, 489, 1, 'SDNT00000000031', 'acc', 'acc', '2021-11-28 09:28:57', '2021-11-28 09:28:57', '1');
 /*!40000 ALTER TABLE `transactiondetails` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_accounts_db.transactionmaster
@@ -177,7 +179,7 @@ INSERT INTO `transactionmaster` (`TransactionMasterID`, `TransactionMasterPublic
 	(41, 'ITAD00000000054', 'SDNT00000000015', 3, 8, '8', 800, 800, '1', 'System', '2021', '2021-11-28 04:10:11', '2021-11-28 04:10:11'),
 	(42, 'ITAD00000000055', 'SDNT00000000018', 3, 8, '8', 800, 800, '1', 'System', '2021', '2021-11-28 04:10:11', '2021-11-28 04:10:11'),
 	(43, 'ITAD00000000056', 'SDNT00000000030', 3, 8, '8', 800, 800, '1', 'System', '2021', '2021-11-28 04:10:11', '2021-11-28 04:10:11'),
-	(44, 'ITAD00000000057', 'SDNT00000000031', 3, 8, '8', 500, 800, '1', 'System', '2021', '2021-11-28 04:10:11', '2021-11-28 05:10:11'),
+	(44, 'ITAD00000000057', 'SDNT00000000031', 3, 8, '8', 489, 800, '1', 'acc', '2021', '2021-11-28 04:10:11', '2021-11-28 05:10:11'),
 	(45, 'ITAD00000000058', 'SDNT00000000032', 3, 8, '8', 800, 800, '1', 'System', '2021', '2021-11-28 04:10:11', '2021-11-28 04:10:11'),
 	(46, 'ITAD00000000059', 'SDNT00000000035', 3, 8, '8', 800, 800, '1', 'System', '2021', '2021-11-28 04:10:11', '2021-11-28 04:10:11'),
 	(54, 'ITAD00000000060', 'SDNT00000000029', 3, 9, '9', 0, 0, '1', 'System', '2021', '2021-11-28 04:10:11', '2021-11-28 04:10:11'),
@@ -269,7 +271,8 @@ BEGIN
 SET @MAXDATE = (SELECT MAX(TM.AddedOn) FROM transactionmaster TM WHERE TM.StudentMasterPublicID = StudentMasterPublicID_);
 SELECT 
 TM.Balance,
-TM.TransactionMasterPublicID
+TM.TransactionMasterPublicID,
+TM.BilledAmount
 FROM transactionmaster TM 
  WHERE TM.StudentMasterPublicID = StudentMasterPublicID_  AND DATE(TM.AddedOn) = DATE(@MAXDATE);
 END//
@@ -353,6 +356,26 @@ INSERT INTO transactionmaster
 	
 	
 	
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+-- Dumping structure for trigger 3edu_accounts_db.UpadateTransactionMasterBalance
+DROP TRIGGER IF EXISTS `UpadateTransactionMasterBalance`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `UpadateTransactionMasterBalance` AFTER INSERT ON `transactiondetails` FOR EACH ROW BEGIN
+SET @TRANDITID = (SELECT MAX(TD.TransactionDetailsID) FROM transactiondetails TD);
+SET @PAIDAMOUNT = (SELECT TSD.PaidAmout FROM transactiondetails TSD WHERE TSD.TransactionDetailsID = @TRANDITID);
+SET @UPDATEDBY = (SELECT TSD.UpdatedBy FROM transactiondetails TSD WHERE TSD.TransactionDetailsID = @TRANDITID);
+SET @TRANSACTIONMASTERID = (SELECT TSD.TransactionMasterPublicID FROM transactiondetails TSD WHERE TSD.TransactionDetailsID = @TRANDITID);
+
+SET @MASTERBALANCE  = (SELECT TM.Balance FROM transactionmaster TM WHERE TM.TransactionMasterPublicID = @TRANSACTIONMASTERID);
+
+SET @UPDATEBALCE  = @MASTERBALANCE - @PAIDAMOUNT; 
+
+
+UPDATE transactionmaster SET Balance = @UPDATEBALCE,UpdatedBy = @UPDATEDBY WHERE TransactionMasterPublicID = @TRANSACTIONMASTERID;
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
