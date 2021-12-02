@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `patmenttypemaster` (
 DELETE FROM `patmenttypemaster`;
 /*!40000 ALTER TABLE `patmenttypemaster` DISABLE KEYS */;
 INSERT INTO `patmenttypemaster` (`PatmentTypeMasterID`, `PaymentType`, `IsActive`) VALUES
-	(1, 'On Demad Posting ', '1'),
+	(1, 'On Demad Payment', '1'),
 	(2, 'Card', '1');
 /*!40000 ALTER TABLE `patmenttypemaster` ENABLE KEYS */;
 
@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `transactiondetails` (
   CONSTRAINT `FK_transactiondetails_transactionmaster` FOREIGN KEY (`TransactionMasterPublicID`) REFERENCES `transactionmaster` (`TransactionMasterPublicID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_accounts_db.transactiondetails: ~5 rows (approximately)
+-- Dumping data for table 3edu_accounts_db.transactiondetails: ~4 rows (approximately)
 DELETE FROM `transactiondetails`;
 /*!40000 ALTER TABLE `transactiondetails` DISABLE KEYS */;
 INSERT INTO `transactiondetails` (`TransactionDetailsID`, `TransactionMasterPublicID`, `ReciptNo`, `PaidAmout`, `Balace`, `PaymentType`, `PaidBy`, `RecivedBy`, `UpdatedBy`, `AddedOn`, `UpdatedOn`, `IsActive`) VALUES
@@ -165,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `transactionmaster` (
   `AddedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`TransactionMasterID`),
   UNIQUE KEY `TransactionMasterPublicID` (`TransactionMasterPublicID`)
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_accounts_db.transactionmaster: ~15 rows (approximately)
 DELETE FROM `transactionmaster`;
@@ -174,8 +174,8 @@ INSERT INTO `transactionmaster` (`TransactionMasterID`, `TransactionMasterPublic
 	(1, 'ghgh', '2201112', 1, 1, 'Grade 1', 4700, 5000, '1', 'sys', '2021', '2021-11-27 15:27:17', '2021-11-27 15:27:17'),
 	(2, 'sdsd', '2201112', 2, 1, 'Grade 1', 2000, 2000, '1', 'ysy', '2021', '2021-11-27 15:28:30', '2021-11-27 15:28:29'),
 	(4, 'dsfsvgfd', '2201112', 1, 2, 'Grade 2', 1000, 1000, '1', 'sys', '2021', '2021-11-27 15:29:32', '2021-11-27 15:29:30'),
-	(40, 'ITAD00000000053', 'SDNT00000000031', 1, 8, '8', 489, 800, '1', 'System', '2021', '2020-11-28 04:10:11', '2020-11-28 04:10:11'),
-	(57, 'TRAN0000000001', 'SDNT0000000001', 3, 8, '8', 800, 800, '1', 'System', '2021', '2021-11-28 10:54:46', '2021-11-28 10:54:46'),
+	(40, 'ITAD00000000053', 'SDNT00000000031', 1, 8, '8', 489, 800, '1', 'System', '2020', '2020-11-28 04:10:11', '2020-11-28 04:10:11'),
+	(57, 'TRAN0000000001', 'SDNT0000000001', 2, 8, '8', 800, 800, '1', 'System', '2020', '2020-11-28 10:54:46', '2021-11-28 10:54:46'),
 	(58, 'TRAN0000000002', 'SDNT0000000005', 3, 8, '8', 800, 800, '1', 'System', '2021', '2021-11-28 10:54:46', '2021-11-28 10:54:46'),
 	(59, 'TRAN0000000003', 'SDNT00000000015', 3, 8, '8', 800, 800, '1', 'System', '2021', '2021-11-28 10:54:46', '2021-11-28 10:54:46'),
 	(60, 'TRAN0000000004', 'SDNT00000000018', 3, 8, '8', 800, 800, '1', 'System', '2021', '2021-11-28 10:54:46', '2021-11-28 10:54:46'),
@@ -316,6 +316,47 @@ TM.TransactionMasterPublicID,
 TM.BilledAmount
 FROM transactionmaster TM 
  WHERE TM.StudentMasterPublicID = StudentMasterPublicID_  AND DATE(TM.AddedOn) = DATE(@MAXDATE);
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_accounts_db.GetTotalTransactioanalHitory
+DROP PROCEDURE IF EXISTS `GetTotalTransactioanalHitory`;
+DELIMITER //
+CREATE PROCEDURE `GetTotalTransactioanalHitory`()
+BEGIN
+
+SET @TOTALBALACE = (SELECT  SUM(TM.Balance) FROM transactionmaster TM JOIN 3edu_db.studentmaster SM ON SM.StudentMasterPublicID = TM.StudentMasterPublicID);
+
+SELECT TM.StudentMasterPublicID																															AS 'StudentMasterPublicID', 
+       SUM(TM.Balance)																																		AS 'Balace', 
+		 SUM(TM.BilledAmount)																																AS 'BilledAmount',
+		 CONCAT(SM.StudentNo,'-',SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName )		AS 'Name',
+		 @TOTALBALACE																																			AS 'TOTALBALACE'
+FROM transactionmaster TM 
+JOIN 3edu_db.studentmaster SM ON SM.StudentMasterPublicID = TM.StudentMasterPublicID
+GROUP BY TM.StudentMasterPublicID ORDER BY SM.FirstName, SM.LastName ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_accounts_db.GetTotalTransactioanalHitoryByIDDate
+DROP PROCEDURE IF EXISTS `GetTotalTransactioanalHitoryByIDDate`;
+DELIMITER //
+CREATE PROCEDURE `GetTotalTransactioanalHitoryByIDDate`(
+	IN `TermMasterID_` INT,
+	IN `Year_` YEAR
+)
+BEGIN
+SET @TOTALBALACE = (SELECT  SUM(TM.Balance) FROM transactionmaster TM JOIN 3edu_db.studentmaster SM ON SM.StudentMasterPublicID = TM.StudentMasterPublicID WHERE  TM.TermMasterID =TermMasterID_ OR TM.Year = Year_);
+
+SELECT TM.StudentMasterPublicID																															AS 'StudentMasterPublicID', 
+       SUM(TM.Balance)																																		AS 'Balace', 
+		 SUM(TM.BilledAmount)																																AS 'BilledAmount',
+		 CONCAT(SM.StudentNo,'-',SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName )		AS 'Name',
+		 @TOTALBALACE																																			AS 'TOTALBALACE'
+FROM transactionmaster TM 
+JOIN 3edu_db.studentmaster SM ON SM.StudentMasterPublicID = TM.StudentMasterPublicID WHERE  TM.TermMasterID =TermMasterID_ OR TM.Year = Year_
+GROUP BY TM.StudentMasterPublicID ORDER BY SM.FirstName, SM.LastName ASC;
+
 END//
 DELIMITER ;
 

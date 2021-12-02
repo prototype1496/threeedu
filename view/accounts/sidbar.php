@@ -31,6 +31,13 @@
             <span class="pcoded-mtext">Transaction History</span>
         </a>
     </li>
+    
+    
+     <li class="">
+         <a href="totaltransactionhistory.php">
+            <span class="pcoded-mtext">Total Transaction History</span>
+        </a>
+    </li>
    
 
 

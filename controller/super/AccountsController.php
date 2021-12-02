@@ -83,7 +83,14 @@ if (isset($_POST['btn_charge_student'])) {
     header("Location:/threeedu/view/accounts/transactionhistory.php?student_public_id=$student_public_id");
     
      
-} 
+}  else if (isset($_POST['btn_complet_trasacton_history'])){
+    $year_id = trim(filter_input(INPUT_POST, 'year_id', FILTER_DEFAULT));
+     $term_id = trim(filter_input(INPUT_POST, 'term_id', FILTER_DEFAULT));
+    header("Location:/threeedu/view/accounts/totaltransactionhistory.php?year_id=$year_id&term_id=$term_id ");
+    
+     
+}
+
  else if (isset($_POST['paid_amount'])){
     $tansaction_id = trim(filter_input(INPUT_POST, 'tansaction_id', FILTER_DEFAULT));
     $balance = trim(filter_input(INPUT_POST, 'balance', FILTER_DEFAULT));

@@ -355,6 +355,30 @@ class SuperModel {
     
     //Acounts moduel 
     
+    
+    
+    public static function get_all_transactional_history($term_id,$year,$query_run) {
+
+        $Connection = new Connection();
+        $con = $Connection->accounts_db_connect();
+        
+        if ($query_run == 1){
+          $query = "CALL GetTotalTransactioanalHitoryByIDDate(:term,:year);";
+          
+          $stm = $con->prepare($query);
+        $stm->execute(array(':term' => $term_id,':year' => $year));
+        }else{
+            
+            $query = "CALL GetTotalTransactioanalHitory();"; 
+             $stm = $con->prepare($query);
+            $stm->execute();
+        }
+
+       
+
+        return $stm;
+    }
+    
     public static function get_fee_charge_by_id($term_id,$tenant_master_id,$query_run) {
 
         $Connection = new Connection();
