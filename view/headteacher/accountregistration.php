@@ -445,7 +445,7 @@ $stm_province_data = SuperModel::get_provinces();
         
       
     </div>
-   <input name="btn_create_teacher" type="hidden"/> <!-- this is the id to check if the registration is for a teacher-->
+   <input name="btn_create_acc" type="hidden"/> <!-- this is the id to check if the registration is for a teacher-->
 <br> <button type="submit" style="float: right;"   class="btn btn-warning btn-round">Submit</button>
        </form>
  
