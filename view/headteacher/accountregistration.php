@@ -19,7 +19,7 @@ $stm_province_data = SuperModel::get_provinces();
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dashboard-crm.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:45:47 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<title>Teacher Registration </title>
+<title>Acc Registration </title>
 
 
 <!--[if lt IE 10]>
@@ -140,7 +140,7 @@ $stm_province_data = SuperModel::get_provinces();
                                                 <div class="">
                                                     <div class="">
                                                         
-                                                     Teacher Registration
+                                                     Acc Registration
                                                     </div>
                                                 </div>
                                             </div>
@@ -150,7 +150,7 @@ $stm_province_data = SuperModel::get_provinces();
                                                       
                                                        
                                                         <li class="breadcrumb-item">
-                                                         / Teacher / Registration Model
+                                                         / Accounts / Registration Model
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -443,49 +443,7 @@ $stm_province_data = SuperModel::get_provinces();
     <div class="col-sm-12">
     <div class="card">
         
-        <div class="card-block">
-         
-                
-                <div class="form-group row">
-                    
-                      
-                  <div class="col-md-12">
-                                                <div class="card-block">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-striped table-bordered" id="edu_example-3">
-                                                                <thead>
-                                                                    <tr>
-                                                                           
-                                                                        <th>Subject</th>
-                                                                 
-
-                                                                        <th>Actions</th>
-                                                                    </tr>
-                                                                </thead>
-                                                            <tbody>
-                                                               
-                                                               
-                                                               
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                   
-                                                    <button type="button" class="btn btn-primary waves-effect waves-light add-new"><i class="fa fa-plus"></i> Add New</button>
-                                                </div>
-                                                    
-                                                    </div>
-                
-                
-           
-        
-              
-               
-         
-            
-        </div>
-         
-    </div>
-    
+      
     </div>
    <input name="btn_create_teacher" type="hidden"/> <!-- this is the id to check if the registration is for a teacher-->
 <br> <button type="submit" style="float: right;"   class="btn btn-warning btn-round">Submit</button>

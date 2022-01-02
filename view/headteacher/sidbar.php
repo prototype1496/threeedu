@@ -25,7 +25,7 @@
 
 <li class="">
 <a href="teacherregistration.php">
-<span class="pcoded-micon"><i class="feather icon-home"></i></span>
+<span class="pcoded-micon"><i class="feather icon-user"></i></span>
 <span class="pcoded-mtext">Teacher Registration</span>
 </a>
 
@@ -45,6 +45,13 @@
 
 
 
+<li class="">
+    <a href="accountregistration.php">
+<span class="pcoded-micon"><i class="feather icon-user"></i></span>
+<span class="pcoded-mtext">Acc Registration</span>
+</a>
+
+</li>
 <li class="">
     <a href="studentregistration.php">
 <span class="pcoded-micon"><i class="feather icon-user"></i></span>
