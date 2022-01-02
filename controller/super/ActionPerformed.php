@@ -1326,7 +1326,7 @@ else if (isset($_POST['btn_create_acc'])) {
       
 
        
-
+///test 
         $pic_url = $location . $file_new_name;
 
         //print_r(count($data));
