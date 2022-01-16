@@ -1412,9 +1412,9 @@ CREATE TABLE IF NOT EXISTS `termmaster` (
 DELETE FROM `termmaster`;
 /*!40000 ALTER TABLE `termmaster` DISABLE KEYS */;
 INSERT INTO `termmaster` (`TermMasterID`, `TenantID`, `TermName`, `IsSysActive`, `IsActive`, `UpdatedOn`) VALUES
-	(1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'Term 1', '0', '1', '2021-11-27 15:10:22'),
+	(1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'Term 1', '1', '1', '2021-11-27 15:10:22'),
 	(2, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'Term 2', '0', '1', '2021-11-27 15:10:30'),
-	(3, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'Term 3 ', '1', '1', '2021-11-27 15:10:40'),
+	(3, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'Term 3 ', '0', '1', '2021-11-27 15:10:40'),
 	(4, 'Ama616d2ea1a78213.69918222', 'Term 1', '0', '1', '2021-11-27 15:11:03'),
 	(5, 'Ama616d2ea1a78213.69918222', 'Term 2', '0', '1', '2021-11-27 15:11:11'),
 	(6, 'Ama616d2ea1a78213.69918222', 'Term 3', '1', '1', '2021-11-27 15:11:23');
