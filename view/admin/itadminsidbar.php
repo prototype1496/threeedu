@@ -36,7 +36,31 @@
                 </ul>
             </li>
 
-            
+        
+
+<li class="pcoded-hasmenu ">
+                <a href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="feather icon-users"></i></span>
+                    <span class="pcoded-mtext">User Management</span>
+                </a>
+
+                
+                <ul class="pcoded-submenu">
+
+                    <li class="">
+                        <a href="accountregistration.php">
+
+                            <span class="pcoded-mtext">Acc Registration</span>
+                        </a>
+
+                    </li>
+                    
+                   
+                </ul>
+            </li>
+
+
+
             <li class="pcoded-hasmenu ">
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="feather icon-home"></i></span>
@@ -53,9 +77,8 @@
                         </a>
 
                     </li>
-
-
-
+                    
+                   
                 </ul>
             </li>
             

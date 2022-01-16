@@ -1546,7 +1546,11 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
   CONSTRAINT `FK_userdetails_usermaster` FOREIGN KEY (`UserMasterID`) REFERENCES `usermaster` (`PublicID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
+<<<<<<< HEAD
 -- Dumping data for table 3edu_db.userdetails: ~6 rows (approximately)
+=======
+-- Dumping data for table 3edu_db.userdetails: ~0 rows (approximately)
+>>>>>>> a1525935018d92a372edbb60a0c19a1485deb944
 DELETE FROM `userdetails`;
 /*!40000 ALTER TABLE `userdetails` DISABLE KEYS */;
 INSERT INTO `userdetails` (`UserDetailsID`, `UserDetailsPublicID`, `UserMasterID`, `PositionID`, `DepartmentID`, `UpdatedBy`, `UpdatedOn`, `AddedOn`, `IsActive`) VALUES
