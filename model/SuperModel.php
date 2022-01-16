@@ -1076,7 +1076,7 @@ class SuperModel {
 
     
     
-     public static function create_accountant($teacher_id, $pic_url, $nrc, $passport, $username, $password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id, $subject_data) {
+     public static function create_accountant($pic_url,$acc_id, $nrc, $passport, $username, $hushed_password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id) {
         //the below function creates a session in the databes for every log in 
         try {
             $Connection = new Connection();
@@ -1088,34 +1088,16 @@ class SuperModel {
             //Insets data new session into the session table
             $query = "INSERT INTO usermaster(PublicID, ProfilPicURL, NRC, Passport, UserName, Password, FirstName, LastName, OtherName, EmailAddress, ContactNo, GenderID, MaritalStatusID, DOB, UserTypeID, UpdatedBy, IsActive,TenantID)VALUES (:PublicID, :ProfilPicURL, :NRC, :Passport, :UserName, :Password, :FirstName, :LastName, :OtherName, :EmailAddress, :ContactNo, :GenderID, :MaritalStatusID, :DOB, :UserTypeID, :UpdatedBy, 0,:TenantID)";
             $stm = $conn->prepare($query);
-            $stm->execute(array(':PublicID' => $teacher_id, ':ProfilPicURL' => $pic_url, ':NRC' => $nrc, ':Passport' => $passport, ':UserName' => $username, ':Password' => $password, ':FirstName' => $first_name, ':LastName' => $last_name, ':OtherName' => $other_name, ':EmailAddress' => $email_address, ':ContactNo' => $concat_no, ':GenderID' => $gender_id, ':MaritalStatusID' => $marital_status_id, ':DOB' => $dob, ':UserTypeID' => $user_type, ':UpdatedBy' => $UpdatedBy, ':TenantID' => $tenant_id));
+            $stm->execute(array(':PublicID' => $acc_id, ':ProfilPicURL' => $pic_url, ':NRC' => $nrc, ':Passport' => $passport, ':UserName' => $username, ':Password' => $hushed_password, ':FirstName' => $first_name, ':LastName' => $last_name, ':OtherName' => $other_name, ':EmailAddress' => $email_address, ':ContactNo' => $concat_no, ':GenderID' => $gender_id, ':MaritalStatusID' => $marital_status_id, ':DOB' => $dob, ':UserTypeID' => $user_type, ':UpdatedBy' => $UpdatedBy, ':TenantID' => $tenant_id));
 
-            $query2 = "INSERT INTO teachermaster (TeaherMasterPublicID, TeacherPositionID, DeparmrntCode, UpdatedBy, IsActive) VALUES (:TeaherMasterPublicID, :TeacherPositionID, :DeparmrntCode, :UpdatedBy, 1)";
+            $query2 = "INSERT INTO userdetails (UserDetailsPublicID,UserMasterID, PositionID, DepartmentID, UpdatedBy, IsActive) VALUES (GetSequence(25),:UserMasterID,:PositionID, :DepartmentID, :UpdatedBy, 1)";
             $stm2 = $conn->prepare($query2);
-            $stm2->execute(array(':TeaherMasterPublicID' => $teacher_id, ':TeacherPositionID' => $position_id, ':DeparmrntCode' => $department_id, ':UpdatedBy' => $UpdatedBy));
+            $stm2->execute(array(':UserMasterID'=>$acc_id,':PositionID' => $position_id, ':DepartmentID' => $department_id, ':UpdatedBy' => $UpdatedBy));
 
             $query3 = "INSERT INTO address (PrimaryAddress, SecondaryAddress, DistrictID, IdentificationID) VALUES (:PrimaryAddress, :SecondaryAddress, :DistrictID, :IdentificationID)";
             $stm3 = $conn->prepare($query3);
-            $stm3->execute(array(':PrimaryAddress' => $pramary_address, ':SecondaryAddress' => $secondary_address, ':DistrictID' => $district_id, ':IdentificationID' => $teacher_id));
-//            
-//            
-            $query4 = "INSERT INTO teacherdetails (TeacherDetailsPublicID, TeacherMasterPublicID, SubjectCode, UpdatedBy) VALUES (?,?,?,?)";
-            $stm4 = $conn->prepare($query4);
-
-            // print_r($subject_data);
-            foreach ($subject_data as $subject_data) {
-                // print_r($subject_data);
-                if (!empty($subject_data[0])) {
-                    // print_r($subject_data);
-                    $stm4->execute($subject_data);
-                } else {
-                    
-                }
-
-                //  
-            }
-
-
+            $stm3->execute(array(':PrimaryAddress' => $pramary_address, ':SecondaryAddress' => $secondary_address, ':DistrictID' => $district_id, ':IdentificationID' => $acc_id));
+         
             //print_r($stm);
             $conn->commit();
             $conn = Null;
@@ -1753,6 +1735,19 @@ class SuperModel {
         return $stm;
     }
 
+    
+     public static function get_departments_school_id_and_dpt_code($school_id,$department_code) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetDepartmentBySchoolIDAndDptCode(:shcool_id,:dpt_code);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':shcool_id' => $school_id,':dpt_code'=>$department_code));
+
+        return $stm;
+    }
     public static function get_all_teachers_in_department($department_code) {
 
         $Connection = new Connection();
