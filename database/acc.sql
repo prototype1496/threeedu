@@ -110,7 +110,7 @@ INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID
 	(20, 'TEDT', 120, '2021-08-21 11:22:16'),
 	(21, 'CLRM', 118, '2021-08-22 11:42:24'),
 	(22, 'TRID', 62, '2021-09-06 04:44:36'),
-	(23, 'BILL', 8, '2021-09-17 16:46:37'),
+	(23, 'BILL', 9, '2021-09-17 16:46:37'),
 	(24, 'ACCO', 0, '2021-11-27 16:15:30'),
 	(25, 'TRAN', 11, '2021-11-28 02:57:12');
 /*!40000 ALTER TABLE `sequencemaster` ENABLE KEYS */;
@@ -134,9 +134,9 @@ CREATE TABLE IF NOT EXISTS `transactiondetails` (
   UNIQUE KEY `ReciptNo` (`ReciptNo`),
   KEY `FK_transactiondetails_transactionmaster` (`TransactionMasterPublicID`),
   CONSTRAINT `FK_transactiondetails_transactionmaster` FOREIGN KEY (`TransactionMasterPublicID`) REFERENCES `transactionmaster` (`TransactionMasterPublicID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_accounts_db.transactiondetails: ~4 rows (approximately)
+-- Dumping data for table 3edu_accounts_db.transactiondetails: ~6 rows (approximately)
 DELETE FROM `transactiondetails`;
 /*!40000 ALTER TABLE `transactiondetails` DISABLE KEYS */;
 INSERT INTO `transactiondetails` (`TransactionDetailsID`, `TransactionMasterPublicID`, `ReciptNo`, `PaidAmout`, `Balace`, `PaymentType`, `PaidBy`, `RecivedBy`, `UpdatedBy`, `AddedOn`, `UpdatedOn`, `IsActive`) VALUES
@@ -144,7 +144,8 @@ INSERT INTO `transactiondetails` (`TransactionDetailsID`, `TransactionMasterPubl
 	(10, 'ITAD00000000053', 'BILL0000000005', 100, 600, 1, 'SDNT00000000031', 'acc', 'acc', '2020-11-28 09:28:21', '2021-11-28 10:01:24', '1'),
 	(11, 'ITAD00000000053', 'BILL0000000006', 10.5, 589.5, 1, 'SDNT00000000031', 'acc', 'acc', '2020-11-28 09:28:39', '2021-11-28 10:01:27', '1'),
 	(12, 'ITAD00000000053', 'BILL0000000007', 100.5, 489, 1, 'SDNT00000000031', 'acc', 'acc', '2020-11-28 09:28:57', '2021-11-28 10:01:29', '1'),
-	(13, 'TRAN0000000006', 'BILL0000000008', 100, 1189, 1, 'SDNT00000000031', 'acc', 'acc', '2021-11-28 10:58:19', '2021-11-28 10:58:19', '1');
+	(13, 'TRAN0000000006', 'BILL0000000008', 100, 1189, 1, 'SDNT00000000031', 'acc', 'acc', '2021-11-28 10:58:19', '2021-11-28 10:58:19', '1'),
+	(14, 'TRAN0000000006', 'BILL0000000009', 300, 889, 1, 'SDNT00000000031', 'acc', 'acc', '2021-12-02 22:15:00', '2021-12-02 22:15:00', '1');
 /*!40000 ALTER TABLE `transactiondetails` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_accounts_db.transactionmaster
@@ -180,7 +181,7 @@ INSERT INTO `transactionmaster` (`TransactionMasterID`, `TransactionMasterPublic
 	(59, 'TRAN0000000003', 'SDNT00000000015', 3, 8, '8', 800, 800, '1', 'System', '2021', '2021-11-28 10:54:46', '2021-11-28 10:54:46'),
 	(60, 'TRAN0000000004', 'SDNT00000000018', 3, 8, '8', 800, 800, '1', 'System', '2021', '2021-11-28 10:54:46', '2021-11-28 10:54:46'),
 	(61, 'TRAN0000000005', 'SDNT00000000030', 3, 8, '8', 800, 800, '1', 'System', '2021', '2021-11-28 10:54:46', '2021-11-28 10:54:46'),
-	(62, 'TRAN0000000006', 'SDNT00000000031', 3, 8, '8', 1189, 800, '1', 'acc', '2021', '2021-11-28 10:54:46', '2021-11-28 10:54:46'),
+	(62, 'TRAN0000000006', 'SDNT00000000031', 3, 8, '8', 889, 800, '1', 'acc', '2021', '2021-11-28 10:54:46', '2021-11-28 10:54:46'),
 	(63, 'TRAN0000000007', 'SDNT00000000032', 3, 8, '8', 800, 800, '1', 'System', '2021', '2021-11-28 10:54:46', '2021-11-28 10:54:46'),
 	(64, 'TRAN0000000008', 'SDNT00000000035', 3, 8, '8', 800, 800, '1', 'System', '2021', '2021-11-28 10:54:46', '2021-11-28 10:54:46'),
 	(72, 'TRAN0000000009', 'SDNT00000000029', 3, 9, '9', 800, 800, '1', 'System', '2021', '2021-11-28 10:54:46', '2021-11-28 10:54:46'),
