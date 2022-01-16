@@ -8,7 +8,7 @@ $tenant_id = $_SESSION['threeedu_tenantid'];
 $school_id = $_SESSION['threeedu_schoolid'];
 
 $stm_position_data = SuperModel::get_teacher_positions();
-$stm_depatment_data = SuperModel::get_departments_school_id_and_dpt_code($school_id,Config::$ACCOUTS_CODE);
+$stm_depatment_data = SuperModel::get_departments_school_id($school_id);
 $stm_maritalstatus_data = SuperModel::get_marital_status();
 $stm_province_data = SuperModel::get_provinces();
  
