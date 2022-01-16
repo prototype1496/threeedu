@@ -5,6 +5,7 @@
 <?php
 require_once '../super/SessionStart.php';
 require_once '../../db_connection/dbconfig.php';
+require_once '../../Config/Config.php';
 require_once '../../model/TeacherModel.php';
 require_once '../../model/SuperModel.php';
 
@@ -1229,7 +1230,7 @@ if (isset($_POST['btn_reg_pupil'])) {
     }
 }
 else if (isset($_POST['btn_create_acc'])) {
-    $teacher_id = SuperModel::get_sequence_id(24);
+    $acc_id = SuperModel::get_sequence_id(24);
 
     $username = trim(filter_input(INPUT_POST, 'username', FILTER_DEFAULT));
 
@@ -1263,7 +1264,7 @@ else if (isset($_POST['btn_create_acc'])) {
 
     $secondary_address = trim(filter_input(INPUT_POST, 'secondary_address', FILTER_DEFAULT));
 
-    $user_type = 3; //teacher usertype
+    $user_type = Config::$USER_TYPE_ACCOUNTANT; //teacher usertype
 
 
     
@@ -1305,12 +1306,14 @@ else if (isset($_POST['btn_create_acc'])) {
     $UpdatedBy = $_SESSION['threeedu_username'];
     $tenant_id = $_SESSION['threeedu_tenantid'];
     
+    $role_id = $_SESSION['threeedu_user_id'];
+    $teacher_position_id =  $_SESSION['threeedu_teacher_possition_id'];
     
      $count = 0;
         $subject_data = array();
 
         // print_r(strlen($student_no[0])) ; 
-        $size_of_id_array = sizeof($subject_code);
+       // $size_of_id_array = sizeof($subject_code);
 
       
     
@@ -1318,8 +1321,8 @@ else if (isset($_POST['btn_create_acc'])) {
     if (isset($_FILES["profile_pic"]["name"]) && !empty($_FILES["profile_pic"]["name"])) {
 
 
-        $location = "../../uploads/teacher_profile/";
-        $file_new_name = $teacher_id . '_' . $_FILES["profile_pic"]["name"]; // New and unique name of uploaded file
+        $location = "../../uploads/acc_profile/";
+        $file_new_name = $acc_id . '_' . $_FILES["profile_pic"]["name"]; // New and unique name of uploaded file
         // $file_name = $_FILES["profile_pic"]["name"];
         $file_temp = $_FILES["profile_pic"]["tmp_name"];
 
@@ -1330,76 +1333,175 @@ else if (isset($_POST['btn_create_acc'])) {
         $pic_url = $location . $file_new_name;
 
         //print_r(count($data));
-          if (SuperModel::  create_accountant($pic_url,$subject_data,$teacher_id, $nrc, $passport, $username, $hushed_password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id))
+          if (SuperModel::create_accountant($pic_url,$acc_id, $nrc, $passport, $username, $hushed_password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id))
           { 
-              move_uploaded_file($file_temp, $pic_url); 
+                move_uploaded_file($file_temp, $pic_url); 
               
-              echo "<script>               
-            $(document).ready(
+              //The below code is to redirect usere to correct page i.e addmin , IT Admin e.t.c
+              if ($role_id == 3 && $teacher_position_id == 1)
+                    {
+                                echo "<script>               
+                         $(document).ready(
+
+                         function(){
+
+                            $.jnoty('Accountant Added Successfuly', {
+                         sticky: false,
+                         header: 'Success',
+                         theme: 'jnoty-success',
+                         close: function() {window.location.replace('../../view/headteacher/accountregistration.php')},
+                         });   
+                         }); 
+                         </script>";
+                    }
+                   else if ($role_id == 4)
+                   {
+                              echo "<script>               
+                        $(document).ready(
+
+                        function(){
+
+                           $.jnoty('Accountant Added Successfuly', {
+                        sticky: false,
+                        header: 'Success',
+                        theme: 'jnoty-success',
+                        close: function() {window.location.replace('../../view/admin/accountregistration.php')},
+                        });   
+                        }); 
+                        </script>";
+                   }
+             //The below code is to redirect usere to correct page i.e addmin , IT Admin e.t.c END 
+              
              
-            function(){
-                
-               $.jnoty('Teacher Added Successfuly', {
-            sticky: false,
-            header: 'Success',
-            theme: 'jnoty-success',
-            close: function() {window.location.replace('/threeedu/view/admin/accountregistration.php')},
-            });   
-            }); 
-            </script>";
-          }else {
-               echo "<script>               
-            $(document).ready(
-             
-            function(){
-                
-               $.jnoty('Teacher Can Not Be Added Please Try Agin and Check If Subject Was Added', {
-            sticky: false,
-            header: 'Erro',
-            theme: 'jnoty-danger',
-            close: function() {window.location.replace('/threeedu/view/admin/accountregistration.php')},
-            });   
-            }); 
-            </script>";
+         }
+          else {
+              
+              
+              
+              //The below code is to redirect usere to correct page i.e addmin , IT Admin e.t.c
+              if ($role_id == 3 && $teacher_position_id == 1)
+                    {
+                                echo "<script>               
+                                $(document).ready(
+
+                                function(){
+
+                                   $.jnoty('We encountered an error in adding an Accountant Please Contact Admin', {
+                                sticky: false,
+                                header: 'Erro',
+                                theme: 'jnoty-danger',
+                                close: function() {window.location.replace('../../view/headteacher/accountregistration.php')},
+                                });   
+                                }); 
+                                </script>";
+                    }
+                   else if ($role_id == 4)
+                   {
+                               echo "<script>               
+                                $(document).ready(
+
+                                function(){
+
+                                   $.jnoty('We encountered an error in adding an Accountant Please Contact Admin', {
+                                sticky: false,
+                                header: 'Erro',
+                                theme: 'jnoty-danger',
+                                close: function() {window.location.replace('../../view/admin/accountregistration.php')},
+                                });   
+                                }); 
+                                </script>";
+                   }
+             //The below code is to redirect usere to correct page i.e addmin , IT Admin e.t.c END 
+              
+              
+              
+              
               
           }
 
        
-        } else {
+        }
+         else {
+              //This code sets the profile pic to a defult image
+                $pic_url = "../../uploads/defult.png";
+                if(SuperModel::create_accountant($pic_url,$acc_id, $nrc, $passport, $username, $hushed_password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id))
+                {
 
-        $pic_url = "../../uploads/defult.png";
-        if(add_teacher_details($pic_url,$subject_data,$teacher_id, $nrc, $passport, $username, $hushed_password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id))
-        {
-            
-           echo "<script>               
-            $(document).ready(
-             
-            function(){
+                  //The below code is to redirect usere to correct page i.e addmin , IT Admin e.t.c
+              if ($role_id == 3 && $teacher_position_id == 1)
+                    {
+                                echo "<script>               
+                         $(document).ready(
+
+                         function(){
+
+                            $.jnoty('Accountant Added Successfuly', {
+                         sticky: false,
+                         header: 'Success',
+                         theme: 'jnoty-success',
+                         close: function() {window.location.replace('../../view/headteacher/accountregistration.php')},
+                         });   
+                         }); 
+                         </script>";
+                    }
+                   else if ($role_id == 4)
+                   {
+                              echo "<script>               
+                        $(document).ready(
+
+                        function(){
+
+                           $.jnoty('Accountant Added Successfuly', {
+                        sticky: false,
+                        header: 'Success',
+                        theme: 'jnoty-success',
+                        close: function() {window.location.replace('../../view/admin/accountregistration.php')},
+                        });   
+                        }); 
+                        </script>";
+                   }
+             //The below code is to redirect usere to correct page i.e addmin , IT Admin e.t.c END 
                 
-               $.jnoty('Teacher Added Successfuly', {
-            sticky: false,
-            header: 'Success',
-            theme: 'jnoty-success',
-            close: function() {window.location.replace('/threeedu/view/admin/teacherregistration.php')},
-            });   
-            }); 
-            </script>";   
-        }else {
-//               echo "<script>               
-//            $(document).ready(
-//             
-//            function(){
-//                
-//               $.jnoty('Teacher Can Not Be Added Please Try Agin and Check If Subject Was Added', {
-//            sticky: false,
-//            header: 'Erro',
-//            theme: 'jnoty-danger',
-//            close: function() {window.location.replace('/threeedu/view/admin/teacherregistration.php')},
-//            });   
-//            }); 
-//            </script>";
+                }else {
+                      
+              //The below code is to redirect usere to correct page i.e addmin , IT Admin e.t.c
+              if ($role_id == 3 && $teacher_position_id == 1)
+                    {
+                                echo "<script>               
+                                $(document).ready(
+
+                                function(){
+
+                                   $.jnoty('We encountered an error in adding an Accountant Please Contact Admin', {
+                                sticky: false,
+                                header: 'Erro',
+                                theme: 'jnoty-danger',
+                                close: function() {window.location.replace('../../view/headteacher/accountregistration.php')},
+                                });   
+                                }); 
+                                </script>";
+                    }
+                   else if ($role_id == 4)
+                   {
+                               echo "<script>               
+                                $(document).ready(
+
+                                function(){
+
+                                   $.jnoty('We encountered an error in adding an Accountant Please Contact Admin', {
+                                sticky: false,
+                                header: 'Erro',
+                                theme: 'jnoty-danger',
+                                close: function() {window.location.replace('../../view/admin/accountregistration.php')},
+                                });   
+                                }); 
+                                </script>";
+                   }
+             //The below code is to redirect usere to correct page i.e addmin , IT Admin e.t.c END 
               
-          }
+              
+
+                  }
         
     }
 }

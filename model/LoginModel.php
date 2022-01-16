@@ -89,18 +89,18 @@ class Login {
         $user_type_id = $User['UserTypeID'];
         
         if ($user_type_id == 1) {
- Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id,$User['TenantID'],$User['SchoolPublicID'],$User['LogoPicURL'],$User['ProfilPicURL']);
+ Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id,$User['TenantID'],$User['SchoolPublicID'],$User['LogoPicURL'],$User['ProfilPicURL'],null);
              header('location:/threeedu/view/admin/');  
         } else if ($user_type_id == 2) {
-            Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id,$User['TenantID'],$User['SchoolPublicID'],$User['LogoPicURL'],$User['ProfilPicURL']);
+            Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id,$User['TenantID'],$User['SchoolPublicID'],$User['LogoPicURL'],$User['ProfilPicURL'],null);
              header('location:/threeedu/view/student/'); 
         } 
         else if ($user_type_id == 4) {
-            Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id,$User['TenantID'],$User['SchoolPublicID'],$User['LogoPicURL'],$User['ProfilPicURL']);
+            Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id,$User['TenantID'],$User['SchoolPublicID'],$User['LogoPicURL'],$User['ProfilPicURL'],null);
               header('location:/threeedu/view/admin/');  
         }
          else if ($user_type_id == 5) {
-            Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id,$User['TenantID'],$User['SchoolPublicID'],$User['LogoPicURL'],$User['ProfilPicURL']);
+            Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id,$User['TenantID'],$User['SchoolPublicID'],$User['LogoPicURL'],$User['ProfilPicURL'],null);
               header('location:/threeedu/view/accounts/');  
         }
         
@@ -110,17 +110,17 @@ class Login {
                
                
                
-   Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id,$User['TenantID'],$User['SchoolPublicID'],$User['LogoPicURL'],$User['ProfilPicURL']);
+   Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id,$User['TenantID'],$User['SchoolPublicID'],$User['LogoPicURL'],$User['ProfilPicURL'],$User['PositionID']);
              header('location:/threeedu/view/teacher/');  
            }
            else if ($User['PositionID'] == 3)
                {
-  Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id,$User['TenantID'],$User['SchoolPublicID'],$User['LogoPicURL'],$User['ProfilPicURL']);
+  Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id,$User['TenantID'],$User['SchoolPublicID'],$User['LogoPicURL'],$User['ProfilPicURL'],$User['PositionID']);
              header('location:/threeedu/view/headteacher/');   
                }
            else {
                
-               Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id,$User['TenantID'],$User['SchoolPublicID'],$User['LogoPicURL'],$User['ProfilPicURL']);
+               Login::set_sessions($User['UserName'], $User['PublicID'],$User['Name'],$User['ShortHand'],$user_type_id,$User['TenantID'],$User['SchoolPublicID'],$User['LogoPicURL'],$User['ProfilPicURL'],$User['PositionID']);
              header('location:/threeedu/view/teacher/');   
            }
               
@@ -131,7 +131,7 @@ class Login {
         }
     }
 
-    public static function set_sessions($username, $public_id,$user_names,$department,$user_id,$tenant_id,$school_id,$logo_pic_url,$profile_pic_url) {
+    public static function set_sessions($username, $public_id,$user_names,$department,$user_id,$tenant_id,$school_id,$logo_pic_url,$profile_pic_url,$teacher_position_id) {
         // This functionis used to set the username and public id session 
         // so as to use it the the system 
         $_SESSION['threeedu_username'] = $username;
@@ -143,7 +143,11 @@ class Login {
           $_SESSION['threeedu_schoolid'] = $school_id;
            $_SESSION['threeedu_logo_pic_url'] = $logo_pic_url;
             $_SESSION['threeedu_profile_pic'] = $profile_pic_url;
+            
+             $_SESSION['threeedu_teacher_possition_id'] = isset($teacher_position_id) ? $teacher_position_id : null;
         
+            
+            
     }
 
     

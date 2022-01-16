@@ -107,9 +107,13 @@ $stm_province_data = SuperModel::get_provinces();
                     <div class="pcoded-wrapper">
 
 
-                        <!--side bar start  -->
+                         <!--side bar start  -->
                         <?php
-                        require './sidbar.php';
+                        if ($_SESSION['threeedu_user_id'] == 1) {
+                            require './sidbar.php';
+                        } else if ($_SESSION['threeedu_user_id'] == 4) {
+                            require './itadminsidbar.php';
+                        }
                         ?>
                         <!--side bar end  -->
 
