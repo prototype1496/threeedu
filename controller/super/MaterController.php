@@ -515,3 +515,73 @@ else if (isset($_GET['subject_master_id'])) {
         }
 
 }
+else if (isset($_POST['btn_submit_term'])) {
+    
+     $term_name =trim(filter_input(INPUT_POST, 'term_name', FILTER_DEFAULT));
+   
+    $UpdatedBy = $_SESSION['threeedu_username'];
+     $tenant_id = $_SESSION['threeedu_tenantid'];
+ 
+   
+
+        if (SuperModel::add_term_master($term_name,$UpdatedBy,$tenant_id)) {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+               window.location.replace('/threeedu/view/admin/termmaster.php')
+          
+                
+              
+            }); 
+            
+            </script>";
+        } else {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+           
+                showInfoToast('Error in updateing Status Please Try Again Later');
+               window.location.replace('/threeedu/view/admin/termmaster.php');
+            }); 
+            </script>";
+        }
+
+}
+else if (isset($_GET['term_id'])) {
+    
+     $term_name_id =trim(filter_input(INPUT_GET, 'term_id', FILTER_DEFAULT));
+   
+    $UpdatedBy = $_SESSION['threeedu_username'];
+     $tenant_id = $_SESSION['threeedu_tenantid'];
+ 
+   
+
+        if (SuperModel::updated_term_master_status($term_name_id,$tenant_id,$UpdatedBy)) {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+               window.location.replace('/threeedu/view/admin/termmaster.php')
+          
+                
+              
+            }); 
+            
+            </script>";
+        } else {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+           
+                showInfoToast('Error in updateing Status Please Try Again Later');
+               window.location.replace('/threeedu/view/admin/termmaster.php');
+            }); 
+            </script>";
+        }
+
+}
+
+

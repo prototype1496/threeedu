@@ -34,9 +34,9 @@ CREATE TABLE IF NOT EXISTS `feecharges` (
   `AddedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`GradeMasterID`,`TenantMasterID`,`TermID`,`Year`) USING BTREE,
   UNIQUE KEY `FeeChargesID` (`FeeChargesID`)
-) ENGINE=InnoDB AUTO_INCREMENT=176 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=189 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_accounts_db.feecharges: ~39 rows (approximately)
+-- Dumping data for table 3edu_accounts_db.feecharges: ~52 rows (approximately)
 DELETE FROM `feecharges`;
 /*!40000 ALTER TABLE `feecharges` DISABLE KEYS */;
 INSERT INTO `feecharges` (`FeeChargesID`, `GradeMasterID`, `TermID`, `TenantMasterID`, `Year`, `Grade`, `IsCharged`, `Amount`, `UpdatedBy`, `UpdatedOn`, `AddedOn`) VALUES
@@ -130,7 +130,7 @@ INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID
 	(22, 'TRID', 62, '2021-09-06 04:44:36'),
 	(23, 'BILL', 15, '2021-09-17 16:46:37'),
 	(24, 'ACCO', 0, '2021-11-27 16:15:30'),
-	(25, 'TRAN', 77, '2021-11-28 02:57:12');
+	(25, 'TRAN', 88, '2021-11-28 02:57:12');
 /*!40000 ALTER TABLE `sequencemaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_accounts_db.transactiondetails
@@ -182,17 +182,18 @@ CREATE TABLE IF NOT EXISTS `transactionmaster` (
   `Year` year(4) NOT NULL DEFAULT year(current_timestamp()),
   `UpdatedOn` varchar(50) NOT NULL DEFAULT current_timestamp(),
   `AddedOn` datetime NOT NULL DEFAULT current_timestamp(),
+  `TenantMasterID` varchar(500) NOT NULL,
   PRIMARY KEY (`TransactionMasterID`),
   UNIQUE KEY `TransactionMasterPublicID` (`TransactionMasterPublicID`)
-) ENGINE=InnoDB AUTO_INCREMENT=189 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=208 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_accounts_db.transactionmaster: ~3 rows (approximately)
+-- Dumping data for table 3edu_accounts_db.transactionmaster: ~14 rows (approximately)
 DELETE FROM `transactionmaster`;
 /*!40000 ALTER TABLE `transactionmaster` DISABLE KEYS */;
-INSERT INTO `transactionmaster` (`TransactionMasterID`, `TransactionMasterPublicID`, `StudentMasterPublicID`, `TermMasterID`, `GradeMasterID`, `GradeName`, `Balance`, `BilledAmount`, `IsActive`, `UpdatedBy`, `Year`, `UpdatedOn`, `AddedOn`) VALUES
-	(118, 'TRAN00000000039', 'SDNT00000000031', 1, 8, '8', 500, 1000, '1', 'acc', '2020', '2020-01-16 08:07:20', '2020-01-16 08:07:20'),
-	(137, 'TRAN00000000050', 'SDNT00000000031', 1, 8, '8', 1200, 1000, '1', 'acc', '2021', '2021-01-16 08:12:00', '2021-01-16 08:12:00'),
-	(175, 'TRAN00000000072', 'SDNT00000000031', 1, 8, '8', 1700, 1000, '1', 'acc', '2022', '2022-01-16 08:21:50', '2022-01-16 08:21:50');
+INSERT INTO `transactionmaster` (`TransactionMasterID`, `TransactionMasterPublicID`, `StudentMasterPublicID`, `TermMasterID`, `GradeMasterID`, `GradeName`, `Balance`, `BilledAmount`, `IsActive`, `UpdatedBy`, `Year`, `UpdatedOn`, `AddedOn`, `TenantMasterID`) VALUES
+	(118, 'TRAN00000000039', 'SDNT00000000031', 1, 8, '8', 500, 1000, '1', 'acc', '2020', '2020-01-16 08:07:20', '2020-01-16 08:07:20', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
+	(137, 'TRAN00000000050', 'SDNT00000000031', 1, 8, '8', 1200, 1000, '1', 'acc', '2021', '2021-01-16 08:12:00', '2021-01-16 08:12:00', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
+	(175, 'TRAN00000000072', 'SDNT00000000031', 1, 8, '8', 1700, 1000, '1', 'acc', '2022', '2022-01-16 08:21:50', '2022-01-16 08:21:50', '5fe7597e-f7a1-11eb-a81c-1062e5c23529');
 /*!40000 ALTER TABLE `transactionmaster` ENABLE KEYS */;
 
 -- Dumping structure for procedure 3edu_accounts_db.CheckIfFessExists
@@ -329,7 +330,9 @@ DELIMITER ;
 -- Dumping structure for procedure 3edu_accounts_db.GetTotalTransactioanalHitory
 DROP PROCEDURE IF EXISTS `GetTotalTransactioanalHitory`;
 DELIMITER //
-CREATE PROCEDURE `GetTotalTransactioanalHitory`()
+CREATE PROCEDURE `GetTotalTransactioanalHitory`(
+	IN `TenantID_` VARCHAR(500)
+)
 BEGIN
 
 SET @TOTALBALACE = (SELECT  SUM(TM.Balance) FROM transactionmaster TM WHERE TM.Year = YEAR(CURDATE()));
@@ -341,7 +344,7 @@ SELECT TM.StudentMasterPublicID																															AS 'StudentMasterP
 		 @TOTALBALACE																																			AS 'TOTALBALACE'
 FROM transactionmaster TM 
 JOIN 3edu_db.studentmaster SM ON SM.StudentMasterPublicID = TM.StudentMasterPublicID
-WHERE TM.Year = YEAR(CURDATE())
+WHERE TM.Year = YEAR(CURDATE()) AND TM.TenantMasterID = TenantID_
 GROUP BY TM.StudentMasterPublicID ORDER BY SM.FirstName, SM.LastName ASC;
 END//
 DELIMITER ;
@@ -351,7 +354,8 @@ DROP PROCEDURE IF EXISTS `GetTotalTransactioanalHitoryByIDDate`;
 DELIMITER //
 CREATE PROCEDURE `GetTotalTransactioanalHitoryByIDDate`(
 	IN `TermMasterID_` INT,
-	IN `Year_` YEAR
+	IN `Year_` YEAR,
+	IN `TenantID_` VARCHAR(500)
 )
 BEGIN
 SET @TOTALBALACE = (SELECT  SUM(TM.Balance) FROM transactionmaster TM  WHERE  TM.TermMasterID =TermMasterID_ AND TM.Year = Year_);
@@ -362,7 +366,7 @@ SELECT TM.StudentMasterPublicID																															AS 'StudentMasterP
 		 CONCAT(SM.StudentNo,'-',SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName )		AS 'Name',
 		 @TOTALBALACE																																			AS 'TOTALBALACE'
 FROM transactionmaster TM 
-JOIN 3edu_db.studentmaster SM ON SM.StudentMasterPublicID = TM.StudentMasterPublicID WHERE  TM.TermMasterID =TermMasterID_ AND TM.Year = Year_
+JOIN 3edu_db.studentmaster SM ON SM.StudentMasterPublicID = TM.StudentMasterPublicID WHERE  TM.TermMasterID =TermMasterID_ AND TM.Year = Year_ AND TM.TenantMasterID = TenantID_
 GROUP BY TM.StudentMasterPublicID ORDER BY SM.FirstName, SM.LastName ASC;
 
 END//
@@ -434,7 +438,7 @@ DELIMITER ;
 
 -- Dumping structure for trigger 3edu_accounts_db.BilllStudents
 DROP TRIGGER IF EXISTS `BilllStudents`;
-SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `BilllStudents` AFTER INSERT ON `feecharges` FOR EACH ROW BEGIN
 SET @FEECHARGID = (SELECT MAX(FCH.FeeChargesID) FROM feecharges FCH);
@@ -461,7 +465,8 @@ INSERT INTO transactionmaster
 	GradeMasterID, 
 	GradeName, 
 	Balance, 
-	BilledAmount
+	BilledAmount,
+	TenantMasterID
 	)
 	SELECT
 	GetSequence(25),  
@@ -470,7 +475,8 @@ INSERT INTO transactionmaster
 	@GRADEMASTERID,
 	@GRADENAME,
 	GetTotalBlance(StudentMasterPublicID,@AMOUNT),
-	@AMOUNT
+	@AMOUNT,
+	@TENANTID
 	FROM 3edu_db.studentmaster SM WHERE SM.ClassMasterPublicID = @CLASSMASTERID AND SM.IsActive = 1 AND SM.IsGraduated = 0 ;
 	
 	

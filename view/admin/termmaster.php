@@ -2,26 +2,14 @@
 require '../../controller/super/SessionStart.php';
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/SuperModel.php';
-require_once '../../controller/super/AccountsController.php';
+require '../../controller/super/MaterController.php';
 
 $tenant_id = $_SESSION['threeedu_tenantid'];
-$school_id = $_SESSION['threeedu_schoolid'];
+$stm = SuperModel::get_active_terms_by_tenant_id($tenant_id);
 
-if (isset($_GET['term_id']) || isset($_GET['year_id'])){
-    
-    $term_id  = $_GET['term_id'];
-    $year_id  = $_GET['year_id'];
-    
-    $stm = SuperModel::get_all_transactional_history($term_id,$year_id,1,$tenant_id);
-    
-    
-   
-}else {
-
-    $stm = SuperModel::get_all_transactional_history('','',2,$tenant_id);
-}
-
-$stm_term_data = SuperModel::get_active_terms($tenant_id);
+//if(isset($_GET['term_id'])){
+//    SuperModel::updated_term_master_status($_GET['term_id'],$tenant_id,);
+//}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +17,7 @@ $stm_term_data = SuperModel::get_active_terms($tenant_id);
     <!-- Mirrored from colorlib.com//polygon/adminty/default/dt-ext-buttons-html-5-data-export.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:48:50 GMT -->
     <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
     <head>
-        <title>Total Transaction History </title>
+        <title>Student Assessment </title>
 
 
         <!--[if lt IE 10]>
@@ -110,7 +98,7 @@ $stm_term_data = SuperModel::get_active_terms($tenant_id);
 
 
                 <!--nva bar start  -->
-                <?php require'./navbar.php'; ?>
+<?php require'./navbar.php'; ?>
                 <!--nva bar end  -->
 
 
@@ -122,20 +110,36 @@ $stm_term_data = SuperModel::get_active_terms($tenant_id);
 
 
                         <!--side bar start  -->
-                        <?php
-                      require './sidbar.php';
-                        ?>
+<?php
+if ($_SESSION['threeedu_user_id'] == 1) {
+    require './sidbar.php';
+} else if ($_SESSION['threeedu_user_id'] == 4) {
+    require './itadminsidbar.php';
+}
+?>
                         <!--side bar end  -->
 
                         <div class="pcoded-content">
                             <div class="pcoded-inner-content">
 
                                 <div class="main-body">
-                                  
-                                    <form method="POST" action="bulkcharg.php" enctype="multipart/form-data"> 
+                                    <div class="page-wrapper">
 
+                                        <div class="page-header">
+                                            <div class="row align-items-end">
+                                                <div class="col-lg-8">
+
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <form method="POST" action="termmaster.php"> 
                                         <div class="page-body">
                                             <div class="row">
+                                                
                                                 <div class="col-sm-12">
 
                                                     <div class="card">
@@ -143,59 +147,20 @@ $stm_term_data = SuperModel::get_active_terms($tenant_id);
                                                         <div class="card-block">
                                                             <div class="form-group row">
 
-                                                                 
-                                                                
-                                                                <div class="col-md-4">
+                                                                <div class="col-md-3">
                                                                     <div class="form-group">
-                                                                        <label class="bmd-label-floating">Term</label>
-                                                                        <div class="form-select-list">
-                                                                            <select   class="form-control custom-select-value" name="term_id">
-                                                                                <option value="" disabled="disabled" selected="selected">Select Terms</option>
-
-                                                                                <?php while ($stm_term_data_row = $stm_term_data->fetch(PDO::FETCH_ASSOC)) { ?> 
-                                                                                    <option value="<?php echo $stm_term_data_row['TermMasterID']; ?>">  <?php echo $stm_term_data_row['TermName']; ?>  </option>
-                                                                                <?php } ?>
-
-                                                                            </select>
-                                                                        </div>
+                                                                        <label class="bmd-label-floating">Term Name</label>
+                                                                        <input required=""  name="term_name" type="text" class="form-control">
                                                                     </div>
-                                                                </div>
-                                                                
-                                                                                   <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <label class="bmd-label-floating">Year</label>
-                                                                        <div class="form-select-list">
-                                                                            <select   class="form-control custom-select-value" name="year_id">
-                                                                                <option value="" disabled="disabled" selected="selected">Select Year</option>
+                                                                </div>   
 
-                                  
-                                                                                    <option value="2019">2019  </option>
-                                                                                    <option value="2020">2020  </option>
-                                                                                    <option value="2021">2021  </option>
-                                                                                    <option value="2022">2022  </option>
-                                                                                    <option value="2023">2023</option>
-                                                                                     <option value="2024">2024</option>
-                                                                                       <option value="2024">2025</option>
-                                                                                         <option value="2024">2026</option>
-                                                                                           <option value="2024">2027</option>
 
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                 <div class="col-md-4">
+                                                                <div class="col-md-3">
                                                                     <div class="form-group">
                                                                         <br>
-                                                                        <input name="btn_complet_trasacton_history" type="submit" value="Load" class="btn btn-grd-primary">
-                                                                        
-                                                                      
-                                                                        
+                                                                        <input name="btn_submit_term" type="submit" class="btn btn-grd-primary">
                                                                     </div>
                                                                 </div> 
-                                                              
-                                                                
-                                                              
 
                                                             </div>                            
                                                             </form>                  
@@ -221,53 +186,43 @@ $stm_term_data = SuperModel::get_active_terms($tenant_id);
 
                                                     <div class="card">
                                                         <div class="card-header ">
-                                                            <h4>Transaction History</h4>  
-                                                            
-                                                            
+                                                            <h4>Terms</h4>      
                                                             <hr>     
                                                         </div>
                                                         <div class="card-block">
                                                             <div class="dt-responsive table-responsive">
-<!--                                                                remved excel-bg from id becasue its not validation other recods-->
                                                                 <table id="excel-bg" class="table table-striped table-bordered nowrap">
                                                                     <thead>
                                                                         <tr>
                                                                             <th></th>
-                                                                            <th>Student ID</th>
-                                                                            <th>Student Details</th>
-                                                                            <th>Balance</th>
-                                                                            <th>Billed Amount</th>
+                                                                            <th>Term Name</th>
 
-                                                                            
-                                                                             
+                                                                            <th>Active</th>
+
+                                                                            <th>Activate/Deactivate</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <?php
-                                                                        while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
-                                                                            
-                                                                           
-                                                                          $toatlabalace  = $row['TOTALBALACE'];
-                                                                          
-                                                                         
-                                                                     
-                                                                            ?>
+<?php
+while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+    $term_id = $row['TermMasterID']
+    ?>
                                                                             <tr>
-                                                                                  <td></td>
-                                                                                
-                                                                                <td><?php echo $row['StudentMasterPublicID']; ?></td>
-                                                                                <td><?php echo $row['Name']; ?></td>
-                                                                                <td><?php echo $row['Balace']; ?></td>
-                                                                                <td><?php echo $row['BilledAmount']; ?></td>
-                                                                                
+                                                                                <td></td>
+                                                                                <td><?php echo $row['TermName']; ?></td>
 
+                                                                                <td ><?php echo $row['IsSysActive']; ?></td>
+
+
+
+                                                                                <td>
+                                                                                    <button onclick="redirectWithID('<?php echo $term_id; ?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-power"></i></button>
+
+
+                                                                                </td>
                                                                             </tr>
 
-<?php } 
-
-
-?>
-                                                                                                                
+<?php } ?>
 
 
 
@@ -276,25 +231,16 @@ $stm_term_data = SuperModel::get_active_terms($tenant_id);
                                                                     </tbody>
                                                                     <tfoot>
                                                                         <tr>
-                                                                               <th></th>
-                                                                        <th>Student ID</th>
-                                                                            <th>Student Details</th>
-                                                                            <th>Balance</th>
-                                                                            <th>Billed Amount</th>
+                                                                             <th></th>
+                                                                            <th>Term Name</th>
+
+                                                                            <th>Active</th>
+
+                                                                            <th>Activate/Deactivate</th>
                                                                         </tr>
                                                                     </tfoot>
                                                                 </table>
                                                             </div>
-                                                            <?php 
-                                                            
-                                                              if(isset($toatlabalace)){
-                                                                                   
-                                                                                 $toatlabalace_t  = $toatlabalace;  
-                                                                           }else {
-                                                                               $toatlabalace_t = 0;
-                                                                               
-                                                                           }
-                                                            echo '<H5><b>Total Blance: K'.$toatlabalace_t.'</b></H5>'?>
                                                         </div>
                                                     </div>
 
@@ -412,13 +358,8 @@ $stm_term_data = SuperModel::get_active_terms($tenant_id);
     </script>
 
     <script>
-            function redirectWithID(subject_master_id ) {
-                window.location.href = "/threeedu/view/admin/subjectmaster.php?subject_master_id=" + subject_master_id;
-
-            }
-            
-             function redirectEditWithID(id, time_table_master_id) {
-                window.location.href = "/threeedu/view/admin/subjectmaster.php?classid=" + id + "&timetablemaster=" + time_table_master_id;
+            function redirectWithID(id) {
+                window.location.href = "/threeedu/view/admin/termmaster.php?term_id=" + id;
 
             }
     </script>
