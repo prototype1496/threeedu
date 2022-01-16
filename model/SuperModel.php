@@ -919,7 +919,7 @@ class SuperModel {
             foreach ($charge_data as $charge_data) {
                 //print_r($class_room_data);
                 if (!empty($charge_data[0])) {
-                    // print_r($class_room_data);
+                    // print_r($charge_data);
                     $stm->execute($charge_data);
                 } else {
                     
@@ -935,7 +935,7 @@ class SuperModel {
             return TRUE;
         } catch (Exception $exc) {
             $conn->rollBack();
-            echo $exc->getMessage();
+          //  echo $exc->getMessage();
             return FALSE;
         }
     }
