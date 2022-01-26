@@ -1,0 +1,66 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 21, 2018, 4:25:48 PM
+    Author     : Bernard Kapinda
+*/
+
+/*Change Primary Button Color > rohim */
+.btn-primary,  .btn-primary:active, .btn-primary:visited  {
+    background-color: #066b9e !important;
+    box-shadow: 0 1px 6px rgba(0,0,0,.5);
+     border-color: #066b9e !important;
+}
+
+/*Change Primary Button Hover Color > rohim */
+.btn-primary:hover{
+    
+    border-color: #066b9e !important;
+    border-color: #066b9e !important;
+    box-shadow: 0 1px 6px rgba(0,0,0,.5);
+}
+
+
+.btn-secondary,  .btn-secondary:active, .btn-secondary:visited , .btn-secondary:hover{
+    background-color: #993DC4 !important;
+    color: white;
+    border: 1px;
+    border-color: #74209C !important;
+    box-shadow: 0 1px 6px rgba(0,0,0,.5);
+}
+
+.btn-facebook,  .btn-facebook:active, .btn-facebook:visited , .btn-facebook:hover{
+  
+    color: white;
+    border: 1px;
+    border-color: #74209C !important;
+    box-shadow: 0 1px 6px rgba(0,0,0,.5);
+}
+
+.tt, tt:visited, tt:active{
+    
+    color:  #066b9e;   
+}
+
+.tt:hover{
+    
+    color:  #993DC4;   
+    
+    
+}
+
+
+.tt1:visited, tt1:active{
+    
+    color:  #993DC4;   
+    
+    
+}
+
+.tt1:hover{
+    
+    color:  #066b9e;   
+}
