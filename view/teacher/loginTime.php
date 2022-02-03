@@ -4,9 +4,8 @@ require_once '../../db_connection/dbconfig.php';
 require_once '../../model/SuperModel.php';
 $tenant_id = $_SESSION['threeedu_tenantid'];
 $teacher_public_id = $_SESSION['threeedu_public_id'];
-$signInDetails = SuperModel::getTeacherLoginDetails($teacher_public_id);
-$currentSignInDetails = SuperModel::getTeacherLoginCurrentDetails($teacher_public_id);
-
+$signInDetails = SuperModel::getTeacherLoginHistory($teacher_public_id,$tenant_id);
+$currentSignInDetails = SuperModel::getTeacherLoginDetails($teacher_public_id,$tenant_id);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -133,6 +132,8 @@ $currentSignInDetails = SuperModel::getTeacherLoginCurrentDetails($teacher_publi
                                                                name="loginBtnClicked"/>
                                                         <input hidden value="<?php echo $teacher_public_id ?>"
                                                                name="publicId"/>
+                                                        <input hidden value="<?php echo $tenant_id ?>"
+                                                               name="tenantId"/>
                                                         <div style="padding: 8px 30px 8px 30px;"
                                                              class="col-sm-12 col-xl-3 m-b-30">
                                                             <button class="col-sm-12 btn btn-primary btn-flat "

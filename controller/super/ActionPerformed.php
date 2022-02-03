@@ -757,7 +757,7 @@ if (isset($_POST['btn_reg_pupil'])) {
     }
 } else if (isset($_POST['loginBtnClicked'])) {
     $clickedBtn = $_POST['loginBtnClicked'];
-    if (SuperModel::saveTeacherSignInTime($clickedBtn,$_POST['publicId'])) {
+    if (SuperModel::saveTeacherSignInTime($clickedBtn,$_POST['publicId'],$_POST['tenantId'])) {
         echo "<script>               
             $(document).ready(
             function(){                

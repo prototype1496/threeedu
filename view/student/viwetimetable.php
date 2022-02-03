@@ -1,5 +1,5 @@
-<?php
-require '../../controller/super/SessionStart.php';
+<?php 
+require '../../controller/super/SessionStart.php'; 
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/TeacherModel.php';
 require_once '../../model/SuperModel.php';
@@ -17,9 +17,9 @@ $classmaster_id ="";
           {
             $classmaster_id  = trim(filter_input(INPUT_GET, 'classmasterid', FILTER_DEFAULT));
             $get_timtable_data = SuperModel::get_timtable($classmaster_id);
-
+            
             $classname =  SuperModel::get_class_name($classmaster_id);
-
+           
             while($row = $get_timtable_data->fetch(PDO::FETCH_ASSOC)){
              array_push($monday,$row['SubjectCodeM']);
              array_push($tuesday,$row['SubjectCodeT']);
@@ -27,12 +27,12 @@ $classmaster_id ="";
              array_push($thursday,$row['SubjectCodeTH']);
              array_push($friday,$row['SubjectCodeF']);
              array_push($periods,$row['PeriodName']);
-
+          
             }
-
+            
           }else {
-
-
+              
+              
           }
 ?>
 <!DOCTYPE html>
@@ -120,24 +120,24 @@ $classmaster_id ="";
 <div id="pcoded" class="pcoded">
 <div class="pcoded-overlay-box"></div>
 <div class="pcoded-container navbar-wrapper">
-
-
+    
+  
 
 <!--nva bar start  -->
 <?php require'./navbar.php';  ?>
 <!--nva bar end  -->
 
-
-
-
+    
+    
+    
 <div class="pcoded-main-container">
 <div class="pcoded-wrapper">
-
-
-
+    
+    
+   
 <!--side bar start  -->
 <?php require './sidbar.php'; ?>
-<!--side bar end  -->
+<!--side bar end  --> 
 
 <div class="pcoded-content">
 <div class="pcoded-inner-content">
@@ -172,11 +172,11 @@ $classmaster_id ="";
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="card">
-<hr>
+<hr>    
    <div class="col-sm-12">
        <div class="row">
            <div class="col-sm-12 col-xl-3 m-b-30">
-
+               
                <form action="../../controller/super/ActionPerformed.php" method="POST" >
                <select id="selected_class_id" onchange="" required="" name="classid" class="js-example-data-array col-sm-4">
             <option value="" disabled="disabled" selected="selected" >Select Class</option>
@@ -190,32 +190,32 @@ $classmaster_id ="";
       </div>
            <div class="col-sm-12 col-xl-3 m-b-30">
            <button class="btn btn-info" type="submit" name="btn_load_time_table_student">Load Time Table</button>
-
+           
                </div>
             </form>
-
+     
         </div>
-
+           
    </div>
-
+ 
                                 <div class="card">
                                     <?php if (isset($classname)){
                                            ?>
-
-                                       <h2><b>Class Time Table For <?php echo $classname; ?></b></h2><br>
-
-
-
+                                    
+                                       <h2><b>Class Time Table For <?php echo $classname; ?></b></h2><br> 
+                                        
+                                  
+                                    
                                     <div class="card-block table-border-style">
                                         <div class="table-responsive">
                                             <table class="table table-styling table-hover table-striped table-primary">
                                                 <thead>
                                                     <tr>
                                                         <th>Days</th>
-                                                         <?php
-
+                                                         <?php  
+                                                         
                                                        $headers = $periods;
-
+                                                       
 
                                                       foreach ($headers as $key => $value) {
 
@@ -225,89 +225,89 @@ $classmaster_id ="";
                                                  <th><?php echo $value; ?></th>
 
                                                  <?php } ?>
-
+                                                     
                                                     </tr>
-
-
+                                                    
+                                                                               
 <tr>
-
+   
     <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Monday</td>
      <?php foreach ($monday as $key => $value) {
-
+                         
                       ?>
     <td><?php echo $value ?></td>
-
+       
      <?php   } ?>
-
-
+ 
+   
 </tr>
 
-
+                                                                               
 <tr>
-
+   
     <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Tuesday</td>
      <?php foreach ($tuesday as $key => $value) {
-
+                         
                       ?>
     <td><?php echo $value ?></td>
-
+       
      <?php   } ?>
-
+   
 </tr>
 
 
-
+                                                                               
 <tr>
-
+   
     <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Wednesday</td>
      <?php foreach ($wednsday as $key => $value) {
-
+                         
                       ?>
     <td><?php echo $value ?></td>
-
+       
      <?php   } ?>
-
+   
 </tr>
 
 
-
+                                                                               
 <tr>
-
+   
     <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Thursday </td>
      <?php foreach ($thursday as $key => $value) {
-
+                         
                       ?>
     <td><?php echo $value ?></td>
-
+       
      <?php   } ?>
-
+   
 </tr>
 
 
-
+                                                                               
 <tr>
-
+   
     <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Friday</td>
      <?php foreach ($friday as $key => $value) {
-
+                         
                       ?>
     <td><?php echo $value ?></td>
-
+       
      <?php   } ?>
-
+  
 </tr>
 
                                                 </thead>
-
+                                                
                                             </table>
                                         </div>
                                     </div>
-
+                                       
                                         <?php } else { ?>
-
+                                       
                                       <center>  <h5><b>Please Select Calsss<b></h5>
                                                    <img src="../../img/timetable.png"/></center>
-
+                                       
                                       <?php } ?>
                                 </div>
 
@@ -319,7 +319,7 @@ $classmaster_id ="";
                     </div>
                 </div>
             </div>
-
+           
         </div>
     </div>
 
@@ -418,7 +418,7 @@ $classmaster_id ="";
 <script>
  function redirectWithID(id,day){
          window.location.href = "/threeedu/view/teacher/edittimetable.php?id="+id+"&&day="+day;
-
+        
     }
 </script>
 <script src="../../files/rocket-loader.min.js" data-cf-settings="028b4b5e88a856df25e89945-|49" defer=""></script></body>

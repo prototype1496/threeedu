@@ -2,9 +2,9 @@
 require '../../controller/super/SessionStart.php';
 require_once '../../db_connection/dbconfig.php';
 require_once '../../model/SuperModel.php';
-$tenant_id = $_SESSION['threeedu_tenantid'];
+$tenantId = $_SESSION['threeedu_tenantid'];
 $teacher_public_id = $_SESSION['threeedu_public_id'];
-$signInDetails = SuperModel::getAllTeacherLoginDetails();
+$signInDetails = SuperModel::getAllTeacherLoginDetails($tenantId);
 ?>
 <!DOCTYPE html>
 <html lang="en">
