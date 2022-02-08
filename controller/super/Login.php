@@ -35,19 +35,14 @@ if (isset($user_name) && !empty($user_name) && isset($password) && !empty($passw
                 //check if user is aactive or not
                 $is_active = $user_data['IsActive'];
                      if ($is_active == 1) {
-
                          if ($login_model->create_session($user_data)) {
-
-
                              if (isset($is_remember_me) && $is_remember_me != Null && $is_remember_me != '')
                              {
-
                                  $login_model->create_cookie($user_data, $password);
                                  //save cookies and sessions then redirect user
                                  //echo 'Cooki set';
                              }
                              else {
-
                              $login_model->redirect_user($user_data);
                                         //redirect user only dont save cookie
                                        // echo 'Sucess';

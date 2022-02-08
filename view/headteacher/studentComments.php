@@ -6,11 +6,12 @@ require_once '../../model/SuperModel.php';
 
 $tenant_id = $_SESSION['threeedu_tenantid'];
 $school_id = $_SESSION['threeedu_schoolid'];
+$publicId = $_SESSION['threeedu_public_id'];
 $stm = TeacherModel::get_all_student_details($tenant_id);
 $classes = SuperModel::get_all_classes_by_tenant_id($tenant_id);
-$teacher = SuperModel::get_teacher_details_by_tenant_id($tenant_id)->fetch();
-$teacherFullName = $teacher['FirstName'] . " " . $teacher['LastName'];
-;
+$teacherHead = SuperModel::getHeadTeacherDetails($publicId);
+$teacherFullName = $teacherHead['FirstName'] . " " . $teacherHead['LastName'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

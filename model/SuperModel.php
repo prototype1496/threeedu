@@ -32,9 +32,16 @@ class SuperModel
         return $stm;
     }
 
+    public static function getHeadTeacherDetails($publicId){
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+        $query = "SELECT * FROM usermaster WHERE PublicID = '$publicId'";
+        $stm = $conn->prepare($query);
+        $stm->execute();
+        return $stm->fetch();
+    }
 
-    public static function getTeacherLoginHistory($teacherPublicId, $tenantId)
-    {
+    public static function getTeacherLoginHistory($teacherPublicId, $tenantId){
         $Connection = new Connection();
         $conn = $Connection->connect();
         $query = "SELECT * FROM attendance WHERE UserPublicID = '$teacherPublicId'  AND `TenantID` ='$tenantId' ";
