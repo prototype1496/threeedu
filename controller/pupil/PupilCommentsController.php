@@ -10,15 +10,17 @@ if (isset($_POST['publicId'])) {
     $publicId = $_POST['publicId'];
     $assessmentId = $_POST['accesmenttype_id'];
     $date = $_POST['date'];
-    getStudentReportDetailsBy($publicId, $assessmentId,$date);
+    $assessmentName = $_POST['assessmentName'];
+    getStudentReportDetailsBy($publicId, $assessmentId,$assessmentName,$date);
 }
 
-function getStudentReportDetailsBy($publicId, $assessmentId, $date) {
+
+function getStudentReportDetailsBy($publicId, $assessmentId,$assessmentName, $date) {
     $comments = SuperModel::getStudentCommentsByPublicId($publicId, $assessmentId, $date);
     if (empty($comments)) {
         header('location:/threeedu/view/headteacher/finalReportFilter.php?error=record not found');
     } else {
-        header('location:/threeedu/view/headteacher/finalReport.php?public_id='.$publicId.'&assesment_id='.$assessmentId.'&date='.$date);
+        header('location:/threeedu/view/headteacher/finalReport.php?public_id='.$publicId.'&assesment_id='.$assessmentId.'&assessmentName='.$assessmentName.'&date='.$date);
     }
 }
 

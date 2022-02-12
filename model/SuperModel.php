@@ -50,8 +50,7 @@ class SuperModel
         return $stm;
     }
 
-    public static function getTeacherLoginDetails($teacherPublicId, $tenantId)
-    {
+    public static function getTeacherLoginDetails($teacherPublicId, $tenantId){
         $Connection = new Connection();
         $conn = $Connection->connect();
         $date = date("Y/m/d");

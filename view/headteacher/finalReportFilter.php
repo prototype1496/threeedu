@@ -186,10 +186,12 @@ $classes = SuperModel::get_all_classes_by_tenant_id($tenant_id);
                                                                                                                      class="col-sm-12 col-xl-3 m-b-30">
                                                                                                                     <label for="assecmenttype_id">Term</label>
                                                                                                                     <select id="assecmenttype_id"
+                                                                                                                            onchange="getSelectedValue()"
                                                                                                                             required
                                                                                                                             name="accesmenttype_id"
                                                                                                                             class="js-example-data-array col-sm-4">
                                                                                                                     </select>
+                                                                                                                    <input hidden name="assessmentName" id="assessmentName" >
                                                                                                                 </div>
                                                                                                                 <div
                                                                                                                         style="padding: 8px 30px 8px 30px;"
@@ -243,6 +245,20 @@ $classes = SuperModel::get_all_classes_by_tenant_id($tenant_id);
         </div>
     </div>
 </div>
+
+
+<script type="text/javascript">
+
+    function getSelectedValue(){
+        const selectedAssessment = document.getElementById("assecmenttype_id");
+        const assessmentName = selectedAssessment.options[selectedAssessment.selectedIndex].innerHTML;
+
+        const assessmentNameField = document.getElementById('assessmentName')
+        assessmentNameField.style.visibility = "visible" ;
+        assessmentNameField.value = assessmentName
+    }
+
+</script>
 
 <script src="../../lib/cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link href="../../lib/Toast/jquery.toast.min.css" rel="stylesheet" type="text/css"/>
@@ -368,9 +384,7 @@ $classes = SuperModel::get_all_classes_by_tenant_id($tenant_id);
 
 <script>
     function redirectWithID(id) {
-        // window.location.href = "/threeedu/view/teacher/profile.php?id="+id;
         window.location.href = "#";
-
     }
 </script>
 <script src="../../files/rocket-loader.min.js" data-cf-settings="028b4b5e88a856df25e89945-|49" defer=""></script>

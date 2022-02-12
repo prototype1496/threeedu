@@ -64,17 +64,21 @@ function get_studentdata() {
 
 function get_all_student_details() {
     console.log("get_all_student_details")
-    const class_id = document.getElementById("selected_class_id").value;
-    const temp_parm = "class_id=" + class_id;
 
-    console.log('classId',class_id)
+    const studentData = document.getElementById("student_data")
 
-    xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "../../controller/super/ReloadClasses.php?id=5&&" + temp_parm, false);
-    xmlhttp.send(null);
-    console.log("url", "../../controller/super/ReloadClasses.php?id=5&&" + temp_parm)
-    console.log(xmlhttp.responseText)
-    document.getElementById("student_data").innerHTML = xmlhttp.responseText;
+    if(studentData != null){
+        const class_id = document.getElementById("selected_class_id").value;
+        const temp_parm = "class_id=" + class_id;
+        console.log('classId',class_id)
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "../../controller/super/ReloadClasses.php?id=5&&" + temp_parm, false);
+        xmlhttp.send(null);
+        console.log("url", "../../controller/super/ReloadClasses.php?id=5&&" + temp_parm)
+        console.log(xmlhttp.responseText)
+        studentData.innerHTML = xmlhttp.responseText;
+    }
+
 }
 
 

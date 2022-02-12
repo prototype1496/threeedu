@@ -11,10 +11,17 @@ $classes = SuperModel::get_all_classes_by_tenant_id($tenant_id);
 $publicId = $_GET["public_id"];
 $assessmentId = $_GET["assesment_id"];
 $date = $_GET["date"];
+$assessmentName = $_GET["assessmentName"];
 $studentAssesment = SuperModel::get_student_assecemnttype_by_public_id($publicId);
 $studentDetails = SuperModel::getStudentDetailsByPublicId($publicId);
 $schoolDetails = SuperModel::getSchoolDetailsByPublicId($publicId);
 $studentComments = SuperModel::getStudentCommentsByPublicId($publicId,$assessmentId,$date);
+
+
+
+
+
+$year = date('Y', strtotime($date));
 
 
 if(isset($studentComments)){
@@ -24,7 +31,6 @@ $teacherName = $studentComments["TeaherMasterName"];
 $headTeacherName = $studentComments["HeadTeacherName"];
 $teacherComments = $studentComments["TeacherComment"];
 $headTeacherComments = $studentComments["HeadTeacherComment"];
-$assessmentName = $studentComments["AssessmentName"];
 
 ?>
 <!DOCTYPE html>
@@ -272,7 +278,7 @@ $assessmentName = $studentComments["AssessmentName"];
                                                                                                                     align="center"
                                                                                                                     style="font-size:1rem; border: transparent;  border-bottom: 2px solid black; padding:20px;">
                                                                                                                 <b>YEAR<br>
-                                                                                                                    2021
+                                                                                                                    <?php echo $year ?>
                                                                                                                 </b>
                                                                                                             </td>
                                                                                                         </tr>
