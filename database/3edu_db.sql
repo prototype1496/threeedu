@@ -2638,84 +2638,38 @@ INSERT INTO `studentattendance` (`StudentAttendanceID`, `StudentID`, `ClassID`, 
 	(84, 'SN2021028', 'CLAS0000000004', '2022-01-16 05:09:06', '1', NULL);
 /*!40000 ALTER TABLE `studentattendance` ENABLE KEYS */;
 
--- Dumping structure for table 3edu_db.studentcomments
-DROP TABLE IF EXISTS `studentcomments`;
-CREATE TABLE IF NOT EXISTS `studentcomments` (
-  `StudentCommentID` int(11) NOT NULL AUTO_INCREMENT,
-  `StudentMasterPublicID` varchar(50) NOT NULL,
-  `AssecemntTypeMasterID` int(11) NOT NULL,
-  `TeaherMasterName` varchar(50) DEFAULT NULL,
-  `HeadTeacherName` varchar(50) DEFAULT NULL,
-  `TeacherComment` varchar(250) DEFAULT NULL,
-  `HeadTeacherComment` varchar(250) DEFAULT NULL,
-  `State` varchar(30) DEFAULT NULL,
-  `AssessmentName` varchar(250) NOT NULL,
-  `CreatedAt` date NOT NULL DEFAULT current_timestamp(),
-  `UpdatedAt` date NOT NULL DEFAULT current_timestamp(),
-  `UpdatedBy` varchar(250) DEFAULT NULL,
-  PRIMARY KEY (`StudentCommentID`)
-) ENGINE=InnoDB AUTO_INCREMENT=145 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.studentcomments: ~56 rows (approximately)
-/*!40000 ALTER TABLE `studentcomments` DISABLE KEYS */;
-INSERT INTO `studentcomments` (`StudentCommentID`, `StudentMasterPublicID`, `AssecemntTypeMasterID`, `TeaherMasterName`, `HeadTeacherName`, `TeacherComment`, `HeadTeacherComment`, `State`, `AssessmentName`, `CreatedAt`, `UpdatedAt`, `UpdatedBy`) VALUES
-	(89, 'SDNT0000000001', 0, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'test', 'test', 'Done', 'END_OF_TERM_3', '2021-12-27', '2021-12-27', 'h'),
-	(90, 'SDNT00000000030', 0, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'good', 'test', 'Done', 'END_OF_TERM_3', '2021-12-27', '2021-12-27', 'h'),
-	(91, 'SDNT00000000015', 0, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', '232', 'good', 'Done', 'END_OF_TERM_3', '2021-12-27', '2021-12-27', 'h'),
-	(92, 'SDNT00000000018', 0, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'need to improve', 'test', 'Done', 'END_OF_TERM_3', '2021-12-27', '2021-12-27', 'h'),
-	(93, 'SDNT0000000005', 0, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'h', 'need to improve', 'Done', 'END_OF_TERM_3', '2021-12-27', '2021-12-27', 'h'),
-	(94, 'SDNT00000000031', 0, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'need to improve', 'good', 'Done', 'END_OF_TERM_3', '2021-12-27', '2021-12-27', 'h'),
-	(95, 'SDNT00000000035', 0, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'test', 'need to improve', 'Done', 'END_OF_TERM_3', '2021-12-27', '2021-12-27', 'h'),
-	(96, 'SDNT00000000032', 0, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'good', 'good', 'Done', 'END_OF_TERM_3', '2021-12-27', '2021-12-27', 'h'),
-	(97, 'SDNT0000000001', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'good', 'need to improve', 'Done', 'ET2021', '2021-12-29', '2021-12-29', 'h'),
-	(98, 'SDNT00000000030', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'good', 'need to improve', 'Done', 'ET2021', '2021-12-29', '2021-12-29', 'h'),
-	(99, 'SDNT00000000015', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'good', 'need to improve', 'Done', 'ET2021', '2021-12-29', '2021-12-29', 'h'),
-	(100, 'SDNT00000000018', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'need to improve', 'need to improve', 'Done', 'ET2021', '2021-12-29', '2021-12-29', 'h'),
-	(101, 'SDNT0000000005', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'need to improve', 'need to improve', 'Done', 'ET2021', '2021-12-29', '2021-12-29', 'h'),
-	(102, 'SDNT00000000031', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'good', 'need to improve', 'Done', 'ET2021', '2021-12-29', '2021-12-29', 'h'),
-	(103, 'SDNT00000000035', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'need to improve', 'did great', 'Done', 'ET2021', '2021-12-29', '2021-12-29', 'h'),
-	(104, 'SDNT00000000032', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'need to improve', 'did great', 'Done', 'ET2021', '2021-12-29', '2021-12-29', 'h'),
-	(105, 'SDNT0000000001', 3, 'Alinuswe Mwandobo', NULL, 'good', NULL, 'HeadTeacher', 'ET202101', '2021-12-30', '2021-12-30', 't'),
-	(106, 'SDNT00000000030', 3, 'Alinuswe Mwandobo', NULL, 'need to improve', NULL, 'HeadTeacher', 'ET202101', '2021-12-30', '2021-12-30', 't'),
-	(107, 'SDNT00000000015', 3, 'Alinuswe Mwandobo', NULL, 'need to improve', NULL, 'HeadTeacher', 'ET202101', '2021-12-30', '2021-12-30', 't'),
-	(108, 'SDNT00000000018', 3, 'Alinuswe Mwandobo', NULL, 'good', NULL, 'HeadTeacher', 'ET202101', '2021-12-30', '2021-12-30', 't'),
-	(109, 'SDNT0000000005', 3, 'Alinuswe Mwandobo', NULL, 'good', NULL, 'HeadTeacher', 'ET202101', '2021-12-30', '2021-12-30', 't'),
-	(110, 'SDNT00000000031', 3, 'Alinuswe Mwandobo', NULL, 'need to improve', NULL, 'HeadTeacher', 'ET202101', '2021-12-30', '2021-12-30', 't'),
-	(111, 'SDNT00000000035', 3, 'Alinuswe Mwandobo', NULL, 'did very good', NULL, 'HeadTeacher', 'ET202101', '2021-12-30', '2021-12-30', 't'),
-	(112, 'SDNT00000000032', 3, 'Alinuswe Mwandobo', NULL, 'need to improve', NULL, 'HeadTeacher', 'ET202101', '2021-12-30', '2021-12-30', 't'),
-	(113, 'SDNT0000000001', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'lkkljkLKJg', 'kjhkjkjh', 'Done', 'ETT2022', '2022-01-10', '2022-01-10', 'h'),
-	(114, 'SDNT00000000030', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'jhghj', 'sdf', 'Done', 'ETT2022', '2022-01-10', '2022-01-10', 'h'),
-	(115, 'SDNT00000000015', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'fgd', 'sfdsf', 'Done', 'ETT2022', '2022-01-10', '2022-01-10', 'h'),
-	(116, 'SDNT00000000018', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'fgd', 'dsf', 'Done', 'ETT2022', '2022-01-10', '2022-01-10', 'h'),
-	(117, 'SDNT0000000005', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'gfd', 'dsdf', 'Done', 'ETT2022', '2022-01-10', '2022-01-10', 'h'),
-	(118, 'SDNT00000000031', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'gfdgf', 's', 'Done', 'ETT2022', '2022-01-10', '2022-01-10', 'h'),
-	(119, 'SDNT00000000035', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'dfg', 'dfs', 'Done', 'ETT2022', '2022-01-10', '2022-01-10', 'h'),
-	(120, 'SDNT00000000032', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'd', 'fd', 'Done', 'ETT2022', '2022-01-10', '2022-01-10', 'h'),
-	(121, 'SDNT0000000001', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'T', 'H', 'Done', 'ETT', '2022-01-11', '2022-01-11', 'h'),
-	(122, 'SDNT00000000030', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'T', 'H', 'Done', 'ETT', '2022-01-11', '2022-01-11', 'h'),
-	(123, 'SDNT00000000015', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'T', 'H', 'Done', 'ETT', '2022-01-11', '2022-01-11', 'h'),
-	(124, 'SDNT00000000018', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'T', 'H', 'Done', 'ETT', '2022-01-11', '2022-01-11', 'h'),
-	(125, 'SDNT0000000005', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'T', 'H', 'Done', 'ETT', '2022-01-11', '2022-01-11', 'h'),
-	(126, 'SDNT00000000031', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'T', 'H', 'Done', 'ETT', '2022-01-11', '2022-01-11', 'h'),
-	(127, 'SDNT00000000035', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'T', 'H', 'Done', 'ETT', '2022-01-11', '2022-01-11', 'h'),
-	(128, 'SDNT00000000032', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'T', 'H', 'Done', 'ETT', '2022-01-11', '2022-01-11', 'h'),
-	(129, 'SDNT0000000001', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'great', 'great', 'Done', 'ETT012022', '2022-01-15', '2022-01-15', 'h'),
-	(130, 'SDNT00000000030', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'great', 'great', 'Done', 'ETT012022', '2022-01-15', '2022-01-15', 'h'),
-	(131, 'SDNT00000000015', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'great', 'great', 'Done', 'ETT012022', '2022-01-15', '2022-01-15', 'h'),
-	(132, 'SDNT00000000018', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'great', 'great', 'Done', 'ETT012022', '2022-01-15', '2022-01-15', 'h'),
-	(133, 'SDNT0000000005', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'great', 'great', 'Done', 'ETT012022', '2022-01-15', '2022-01-15', 'h'),
-	(134, 'SDNT00000000031', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'great', 'great', 'Done', 'ETT012022', '2022-01-15', '2022-01-15', 'h'),
-	(135, 'SDNT00000000035', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'great', 'great', 'Done', 'ETT012022', '2022-01-15', '2022-01-15', 'h'),
-	(136, 'SDNT00000000032', 2, 'Alinuswe Mwandobo', 'Alinuswe Mwandobo', 'great', 'great', 'Done', 'ETT012022', '2022-01-15', '2022-01-15', 'h'),
-	(137, 'SDNT0000000001', 2, 'Alinuswe Mwandobo', NULL, 'great', NULL, 'HeadTeacher', 'ETT012022', '2022-01-26', '2022-01-26', 't'),
-	(138, 'SDNT00000000030', 2, 'Alinuswe Mwandobo', NULL, 'great', NULL, 'HeadTeacher', 'ETT012022', '2022-01-26', '2022-01-26', 't'),
-	(139, 'SDNT00000000015', 2, 'Alinuswe Mwandobo', NULL, 'great', NULL, 'HeadTeacher', 'ETT012022', '2022-01-26', '2022-01-26', 't'),
-	(140, 'SDNT00000000018', 2, 'Alinuswe Mwandobo', NULL, 'great', NULL, 'HeadTeacher', 'ETT012022', '2022-01-26', '2022-01-26', 't'),
-	(141, 'SDNT0000000005', 2, 'Alinuswe Mwandobo', NULL, 'great', NULL, 'HeadTeacher', 'ETT012022', '2022-01-26', '2022-01-26', 't'),
-	(142, 'SDNT00000000031', 2, 'Alinuswe Mwandobo', NULL, 'great', NULL, 'HeadTeacher', 'ETT012022', '2022-01-26', '2022-01-26', 't'),
-	(143, 'SDNT00000000035', 2, 'Alinuswe Mwandobo', NULL, 'great', NULL, 'HeadTeacher', 'ETT012022', '2022-01-26', '2022-01-26', 't'),
-	(144, 'SDNT00000000032', 2, 'Alinuswe Mwandobo', NULL, 'great', NULL, 'HeadTeacher', 'ETT012022', '2022-01-26', '2022-01-26', 't');
-/*!40000 ALTER TABLE `studentcomments` ENABLE KEYS */;
+--
+-- Table structure for table `studentcomments`
+--
+
+DROP TABLE IF EXISTS `studentcomments`;
+CREATE TABLE `studentcomments` (
+                                   `StudentCommentID` int(11) NOT NULL,
+                                   `StudentMasterPublicID` varchar(50) NOT NULL,
+                                   `TeaherMasterName` varchar(50) DEFAULT NULL,
+                                   `HeadTeacherName` varchar(50) DEFAULT NULL,
+                                   `TeacherComment` varchar(250) DEFAULT NULL,
+                                   `HeadTeacherComment` varchar(250) DEFAULT NULL,
+                                   `State` varchar(30) DEFAULT NULL,
+                                   `Term` varchar(200) NOT NULL,
+                                   `CreatedAt` date NOT NULL DEFAULT current_timestamp(),
+                                   `UpdatedAt` date NOT NULL DEFAULT current_timestamp(),
+                                   `UpdatedBy` varchar(250) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+--
+-- Indexes for table `studentcomments`
+--
+ALTER TABLE `studentcomments`
+    ADD PRIMARY KEY (`StudentCommentID`);
+--
+-- AUTO_INCREMENT for dumped tables
+--
+-- AUTO_INCREMENT for table `studentcomments`
+--
+ALTER TABLE `studentcomments`
+    MODIFY `StudentCommentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=209;
+COMMIT;
 
 -- Dumping structure for table 3edu_db.studentdetails
 DROP TABLE IF EXISTS `studentdetails`;
