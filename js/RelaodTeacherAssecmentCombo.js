@@ -19,8 +19,8 @@ function get_assesment_types() {
     console.log("get_assesment_types")
     let tenant_id = document.getElementById("tenant_id");
     let class_id = document.getElementById("selected_class_id");
-
     let subject_id = document.getElementById("subject_id") != null ? document.getElementById("subject_id").value : "";
+    let assecmenttype_id = document.getElementById("assecmenttype_id") != null ? document.getElementById("assecmenttype_id").value : "";
 
     if(typeof(class_id) != 'undefined' && class_id != null){
         if(typeof(tenant_id) != 'undefined' && tenant_id != null){
@@ -29,7 +29,12 @@ function get_assesment_types() {
             xmlhttp.open("GET", "../../controller/super/ReloadClasses.php?id=2&&" + temp_parm, false);
             console.log("url", "../../controller/super/ReloadClasses.php?id=2&&" + temp_parm)
             xmlhttp.send(null);
-            document.getElementById("assecmenttype_id").innerHTML = xmlhttp.responseText;
+            if (typeof(assecmenttype_id) != 'undefined' && assecmenttype_id != null)
+            {
+                assecmenttype_id.innerHTML = xmlhttp.responseText;
+                console.log(assecmenttype_id.name)
+            }
+
             if (typeof(subject_id) != 'undefined' && subject_id != null)
             {
                 subject_id.innerHTML = xmlhttp.responseText;
@@ -39,8 +44,25 @@ function get_assesment_types() {
     }
 }
 
+function get_terms() {
+    let term_id = document.getElementById("term_id");
+    if (!term_id) return
+
+    let tenant_id = document.getElementById("tenant_id");
+    if (!tenant_id) return
+
+    let temp_parm = "&tenant_id=" + tenant_id.value;
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "../../controller/super/ReloadClasses.php?id=6" + temp_parm, false);
+    console.log("url", "../../controller/super/ReloadClasses.php?id=6" + temp_parm)
+    xmlhttp.send(null);
+    console.log("response ::",xmlhttp.responseText)
+    term_id.innerHTML = xmlhttp.responseText;
+}
+
 function get_assessments() {
     console.log("get_assessments")
+    get_terms()
     get_subjects()
     get_assesment_types()
     get_all_student_details()
@@ -51,9 +73,7 @@ function get_assessments() {
 function get_studentdata() {
     console.log("get_studentdata")
     const class_id = document.getElementById("selected_class_id").value;
-    const assecmenttype_id = document.getElementById("assecmenttype_id").value;
-    const temp_parm = "class_id=" + class_id + "&&assecmenttype_id=" + assecmenttype_id;
-
+    const temp_parm = "class_id=" + class_id ;
     xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "../../controller/super/ReloadClasses.php?id=3&&" + temp_parm, false);
     xmlhttp.send(null);
@@ -63,22 +83,22 @@ function get_studentdata() {
 }
 
 function get_all_student_details() {
-    console.log("get_all_student_details")
+    console.log('get_all_student_details')
+    let student_data = document.getElementById("student_data");
+    if (!student_data) return
 
-    const studentData = document.getElementById("student_data")
+    let class_id = document.getElementById("class_id");
+    if (!class_id) return
 
-    if(studentData != null){
-        const class_id = document.getElementById("selected_class_id").value;
-        const temp_parm = "class_id=" + class_id;
-        console.log('classId',class_id)
-        xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", "../../controller/super/ReloadClasses.php?id=5&&" + temp_parm, false);
-        xmlhttp.send(null);
-        console.log("url", "../../controller/super/ReloadClasses.php?id=5&&" + temp_parm)
-        console.log(xmlhttp.responseText)
-        studentData.innerHTML = xmlhttp.responseText;
-    }
+    const temp_parm = "class_id=" + class_id.value;
 
+    console.log('classId',class_id.value)
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "../../controller/super/ReloadClasses.php?id=5&&" + temp_parm, false);
+    xmlhttp.send(null);
+    console.log("url", "../../controller/super/ReloadClasses.php?id=5&&" + temp_parm)
+    console.log(xmlhttp.responseText)
+    student_data.innerHTML = xmlhttp.responseText;
 }
 
 

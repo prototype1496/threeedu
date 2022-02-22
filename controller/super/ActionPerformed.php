@@ -662,8 +662,7 @@ if (isset($_POST['btn_reg_pupil'])) {
     $studentPublicId = isset($_POST['student_puplic_id']) ? $_POST['student_puplic_id'] : array(0 => 0);
     $comment = isset($_POST['comment']) ? $_POST['comment'] : array(0 => 0);
     $teacherName = isset($_POST['teacherName']) ? $_POST['teacherName'] : "teacherName";
-    $assessmentTypeId = isset($_POST['accesmenttype_id']) ? $_POST['accesmenttype_id'] : "accesmenttype_id";
-    $assessmentName = isset($_POST['assessment_name']) ? $_POST['assessment_name'] : "assessment_name";
+    $term = isset($_POST['term_id']) ? $_POST['term_id'] : "term_id";
     $count = 0;
     $data = array();
     $sizeOfIdArray = sizeof($studentPublicId);
@@ -675,7 +674,11 @@ if (isset($_POST['btn_reg_pupil'])) {
             } else {
                 $teacherComment = $comment[$count];
             }
-            array_push($data, array($studentPublicId[$count], $assessmentTypeId, $teacherName, null, $teacherComment, null, "HeadTeacher", $assessmentName, $UpdatedBy));
+            array_push($data, array(
+                    $studentPublicId[$count],
+                $teacherName, null,
+                $teacherComment, null,
+                "HeadTeacher",  $term, $UpdatedBy));
             $count++;
         }
     }
@@ -712,8 +715,7 @@ if (isset($_POST['btn_reg_pupil'])) {
     $studentPublicId = isset($_POST['student_puplic_id']) ? $_POST['student_puplic_id'] : array(0 => 0);
     $comment = isset($_POST['comment']) ? $_POST['comment'] : array(0 => 0);
     $teacherName = isset($_POST['teacherName']) ? $_POST['teacherName'] : "teacherName";
-    $assessmentTypeId = isset($_POST['accesmenttype_id']) ? $_POST['accesmenttype_id'] : "accesmenttype_id";
-    $assessmentName = isset($_POST['assessment_name']) ? $_POST['assessment_name'] : "assessment_name";
+    $term = isset($_POST['term_id']) ? $_POST['term_id'] : "term_id";
     $count = 0;
     $data = array();
     $sizeOfIdArray = sizeof($studentPublicId);
@@ -724,7 +726,7 @@ if (isset($_POST['btn_reg_pupil'])) {
             } else {
                 $teacherComment = $comment[$count];
             }
-            array_push($data, array("studentPublicId" => $studentPublicId[$count], "assessmentTypeId" => $assessmentTypeId, "teacherName" => $teacherName, "commentData" => $teacherComment, "status" => "Done", "assessmentName" => $assessmentName, "updatedBy" => $UpdatedBy));
+            array_push($data, array("studentPublicId" => $studentPublicId[$count], "teacherName" => $teacherName, "commentData" => $teacherComment, "status" => "Done", "term" => $term, "updatedBy" => $UpdatedBy));
             $count++;
         }
     }

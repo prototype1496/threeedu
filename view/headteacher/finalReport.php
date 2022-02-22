@@ -9,13 +9,13 @@ $school_id = $_SESSION['threeedu_schoolid'];
 $stm = TeacherModel::get_all_student_details($tenant_id);
 $classes = SuperModel::get_all_classes_by_tenant_id($tenant_id);
 $publicId = $_GET["public_id"];
-$assessmentId = $_GET["assesment_id"];
+$term = $_GET["term"];
 $date = $_GET["date"];
 $assessmentName = $_GET["assessmentName"];
 $studentAssesment = SuperModel::get_student_assecemnttype_by_public_id($publicId);
 $studentDetails = SuperModel::getStudentDetailsByPublicId($publicId);
 $schoolDetails = SuperModel::getSchoolDetailsByPublicId($publicId);
-$studentComments = SuperModel::getStudentCommentsByPublicId($publicId,$assessmentId,$date);
+$studentComments = SuperModel::getStudentCommentsByPublicId($publicId,$term,$date);
 
 
 
@@ -271,7 +271,7 @@ $headTeacherComments = $studentComments["HeadTeacherComment"];
                                                                                                                     align="center"
                                                                                                                     style="font-size:1rem; border: transparent;  border-bottom: 2px solid black; padding:20px;">
                                                                                                                 <b>TERM<br>
-                                                                                                                    <?php echo $assessmentName ?>
+                                                                                                                    <?php echo $term ?>
                                                                                                                 </b>
                                                                                                             </td>
                                                                                                             <td

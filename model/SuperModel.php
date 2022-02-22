@@ -32,6 +32,25 @@ class SuperModel
         return $stm;
     }
 
+    public  static function getAllActiveTerms($tenantId){
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+        $query = "SELECT * FROM termmaster WHERE TenantID = '$tenantId'";
+        $stm = $conn->prepare($query);
+        $stm->execute();
+
+        echo "  <option value='' disabled='disabled' selected='selected' >Select Term</option> ";
+        if ($stm->rowCount() > 0) {
+            while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+                $termName = $row['TermName'];
+               echo  '<option  value=\''.$termName.'\'> '.$termName.'</option>';
+            }
+        }
+
+        return $stm;
+    }
+
+
     public static function getHeadTeacherDetails($publicId){
         $Connection = new Connection();
         $conn = $Connection->connect();
@@ -71,13 +90,12 @@ class SuperModel
         return $stm;
     }
 
-    public static function addTeacherComments($tem_data)
-    {
+    public static function addTeacherComments($tem_data) {
         try {
             $Connection = new Connection();
             $conn = $Connection->connect();
             $conn->beginTransaction();
-            $query = "INSERT INTO `studentcomments` (`StudentMasterPublicID`,`AssecemntTypeMasterID`,`TeaherMasterName`,`HeadTeacherName`, `TeacherComment`,`HeadTeacherComment`,`State`,`AssessmentName`,`UpdatedBy`) VALUES (?,?,?,?,?,?,?,?,?);";
+            $query = "INSERT INTO `studentcomments` (`StudentMasterPublicID`,`TeaherMasterName`,`HeadTeacherName`, `TeacherComment`,`HeadTeacherComment`,`State`,`Term`,`UpdatedBy`) VALUES (?,?,?,?,?,?,?,?);";
             $stm = $conn->prepare($query);
             foreach ($tem_data as $data) {
                 if (!empty($data[0])) {
@@ -94,13 +112,12 @@ class SuperModel
         }
     }
 
-    public static function addHeadTeacherComments($tem_data)
-    {
+    public static function addHeadTeacherComments($tem_data) {
         try {
             $Connection = new Connection();
             $conn = $Connection->connect();
             $conn->beginTransaction();
-            $query = "UPDATE `studentcomments` SET HeadTeacherName =?, HeadTeacherComment = ? , UpdatedBy = ?,State = ? WHERE State = ? AND StudentMasterPublicID = ? AND AssecemntTypeMasterID	= ? AND AssessmentName = ?;";
+            $query = "UPDATE `studentcomments` SET HeadTeacherName =?, HeadTeacherComment = ? , UpdatedBy = ?,State = ? WHERE State = ? AND StudentMasterPublicID = ? AND Term	= ? ";
             $stm = $conn->prepare($query);
             $state = "HeadTeacher";
 
@@ -111,10 +128,10 @@ class SuperModel
                 $stm->bindParam(4, $data['status'], PDO::PARAM_STR);
                 $stm->bindParam(5, $state, PDO::PARAM_STR);
                 $stm->bindParam(6, $data['studentPublicId'], PDO::PARAM_STR);
-                $stm->bindParam(7, $data['assessmentTypeId'], PDO::PARAM_STR);
-                $stm->bindParam(8, $data['assessmentName'], PDO::PARAM_STR);
+                $stm->bindParam(7, $data['term'], PDO::PARAM_STR);
                 $stm->execute();
             }
+
             $conn->commit();
             $conn = Null;
             return true;
@@ -125,14 +142,15 @@ class SuperModel
         }
     }
 
-    public static function getStudentCommentsByPublicId($publicId, $assessmentId, $date)
-    {
+
+    public static function getStudentCommentsByPublicId($publicId, $term, $date) {
         $Connection = new Connection();
         $conn = $Connection->connect();
         $time = strtotime($date);
         $month = date("m", $time);
         $year = date("Y", $time);
-        $query = "SELECT * FROM studentcomments WHERE StudentMasterPublicID = '$publicId' AND AssecemntTypeMasterID = '$assessmentId' AND MONTH(CreatedAt) = '$month' AND YEAR(CreatedAt) = '$year' ORDER BY studentcomments.StudentCommentID DESC LIMIT 1;";
+
+        $query = "SELECT * FROM studentcomments WHERE StudentMasterPublicID = '$publicId' AND Term LIKE '$term' AND MONTH(CreatedAt) = '$month' AND YEAR(CreatedAt) = '$year' ORDER BY studentcomments.StudentCommentID DESC LIMIT 1;";
         $stm = $conn->prepare($query);
         $stm->execute();
         return $stm->fetch(PDO::FETCH_ASSOC);
@@ -1826,7 +1844,7 @@ class SuperModel
         }
     }
 
-    function get_student_details_by_class_id($class_id, $assecmenttype_id)
+    function get_student_details_by_class_id($class_id)
     {
         //This function is used to load Students in the studentassecment.php grid 
         $Connection = new Connection();
@@ -1838,7 +1856,7 @@ class SuperModel
 ///maonpwe
 
         $stm = $conn->prepare($query);
-        $stm->execute(array(':class_id' => $class_id, ':assecmenttype_id' => $assecmenttype_id));
+        $stm->execute(array(':class_id' => $class_id, ':assecmenttype_id' => '000000'));
 
         if ($stm->rowCount() > 0) {
 
@@ -1860,7 +1878,6 @@ class SuperModel
                     <td><input name="comment[]" placeholder="Enter Comment"/></td>
 
                 </tr>
-
                 <?php
             }
         } else {

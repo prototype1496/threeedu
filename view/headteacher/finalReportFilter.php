@@ -182,16 +182,14 @@ $classes = SuperModel::get_all_classes_by_tenant_id($tenant_id);
                                                                                                                     </select>
                                                                                                                 </div>
 
-                                                                                                                <div id="assesmenttypeid"
+                                                                                                                <div
                                                                                                                      class="col-sm-12 col-xl-3 m-b-30">
-                                                                                                                    <label for="assecmenttype_id">Term</label>
-                                                                                                                    <select id="assecmenttype_id"
-                                                                                                                            onchange="getSelectedValue()"
+                                                                                                                    <label for="term_id">Term</label>
+                                                                                                                    <select id="term_id"
                                                                                                                             required
-                                                                                                                            name="accesmenttype_id"
+                                                                                                                            name="term_id"
                                                                                                                             class="js-example-data-array col-sm-4">
                                                                                                                     </select>
-                                                                                                                    <input hidden name="assessmentName" id="assessmentName" >
                                                                                                                 </div>
                                                                                                                 <div
                                                                                                                         style="padding: 8px 30px 8px 30px;"

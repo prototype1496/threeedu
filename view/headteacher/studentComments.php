@@ -129,7 +129,7 @@ $teacherFullName = $teacherHead['FirstName'] . " " . $teacherHead['LastName'];
                                                         <div class="row">
                                                             <div class="col-sm-12 col-xl-3 m-b-30">
                                                                 <select id="selected_class_id"
-                                                                        onchange="get_all_student_details()"
+                                                                        onchange="get_studentdata()"
                                                                         required="" name="classid"
                                                                         class="js-example-data-array col-sm-4">
                                                                     <option value="" disabled="disabled"
@@ -142,20 +142,13 @@ $teacherFullName = $teacherHead['FirstName'] . " " . $teacherHead['LastName'];
                                                                     <?php } ?>
                                                                 </select>
                                                             </div>
-                                                            <div id="assesmenttypeid" class="col-sm-12 col-xl-3 m-b-30">
-                                                                <select id="assecmenttype_id"
+                                                            <div
+                                                                    class="col-sm-12 col-xl-3 m-b-30">
+                                                                <select id="term_id"
                                                                         required
-                                                                        name="accesmenttype_id"
+                                                                        name="term_id"
                                                                         class="js-example-data-array col-sm-4">
                                                                 </select>
-                                                            </div>
-
-                                                            <div
-                                                                    style="padding: 8px 30px 8px 30px;"
-                                                                    class="col-sm-12 col-xl-3 m-b-30">
-                                                                <input type="text" required
-                                                                       name="assessment_name" class="form-control"
-                                                                       placeholder="Assessment Name"/>
                                                             </div>
                                                         </div>
                                                     </div>
