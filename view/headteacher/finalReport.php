@@ -16,13 +16,7 @@ $studentAssesment = SuperModel::get_student_assecemnttype_by_public_id($publicId
 $studentDetails = SuperModel::getStudentDetailsByPublicId($publicId);
 $schoolDetails = SuperModel::getSchoolDetailsByPublicId($publicId);
 $studentComments = SuperModel::getStudentCommentsByPublicId($publicId, $term,$assessment,$date);
-
-
-
-
-
 $year = date('Y', strtotime($date));
-
 
 if(isset($studentComments)){
     header("");

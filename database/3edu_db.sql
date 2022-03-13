@@ -2653,6 +2653,7 @@ CREATE TABLE `studentcomments` (
                                    `HeadTeacherComment` varchar(250) DEFAULT NULL,
                                    `State` varchar(30) DEFAULT NULL,
                                    `Term` varchar(200) NOT NULL,
+                                   `AssessmentName` varchar(200) NOT NULL,
                                    `CreatedAt` date NOT NULL DEFAULT current_timestamp(),
                                    `UpdatedAt` date NOT NULL DEFAULT current_timestamp(),
                                    `UpdatedBy` varchar(250) DEFAULT NULL
