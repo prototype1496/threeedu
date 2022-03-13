@@ -18,30 +18,27 @@ function get_subjects() {
 function get_assesment_types() {
     console.log("get_assesment_types")
     let tenant_id = document.getElementById("tenant_id");
-    if (!tenant_id) return
+    if (!tenant_id) return console.log("tenant is null");
     let class_id = document.getElementById("selected_class_id");
-    if (!class_id) return
-    let subject_id = document.getElementById("subject_id") != null ? document.getElementById("subject_id").value : "";
-    if (!subject_id) return
-    let assecmenttype_id = document.getElementById("assecmenttype_id") != null ? document.getElementById("assecmenttype_id").value : "";
-    if (!assecmenttype_id) return
+    if (!class_id) return console.log("class_id is null");
+    let subject_id = document.getElementById("subject_id");
+    if (!subject_id) return  console.log("subject_id is null");
+    let assecmenttype_id = document.getElementById("assecmenttype_id")
+    if (!assecmenttype_id) return console.log("assecmenttype_id is null");
 
-            let temp_parm = "class_id=" + class_id.value + "&&subject_id=" + subject_id + "&tenant_id=" + tenant_id.value;
+    console.log("all variables set");
+
+            let temp_parm = "class_id=" + class_id.value + "&&subject_id=" + subject_id.value + "&tenant_id=" + tenant_id.value;
             xmlhttp = new XMLHttpRequest();
             xmlhttp.open("GET", "../../controller/super/ReloadClasses.php?id=2&&" + temp_parm, false);
             console.log("url", "../../controller/super/ReloadClasses.php?id=2&&" + temp_parm)
             xmlhttp.send(null);
-            if (typeof (assecmenttype_id) != 'undefined')
-            {
+
                 assecmenttype_id.innerHTML = xmlhttp.responseText;
                 console.log(assecmenttype_id.name)
-            }
-
-            if (typeof (subject_id) != 'undefined')
-            {
-                subject_id.innerHTML = xmlhttp.responseText;
-                console.log(subject_id.name)
-            }
+                // subject_id.innerHTML = xmlhttp.responseText;
+                // console.log(subject_id.name)
+                console.log("assecmenttypes loaded")
 }
 
 function get_terms() {
