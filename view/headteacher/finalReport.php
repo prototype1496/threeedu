@@ -11,11 +11,11 @@ $classes = SuperModel::get_all_classes_by_tenant_id($tenant_id);
 $publicId = $_GET["public_id"];
 $term = $_GET["term"];
 $date = $_GET["date"];
-$assessmentName = $_GET["assessmentName"];
+$assessment = $_GET["assessment"];
 $studentAssesment = SuperModel::get_student_assecemnttype_by_public_id($publicId);
 $studentDetails = SuperModel::getStudentDetailsByPublicId($publicId);
 $schoolDetails = SuperModel::getSchoolDetailsByPublicId($publicId);
-$studentComments = SuperModel::getStudentCommentsByPublicId($publicId,$term,$date);
+$studentComments = SuperModel::getStudentCommentsByPublicId($publicId, $term,$assessment,$date);
 
 
 

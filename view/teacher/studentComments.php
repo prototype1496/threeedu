@@ -140,7 +140,6 @@ $teacherFullName = $teacher['FirstName'] . " " . $teacher['LastName'];
                                                                     while ($row = $classes->fetch(PDO::FETCH_ASSOC)) {
                                                                         ?>
                                                                         <option value="<?php echo $row['ClassMasterPublicID']; ?>"><?php echo $row['Class']; ?></option>
-
                                                                     <?php } ?>
                                                                 </select>
                                                             </div>
@@ -148,6 +147,14 @@ $teacherFullName = $teacher['FirstName'] . " " . $teacher['LastName'];
                                                                 <select id="term_id"
                                                                         required
                                                                         name="term_id"
+                                                                        class="js-example-data-array col-sm-4">
+                                                                </select>
+                                                            </div>
+                                                            <div
+                                                                    class="col-sm-12 col-xl-3 m-b-30">
+                                                                <select id="assessments"
+                                                                        required
+                                                                        name="assessments"
                                                                         class="js-example-data-array col-sm-4">
                                                                 </select>
                                                             </div>

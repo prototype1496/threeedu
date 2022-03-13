@@ -181,13 +181,21 @@ $classes = SuperModel::get_all_classes_by_tenant_id($tenant_id);
                                                                                                                         <?php } ?>
                                                                                                                     </select>
                                                                                                                 </div>
-
                                                                                                                 <div
                                                                                                                      class="col-sm-12 col-xl-3 m-b-30">
                                                                                                                     <label for="term_id">Term</label>
                                                                                                                     <select id="term_id"
                                                                                                                             required
                                                                                                                             name="term_id"
+                                                                                                                            class="js-example-data-array col-sm-4">
+                                                                                                                    </select>
+                                                                                                                </div>
+                                                                                                                <div
+                                                                                                                     class="col-sm-12 col-xl-3 m-b-30">
+                                                                                                                    <label for="assessments">Assessments </label>
+                                                                                                                    <select id="assessments"
+                                                                                                                            required
+                                                                                                                            name="assessments"
                                                                                                                             class="js-example-data-array col-sm-4">
                                                                                                                     </select>
                                                                                                                 </div>

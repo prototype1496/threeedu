@@ -39,7 +39,6 @@ class StudentController {
                 $response = $this->notFoundResponse();
                 break;
         }
-
         if (isset($response['body'])) {
             echo $response['body'];
         }else{
@@ -50,7 +49,6 @@ class StudentController {
         }
     }
 
-
     private function getStudentDetails($userName) {
         $user_data = $this->getUserDetailsByName($userName);
         $studentPublicId = $user_data['PublicID'];
@@ -60,8 +58,9 @@ class StudentController {
         $timetable = $this->getTimetable($classMasterPublicID);
         $classname = SuperModel::get_class_name($classMasterPublicID);
         $schoolDetails = $this->getSchoolDetailsBySchoolId($user_data['SchoolPublicID']);
+        $academicReport = $this->getAcademicResults($studentPublicId);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = json_encode(["classname" => $classname,"schoolName"=>$schoolDetails["SchoolName"], "personalInfo" => $studentDetails, "timetable" => $timetable, "attendance" => $attendance, "academicResults"]);
+        $response['body'] = json_encode(["classname" => $classname,"schoolName"=>$schoolDetails["SchoolName"], "personalInfo" => $studentDetails, "timetable" => $timetable, "attendance" => $attendance, "academicResults"=>$academicReport]);
         return $response;
     }
 
@@ -102,7 +101,7 @@ class StudentController {
                 // fetch userData
                 return $stm->fetch(PDO::FETCH_ASSOC);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $e;
         }
     }
@@ -124,23 +123,62 @@ class StudentController {
         return $stm->fetch(PDO::FETCH_ASSOC);
     }
 
+    private function getAcademicResults($PUBLICID){
+        $query = "CALL GetAccessmentByStudentPublicID(:public_id);";
+        $conn = $this->db->connect();
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':public_id' => $PUBLICID));
+        $academicResults = array();
+
+        if ($stm->rowCount() > 0) {
+            while($row = $stm->fetch(PDO::FETCH_ASSOC)){
+                array_push($academicResults,array(
+
+                        "subject"=> $row["Subject"],
+                        "assessmentName"=> $row["AssecementName"],
+                        "score"=> $row["Score"],
+                        "markedOn"=> $row["MarkedOn"]
+                    )
+                );
+            }
+            return $academicResults;
+        } else {
+            $row = $stm->fetch(PDO::FETCH_ASSOC);
+            array_push($academicResults, [
+                "subject"=> $row["Subject"],
+                "assessmentName"=> $row["AssecementName"],
+                "score"=> $row["Score"],
+                "markedOn"=> $row["MarkedOn"]
+            ]);
+            return $academicResults;
+        }
+    }
+
     private function getAttendanceDetails($studentPublicId) {
         $attendance = SuperModel::get_single_studnet_attendance_report_by_id($studentPublicId);
+        $studentAttendance = array();
         if ($attendance->rowCount() > 1) {
-            $studentNo = array();
-            $className = array();
-            $reason = array();
-            $status = array();
-            $markOn = array();
             while ($row_data = $attendance->fetch(PDO::FETCH_ASSOC)) {
-                array_push($studentNo, $row_data['StudentNo']);
-                array_push($className, $row_data['ClassName']);
-                array_push($reason, $row_data['Reason']);
-                array_push($status, $row_data['Statue']);
-                array_push($markOn, $row_data['MarkedOn']);
+                array_push($studentAttendance,
+                    [
+                        "studentNo" => $row_data['StudentNo'],
+                        "reason"=> $row_data['Reason'],
+                        "status"=> $row_data['Statue'],
+                        "markOn"=> $row_data['MarkedOn']
+                    ]
+                   );
             }
-            return ["studentNo" => $studentNo, "className" => $className, "reason" => $reason, "status" => $status, "markOn" => $markOn];
+            return $studentAttendance;
         }
-        return $attendance->fetch(PDO::FETCH_ASSOC);
+        $row_data = $attendance->fetch(PDO::FETCH_ASSOC);
+        array_push($studentAttendance,
+            [
+                "studentNo" => $row_data['StudentNo'],
+                "reason"=> $row_data['Reason'],
+                "status"=> $row_data['Statue'],
+                "markOn"=> $row_data['MarkedOn']
+            ]
+        );
+        return $studentAttendance;
     }
 }

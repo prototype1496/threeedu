@@ -150,6 +150,13 @@ $teacherFullName = $teacherHead['FirstName'] . " " . $teacherHead['LastName'];
                                                                         class="js-example-data-array col-sm-4">
                                                                 </select>
                                                             </div>
+                                                            <div class="col-sm-12 col-xl-3 m-b-30">
+                                                                <select id="assessments"
+                                                                        required
+                                                                        name="assessments"
+                                                                        class="js-example-data-array col-sm-4">
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <hr>

@@ -21,6 +21,8 @@ if ($_GET['id'] == 1) {
     $super_maodel->getAllStudentDetailsByClassId($_GET['class_id']);
 } elseif ($_GET['id'] == 6) {
     $super_maodel->getAllActiveTerms($_GET['tenant_id']);
+}elseif ($_GET['id'] == 7) {
+    $super_maodel->getAllAssessmentTypes($_GET['tenant_id']);
 }
 //get_terms
 
