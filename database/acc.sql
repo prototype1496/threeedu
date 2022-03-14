@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.4.20-MariaDB - mariadb.org binary distribution
+-- Server version:               10.4.21-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win64
 -- HeidiSQL Version:             11.3.0.6295
 -- --------------------------------------------------------
@@ -36,10 +36,9 @@ CREATE TABLE IF NOT EXISTS `feecharges` (
   UNIQUE KEY `FeeChargesID` (`FeeChargesID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=189 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_accounts_db.feecharges: ~52 rows (approximately)
-DELETE FROM `feecharges`;
+-- Dumping data for table 3edu_accounts_db.feecharges: ~39 rows (approximately)
 /*!40000 ALTER TABLE `feecharges` DISABLE KEYS */;
-INSERT INTO `feecharges` (`FeeChargesID`, `GradeMasterID`, `TermID`, `TenantMasterID`, `Year`, `Grade`, `IsCharged`, `Amount`, `UpdatedBy`, `UpdatedOn`, `AddedOn`) VALUES
+INSERT IGNORE INTO `feecharges` (`FeeChargesID`, `GradeMasterID`, `TermID`, `TenantMasterID`, `Year`, `Grade`, `IsCharged`, `Amount`, `UpdatedBy`, `UpdatedOn`, `AddedOn`) VALUES
 	(124, 1, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2020', '1', 1, 1000, 'acc', '2020-01-16 08:07:20', '2020-01-16 08:07:20'),
 	(137, 1, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2021', '1', 1, 1000, 'acc', '2021-01-16 08:12:00', '2021-01-16 08:12:00'),
 	(163, 1, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2022', '1', 1, 1000, 'acc', '2022-01-16 08:21:50', '2022-01-16 08:21:50'),
@@ -91,9 +90,8 @@ CREATE TABLE IF NOT EXISTS `patmenttypemaster` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_accounts_db.patmenttypemaster: ~2 rows (approximately)
-DELETE FROM `patmenttypemaster`;
 /*!40000 ALTER TABLE `patmenttypemaster` DISABLE KEYS */;
-INSERT INTO `patmenttypemaster` (`PatmentTypeMasterID`, `PaymentType`, `IsActive`) VALUES
+INSERT IGNORE INTO `patmenttypemaster` (`PatmentTypeMasterID`, `PaymentType`, `IsActive`) VALUES
 	(1, 'On Demad Payment', '1'),
 	(2, 'Card', '1');
 /*!40000 ALTER TABLE `patmenttypemaster` ENABLE KEYS */;
@@ -110,9 +108,8 @@ CREATE TABLE IF NOT EXISTS `sequencemaster` (
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_accounts_db.sequencemaster: ~18 rows (approximately)
-DELETE FROM `sequencemaster`;
 /*!40000 ALTER TABLE `sequencemaster` DISABLE KEYS */;
-INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
+INSERT IGNORE INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 105, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
 	(3, 'TOKN', 275, '2019-11-01 20:00:03'),
@@ -155,9 +152,8 @@ CREATE TABLE IF NOT EXISTS `transactiondetails` (
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_accounts_db.transactiondetails: ~6 rows (approximately)
-DELETE FROM `transactiondetails`;
 /*!40000 ALTER TABLE `transactiondetails` DISABLE KEYS */;
-INSERT INTO `transactiondetails` (`TransactionDetailsID`, `TransactionMasterPublicID`, `ReciptNo`, `PaidAmout`, `Balace`, `PaymentType`, `PaidBy`, `RecivedBy`, `UpdatedBy`, `AddedOn`, `UpdatedOn`, `IsActive`) VALUES
+INSERT IGNORE INTO `transactiondetails` (`TransactionDetailsID`, `TransactionMasterPublicID`, `ReciptNo`, `PaidAmout`, `Balace`, `PaymentType`, `PaidBy`, `RecivedBy`, `UpdatedBy`, `AddedOn`, `UpdatedOn`, `IsActive`) VALUES
 	(15, 'TRAN00000000039', 'BILL00000000010', 100, 900, 1, 'SDNT00000000031', 'acc', 'acc', '2020-01-16 08:09:11', '2020-01-16 08:09:11', '1'),
 	(16, 'TRAN00000000039', 'BILL00000000011', 100, 800, 1, 'SDNT00000000031', 'acc', 'acc', '2020-01-16 08:09:39', '2020-01-16 08:09:39', '1'),
 	(17, 'TRAN00000000039', 'BILL00000000012', 300, 500, 1, 'SDNT00000000031', 'acc', 'acc', '2020-01-16 08:09:55', '2020-01-16 08:09:55', '1'),
@@ -187,10 +183,9 @@ CREATE TABLE IF NOT EXISTS `transactionmaster` (
   UNIQUE KEY `TransactionMasterPublicID` (`TransactionMasterPublicID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=208 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_accounts_db.transactionmaster: ~14 rows (approximately)
-DELETE FROM `transactionmaster`;
+-- Dumping data for table 3edu_accounts_db.transactionmaster: ~3 rows (approximately)
 /*!40000 ALTER TABLE `transactionmaster` DISABLE KEYS */;
-INSERT INTO `transactionmaster` (`TransactionMasterID`, `TransactionMasterPublicID`, `StudentMasterPublicID`, `TermMasterID`, `GradeMasterID`, `GradeName`, `Balance`, `BilledAmount`, `IsActive`, `UpdatedBy`, `Year`, `UpdatedOn`, `AddedOn`, `TenantMasterID`) VALUES
+INSERT IGNORE INTO `transactionmaster` (`TransactionMasterID`, `TransactionMasterPublicID`, `StudentMasterPublicID`, `TermMasterID`, `GradeMasterID`, `GradeName`, `Balance`, `BilledAmount`, `IsActive`, `UpdatedBy`, `Year`, `UpdatedOn`, `AddedOn`, `TenantMasterID`) VALUES
 	(118, 'TRAN00000000039', 'SDNT00000000031', 1, 8, '8', 500, 1000, '1', 'acc', '2020', '2020-01-16 08:07:20', '2020-01-16 08:07:20', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(137, 'TRAN00000000050', 'SDNT00000000031', 1, 8, '8', 1200, 1000, '1', 'acc', '2021', '2021-01-16 08:12:00', '2021-01-16 08:12:00', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(175, 'TRAN00000000072', 'SDNT00000000031', 1, 8, '8', 1700, 1000, '1', 'acc', '2022', '2022-01-16 08:21:50', '2022-01-16 08:21:50', '5fe7597e-f7a1-11eb-a81c-1062e5c23529');
@@ -358,7 +353,7 @@ CREATE PROCEDURE `GetTotalTransactioanalHitoryByIDDate`(
 	IN `TenantID_` VARCHAR(500)
 )
 BEGIN
-SET @TOTALBALACE = (SELECT  SUM(TM.Balance) FROM transactionmaster TM  WHERE  TM.TermMasterID =TermMasterID_ AND TM.Year = Year_);
+SET @TOTALBALACE = (SELECT  SUM(TM.Balance) FROM transactionmaster TM  WHERE  TM.TermMasterID =TermMasterID_ AND TM.Year = Year_ AND TM.TenantMasterID = TenantID_ );
 
 SELECT TM.StudentMasterPublicID																															AS 'StudentMasterPublicID', 
        SUM(TM.Balance)																																		AS 'Balace', 
