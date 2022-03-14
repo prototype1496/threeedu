@@ -129,7 +129,7 @@ $teacherFullName = $teacherHead['FirstName'] . " " . $teacherHead['LastName'];
                                                         <div class="row">
                                                             <div class="col-sm-12 col-xl-3 m-b-30">
                                                                 <select id="selected_class_id"
-                                                                        onchange="get_studentdata()"
+                                                                        onchange="getStudentInputComments()"
                                                                         required="" name="classid"
                                                                         class="js-example-data-array col-sm-4">
                                                                     <option value="" disabled="disabled"

@@ -209,18 +209,15 @@ class SuperModel
     }
 
 
-    function getAllStudentDetailsByClassId($class_id)
+    function getStudentInputCommentsByClassId($class_id)
     {
         //This function is used to load Students in the studentComment.php grid
-
         $Connection = new Connection();
         $conn = $Connection->connect();
-
-
         // this is the stored procidure from the db that is loading the destrics after passing in an province ID
         $query = "CALL GetAllStudentDetailsByClassMasterPublicID(:class_id,:assecmenttype_id);";
         $stm = $conn->prepare($query);
-        $stm->execute(array(':class_id' => $class_id, ':assecmenttype_id' => null));
+        $stm->execute(array(':class_id' => $class_id, ':assecmenttype_id' => '0000000'));
         if ($stm->rowCount() > 0) {
             while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
                 $public_id = $row['StudentMasterPublicID']; ?>

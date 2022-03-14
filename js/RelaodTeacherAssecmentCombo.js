@@ -79,9 +79,9 @@ function get_assessments() {
     get_assesment_types()
     get_all_student_details()
     get_all_assessments_types()
+    getStudentInputComments()
     console.log("assessments loaded")
 }
-
 
 function get_studentdata() {
     console.log("get_studentdata")
@@ -91,6 +91,18 @@ function get_studentdata() {
     xmlhttp.open("GET", "../../controller/super/ReloadClasses.php?id=3&&" + temp_parm, false);
     xmlhttp.send(null);
     console.log("url", "../../controller/super/ReloadClasses.php?id=3&&" + temp_parm)
+    console.log(xmlhttp.responseText)
+    document.getElementById("student_data").innerHTML = xmlhttp.responseText;
+}
+
+function getStudentInputComments() {
+    console.log("getStudentInputComments")
+    const class_id = document.getElementById("selected_class_id").value;
+    const temp_parm = "class_id=" + class_id ;
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "../../controller/super/ReloadClasses.php?id=5&&" + temp_parm, false);
+    xmlhttp.send(null);
+    console.log("url", "../../controller/super/ReloadClasses.php?id=5&&" + temp_parm)
     console.log(xmlhttp.responseText)
     document.getElementById("student_data").innerHTML = xmlhttp.responseText;
 }
@@ -113,6 +125,8 @@ function get_all_student_details() {
     console.log(xmlhttp.responseText)
     student_data.innerHTML = xmlhttp.responseText;
 }
+
+
 
 
 
