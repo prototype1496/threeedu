@@ -4,23 +4,16 @@
 
 <?php
 
-   
     require_once '../../db_connection/dbconfig.php';
     require_once '../../model/HeadTeacherModel.php';
-require_once '../../model/SuperModel.php';
-
+    require_once '../../model/SuperModel.php';
     require_once '../super/SessionStart.php';
-     
-  
-  
  
- if (isset ($_POST['btn_reg_pupil']))
- {
+ if (isset ($_POST['btn_reg_pupil'])) {
       
       $StudentNo = SuperModel::get_student_no(8);
       $StudentMasterPublicID = SuperModel::get_sequence_id(9);
       $UpdatedBy = $_SESSION['threeedu_username'];
-      
       
         $first_name = trim(filter_input(INPUT_POST, 'first_name', FILTER_DEFAULT));
            $last_name = trim(filter_input(INPUT_POST, 'last_name', FILTER_DEFAULT));
@@ -47,54 +40,30 @@ require_once '../../model/SuperModel.php';
            
            
             if (!isset($other_name) || $other_name == Null || $other_name == "" ){
-        
                 $other_name = NULL;
-                    }
-                    
-                    
-                    if (!isset($male_gardian_name) || $male_gardian_name == Null || $male_gardian_name == "" ){
-        
+            }
+            if (!isset($male_gardian_name) || $male_gardian_name == Null || $male_gardian_name == "" ){
                 $male_gardian_name = NULL;
-                    }
-                    
-                    
-                    if (!isset($female_gardian_name) || $female_gardian_name == Null || $female_gardian_name == "" ){
-        
+            }
+            if (!isset($female_gardian_name) || $female_gardian_name == Null || $female_gardian_name == "" ){
                 $female_gardian_name = NULL;
-                    }
-                    
-                    
-                    
-                      if (!isset($email_address) || $email_address == Null || $email_address == "" ){
-        
+            }
+
+            if (!isset($email_address) || $email_address == Null || $email_address == "" ){
                 $email_address = NULL;
-                    }
-                    
-                  
-           
-           
-      
+            }
+
        if(isset($_FILES["profile_pic"]["name"]) && !empty($_FILES["profile_pic"]["name"])){
-          
-          
-           $location = "../../uploads/";
-     $file_new_name = $StudentNo.'_'. $_FILES["profile_pic"]["name"]; // New and unique name of uploaded file
-    // $file_name = $_FILES["profile_pic"]["name"];
-     $file_temp = $_FILES["profile_pic"]["tmp_name"];
+            $location = "../../uploads/";
+            $file_new_name = $StudentNo.'_'. $_FILES["profile_pic"]["name"]; // New and unique name of uploaded file
+            // $file_name = $_FILES["profile_pic"]["name"];
+            $file_temp = $_FILES["profile_pic"]["tmp_name"];
    
      // move_uploaded_file($file_temp, $location.$file_new_name);
-     
-     
-     
-       if (SuperModel::regiter_pupil($first_name, $last_name,$other_name, $gender_id,$dob,$marital_status_id,$class_id,$subject_code_1,$subject_code_2,$subject_code_3,$subject_code_4,$subject_code_5,$subject_code_6,$subject_code_7,$subject_code_8,$male_gardian_name,$female_gardian_name,$gardian_contact_no,$address,$StudentMasterPublicID,$StudentNo,$location.$file_new_name,$UpdatedBy,$email_address))
-        {
+       if (SuperModel::regiter_pupil($first_name, $last_name,$other_name, $gender_id,$dob,$marital_status_id,$class_id,$subject_code_1,$subject_code_2,$subject_code_3,$subject_code_4,$subject_code_5,$subject_code_6,$subject_code_7,$subject_code_8,$male_gardian_name,$female_gardian_name,$gardian_contact_no,$address,$StudentMasterPublicID,$StudentNo,$location.$file_new_name,$UpdatedBy,$email_address)) {
             move_uploaded_file($file_temp, $location.$file_new_name);
-            
-           
-            
             echo "<script>               
             $(document).ready(
-             
             function(){
                 
                $.jnoty('Student Registered Successfully', {
@@ -108,10 +77,8 @@ require_once '../../model/SuperModel.php';
         }else
         {
            echo "<script>               
-            $(document).ready(
-             
-            function(){
-                
+            $(document).ready(            
+            function(){                
                $.jnoty('Student Not Registered Please Try Agin Later', {
             sticky: false,
             header: 'Erro',

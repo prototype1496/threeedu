@@ -18,24 +18,39 @@ DROP DATABASE IF EXISTS `3edu_db`;
 CREATE DATABASE IF NOT EXISTS `3edu_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `3edu_db`;
 
+-- Dumping structure for procedure 3edu_db.ActivateUser
+DROP PROCEDURE IF EXISTS `ActivateUser`;
+DELIMITER //
+CREATE PROCEDURE `ActivateUser`(IN `UserMasterID_` INT)
+BEGIN
+			DECLARE EXIT HANDLER FOR SQLEXCEPTION
+		BEGIN
+		     SELECT 0 AS message;
+		     ROLLBACK;
+		END;
+		
+		SET @PUBLCID  = (SELECT UM.PublicID FROM usermaster UM WHERE UM.UserMasterID = UserMasterID_);
+		
+		UPDATE teachermaster SET `IsActive` = 1 WHERE PublicUserID = @PUBLCID;
+		UPDATE usermaster  SET `IsActive` = 1 , `Password` = '$2y$10$JL396wwdluH7joCFCxZ8ceWJDwbanf4DycWODBtuhokcw.gqRKz1y' WHERE `UserMasterID` = UserMasterID_ ;
+END//
+DELIMITER ;
+
 -- Dumping structure for table 3edu_db.address
 DROP TABLE IF EXISTS `address`;
 CREATE TABLE IF NOT EXISTS `address` (
-  `AddressID` int(11) NOT NULL AUTO_INCREMENT,
+  `AddressID` int(11) NOT NULL,
   `PrimaryAddress` varchar(50) NOT NULL,
   `SecondaryAddress` varchar(50) DEFAULT NULL,
   `ZipCode` varchar(50) NOT NULL DEFAULT '10010',
   `DistrictID` int(11) NOT NULL,
   `IdentificationID` varchar(50) NOT NULL,
-  `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`AddressID`),
-  KEY `FK_address_district` (`DistrictID`),
-  CONSTRAINT `FK_address_district` FOREIGN KEY (`DistrictID`) REFERENCES `district` (`DistrictID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
+  `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.address: ~18 rows (approximately)
+-- Dumping data for table 3edu_db.address: ~12 rows (approximately)
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
-INSERT IGNORE INTO `address` (`AddressID`, `PrimaryAddress`, `SecondaryAddress`, `ZipCode`, `DistrictID`, `IdentificationID`, `UpdatedOn`) VALUES
+INSERT INTO `address` (`AddressID`, `PrimaryAddress`, `SecondaryAddress`, `ZipCode`, `DistrictID`, `IdentificationID`, `UpdatedOn`) VALUES
 	(5, 'test', NULL, '10010', 3, 'TECH0000000003', '2020-11-20 11:52:45'),
 	(12, '204 B provident road Fairview', 'Lusaka, Chelenge', '10010', 44, 'TECH00000000080', '2021-08-21 18:05:08'),
 	(22, 'Lusaka, Chelenge', 'Lusaka, Chelenge', '10010', 49, 'TECH00000000090', '2021-08-23 09:28:56'),
@@ -47,13 +62,7 @@ INSERT IGNORE INTO `address` (`AddressID`, `PrimaryAddress`, `SecondaryAddress`,
 	(32, 'Lusaka Town Center', NULL, '10010', 49, 'TECH000000000103', '2021-10-12 12:27:32'),
 	(33, 'Lusaka', NULL, '10010', 49, 'ITAD00000000024', '2021-10-18 10:21:53'),
 	(34, 'testing', NULL, '10010', 49, 'TECH000000000104', '2021-10-18 10:42:04'),
-	(35, 'Lusaka Town Center', NULL, '10010', 49, 'TECH000000000105', '2021-10-18 11:56:49'),
-	(36, 'Lusaka, Chelenge', 'Lusaka, Chelenge', '10010', 49, 'ACCO0000000004', '2022-01-16 04:38:27'),
-	(37, 'Lusaka, Chelenge', 'Lusaka, Chelenge', '10010', 49, 'ACCO0000000006', '2022-01-16 04:47:28'),
-	(38, 'Lusaka, Chelenge', 'Lusaka, Chelenge', '10010', 36, 'ACCO0000000007', '2022-01-16 04:48:47'),
-	(39, 'Lusaka, Chelenge', 'Lusaka, Chelenge', '10010', 70, 'ACCO0000000008', '2022-01-16 04:49:56'),
-	(40, 'Lusaka, Chelenge', 'Lusaka, Chelenge', '10010', 55, 'ACCO0000000009', '2022-01-16 04:50:35'),
-	(41, 'Flat 23 c Chilenge, Lusaka', 'Flat 23 c Chilenge, Lusaka', '10010', 53, 'ACCO00000000011', '2022-01-16 05:47:28');
+	(35, 'Lusaka Town Center', NULL, '10010', 49, 'TECH000000000105', '2021-10-18 11:56:49');
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.assementtypemaster
@@ -73,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `assementtypemaster` (
 
 -- Dumping data for table 3edu_db.assementtypemaster: ~10 rows (approximately)
 /*!40000 ALTER TABLE `assementtypemaster` DISABLE KEYS */;
-INSERT IGNORE INTO `assementtypemaster` (`AssementTypeID`, `AssementTypeName`, `IsActive`, `UpdatedOn`, `UpdatedBy`, `TenantID`) VALUES
+INSERT INTO `assementtypemaster` (`AssementTypeID`, `AssementTypeName`, `IsActive`, `UpdatedOn`, `UpdatedBy`, `TenantID`) VALUES
 	(17, 'Class Excises', '1', '2021-10-18 10:34:57', 'ali_admin', 'Ama616d2ea1a78213.69918222'),
 	(1, 'Class Exercis', '1', '2021-06-13 07:28:11', 'sys', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(11, 'Class Exercise', '1', '2021-10-14 18:11:43', 'ta', 'rrr6140a8c632d934.43595166'),
@@ -108,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `assementtypemaster_copy` (
 
 -- Dumping data for table 3edu_db.assementtypemaster_copy: ~6 rows (approximately)
 /*!40000 ALTER TABLE `assementtypemaster_copy` DISABLE KEYS */;
-INSERT IGNORE INTO `assementtypemaster_copy` (`AssementTypeID`, `GradeMasterID`, `SubjectCode`, `AssementTypeName`, `IsActive`, `UpdatedOn`, `UpdatedBy`, `TenantID`) VALUES
+INSERT INTO `assementtypemaster_copy` (`AssementTypeID`, `GradeMasterID`, `SubjectCode`, `AssementTypeName`, `IsActive`, `UpdatedOn`, `UpdatedBy`, `TenantID`) VALUES
 	(1, 8, 'MATH', 'Class Exercis 1', '1', '2021-06-13 07:28:11', 'sys', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(2, 8, 'MATH', 'End Of Tem Test', '1', '2021-06-13 07:29:01', 'sys', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(3, 8, 'MATH', 'Mid Tem Test', '1', '2021-06-13 07:28:30', 'sys', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
@@ -116,6 +125,28 @@ INSERT IGNORE INTO `assementtypemaster_copy` (`AssementTypeID`, `GradeMasterID`,
 	(5, 9, 'MATH', 'End Of Tem Test', '1', '2021-07-04 11:54:15', 'sys', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(6, 9, 'MATH', 'Mid Tem Test', '1', '2021-07-04 11:55:02', 'sys', '5fe7597e-f7a1-11eb-a81c-1062e5c23529');
 /*!40000 ALTER TABLE `assementtypemaster_copy` ENABLE KEYS */;
+
+-- Dumping structure for table 3edu_db.attendance
+DROP TABLE IF EXISTS `attendance`;
+CREATE TABLE IF NOT EXISTS `attendance` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `UserPublicID` varchar(50) NOT NULL,
+  `TenantID` varchar(50) NOT NULL,
+  `SignIn` time NOT NULL DEFAULT current_timestamp(),
+  `SignOut` time DEFAULT NULL,
+  `Date` date NOT NULL DEFAULT current_timestamp(),
+  UNIQUE KEY `ID` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table 3edu_db.attendance: ~5 rows (approximately)
+/*!40000 ALTER TABLE `attendance` DISABLE KEYS */;
+INSERT INTO `attendance` (`ID`, `UserPublicID`, `TenantID`, `SignIn`, `SignOut`, `Date`) VALUES
+	(15, 'TECH0000000003', '', '02:20:59', '02:21:06', '2022-01-06'),
+	(20, 'TECH0000000003', '', '11:11:29', '11:26:02', '2022-01-07'),
+	(21, 'TECH0000000003', '', '15:33:59', '15:34:09', '2022-01-15'),
+	(22, 'TECH0000000003', '', '10:16:59', '10:17:10', '2022-01-26'),
+	(23, 'TECH0000000003', '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '17:19:34', '17:21:03', '2022-02-03');
+/*!40000 ALTER TABLE `attendance` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.classdetails
 DROP TABLE IF EXISTS `classdetails`;
@@ -140,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `classdetails` (
 
 -- Dumping data for table 3edu_db.classdetails: ~42 rows (approximately)
 /*!40000 ALTER TABLE `classdetails` DISABLE KEYS */;
-INSERT IGNORE INTO `classdetails` (`ClassDetailsID`, `ClassDetailsPublicID`, `ClassMasterPublicID`, `SubjectCode`, `ClassRoomPublicID`, `IsActive`, `UpdatedBy`, `UpdatedOn`) VALUES
+INSERT INTO `classdetails` (`ClassDetailsID`, `ClassDetailsPublicID`, `ClassMasterPublicID`, `SubjectCode`, `ClassRoomPublicID`, `IsActive`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(1, 'CLASDT0000000001', 'CLAS0000000004', 'MATH', 'CLRM0000000001', '1', 'SYS', '2020-05-24 16:30:54'),
 	(2, 'CLASDT0000000002', 'CLAS0000000004', 'CMST', 'CLRM0000000001', '1', 'A', '2020-05-24 16:31:19'),
 	(3, 'CLASDT0000000003', 'CLAS0000000004', 'ENG', 'CLRM0000000001', '1', 'sys', '2021-05-22 10:01:07'),
@@ -211,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `classmaster` (
 
 -- Dumping data for table 3edu_db.classmaster: ~15 rows (approximately)
 /*!40000 ALTER TABLE `classmaster` DISABLE KEYS */;
-INSERT IGNORE INTO `classmaster` (`ClassMasterID`, `ClassMasterPublicID`, `ClassTeacherID`, `GradeMasterID`, `ClassName`, `ClassCode`, `Description`, `UpdatedBy`, `UpdatedOn`, `AddedOn`, `IsActive`, `TenantID`) VALUES
+INSERT INTO `classmaster` (`ClassMasterID`, `ClassMasterPublicID`, `ClassTeacherID`, `GradeMasterID`, `ClassName`, `ClassCode`, `Description`, `UpdatedBy`, `UpdatedOn`, `AddedOn`, `IsActive`, `TenantID`) VALUES
 	(1, 'CLAS0000000004', 'TECH0000000003', 8, 'Grade 8', '8 A', NULL, 'it', '2021-08-15 14:35:39', '2021-05-16 12:04:00', '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(2, 'CLAS0000000005', 'TECH0000000003', 8, 'Grade 8', '8 B', NULL, 'it', '2021-08-15 14:35:40', '2021-05-20 16:53:51', '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(3, 'CLAS0000000006', 'TECH0000000003', 8, 'Grade 8', '8 C', NULL, 'it', '2021-08-15 14:35:41', '2021-05-20 16:53:51', '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
@@ -247,7 +278,7 @@ CREATE TABLE IF NOT EXISTS `classroom` (
 
 -- Dumping data for table 3edu_db.classroom: ~13 rows (approximately)
 /*!40000 ALTER TABLE `classroom` DISABLE KEYS */;
-INSERT IGNORE INTO `classroom` (`ClassRoomID`, `ClassRoomPublicID`, `ClassRoomName`, `UpdatedBy`, `UpdatedOn`, `IsActive`, `TenantID`) VALUES
+INSERT INTO `classroom` (`ClassRoomID`, `ClassRoomPublicID`, `ClassRoomName`, `UpdatedBy`, `UpdatedOn`, `IsActive`, `TenantID`) VALUES
 	(1, 'CLRM0000000001', 'Room 1', 'sys', '2020-05-24 16:17:04', '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(2, 'CLRM0000000002', 'Room 2', 'sys', '2020-05-24 16:17:48', '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(3, 'CLRM0000000003', 'Room 3', 'sys', '2020-05-24 16:18:00', '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
@@ -278,7 +309,7 @@ CREATE TABLE IF NOT EXISTS `comboboxvaluemaster` (
 
 -- Dumping data for table 3edu_db.comboboxvaluemaster: ~0 rows (approximately)
 /*!40000 ALTER TABLE `comboboxvaluemaster` DISABLE KEYS */;
-INSERT IGNORE INTO `comboboxvaluemaster` (`ComboBoxValueMasterID`, `ID`, `Name`, `Value`, `Active`, `UpdatedOn`) VALUES
+INSERT INTO `comboboxvaluemaster` (`ComboBoxValueMasterID`, `ID`, `Name`, `Value`, `Active`, `UpdatedOn`) VALUES
 	(1, '1', 'DocumentType', 'Leson Plan', '1', '2021-07-03 18:11:26');
 /*!40000 ALTER TABLE `comboboxvaluemaster` ENABLE KEYS */;
 
@@ -295,7 +326,7 @@ CREATE TABLE IF NOT EXISTS `country` (
 
 -- Dumping data for table 3edu_db.country: ~0 rows (approximately)
 /*!40000 ALTER TABLE `country` DISABLE KEYS */;
-INSERT IGNORE INTO `country` (`CountryID`, `CountryName`, `ConuntryCode`, `IsActive`) VALUES
+INSERT INTO `country` (`CountryID`, `CountryName`, `ConuntryCode`, `IsActive`) VALUES
 	(1, 'Zambia ', '+260', '1');
 /*!40000 ALTER TABLE `country` ENABLE KEYS */;
 
@@ -314,6 +345,24 @@ CREATE TABLE IF NOT EXISTS `credentials_tb` (
 /*!40000 ALTER TABLE `credentials_tb` DISABLE KEYS */;
 /*!40000 ALTER TABLE `credentials_tb` ENABLE KEYS */;
 
+-- Dumping structure for procedure 3edu_db.DeactivateUser
+DROP PROCEDURE IF EXISTS `DeactivateUser`;
+DELIMITER //
+CREATE PROCEDURE `DeactivateUser`(IN `UserMasterID_` INT)
+BEGIN
+			DECLARE EXIT HANDLER FOR SQLEXCEPTION
+		BEGIN
+		     SELECT 0 AS message;
+		     ROLLBACK;
+		END;
+		
+		SET @PUBLCID  = (SELECT UM.PublicID FROM usermaster UM WHERE UM.UserMasterID = UserMasterID_);
+		
+		UPDATE teachermaster SET `IsActive` = 0 WHERE PublicUserID = @PUBLCID;
+		UPDATE usermaster  SET `IsActive` = 0 , `Password` = 'DEACTIVATED' WHERE `UserMasterID` = UserMasterID_ ;
+END//
+DELIMITER ;
+
 -- Dumping structure for table 3edu_db.department
 DROP TABLE IF EXISTS `department`;
 CREATE TABLE IF NOT EXISTS `department` (
@@ -331,7 +380,7 @@ CREATE TABLE IF NOT EXISTS `department` (
 
 -- Dumping data for table 3edu_db.department: ~16 rows (approximately)
 /*!40000 ALTER TABLE `department` DISABLE KEYS */;
-INSERT IGNORE INTO `department` (`DepartmentID`, `DepartmentName`, `ShortHand`, `SchoolMasterID`, `UpdatedBy`, `IsActive`) VALUES
+INSERT INTO `department` (`DepartmentID`, `DepartmentName`, `ShortHand`, `SchoolMasterID`, `UpdatedBy`, `IsActive`) VALUES
 	(1, 'Social Sciences', 'SSS', 'SCHL0000000001', 'it', '1'),
 	(2, 'Mathermatics ', 'Math', 'SCHL0000000001', 'it', '1'),
 	(3, 'Home Ecomomics', 'HE', 'SCHL0000000001', 'it', '1'),
@@ -364,7 +413,7 @@ CREATE TABLE IF NOT EXISTS `district` (
 
 -- Dumping data for table 3edu_db.district: ~103 rows (approximately)
 /*!40000 ALTER TABLE `district` DISABLE KEYS */;
-INSERT IGNORE INTO `district` (`DistrictID`, `DistrictName`, `ProvinceID`, `IsActive`) VALUES
+INSERT INTO `district` (`DistrictID`, `DistrictName`, `ProvinceID`, `IsActive`) VALUES
 	(2, 'Chibombo District', 1, '1'),
 	(3, 'Kabwe District', 1, '1'),
 	(4, 'Kapiri Mposhi District', 1, '1'),
@@ -489,7 +538,7 @@ CREATE TABLE IF NOT EXISTS `emailservice` (
 
 -- Dumping data for table 3edu_db.emailservice: ~0 rows (approximately)
 /*!40000 ALTER TABLE `emailservice` DISABLE KEYS */;
-INSERT IGNORE INTO `emailservice` (`EmailServiceID`, `EmailSerial`, `EmailAddress`, `EmailSubject`, `SendData`, `Status`, `UpdatedBy`, `UpdatedOn`) VALUES
+INSERT INTO `emailservice` (`EmailServiceID`, `EmailSerial`, `EmailAddress`, `EmailSubject`, `SendData`, `Status`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(1, 'EMIL0000000001', 'prototype1496@gmail.com', 'Teacher Time Management System Temp Login Cridentials', 'Wellcome to T.T.M.S<br><b>Username: </b> alinuswemwandobo@gmail.com<br><b>Temp Password: </b>VIJOE<br>Please login in to system and to change your password<br><br><b>If this message dose not belong to you please ignore it and have a good day </b> ', 'COMP', 'admin', '2020-11-20 11:52:46');
 /*!40000 ALTER TABLE `emailservice` ENABLE KEYS */;
 
@@ -505,10 +554,1510 @@ CREATE TABLE IF NOT EXISTS `gendermaster` (
 
 -- Dumping data for table 3edu_db.gendermaster: ~2 rows (approximately)
 /*!40000 ALTER TABLE `gendermaster` DISABLE KEYS */;
-INSERT IGNORE INTO `gendermaster` (`GenderMasterID`, `Gender`, `ShortName`, `IsActive`) VALUES
+INSERT INTO `gendermaster` (`GenderMasterID`, `Gender`, `ShortName`, `IsActive`) VALUES
 	(1, 'Male', 'M', '1'),
 	(2, 'Female', 'F', '1');
 /*!40000 ALTER TABLE `gendermaster` ENABLE KEYS */;
+
+-- Dumping structure for procedure 3edu_db.GetAccessmentByStudentPublicID
+DROP PROCEDURE IF EXISTS `GetAccessmentByStudentPublicID`;
+DELIMITER //
+CREATE PROCEDURE `GetAccessmentByStudentPublicID`(IN `STUDENTPUBLICID` VARCHAR(100))
+BEGIN
+		SELECT   STA.StudnetAssesmenID																									AS 'PublicID',
+					STM.StudentNo																												AS 'StudentNo',
+					CONCAT(STM.FirstName,IF(STM.OtherName IS NULL,' ',CONCAT(' ',STM.OtherName,' ')),STM.LastName )	AS 'Name',
+					CONCAT(CM.ClassName,' (',CM.ClassCode,')')																		AS 'ClassName',
+				   CONCAT(SM.SubjectName,' (',SM.SubjectCode,')')																	AS 'Subject',
+					CONCAT(ASTM.AssementTypeName, ' (',STA.AssecementName,')')													AS 'AssecementName',
+					CONCAT(STA.Score,' %')																									AS 'Score',
+				   DATE_FORMAT(STA.UpdatedOn, "%d %b, %Y") 					   												   AS 'MarkedOn'
+				   
+					
+		FROM studnetassesment STA
+		JOIN studentmaster STM ON STM.StudentMasterPublicID = STA.StudentMasterPublicID 
+		JOIN assementtypemaster ASTM ON ASTM.AssementTypeID = STA.AssecemntTypeMasterID
+		
+		JOIN classmaster CM ON CM.ClassMasterPublicID = STA.ClassMasterPublicID AND STM.StudentMasterPublicID = STUDENTPUBLICID
+		JOIN subjectmater SM ON SM.SubjectMaterID = STA.SubjectMasterID
+		ORDER BY CM.GradeMasterID, SM.SubjectName,STA.AddedOn ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetActiveTermByID
+DROP PROCEDURE IF EXISTS `GetActiveTermByID`;
+DELIMITER //
+CREATE PROCEDURE `GetActiveTermByID`(IN `TenantID_` VARCHAR(500))
+BEGIN
+			SELECT TM.TermMasterID 'TermMasterID',
+					 TM.TenantID		'TenantID',
+					 TM.TermName		'TermName',
+					 TM.IsSysActive 	'IsSysActive'
+			FROM termmaster TM WHERE TM.TenantID = TenantID_ AND  TM.IsActive ORDER BY TM.IsSysActive ASC,TM.TermName ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllActiveAssecmentTypesBYTenantID
+DROP PROCEDURE IF EXISTS `GetAllActiveAssecmentTypesBYTenantID`;
+DELIMITER //
+CREATE PROCEDURE `GetAllActiveAssecmentTypesBYTenantID`(IN `TenanantID_` VARCHAR(300))
+BEGIN
+	SELECT 	 ATM.AssementTypeID 						AS 'AssementTypeID',
+				 ATM.AssementTypeName   				AS 'AssementTypeName',
+				 IF (ATM.IsActive = 1,'Yes','No')	AS  'Active'
+				 
+	FROM assementtypemaster ATM WHERE ATM.TenantID=TenanantID_ ORDER BY  ATM.IsActive DESC, ATM.TenantID ASC,ATM.AssementTypeName ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllActiveClasses
+DROP PROCEDURE IF EXISTS `GetAllActiveClasses`;
+DELIMITER //
+CREATE PROCEDURE `GetAllActiveClasses`(IN `TenantID` VARCHAR(400))
+BEGIN
+SELECT   CM.ClassMasterPublicID																											AS 'ClassMasterPublicID',
+			CM.GradeMasterID																													AS 'ClassName',
+			CONCAT(CM.ClassName, ' (',CM.ClassCode,')') 																				AS 'Class',	
+		   	IF(CM.Description IS NULL,'--',CM.Description)																		AS 'Description',
+			DATE_FORMAT(CM.AddedOn, "%d %b, %Y")																						AS 'AddOn',
+			CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName ) 			AS 'UpdatedBy',
+			CONCAT(TUM.FirstName,IF(TUM.OtherName IS NULL,' ',CONCAT(' ',TUM.OtherName,' ')),	TUM.LastName )  	AS 'TeacherName'
+			
+FROM classmaster CM 
+JOIN usermaster UM ON UM.UserName = CM.UpdatedBy
+JOIN usermaster TUM ON TUM.PublicID = CM.ClassTeacherID
+WHERE CM.IsActive = 1 AND CM.TenantID = TenantID ORDER BY CM.GradeMasterID ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllActivePeriods
+DROP PROCEDURE IF EXISTS `GetAllActivePeriods`;
+DELIMITER //
+CREATE PROCEDURE `GetAllActivePeriods`(IN `SchoolID` VARCHAR(50))
+BEGIN
+		SELECT PM.PeriodMasterID,
+				 PM.PeriodName 
+		FROM periodmaster PM WHERE PM.IsActive = 1 AND PM.SchoolID = SchoolID ORDER BY PM.SequenceID, PM.PeriodName ASC ;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllActivesGradesByTenantID
+DROP PROCEDURE IF EXISTS `GetAllActivesGradesByTenantID`;
+DELIMITER //
+CREATE PROCEDURE `GetAllActivesGradesByTenantID`(IN `TenantID` VARCHAR(400))
+BEGIN
+SELECT GM.GradeMasterID		AS 'GradeMasterID',
+		 GM.Grade				AS 'Grade',
+		 GM.IsActive			AS 'IsActive'
+FROM grademaster GM WHERE GM.IsActive =1 AND GM.TenantID = TenantID;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllActiveTermsByTenantID
+DROP PROCEDURE IF EXISTS `GetAllActiveTermsByTenantID`;
+DELIMITER //
+CREATE PROCEDURE `GetAllActiveTermsByTenantID`(IN `TenantID_` VARCHAR(100))
+BEGIN
+		SELECT TM.TermMasterID		'TermMasterID',
+				 TM.TenantID		'TenantID',
+				 TM.TermName		'TermName',
+				 TM.IsSysActive   'IsSysActive',
+				 TM.IsActive      'Active'
+		FROM termmaster TM 
+		WHERE TM.TenantID = TenantID_ AND TM.IsActive = 1;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllClasses
+DROP PROCEDURE IF EXISTS `GetAllClasses`;
+DELIMITER //
+CREATE PROCEDURE `GetAllClasses`()
+BEGIN
+SELECT CM.ClassMasterPublicID,
+			CM.GradeMasterID ,
+			CONCAT(CM.ClassName, ' (',CM.ClassCode,')') AS Class
+
+FROM classmaster CM WHERE CM.IsActive = 1 ORDER BY CM.GradeMasterID ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllClassesByGradeID
+DROP PROCEDURE IF EXISTS `GetAllClassesByGradeID`;
+DELIMITER //
+CREATE PROCEDURE `GetAllClassesByGradeID`(IN `GradeID` INT)
+BEGIN
+SELECT CM.ClassMasterPublicID,
+			CM.GradeMasterID ,
+			CONCAT(CM.ClassName, ' (',CM.ClassCode,')') AS Class
+
+FROM classmaster CM WHERE CM.GradeMasterID =GradeID;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllClassesByTenantID
+DROP PROCEDURE IF EXISTS `GetAllClassesByTenantID`;
+DELIMITER //
+CREATE PROCEDURE `GetAllClassesByTenantID`(IN `TenantID` VARCHAR(300))
+BEGIN
+SELECT CM.ClassMasterPublicID,
+			CM.GradeMasterID ,
+			CONCAT(CM.ClassName, ' (',CM.ClassCode,')') AS Class
+
+FROM classmaster CM WHERE CM.IsActive = 1 AND CM.TenantID = TenantID ORDER BY CM.GradeMasterID ASC ;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllClassesWithMappedSubjects
+DROP PROCEDURE IF EXISTS `GetAllClassesWithMappedSubjects`;
+DELIMITER //
+CREATE PROCEDURE `GetAllClassesWithMappedSubjects`(IN `TenantID_` VARCHAR(500))
+BEGIN
+SELECT   CM.ClassMasterPublicID,
+			CM.GradeMasterID ,
+			CONCAT(CM.ClassName, ' (',CM.ClassCode,')') AS Class
+
+FROM classmaster CM WHERE CM.IsActive = 1 AND CM.TenantID = TenantID_ AND CM.ClassMasterPublicID IN (SELECT CD.ClassMasterPublicID FROM classdetails CD) ORDER BY CM.GradeMasterID ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllDepartmentsByShoolID
+DROP PROCEDURE IF EXISTS `GetAllDepartmentsByShoolID`;
+DELIMITER //
+CREATE PROCEDURE `GetAllDepartmentsByShoolID`(IN `SHOOLID` VARCHAR(50))
+BEGIN
+		SELECT 	DPT.DepartmentID 													AS 'DepartmentID',
+					DPT.DepartmentName												AS 'DepartmentName',
+					DPT.ShortHand														AS 'ShortHand',
+					CONCAT(DPT.DepartmentName,' (',DPT.ShortHand,')') 		AS 'Department',
+					DPT.SchoolMasterID												AS 'SchoolMasterID' 
+		FROM department DPT WHERE DPT.SchoolMasterID = SHOOLID ORDER BY DPT.DepartmentName ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllPeriods
+DROP PROCEDURE IF EXISTS `GetAllPeriods`;
+DELIMITER //
+CREATE PROCEDURE `GetAllPeriods`(IN `CLASSMASTERID_` VARCHAR(50))
+BEGIN
+		SET @CLASSMASTERID  = CLASSMASTERID_;
+		
+		SELECT  TM.TimeTableMasterID					      AS 'TimeTableMasterID',
+				  TM.ClassMasterID								AS 'ClassMasterID',
+				  TM.PeriodMasterID								AS 'PeriodMasterID',
+				  PM.PeriodName    								AS 'PeriodName',
+				  TIME_FORMAT(TM.TimeFrom,"%H:%i")			AS 'TimeForm',
+				  TIME_FORMAT(TM.TimeTo,"%H:%i")				AS 'TimeTo',
+				  IF (TM.IsActive = 1,'Yes', 'No')			AS 'Active'	
+		FROM timetablemaster TM 
+		JOIN periodmaster PM ON PM.PeriodMasterID =  TM.PeriodMasterID 
+		WHERE TM.ClassMasterID = @CLASSMASTERID ORDER BY TM.IsActive DESC, TM.PeriodMasterID ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllPeriodsBySchoolID
+DROP PROCEDURE IF EXISTS `GetAllPeriodsBySchoolID`;
+DELIMITER //
+CREATE PROCEDURE `GetAllPeriodsBySchoolID`(IN `SchoolID` VARCHAR(50))
+BEGIN
+      SELECT   PM.PeriodMasterID						AS 'PeriodMasterID',
+					PM.PeriodName							AS 'PeriodName',
+					PM.SchoolID								AS 'SchoolID',
+					PM.SequenceID							AS 'SequenceID',
+					IF(PM.IsActive = 1, 'Yes', 'No') AS 'Active'
+		FROM periodmaster PM 
+		WHERE  PM.SchoolID = SchoolID ORDER BY PM.SequenceID, PM.PeriodName ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllSchoolDetails
+DROP PROCEDURE IF EXISTS `GetAllSchoolDetails`;
+DELIMITER //
+CREATE PROCEDURE `GetAllSchoolDetails`()
+BEGIN
+		SELECT SM.PublicID 				AS 'PublicID',
+				 SM.EMISNO	 				AS 'EMISNO',
+				 SM.PicURL					AS 'PicURL',
+				 SM.SchoolName				AS 'SchoolName',
+				 SM.ShortName				AS 'ShortName',
+				 SM.SchoolMotto			AS 'SchoolMotto',
+				 SM.SchoolURl				AS 'SchoolURl',
+				 SM.SchoolDescription	AS 'SchoolDescription',
+				 SM.MaxTerms				AS 'MaxTerms',
+				 SM.Longitude				AS 'Longitude',
+				 SM.Latitude				AS 'Latitude',
+				 SM.Tel						AS 'Tel',
+				 SM.PhoneNo					AS 'PhoneNo',
+				 SM.TenantID				AS 'TenantID',
+				 IF(SM.IsActive=1,'Yes','No') AS 'IsActive'
+		 
+		FROM schoolmaster SM ORDER BY SM.IsActive DESC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllSchoolDetailsBySchoolID
+DROP PROCEDURE IF EXISTS `GetAllSchoolDetailsBySchoolID`;
+DELIMITER //
+CREATE PROCEDURE `GetAllSchoolDetailsBySchoolID`(IN `SCHOOLPUBLICID` VARCHAR(50))
+BEGIN
+		SELECT SM.PublicID 				AS 'PublicID',
+				 SM.EMISNO	 				AS 'EMISNO',
+				 SM.PicURL					AS 'PicURL',
+				 SM.SchoolName				AS 'SchoolName',
+				 SM.ShortName				AS 'ShortName',
+				 SM.SchoolMotto			AS 'SchoolMotto',
+				 SM.SchoolURl				AS 'SchoolURl',
+				 SM.SchoolDescription	AS 'SchoolDescription',
+				 SM.MaxTerms				AS 'MaxTerms',
+				 SM.Longitude				AS 'Longitude',
+				 SM.Latitude				AS 'Latitude',
+				 SM.Tel						AS 'Tel',
+				 SM.PhoneNo					AS 'PhoneNo',
+				 SM.TenantID				AS 'TenantID',
+				 IF(SM.IsActive=1,'Yes','No') AS 'IsActive'
+		 
+		FROM schoolmaster SM WHERE SM.PublicID =  SCHOOLPUBLICID;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllStudentDetails
+DROP PROCEDURE IF EXISTS `GetAllStudentDetails`;
+DELIMITER //
+CREATE PROCEDURE `GetAllStudentDetails`(IN `TenantID` VARCHAR(400))
+BEGIN
+SELECT 	SM.StudentMasterPublicID																													AS 'StudentMasterPublicID',
+			SM.StudentNo																																	AS 'PublicID',
+			CONCAT(SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName )						AS 'Name', 
+		 	SM.GuardianContactNo																															AS 'ContactNo',
+		 	DATE_FORMAT(SM.DOB, "%d %b, %Y")																											AS 'DOB',
+		 	SM.Address																																		AS 'Address',
+		 	GM.Gender																																		AS 'Gender',
+		 	MSM.MaritalStatus																																AS 'MaritalStatus',
+		 	SM.GuardianMaleName																															AS 'GuardianMaleName',
+		 	SM.GuardianFemaleName																														AS 'GuardianFemaleName',
+		 	SM.ProfilePic																																	AS 'ProfilePic'
+		 	
+FROM studentmaster SM
+JOIN gendermaster GM ON GM.GenderMasterID = SM.GenderID
+JOIN maritalstatusmaster MSM ON MSM.MaritalStatusMasterID = SM.MaritalStatusID 
+JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID WHERE SM.IsActive = 1 AND CM.TenantID = TenantID ORDER BY SM.StudentNo DESC;
+
+
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllStudentDetailsByClassID
+DROP PROCEDURE IF EXISTS `GetAllStudentDetailsByClassID`;
+DELIMITER //
+CREATE PROCEDURE `GetAllStudentDetailsByClassID`(IN `ClassID` VARCHAR(50))
+BEGIN
+SELECT 	SM.StudentMasterPublicID																													AS 'StudentMasterPublicID',
+			SM.StudentNo																																	AS 'PublicID',
+			CONCAT(SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName )						AS 'Name', 
+		 	SM.GuardianContactNo																															AS 'ContactNo',
+		 	DATE_FORMAT(SM.DOB, "%d %b, %Y")																											AS 'DOB',
+		 	SM.Address																																		AS 'Address',
+		 	GM.Gender																																		AS 'Gender',
+		 	MSM.MaritalStatus																																AS 'MaritalStatus',
+		 	SM.GuardianMaleName																															AS 'GuardianMaleName',
+		 	SM.GuardianFemaleName																														AS 'GuardianFemaleName',
+		 	SM.ProfilePic																																	AS 'ProfilePic'
+		 	
+FROM studentmaster SM
+JOIN gendermaster GM ON GM.GenderMasterID = SM.GenderID
+JOIN maritalstatusmaster MSM ON MSM.MaritalStatusMasterID = SM.MaritalStatusID 
+JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID WHERE SM.IsActive = 1 AND CM.ClassMasterPublicID = ClassID ORDER BY SM.StudentNo DESC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllStudentDetailsByClassMasterPublicID
+DROP PROCEDURE IF EXISTS `GetAllStudentDetailsByClassMasterPublicID`;
+DELIMITER //
+CREATE PROCEDURE `GetAllStudentDetailsByClassMasterPublicID`(IN `CLASSMASTERPUBLICID_` VARCHAR(50), IN `ATENDANCYTYPEID_` INT)
+BEGIN
+			SET @CLASSMASTERPUBLICID  = CLASSMASTERPUBLICID_;
+			SET @AtendancyTypeID  = ATENDANCYTYPEID_;
+			
+			SELECT 	SM.StudentMasterPublicID																																AS 'StudentMasterPublicID',
+						SM.StudentNo																																				AS 'StudentNo',
+						CONCAT(SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName,' (',GM.ShortName,')' )		AS 'NameInfo', 
+						CONCAT(SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName )									AS 'Name', 
+						CONCAT(CM.ClassName, ' (',CM.ClassCode,')') 																										AS  'Class',
+					 	SM.GuardianContactNo																																		AS 'ContactNo',
+					 	DATE_FORMAT(SM.DOB, "%d %b, %Y")																														AS 'DOB',
+					 	SM.Address																																					AS 'Address',
+					 	GM.Gender																																					AS 'Gender',
+					 	MSM.MaritalStatus																																			AS 'MaritalStatus',
+					 	SM.GuardianMaleName																																		AS 'GuardianMaleName',
+					 	SM.GuardianFemaleName																																	AS 'GuardianFemaleName',
+					 	SM.ProfilePic																																				AS 'ProfilePic'
+					 	
+			FROM studentmaster SM
+			JOIN gendermaster GM ON GM.GenderMasterID = SM.GenderID
+			JOIN maritalstatusmaster MSM ON MSM.MaritalStatusMasterID = SM.MaritalStatusID 
+			JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID WHERE CM.ClassMasterPublicID = @CLASSMASTERPUBLICID  AND SM.IsActive = 1 
+		
+			
+			ORDER BY SM.FirstName,SM.LastName,SM.StudentNo ASC;
+
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllStudentDetailsByPublicID
+DROP PROCEDURE IF EXISTS `GetAllStudentDetailsByPublicID`;
+DELIMITER //
+CREATE PROCEDURE `GetAllStudentDetailsByPublicID`(IN `PUBLICID_` VARCHAR(50))
+BEGIN
+SET @PUBLICID = PUBLICID_;
+SELECT 	SM.StudentNo																																	AS 'StudenNo',
+			CONCAT(SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName )						AS 'Name', 
+		 	SM.GuardianContactNo																															AS 'ContactNo',
+		 	DATE_FORMAT(SM.DOB, "%d %b, %Y")																											AS 'DOB',
+		 	SM.Address																																		AS 'Address',
+		 	GM.Gender																																		AS 'Gender',
+		 	MSM.MaritalStatus																																AS 'MaritalStatus',
+		 	SM.GuardianMaleName																															AS 'GuardianMaleName',
+		 	SM.GuardianFemaleName																														AS 'GuardianFemaleName',
+		 	SM.ProfilePic																																	AS 'ProfilePic',
+		 	CONCAT(CM.ClassName,' (', CM.ClassCode,')')																							AS 'ClassName',
+		 	IF(SM.EmailAddress IS NULL OR SM.EmailAddress = '','None',SM.EmailAddress )												AS 'EmailAddress',
+		 	CM.ClassMasterPublicID																														AS 'ClassMasterPublicID',
+		 	SCM.PicURL																																		AS 'PicURL'
+		 	
+		 	
+FROM studentmaster SM
+JOIN gendermaster GM ON GM.GenderMasterID = SM.GenderID
+JOIN maritalstatusmaster MSM ON MSM.MaritalStatusMasterID = SM.MaritalStatusID 
+JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID 
+LEFT JOIN schoolmaster SCM ON  SCM.TenantID = CM.TenantID
+WHERE SM.IsActive = 1 AND SM.StudentMasterPublicID = @PUBLICID;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllStudentDetailsByStudentNo
+DROP PROCEDURE IF EXISTS `GetAllStudentDetailsByStudentNo`;
+DELIMITER //
+CREATE PROCEDURE `GetAllStudentDetailsByStudentNo`(IN `StudentNo` VARCHAR(50))
+BEGIN
+SET @StudentNo = StudentNo;
+SELECT 	SM.StudentNo																																	AS 'PublicID',
+			CONCAT(SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName )						AS 'Name', 
+		 	SM.GuardianContactNo																															AS 'ContactNo',
+		 	DATE_FORMAT(SM.DOB, "%d %b, %Y")																											AS 'DOB',
+		 	SM.Address																																		AS 'Address',
+		 	GM.Gender																																		AS 'Gender',
+		 	MSM.MaritalStatus																																AS 'MaritalStatus',
+		 	SM.GuardianMaleName																															AS 'GuardianMaleName',
+		 	SM.GuardianFemaleName																														AS 'GuardianFemaleName',
+		 	SM.ProfilePic																																	AS 'ProfilePic',
+		 	CONCAT(CM.ClassName,' (', CM.ClassCode,')')																							AS 'ClassName',
+		 	IF(SM.EmailAddress IS NULL OR SM.EmailAddress = '','None',SM.EmailAddress )																																AS 'EmailAddress'
+		 	
+FROM studentmaster SM
+JOIN gendermaster GM ON GM.GenderMasterID = SM.GenderID
+JOIN maritalstatusmaster MSM ON MSM.MaritalStatusMasterID = SM.MaritalStatusID 
+JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID  WHERE SM.IsActive = 1 AND SM.StudentNo = @StudentNo;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllSubjects
+DROP PROCEDURE IF EXISTS `GetAllSubjects`;
+DELIMITER //
+CREATE PROCEDURE `GetAllSubjects`()
+BEGIN
+	SELECT SM.SubjectCode AS 												'SujectCode',
+				 CONCAT(SM.SubjectName,' ( ',SM.SubjectCode,' )')		AS 'SubjectName',
+				 	 SM.SubjectName		AS 'Subject' 
+		FROM subjectmater SM WHERE SM.IsActive = 1 ORDER BY SM.SubjectName ASC ;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllSubjectsBySchooID
+DROP PROCEDURE IF EXISTS `GetAllSubjectsBySchooID`;
+DELIMITER //
+CREATE PROCEDURE `GetAllSubjectsBySchooID`(IN `SCHOOLID_` VARCHAR(50))
+BEGIN
+
+SET @SCHOOLID = SCHOOLID_;
+
+SELECT SM.SubjectMaterID                                                   AS 'SubjectMaterID',
+		SM.SubjectCode																			AS  'SubjectCode',
+		 CONCAT(SM.SubjectName,' (',SM.SubjectCode,')')								AS 'Subject',
+		 CONCAT(DPT.DepartmentName,' (',DPT.ShortHand,')')							AS 'Department',
+		 IF(SM.IsActive = 1, 'Yes','No')													AS 'Active' 
+FROM subjectmater SM
+JOIN department DPT ON DPT.DepartmentID = SM.DepartmentCode
+WHERE SM.SchoolID = @SCHOOLID AND DPT.IsActive = 1  ORDER BY SM.IsActive, SM.SubjectName, SM.DepartmentCode ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllTeacherDetailsByID
+DROP PROCEDURE IF EXISTS `GetAllTeacherDetailsByID`;
+DELIMITER //
+CREATE PROCEDURE `GetAllTeacherDetailsByID`(IN `TenantID` VARCHAR(400), IN `TeacherID` VARCHAR(50))
+BEGIN
+SELECT TM.TeaherMasterPublicID																																					AS 'TeaherMasterPublicID',
+		 CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName) 														AS 'TeacherName',
+		 UM.FirstName,
+		 UM.OtherName,
+		 UM.LastName,
+		 DPT.DepartmentName,
+		 UM.NRC,
+		  UM.ContactNo,
+		 DATE_FORMAT(UM.DOB, "%d %b, %Y")	AS 'DOB',
+		 UM.ProfilPicURL,
+		 UM.UserName,
+		 IF(UM.EmailAddress IS NULL, 'None', UM.EmailAddress  )  AS 'EmailAddress'
+FROM teachermaster TM 
+JOIN usermaster UM ON UM.PublicID = TM.TeaherMasterPublicID 
+JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.TeacherPositionID
+JOIN department DPT ON DPT.ShortHand = TM.DeparmrntCode
+WHERE UM.TenantID = TenantID AND UM.IsActive = 1 AND TM.IsActive = 1 AND TM.TeaherMasterPublicID = TeacherID AND  TPM.TeacherPositionMasterID NOT IN (2,3);
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllTeacherDetailsByTenantID
+DROP PROCEDURE IF EXISTS `GetAllTeacherDetailsByTenantID`;
+DELIMITER //
+CREATE PROCEDURE `GetAllTeacherDetailsByTenantID`(IN `TenantID_` VARCHAR(500))
+BEGIN
+SELECT TM.TeaherMasterPublicID																																					AS 'TeaherMasterPublicID',
+		 CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName, ' (',DPT.DepartmentName,' Dpt.)') 			AS 'Teacher',
+		 UM.FirstName,
+		 UM.OtherName,
+		 UM.LastName,
+		 DPT.DepartmentName,
+		 UM.NRC,
+		  UM.ContactNo,
+		 DATE_FORMAT(UM.DOB, "%d %b, %Y")	AS 'DOB',
+		 IF (TM.IsActive = 1,'Yes','No')								AS 'IsActive'
+FROM teachermaster TM 
+JOIN usermaster UM ON UM.PublicID = TM.TeaherMasterPublicID 
+JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.TeacherPositionID
+JOIN schoolmaster SM ON SM.TenantID = TenantID_ 
+JOIN department DPT ON DPT.ShortHand = TM.DeparmrntCode AND DPT.SchoolMasterID = SM.PublicID
+WHERE UM.TenantID = TenantID_ ORDER BY TM.IsActive DESC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllTeacherLessionPlanDocuments
+DROP PROCEDURE IF EXISTS `GetAllTeacherLessionPlanDocuments`;
+DELIMITER //
+CREATE PROCEDURE `GetAllTeacherLessionPlanDocuments`(IN `TenantID_` VARCHAR(300))
+BEGIN
+SELECT 	
+			CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName,'-',GM.ShortName, ' [',DP.DepartmentName,']  (',TD.Title,')' )						AS 'LessonPlanData', 
+			TD.TeacherdocumentID							AS 'TeacherdocumentID',
+			TD.Title											AS 'Title',
+		 	TD.DocumentURL									AS 'DocumentURL',
+		 	 DATE_FORMAT(TD.AddedOn, "%d %b, %Y")  AS 'AddedOn'
+		 		
+
+FROM teacherdocument TD 
+JOIN usermaster UM ON UM.UserName = TD.AddedBy AND UM.TenantID  =TenantID_
+JOIN teachermaster TM ON TM.TeaherMasterPublicID = UM.PublicID 
+JOIN department DP ON DP.ShortHand = TM.DeparmrntCode
+JOIN gendermaster GM ON GM.GenderMasterID = UM.GenderID 
+ORDER BY  TD.UpdatedOn, TD.IsApproved,DP.DepartmentName DESC ;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAssecmentTypeBySubjectCode
+DROP PROCEDURE IF EXISTS `GetAssecmentTypeBySubjectCode`;
+DELIMITER //
+CREATE PROCEDURE `GetAssecmentTypeBySubjectCode`(IN `CLASSMASTERID` VARCHAR(50), IN `SUBJECT_CODE` CHAR(5), IN `TENANTMASTERID` VARCHAR(300))
+BEGIN
+		SET @SUBJECTCODE = SUBJECT_CODE;
+		SET @GRADEID = (SELECT CM.GradeMasterID FROM classmaster CM WHERE CM.ClassMasterPublicID = CLASSMASTERID);
+		SELECT ATM.AssementTypeID,
+				
+				 ATM.AssementTypeName
+				 
+		FROM assementtypemaster ATM
+		WHERE ATM.IsActive = 1 AND ATM.TenantID=TENANTMASTERID  ORDER BY ATM.AssementTypeName ASC ;
+	--	AND ATM.SubjectCode = @SUBJECTCODE AND ATM.GradeMasterID = @GRADEID
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAssecmwntTye
+DROP PROCEDURE IF EXISTS `GetAssecmwntTye`;
+DELIMITER //
+CREATE PROCEDURE `GetAssecmwntTye`(IN `StudentMasterPublicID_` INT)
+BEGIN
+		SELECT   STA.StudnetAssesmenID																									AS 'PublicID',
+					STM.StudentNo																												AS 'StudentNo',
+					CONCAT(STM.FirstName,IF(STM.OtherName IS NULL,' ',CONCAT(' ',STM.OtherName,' ')),STM.LastName )	AS 'Name',
+					CONCAT(CM.ClassName,' (',CM.ClassCode,')')																		AS 'ClassName',
+				   CONCAT(SM.SubjectName,' (',SM.SubjectCode,')')																	AS 'Subject',
+					CONCAT(ASTM.AssementTypeName, ' (',STA.AssecementName,')')													AS 'AssecementName',
+					CONCAT(STA.Score,' %')																									AS 'Score',
+				   DATE_FORMAT(STA.UpdatedOn, "%d %b, %Y") 					   												   AS 'MarkedOn'
+				   
+					
+		FROM studnetassesment STA
+		JOIN studentmaster STM ON STM.StudentMasterPublicID = STA.StudentMasterPublicID 
+		JOIN assementtypemaster ASTM ON ASTM.AssementTypeID = STA.AssecemntTypeMasterID
+		
+		JOIN classmaster CM ON CM.ClassMasterPublicID = STA.ClassMasterPublicID AND STM.StudentMasterPublicID = StudentMasterPublicID_
+		JOIN subjectmater SM ON SM.SubjectMaterID = STA.SubjectMasterID
+		ORDER BY CM.GradeMasterID, STM.StudentNo,STM.FirstName,STM.LastName ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetClassByGreadeID
+DROP PROCEDURE IF EXISTS `GetClassByGreadeID`;
+DELIMITER //
+CREATE PROCEDURE `GetClassByGreadeID`(IN `GradeID` INT)
+BEGIN
+SET @GRADE = GradeID;
+SELECT CM.ClassMasterPublicID								'ClassMasterPublicID',
+		 CM.ClassName											'ClassName',
+		 CM.GradeMasterID										'GradeMasterID',
+		 CONCAT(CM.ClassName,' (',CM.ClassCode,')')   'class'
+FROM classmaster CM WHERE CM.GradeMasterID = @GRADE ; 
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetClassDetailsByID
+DROP PROCEDURE IF EXISTS `GetClassDetailsByID`;
+DELIMITER //
+CREATE PROCEDURE `GetClassDetailsByID`(IN `ClassMasterID` VARCHAR(50))
+BEGIN
+			SELECT   CM.ClassMasterPublicID																																				AS 'ClassMasterPublicID',
+				CM.ClassCode																																									AS 'ClassCode',
+				CM.ClassName																																									AS 'ClassName',
+				CM.Description																																									AS 'Description',
+				CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName, ' (',DPT.DepartmentName,' Dpt.)') 			AS 'Teacher',
+				TM.TeaherMasterPublicID																																						AS 'TeaherMasterPublicID',
+				GM.GradeMasterID																																								AS 'GradeMasterID',
+				GM.Grade																																											AS 'Grade'
+			FROM classmaster CM 
+			JOIN usermaster UM ON UM.PublicID = CM.ClassTeacherID
+			JOIN  teachermaster TM ON TM.TeaherMasterPublicID = CM.ClassTeacherID
+			JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.TeacherPositionID
+			JOIN department DPT ON DPT.ShortHand = TM.DeparmrntCode
+			JOIN grademaster GM ON GM.GradeMasterID = CM.GradeMasterID
+			WHERE CM.IsActive = 1 AND  CM.ClassMasterPublicID = ClassMasterID;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetClassDetailsByPublicID
+DROP PROCEDURE IF EXISTS `GetClassDetailsByPublicID`;
+DELIMITER //
+CREATE PROCEDURE `GetClassDetailsByPublicID`(IN `CLASSMASTERID_` VARCHAR(50))
+BEGIN
+		SET @CLASSMASTERID = CLASSMASTERID_;
+		SELECT CM.ClassMasterPublicID								'ClassMasterPublicID',
+				 CM.ClassName											'ClassName',
+				 CM.GradeMasterID										'GradeMasterID',
+				 CONCAT(CM.ClassName,' (',CM.ClassCode,')')   'class'
+		FROM classmaster CM WHERE CM.ClassMasterPublicID = @CLASSMASTERID ; 
+END//
+DELIMITER ;
+
+-- Dumping structure for function 3edu_db.GetClassName
+DROP FUNCTION IF EXISTS `GetClassName`;
+DELIMITER //
+CREATE FUNCTION `GetClassName`(`ClassCode` CHAR(5), `SchoolID` VARCHAR(50)) RETURNS varchar(50) CHARSET utf8mb4
+BEGIN
+   
+ 			DECLARE SUBJECTNAME VARCHAR(50);
+		
+		     SELECT SM.SubjectName INTO SUBJECTNAME FROM subjectmater SM WHERE SM.SubjectCode = ClassCode AND SM.SchoolID = SchoolID;
+    
+         
+			
+	
+				
+			-- return the Sequence
+			RETURN SUBJECTNAME ;
+				
+			
+			
+    
+   
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetClassRoomsByID
+DROP PROCEDURE IF EXISTS `GetClassRoomsByID`;
+DELIMITER //
+CREATE PROCEDURE `GetClassRoomsByID`(IN `TenantID` VARCHAR(400))
+BEGIN
+		SELECT CR.ClassRoomPublicID		AS 'ClassRoomPublicID', 
+				 CR.ClassRoomName				AS 'ClassRoomName'
+		FROM classroom CR WHERE CR.TenantID = TenantID AND CR.IsActive = 1;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetClassSubjectsByClassMasterID
+DROP PROCEDURE IF EXISTS `GetClassSubjectsByClassMasterID`;
+DELIMITER //
+CREATE PROCEDURE `GetClassSubjectsByClassMasterID`(IN `CLASSMASTERID` VARCHAR(50))
+BEGIN
+		SET @CLASSMASTERID = CLASSMASTERID;
+		SELECT CD.ClassDetailsPublicID									AS 'ClassDetailsPublicID',
+				 CD.ClassMasterPublicID										AS 'ClassMasterPublicID',
+				 CD.SubjectCode												AS 'SubjectCode',
+				 CONCAT(SM.SubjectName, ' (',SM.SubjectCode,')') 	AS 'Subject'
+		FROM classdetails CD 
+		JOIN subjectmater SM ON SM.SubjectCode = CD.SubjectCode 
+		WHERE CD.ClassMasterPublicID = @CLASSMASTERID  AND CD.IsActive = 1 ORDER BY SM.SubjectName ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetClassSubjectsByID
+DROP PROCEDURE IF EXISTS `GetClassSubjectsByID`;
+DELIMITER //
+CREATE PROCEDURE `GetClassSubjectsByID`(IN `ClassMasterID` VARCHAR(50), IN `SchoolID` VARCHAR(50))
+BEGIN
+		SELECT CD.ClassDetailsPublicID											AS 'ClassDetailsPublicID',
+				 SM.SubjectCode 														AS 'SujectCode',
+				 CONCAT(SM.SubjectName,' ( ',SM.SubjectCode,' )')			AS 'SubjectName',
+				 SM.SubjectName														AS 'Subject',
+				 SM.SubjectCode		 												AS 'SubjectCode',
+				 CM.ClassRoomName		 												AS 'ClassRoomName',
+				 CM.ClassRoomPublicID 												AS 'ClassRoomPublicID' 
+		FROM subjectmater SM
+		JOIN classdetails CD ON CD.SubjectCode = SM.SubjectCode 
+		JOIN classroom CM ON CM.ClassRoomPublicID = CD.ClassRoomPublicID
+		WHERE CD.ClassMasterPublicID = ClassMasterID AND CD.IsActive = 1 AND SM.SchoolID =SchoolID ;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetCompleteTeacherDetailsByID
+DROP PROCEDURE IF EXISTS `GetCompleteTeacherDetailsByID`;
+DELIMITER //
+CREATE PROCEDURE `GetCompleteTeacherDetailsByID`(IN `TenantID` VARCHAR(500), IN `TeacherID` VARCHAR(50))
+BEGIN
+SELECT TM.TeaherMasterPublicID																																					AS 'TeaherMasterPublicID',
+		 CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName) 														AS 'TeacherName',
+		 UM.FirstName,
+		 UM.OtherName,
+		 UM.LastName,
+		 DPT.DepartmentName,
+		 UM.NRC,
+		  UM.ContactNo,
+		 DATE_FORMAT(UM.DOB, "%d %b, %Y")	AS 'DOB',
+		 UM.ProfilPicURL,
+		 UM.UserName,
+		 IF(UM.EmailAddress IS NULL, 'None', UM.EmailAddress  )  AS 'EmailAddress'
+FROM teachermaster TM 
+JOIN usermaster UM ON UM.PublicID = TM.TeaherMasterPublicID 
+JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.TeacherPositionID
+JOIN department DPT ON DPT.ShortHand = TM.DeparmrntCode
+WHERE UM.TenantID = TenantID AND UM.IsActive = 1 AND TM.IsActive = 1 AND TM.TeaherMasterPublicID = TeacherID AND  TPM.TeacherPositionMasterID;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetCompletStudentDetails
+DROP PROCEDURE IF EXISTS `GetCompletStudentDetails`;
+DELIMITER //
+CREATE PROCEDURE `GetCompletStudentDetails`(IN `TenantID` VARCHAR(500))
+BEGIN
+SELECT 	SM.StudentMasterPublicID																													AS 'StudentMasterPublicID',
+			SM.StudentNo																																	AS 'PublicID',
+			CONCAT(SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName )						AS 'Name', 
+		 	SM.GuardianContactNo																															AS 'ContactNo',
+		 	DATE_FORMAT(SM.DOB, "%d %b, %Y")																											AS 'DOB',
+		 	SM.Address																																		AS 'Address',
+		 	GM.Gender																																		AS 'Gender',
+		 	MSM.MaritalStatus																																AS 'MaritalStatus',
+		 	SM.GuardianMaleName																															AS 'GuardianMaleName',
+		 	SM.GuardianFemaleName																														AS 'GuardianFemaleName',
+		 	SM.ProfilePic																																	AS 'ProfilePic',
+		 	IF(SM.IsActive = 1, 'Yes', 'No')																											AS 'Active'
+		 	
+FROM studentmaster SM
+JOIN gendermaster GM ON GM.GenderMasterID = SM.GenderID
+JOIN maritalstatusmaster MSM ON MSM.MaritalStatusMasterID = SM.MaritalStatusID 
+JOIN usermaster UM ON UM.PublicID = SM.StudentMasterPublicID
+JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID WHERE  UM.TenantID = TenantID ORDER BY SM.IsActive DESC, SM.StudentNo DESC;
+
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetCountryCode
+DROP PROCEDURE IF EXISTS `GetCountryCode`;
+DELIMITER //
+CREATE PROCEDURE `GetCountryCode`()
+BEGIN
+		SELECT   CT.CountryID		AS 'CountryID',
+					CT.ConuntryCode 	AS 'ConuntryCode'
+		FROM country CT WHERE CT.IsActive=1;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetDashboardUserCounts
+DROP PROCEDURE IF EXISTS `GetDashboardUserCounts`;
+DELIMITER //
+CREATE PROCEDURE `GetDashboardUserCounts`(IN `TENANTID_` VARCHAR(400))
+BEGIN
+SET @TENANTID = TENANTID_;
+
+SET @TOTALUSERS = (SELECT COUNT(UM.UserMasterID) FROM usermaster UM WHERE UM.TenantID = @TENANTID AND UM.IsActive = 1);
+SET @TOTALUSERSUPDATEDATE = (SELECT MAX(UM.UpdatedOn) FROM usermaster UM WHERE UM.TenantID = @TENANTID AND UM.IsActive = 1);
+
+SET @TOTALSTUDENTS = (SELECT COUNT(UM.UserMasterID) FROM usermaster UM WHERE UM.TenantID = @TENANTID AND UM.IsActive = 1 AND UM.UserTypeID = 2);
+SET @TOTALSTUDENTSUPDATEDATE = (SELECT MAX(UM.UpdatedOn) FROM usermaster UM WHERE UM.TenantID = @TENANTID AND UM.IsActive = 1 AND UM.UserTypeID = 2);
+
+SET @TOTALTEACHERS = (SELECT COUNT(UM.UserMasterID) FROM usermaster UM WHERE UM.TenantID = @TENANTID AND UM.IsActive = 1 AND UM.UserTypeID = 3);
+SET @TOTALTEACHERSUPDATEDATE = (SELECT MAX(UM.UpdatedOn) FROM usermaster UM WHERE UM.TenantID = @TENANTID AND UM.IsActive = 1 AND UM.UserTypeID = 3);
+
+SELECT @TOTALUSERS 																		AS 'TotalUsers',
+		 DATE_FORMAT(@TOTALUSERSUPDATEDATE, "%d %b, %Y %H:%m")	      	AS 'LastUpdatedDateTotalUsers',
+		 
+	 	 @TOTALSTUDENTS 																	AS 'TotalStudents',
+	 	  DATE_FORMAT(@TOTALSTUDENTSUPDATEDATE, "%d %b, %Y %H:%m")	   AS 'LastUpdatedDateTotalUsers',
+	 	  
+		 @TOTALTEACHERS 																	AS 'TotalTeachers',
+		  DATE_FORMAT(@TOTALTEACHERSUPDATEDATE, "%d %b, %Y %H:%m")	   AS 'LastUpdatedDateTotalUsers';
+		  
+		  
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetDefultGradeCharges
+DROP PROCEDURE IF EXISTS `GetDefultGradeCharges`;
+DELIMITER //
+CREATE PROCEDURE `GetDefultGradeCharges`(IN `TenantID_` VARCHAR(500), IN `NotUsed` INT)
+BEGIN
+			SELECT GM.GradeMasterID												AS 'GradeMasterID',
+					 GM.Grade														AS	'Grade',
+					 0 																AS 'Amount',
+					 'System' 														AS 'UpdatedBy',
+					DATE_FORMAT(CURRENT_TIMESTAMP(), "%d %b, %Y")		AS 'UpdatedOn',
+					'No'																AS  'IsCharged'	
+					 	
+			FROM grademaster GM WHERE GM.TenantID = TenantID_ AND GM.IsActive = 1 ORDER BY GM.GradeMasterID ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetDepartmentByCode
+DROP PROCEDURE IF EXISTS `GetDepartmentByCode`;
+DELIMITER //
+CREATE PROCEDURE `GetDepartmentByCode`(IN `DEPARTMENTCODE_` CHAR(4))
+BEGIN
+		SET @DEPARTMENTCODE = DEPARTMENTCODE_;
+
+		SELECT 	DP.DepartmentID		AS 'DepartmentID',
+					DP.DepartmentName		AS 'DepartmentName',
+					DP.ShortHand			AS 'ShortHand'
+		FROM department DP
+		WHERE DP.ShortHand = @DEPARTMENTCODE ORDER BY DP.DepartmentName ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetDepartmentBySchoolIDAndDptCode
+DROP PROCEDURE IF EXISTS `GetDepartmentBySchoolIDAndDptCode`;
+DELIMITER //
+CREATE PROCEDURE `GetDepartmentBySchoolIDAndDptCode`(IN `SHOOLID` VARCHAR(50), IN `DEPARTMENT_CODE` CHAR(5))
+BEGIN
+	SELECT 	DPT.DepartmentID 													AS 'DepartmentID',
+					DPT.DepartmentName												AS 'DepartmentName',
+					DPT.ShortHand														AS 'ShortHand',
+					CONCAT(DPT.DepartmentName,' (',DPT.ShortHand,')') 		AS 'Department',
+					DPT.SchoolMasterID												AS 'SchoolMasterID' 
+		FROM department DPT WHERE DPT.SchoolMasterID = SHOOLID AND DPT.ShortHand = DEPARTMENT_CODE  ORDER BY DPT.DepartmentName ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetDistrictByProvinceId
+DROP PROCEDURE IF EXISTS `GetDistrictByProvinceId`;
+DELIMITER //
+CREATE PROCEDURE `GetDistrictByProvinceId`(IN `Provinceid` INT)
+BEGIN
+		SET @ProvinceId = Provinceid;
+		SELECT	DST.DistrictID AS districtId,
+		 			DST.DistrictName		AS name
+		FROM district DST WHERE DST.ProvinceID = @ProvinceId AND DST.IsActive = 1;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GeteacherLessionPlanDocumentsByID
+DROP PROCEDURE IF EXISTS `GeteacherLessionPlanDocumentsByID`;
+DELIMITER //
+CREATE PROCEDURE `GeteacherLessionPlanDocumentsByID`(IN `TeaherMasterPublicID_` VARCHAR(50))
+BEGIN
+SELECT 	
+			CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName,'-',GM.ShortName, ' [',DP.DepartmentName,']  (',TD.Title,')' )						AS 'LessonPlanData', 
+			TD.TeacherdocumentID							AS 'TeacherdocumentID',
+			TD.Title											AS 'Title',
+		 	TD.DocumentURL									AS 'DocumentURL',
+		 	 DATE_FORMAT(TD.AddedOn, "%d %b, %Y")  AS 'AddedOn'
+		 		
+
+FROM teacherdocument TD 
+JOIN usermaster UM ON UM.UserName = TD.AddedBy
+JOIN teachermaster TM ON TM.TeaherMasterPublicID = UM.PublicID
+JOIN department DP ON DP.ShortHand = TM.DeparmrntCode
+JOIN gendermaster GM ON GM.GenderMasterID = UM.GenderID WHERE TM.TeaherMasterPublicID= TeaherMasterPublicID_
+ORDER BY  TD.UpdatedOn, TD.IsApproved,DP.DepartmentName DESC ;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetEmailAdressByPositionID
+DROP PROCEDURE IF EXISTS `GetEmailAdressByPositionID`;
+DELIMITER //
+CREATE PROCEDURE `GetEmailAdressByPositionID`(IN `PositionID_` INT)
+BEGIN
+			SELECT IF (UM.EmailAddress IS NULL, '', UM.EmailAddress)	AS 'EmailAddress'
+			FROM usermaster UM 
+			JOIN teachermaster TM  ON UM.PublicID = TM.PublicUserID WHERE TM.PositionID = PositionID_ AND UM.IsActive = 1 AND TM.IsActive = 1;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetEmailData
+DROP PROCEDURE IF EXISTS `GetEmailData`;
+DELIMITER //
+CREATE PROCEDURE `GetEmailData`()
+BEGIN
+		DECLARE STATUSCODE CHAR(4);
+		DECLARE NEWSTATUSCODE CHAR(4);
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION
+		BEGIN
+		     SELECT 0 AS message;
+		     ROLLBACK;
+		END;
+		
+		SET STATUSCODE = 'PEND', NEWSTATUSCODE = 'PROC';
+		UPDATE emailservice SET `Status` = NEWSTATUSCODE WHERE `Status` = STATUSCODE ;
+		 
+		SELECT   EM.EmailSerial		AS 'EmailSerial',
+					EM.SendData			AS 'SendData',
+					EM.`Status`			AS 'Status',
+					EM.EmailSubject	AS 'EmailSubject',
+					EM.EmailAddress	AS 'EmailAddress'
+		FROM emailservice EM WHERE EM.`Status` = NEWSTATUSCODE;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetEmptyResult
+DROP PROCEDURE IF EXISTS `GetEmptyResult`;
+DELIMITER //
+CREATE PROCEDURE `GetEmptyResult`()
+BEGIN
+			SELECT 1  AS 'Nothing'
+						LIMIT 0;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetGender
+DROP PROCEDURE IF EXISTS `GetGender`;
+DELIMITER //
+CREATE PROCEDURE `GetGender`()
+BEGIN
+		SELECT 	GM.GenderMasterID AS 'genderId',
+					GM.Gender		AS 'gender'
+		FROM gendermaster GM;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetMaritalStatus
+DROP PROCEDURE IF EXISTS `GetMaritalStatus`;
+DELIMITER //
+CREATE PROCEDURE `GetMaritalStatus`()
+BEGIN
+			SELECT 	MS.MaritalStatusMasterID   	 AS 'MaritalStatusMasterID',
+						MS.MaritalStatus			   	AS 'MaritalStatus'
+			FROM maritalstatusmaster MS WHERE MS.IsActive = 1;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetMaxTems
+DROP PROCEDURE IF EXISTS `GetMaxTems`;
+DELIMITER //
+CREATE PROCEDURE `GetMaxTems`()
+BEGIN
+		SELECT SCH.MaxTerms	'MaxTerms' 
+		FROM school SCH;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetPositionDetails
+DROP PROCEDURE IF EXISTS `GetPositionDetails`;
+DELIMITER //
+CREATE PROCEDURE `GetPositionDetails`(IN `limitstart_` INT, IN `limitend_` INT)
+BEGIN
+		
+       
+     		SELECT 	TPM.TeacherPositionMasterID 	AS 'TeacherPositionMasterID',
+						TPM.PositionName					AS 'PositionName',
+						TPM.PositionDescription			AS 'PositionDescription',
+						TPM.IsActive						AS 'IsActive' 			 
+			FROM teacherpositionmaster TPM ORDER BY TPM.TeacherPositionMasterID ASC LIMIT limitstart_, limitend_;
+	END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetPositions
+DROP PROCEDURE IF EXISTS `GetPositions`;
+DELIMITER //
+CREATE PROCEDURE `GetPositions`()
+BEGIN
+			SELECT   TPM.TeacherPositionMasterID	AS 'TeacherPositionMasterID',
+						TPM.PositionName					AS 'PositionName'
+			FROM teacherpositionmaster TPM WHERE TPM.IsActive = 1;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetPositonPages
+DROP PROCEDURE IF EXISTS `GetPositonPages`;
+DELIMITER //
+CREATE PROCEDURE `GetPositonPages`(IN `limit_` VARCHAR(50))
+BEGIN
+		SET @LIMIT_ = limit_;
+		SET @NUMBEROFTERMS  = (SELECT COUNT(TPM.TeacherPositionMasterID)  AS COUNT FROM teacherpositionmaster TPM );
+		
+		SET @NUMBEROFPAGES = @NUMBEROFTERMS/@LIMIT_;
+		
+		SELECT CEILING(@NUMBEROFPAGES) AS 'Pages',@NUMBEROFTERMS AS 'TotalRecords';
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetProvinces
+DROP PROCEDURE IF EXISTS `GetProvinces`;
+DELIMITER //
+CREATE PROCEDURE `GetProvinces`()
+BEGIN
+			SELECT	PV.ProvinceID		AS 'ProvinceID',
+						PV.ProvinceName	AS 'ProvinceName'
+			FROM province PV;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetSchoolDetailsByTenatID
+DROP PROCEDURE IF EXISTS `GetSchoolDetailsByTenatID`;
+DELIMITER //
+CREATE PROCEDURE `GetSchoolDetailsByTenatID`(IN `TenantID_` VARCHAR(400))
+BEGIN
+SELECT SM.PublicID 				AS 'PublicID',
+		 SM.PicURL					AS 'PicURL',
+		 SM.SchoolName 			AS 'SchoolName',
+		 SM.SchoolMotto			AS 'SchoolMotto',
+		 SM.SchoolURl				AS 'SchoolURl',
+		 SM.SchoolDescription	AS 'SchoolDescription',
+		 SM.Longitude				AS 'Longitude',
+		 SM.Latitude				AS 'Latitude',
+		 SM.Tel 						AS 'Tel'
+FROM schoolmaster SM WHERE SM.TenantID = TenantID_;
+END//
+DELIMITER ;
+
+-- Dumping structure for function 3edu_db.GetSequence
+DROP FUNCTION IF EXISTS `GetSequence`;
+DELIMITER //
+CREATE FUNCTION `GetSequence`(`SequenceID` INT) RETURNS varchar(50) CHARSET latin1
+BEGIN
+   
+ 			DECLARE LASTINSERTEDID VARCHAR(50);
+			DECLARE NEWLASTINSETEDID VARCHAR(50);
+			DECLARE SEQUNCECODE CHAR(4);
+		
+    
+         SELECT SM.LastInsertedID INTO LASTINSERTEDID FROM sequencemaster SM WHERE SM.SequenceMasterID = SequenceID;
+			
+			SELECT SM.LastInsertedID+1 INTO NEWLASTINSETEDID FROM sequencemaster SM  WHERE SM.SequenceMasterID = SequenceID;
+				
+			SELECT SM.SequnceCode INTO  SEQUNCECODE FROM sequencemaster SM  WHERE SM.SequenceMasterID = SequenceID;
+				
+			UPDATE sequencemaster SET `LastInsertedID` = NEWLASTINSETEDID WHERE SequenceMasterID = SequenceID;
+				
+			-- return the Sequence
+			RETURN CONCAT(SEQUNCECODE,"000000000",NEWLASTINSETEDID) ;
+				
+			
+			
+    
+   
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetSequence
+DROP PROCEDURE IF EXISTS `GetSequence`;
+DELIMITER //
+CREATE PROCEDURE `GetSequence`(IN `SequenceID` INT)
+BEGIN
+				DECLARE EXIT HANDLER FOR SQLEXCEPTION
+ BEGIN
+			     SELECT 0 AS message;
+			     ROLLBACK;
+ END;
+				
+				SET @LASTINSERTEDID = (SELECT SM.LastInsertedID FROM sequencemaster SM WHERE SM.SequenceMasterID = SequenceID );
+				
+				SET @NEWLASTINSETEDID  = (( SELECT SM.LastInsertedID FROM sequencemaster SM WHERE SM.SequenceMasterID = SequenceID)+1 );
+				
+				SET @SEQUNCECODE = (SELECT SM.SequnceCode FROM sequencemaster SM WHERE SM.SequenceMasterID = SequenceID);
+				
+				SET @SEQUNCE  = ( CONCAT(@SEQUNCECODE,"000000000",@NEWLASTINSETEDID) );
+				
+				UPDATE sequencemaster SET `LastInsertedID` = @NEWLASTINSETEDID WHERE SequenceMasterID = SequenceID;
+				
+				SELECT @SEQUNCE	AS 'SequnceNumber';
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetSequnces
+DROP PROCEDURE IF EXISTS `GetSequnces`;
+DELIMITER //
+CREATE PROCEDURE `GetSequnces`()
+BEGIN
+		SELECT SM.SequenceMasterID AS 'SequenceMasterID',
+				 SM.SequnceCode		AS 'SequnceCode',
+				 SM.LastInsertedID	AS 'LastInsertedID',
+				 SM.UpdatedOn			AS 'UpdatedOn'
+		
+		FROM vwsequncemaster SM ORDER BY SM.SequenceMasterID ;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetSessionDetails
+DROP PROCEDURE IF EXISTS `GetSessionDetails`;
+DELIMITER //
+CREATE PROCEDURE `GetSessionDetails`(IN `UserMasterID` INT, IN `SerialID` VARCHAR(50), IN `TokenID` VARCHAR(50))
+BEGIN
+		SELECT 	SES.UserMasterPublicID		AS 'UserMasterPublicID',
+					SES.SerialID					AS 'SerialID',
+					SES.TokenID						AS 'TokenID' 
+		FROM `session` SES WHERE SES.UserMasterPublicID  = UserMasterID AND SES.SerialID = SerialID AND SES.TokenID = TokenID;
+
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetSessionDetailsByUserMasterPublicID
+DROP PROCEDURE IF EXISTS `GetSessionDetailsByUserMasterPublicID`;
+DELIMITER //
+CREATE PROCEDURE `GetSessionDetailsByUserMasterPublicID`(IN `UserMasterPublicID` VARCHAR(50))
+BEGIN
+		SELECT 	SN.SerialID				AS 'SerialID',
+					SN.TokenID				AS 'TokenID',
+					SN.TokenCreatedTime	AS 'TokenCreatedTime',
+					SN.UpdatedBy			AS 'Username',
+					SN.UserMasterPublicID AS 'UserMasterPublicID'
+		FROM `session` SN WHERE SN.UserMasterPublicID = UserMasterPublicID;
+
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetSessionLogs
+DROP PROCEDURE IF EXISTS `GetSessionLogs`;
+DELIMITER //
+CREATE PROCEDURE `GetSessionLogs`()
+SELECT sh.UserMasterPublicID,um.ContactNo
+     ,sh.UpdatedOn, um.FirstName,um.LastName
+FROM sessionhistory AS sh
+JOIN usermaster AS um ON um.PublicID = sh.UserMasterPublicID//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetSingInLogs
+DROP PROCEDURE IF EXISTS `GetSingInLogs`;
+DELIMITER //
+CREATE PROCEDURE `GetSingInLogs`()
+SELECT a.UserPublicID,a.SignOut,a.Date
+     ,a.SignIn, um.FirstName,um.LastName
+FROM attendance AS a
+JOIN usermaster AS um ON um.PublicID = a.UserPublicID//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetStudentAsscementMarkReport
+DROP PROCEDURE IF EXISTS `GetStudentAsscementMarkReport`;
+DELIMITER //
+CREATE PROCEDURE `GetStudentAsscementMarkReport`(IN `TenantID_` VARCHAR(300))
+BEGIN
+		SELECT   STA.StudnetAssesmenID																									AS 'PublicID',
+					STM.StudentNo																												AS 'StudentNo',
+					CONCAT(STM.FirstName,IF(STM.OtherName IS NULL,' ',CONCAT(' ',STM.OtherName,' ')),STM.LastName )	AS 'Name',
+					CONCAT(CM.ClassName,' (',CM.ClassCode,')')																		AS 'ClassName',
+				   CONCAT(SM.SubjectName,' (',SM.SubjectCode,')')																	AS 'Subject',
+					CONCAT(ASTM.AssementTypeName, ' (',STA.AssecementName,')')													AS 'AssecementName',
+					CONCAT(STA.Score,' %')																									AS 'Score',
+				   DATE_FORMAT(STA.UpdatedOn, "%d %b, %Y") 					   												   AS 'MarkedOn'
+				   
+					
+		FROM studnetassesment STA
+		JOIN studentmaster STM ON STM.StudentMasterPublicID = STA.StudentMasterPublicID 
+		JOIN assementtypemaster ASTM ON ASTM.AssementTypeID = STA.AssecemntTypeMasterID
+		
+		JOIN classmaster CM ON CM.ClassMasterPublicID = STA.ClassMasterPublicID AND CM.TenantID = TenantID_
+		JOIN subjectmater SM ON SM.SubjectMaterID = STA.SubjectMasterID
+		ORDER BY CM.GradeMasterID, STM.StudentNo,STM.FirstName,STM.LastName ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetStudentAttendanceReport
+DROP PROCEDURE IF EXISTS `GetStudentAttendanceReport`;
+DELIMITER //
+CREATE PROCEDURE `GetStudentAttendanceReport`(IN `TENANTID` VARCHAR(300))
+BEGIN
+		SELECT  STA.StudentAttendanceID																								   AS 'PublicID',
+					 STM.StudentNo																												AS 'StudentNo',
+					CONCAT(STM.FirstName,IF(STM.OtherName IS NULL,' ',CONCAT(' ',STM.OtherName,' ')),STM.LastName )	AS 'Name',
+					CONCAT(CM.ClassName,' (',CM.ClassCode,')')																		AS 'ClassName',
+					IF (STA.Reason IS NULL,'None',STA.Reason)																			AS 'Reason',
+					STAM.Statue																													AS 'Statue',
+				   DATE_FORMAT(STA.UpdatedOn, "%d %b, %Y") 					   												   AS 'MarkedOn'
+					
+		FROM studentattendance STA
+		JOIN studentmaster STM ON STM.StudentNo = STA.StudentID 
+		JOIN classmaster CM ON CM.ClassMasterPublicID = STA.ClassID AND CM.TenantID = TENANTID
+		JOIN statusmaster STAM ON STAM.StatueCode =STA.`Status` 
+		
+		ORDER BY CM.ClassCode,STA.StudentID,DATE (STA.UpdatedOn),STM.FirstName,STM.LastName ASC;
+
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetStudentAttendanceReportByPublicID
+DROP PROCEDURE IF EXISTS `GetStudentAttendanceReportByPublicID`;
+DELIMITER //
+CREATE PROCEDURE `GetStudentAttendanceReportByPublicID`(IN `PUBLIC_ID` VARCHAR(50))
+BEGIN
+SELECT  STA.StudentAttendanceID																								   AS 'PublicID',
+					 STM.StudentNo																												AS 'StudentNo',
+					CONCAT(STM.FirstName,IF(STM.OtherName IS NULL,' ',CONCAT(' ',STM.OtherName,' ')),STM.LastName )	AS 'Name',
+					CONCAT(CM.ClassName,' (',CM.ClassCode,')')																		AS 'ClassName',
+					IF (STA.Reason IS NULL,'None',STA.Reason)																			AS 'Reason',
+					STAM.Statue																													AS 'Statue',
+				   DATE_FORMAT(STA.UpdatedOn, "%d %b, %Y") 					   												   AS 'MarkedOn'
+					
+		FROM studentattendance STA
+		JOIN studentmaster STM ON STM.StudentNo = STA.StudentID 
+		JOIN classmaster CM ON CM.ClassMasterPublicID = STA.ClassID 
+		JOIN statusmaster STAM ON STAM.StatueCode =STA.`Status`
+		WHERE STM.StudentMasterPublicID = PUBLIC_ID ORDER BY CM.ClassCode,STA.StudentID,DATE (STA.UpdatedOn),STM.FirstName,STM.LastName ASC;
+
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetStudentNo
+DROP PROCEDURE IF EXISTS `GetStudentNo`;
+DELIMITER //
+CREATE PROCEDURE `GetStudentNo`(IN `SequenceID` INT)
+BEGIN
+   
+ 			DECLARE LASTINSERTEDID VARCHAR(50);
+			DECLARE NEWLASTINSETEDID VARCHAR(50);
+			DECLARE SEQUNCECODE CHAR(4);
+		
+    
+         SELECT SM.LastInsertedID INTO LASTINSERTEDID FROM sequencemaster SM WHERE SM.SequenceMasterID = SequenceID;
+			
+			SELECT SM.LastInsertedID+1 INTO NEWLASTINSETEDID FROM sequencemaster SM  WHERE SM.SequenceMasterID = SequenceID;
+				
+			SELECT SM.SequnceCode INTO  SEQUNCECODE FROM sequencemaster SM  WHERE SM.SequenceMasterID = SequenceID;
+				
+			UPDATE sequencemaster SET `LastInsertedID` = NEWLASTINSETEDID WHERE SequenceMasterID = SequenceID;
+				
+			-- return the Sequence
+		 SELECT	CONCAT('SN',YEAR(CURDATE()),"0",NEWLASTINSETEDID) AS SequnceNumber;
+				
+			
+			
+    
+   
+END//
+DELIMITER ;
+
+-- Dumping structure for function 3edu_db.GetStudntNo
+DROP FUNCTION IF EXISTS `GetStudntNo`;
+DELIMITER //
+CREATE FUNCTION `GetStudntNo`(`SequenceID` INT) RETURNS varchar(50) CHARSET latin1
+BEGIN
+   
+ 			DECLARE LASTINSERTEDID VARCHAR(50);
+			DECLARE NEWLASTINSETEDID VARCHAR(50);
+			DECLARE SEQUNCECODE CHAR(4);
+		
+    
+         SELECT SM.LastInsertedID INTO LASTINSERTEDID FROM sequencemaster SM WHERE SM.SequenceMasterID = SequenceID;
+			
+			SELECT SM.LastInsertedID+1 INTO NEWLASTINSETEDID FROM sequencemaster SM  WHERE SM.SequenceMasterID = SequenceID;
+				
+			SELECT SM.SequnceCode INTO  SEQUNCECODE FROM sequencemaster SM  WHERE SM.SequenceMasterID = SequenceID;
+				
+			UPDATE sequencemaster SET `LastInsertedID` = NEWLASTINSETEDID WHERE SequenceMasterID = SequenceID;
+				
+			-- return the Sequence
+			RETURN CONCAT('SN',YEAR(CURDATE()),"0",NEWLASTINSETEDID) ;
+				
+			
+			
+    
+   
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetSubjectsByClassMasterPublicID
+DROP PROCEDURE IF EXISTS `GetSubjectsByClassMasterPublicID`;
+DELIMITER //
+CREATE PROCEDURE `GetSubjectsByClassMasterPublicID`(IN `ClassmasterPublicID_` VARCHAR(50), IN `SCHOOLID` VARCHAR(50))
+BEGIN
+		SET @CLASSMASTERPUBLICID =  ClassmasterPublicID_;
+		
+		SELECT 		 SM.SubjectCode 													AS	'SujectCode',
+						 SM.SubjectMaterID												AS 'SubjectMaterID',
+						 CONCAT(SM.SubjectName,' ( ',SM.SubjectCode,' )')		AS 'SubjectName'
+						   
+		FROM classmaster CM 
+		JOIN classdetails CD ON CD.ClassMasterPublicID = CM.ClassMasterPublicID
+		JOIN subjectmater SM ON SM.SubjectCode = CD.SubjectCode  WHERE CM.ClassMasterPublicID = @CLASSMASTERPUBLICID AND SM.SchoolID = SCHOOLID ;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetSuperAdminDashbordUserCount
+DROP PROCEDURE IF EXISTS `GetSuperAdminDashbordUserCount`;
+DELIMITER //
+CREATE PROCEDURE `GetSuperAdminDashbordUserCount`(IN `TENANTID` VARCHAR(400))
+BEGIN
+
+
+SET @TOTALUSERS = (SELECT COUNT(UM.UserMasterID) FROM usermaster UM WHERE  UM.IsActive = 1);
+SET @TOTALUSERSUPDATEDATE = (SELECT MAX(UM.UpdatedOn) FROM usermaster UM WHERE  UM.IsActive = 1);
+
+SET @TOTALSTUDENTS = (SELECT COUNT(UM.UserMasterID) FROM usermaster UM WHERE  UM.IsActive = 1 AND UM.UserTypeID = 2);
+SET @TOTALSTUDENTSUPDATEDATE = (SELECT MAX(UM.UpdatedOn) FROM usermaster UM WHERE  UM.IsActive = 1 AND UM.UserTypeID = 2);
+
+SET @TOTALTEACHERS = (SELECT COUNT(UM.UserMasterID) FROM usermaster UM WHERE  UM.IsActive = 1 AND UM.UserTypeID = 3);
+SET @TOTALTEACHERSUPDATEDATE = (SELECT MAX(UM.UpdatedOn) FROM usermaster UM WHERE UM.IsActive = 1 AND UM.UserTypeID = 3);
+
+SELECT @TOTALUSERS 																		AS 'TotalUsers',
+		 DATE_FORMAT(@TOTALUSERSUPDATEDATE, "%d %b, %Y %H:%m")	      	AS 'LastUpdatedDateTotalUsers',
+		 
+	 	 @TOTALSTUDENTS 																	AS 'TotalStudents',
+	 	  DATE_FORMAT(@TOTALSTUDENTSUPDATEDATE, "%d %b, %Y %H:%m")	   AS 'LastUpdatedDateTotalUsers',
+	 	  
+		 @TOTALTEACHERS 																	AS 'TotalTeachers',
+		  DATE_FORMAT(@TOTALTEACHERSUPDATEDATE, "%d %b, %Y %H:%m")	   AS 'LastUpdatedDateTotalUsers';
+		  
+		  
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetSysActiveTermsByID
+DROP PROCEDURE IF EXISTS `GetSysActiveTermsByID`;
+DELIMITER //
+CREATE PROCEDURE `GetSysActiveTermsByID`(IN `TenantID_` VARCHAR(500))
+BEGIN
+		SELECT TM.TermMasterID,
+				 TM.TenantID,
+				 TM.TermName	AS 'TermName',
+				 TM.IsSysActive 
+		FROM termmaster TM WHERE TM.TenantID = TenantID_ AND TM.IsSysActive = 1 AND TM.IsActive;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetTeacherDetailsByID
+DROP PROCEDURE IF EXISTS `GetTeacherDetailsByID`;
+DELIMITER //
+CREATE PROCEDURE `GetTeacherDetailsByID`(IN `TenantID` VARCHAR(400))
+BEGIN
+SELECT TM.TeaherMasterPublicID																																					AS 'TeaherMasterPublicID',
+		 CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName, ' (',DPT.DepartmentName,' Dpt.)') 			AS 'Teacher',
+		 UM.FirstName,
+		 UM.OtherName,
+		 UM.LastName,
+		 DPT.DepartmentName,
+		 UM.NRC,
+		  UM.ContactNo,
+		 DATE_FORMAT(UM.DOB, "%d %b, %Y")	AS 'DOB'
+FROM teachermaster TM 
+JOIN usermaster UM ON UM.PublicID = TM.TeaherMasterPublicID 
+JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.TeacherPositionID
+JOIN department DPT ON DPT.ShortHand = TM.DeparmrntCode
+WHERE UM.TenantID = TenantID AND UM.IsActive = 1 AND TM.IsActive = 1 AND TPM.TeacherPositionMasterID NOT IN (2,3);
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetTeacherDocumentDetailsByID
+DROP PROCEDURE IF EXISTS `GetTeacherDocumentDetailsByID`;
+DELIMITER //
+CREATE PROCEDURE `GetTeacherDocumentDetailsByID`(IN `DOCUMENTID_` INT)
+BEGIN
+SET @DOCUMENTID = DOCUMENTID_;
+
+SELECT 	TD.TeacherdocumentID		AS 'TeacherdocumentID',
+			TD.Title						AS 'Title',
+		 	TD.DocumentURL				AS 'DocumentURL'
+
+FROM teacherdocument TD WHERE TD.TeacherdocumentID = @DOCUMENTID;
+END//
+DELIMITER ;
+
+-- Dumping structure for function 3edu_db.GetTenantIDByClassMasterPublicID
+DROP FUNCTION IF EXISTS `GetTenantIDByClassMasterPublicID`;
+DELIMITER //
+CREATE FUNCTION `GetTenantIDByClassMasterPublicID`(`ClassMasterPublicID_` VARCHAR(100)) RETURNS varchar(100) CHARSET utf8mb4
+BEGIN
+   
+ 			DECLARE TENANTID VARCHAR(100);
+		
+		     SELECT CM.TenantID INTO TENANTID FROM classmaster CM WHERE CM.ClassMasterPublicID = ClassMasterPublicID_ ;
+    
+         
+			
+	
+				
+			-- return the Sequence
+			RETURN TENANTID ;
+				
+			
+			
+    
+   
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetTermDetails
+DROP PROCEDURE IF EXISTS `GetTermDetails`;
+DELIMITER //
+CREATE PROCEDURE `GetTermDetails`()
+BEGIN
+		SELECT TM.TermMasterID	AS 'TermMasterID',
+				 TM.TermName		AS 'TermName' 
+		FROM termmaster TM ORDER BY TM.TermMasterID ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetTermPages
+DROP PROCEDURE IF EXISTS `GetTermPages`;
+DELIMITER //
+CREATE PROCEDURE `GetTermPages`(IN `limit_` VARCHAR(50))
+BEGIN
+		SET @LIMIT_ = limit_;
+		SET @NUMBEROFTERMS  = (SELECT COUNT(TM.TermMasterID)  AS COUNT FROM termmaster TM );
+		
+		SET @NUMBEROFPAGES = @NUMBEROFTERMS/@LIMIT_;
+		
+		SELECT CEILING(@NUMBEROFPAGES) AS 'Pages',@NUMBEROFTERMS AS 'TotalRecords';
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetTimeTable
+DROP PROCEDURE IF EXISTS `GetTimeTable`;
+DELIMITER //
+CREATE PROCEDURE `GetTimeTable`(IN `ClassMasterID_` VARCHAR(50))
+BEGIN
+SET @ClassMasterID_ = ClassMasterID_;
+
+SET @SCHOOLID = (SELECT SM.PublicID FROM schoolmaster SM WHERE SM.TenantID  = (SELECT CM.TenantID FROM classmaster CM WHERE CM.ClassMasterPublicID = @ClassMasterID_) );
+
+SELECT  TTD.TimeTableDetailsID																														AS 'TimeTableDetailsID',
+		  PM.SequenceID																																	AS 'SequenceID',  
+		  CONCAT(PM.PeriodName,"<br>(",TIME_FORMAT(TTM.TimeFrom,"%H:%i"), " - " ,TIME_FORMAT(TTM.TimeTo,"%H:%i"),")")		AS 'PeriodName',
+		  GetClassName(TTD.Monday,@SCHOOLID)																														AS 'SubjectCodeM',
+		  TTD.Monday																																		AS 'Monday',
+		  GetClassName(TTD.Tuesday,@SCHOOLID)																													AS 'SubjectCodeT',
+		  TTD.Tuesday																																		AS 'Tuesday',
+		  GetClassName(TTD.Wednesday,@SCHOOLID)																													AS 'SubjectCodeW',
+		  TTD.Wednesday																																	AS 'Wednesday',
+		  GetClassName(TTD.Thursday,@SCHOOLID)																													AS 'SubjectCodeTH',
+		  TTD.Thursday																																		AS 'Thursday',
+		  GetClassName(TTD.Friday,@SCHOOLID)																														AS 'SubjectCodeF',
+		  TTD.Friday																																		AS 'Friday'
+FROM timetablemaster TTM 
+JOIN periodmaster PM ON PM.PeriodMasterID = TTM.PeriodMasterID
+JOIN timetabledetails TTD ON  TTM.TimeTableMasterID =TTD.TimeTableMaterD
+
+WHERE TTM.ClassMasterID = @ClassMasterID_ AND TTM.IsActive = 1 AND PM.IsActive = 1 ORDER BY TTM.ClassMasterID,PM.SequenceID ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetUserByUsername
+DROP PROCEDURE IF EXISTS `GetUserByUsername`;
+DELIMITER //
+CREATE PROCEDURE `GetUserByUsername`(IN `username` VARCHAR(50))
+BEGIN
+		SELECT UM.PublicID		AS 'PublicID',
+				 UM.UserName		AS 'UserName',
+				 UM.Password		AS 'Password',
+				 UM.UserTypeID		AS 'UserTypeID',
+				 UM.IsActive  		AS 'IsActive',
+				 IF(UM.EmailAddress IS NULL , Null, UM.EmailAddress)	AS 'EmailAddress',
+				 CONCAT(UM.FirstName," ",IF(UM.OtherName IS NULL, '', UM.OtherName)," ",UM.LastName)	AS 'Name',
+				 TM.TeacherPositionID		AS 'PositionID',
+				 DP.ShortHand		AS 'ShortHand',
+				 TNM.TenantID		AS 'TenantID',
+				 TNM.IsActive		AS 'IsTenantActive',
+				 SM.PublicID		AS 'SchoolPublicID',
+				 SM.PicURL			AS 'LogoPicURL',
+				 UM.ProfilPicURL  AS 'ProfilPicURL'
+		FROM usermaster UM
+		JOIN usertypemaster UTM ON UTM.UserTypeMasterID = UM.UserTypeID
+		JOIN tenantmaster TNM ON TNM.TenantID = UM.TenantID
+		LEFT JOIN teachermaster TM ON TM.TeaherMasterPublicID = UM.PublicID
+		LEFT JOIN department DP ON DP.ShortHand = TM.DeparmrntCode	
+		LEFT JOIN schoolmaster SM ON SM.TenantID = TNM.TenantID
+		WHERE UM.UserName = username ;
+
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetUserDetailsByID
+DROP PROCEDURE IF EXISTS `GetUserDetailsByID`;
+DELIMITER //
+CREATE PROCEDURE `GetUserDetailsByID`(IN `UserID_` VARCHAR(50))
+BEGIN
+				SELECT   UM.PublicID												AS 'PublicID',
+							UM.FirstName											AS 'FirstName',
+							IF(UM.OtherName IS NULL, '',UM.OtherName)		AS	'OtherName',
+							UM.LastName												AS 'LastName', 
+							IF(UM.NRC IS NULL, 'None', UM.NRC)				AS 'NRC',
+							TPM.PositionName										AS 'PositionName',
+							DP.DepartmentName										AS 'DepartmentName',
+							GM.Gender												AS	'Gender',
+							IF(UM.Passport IS NULL,'None',UM.Passport)	AS 'Passport',
+							UM.ContactNo											AS 'ContactNo',
+							UM.EmailAddress										AS 'EmailAddress',
+							UM.UserMasterID										AS 'UserMasterID'
+								
+				FROM usermaster UM
+				LEFT JOIN teachermaster TM ON TM.PublicUserID = UM.PublicID 
+				LEFT JOIN department DP ON DP.ShortHand = TM.DepartmentCode
+				LEFT JOIN gendermaster GM ON GM.GenderMasterID = UM.GenderID
+				LEFT JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.PositionID
+				WHERE UM.PublicID = UserID_;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetUserDetailsByPublicID
+DROP PROCEDURE IF EXISTS `GetUserDetailsByPublicID`;
+DELIMITER //
+CREATE PROCEDURE `GetUserDetailsByPublicID`(IN `PublicID` VARCHAR(50))
+BEGIN
+			SET @PublicID = PublicID;
+			SELECT	UM.PublicID 														AS 'PublicID',
+						IF(UM.NRC IS NULL, 'None',UM.NRC)							AS 'NRC',
+						IF(UM.Passport IS NULL, 'None',UM.Passport)				AS 'Passport',
+						UM.UserName															AS 'UserName',
+						UM.FirstName														AS 'FirstName',
+						IF(UM.OtherName IS NULL, 'None',UM.OtherName)		   AS 'OtherName',
+						IF(UM.EmailAddress IS NULL, 'None',UM.EmailAddress)	AS 'EmailAddress',	
+						UM.ContactNo														AS 'ContactNo',
+						GM.Gender															AS 'Gender',
+						MRS.MaritalStatus													AS 'MaritalStatus',
+						UM.DOB																AS 'DOB',
+						TPM.PositionName													AS 'PositionName',
+						TM.StartDate														AS 'StartDate',
+						TM.IsOnLeave														AS 'IsOnLeave'
+					  
+			FROM usermaster UM 
+			JOIN teachermaster TM ON TM.PublicID = UM.PublicID
+			JOIN address AD ON AD.IdentificationID = TM.PublicID
+			JOIN gendermaster GM ON GM.GenderMasterID = UM.GenderID
+			JOIN maritalstatusmaster MRS ON MRS.MaritalStatusMasterID = UM.MaritalStatusID
+			JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.PositionID  WHERE GM.IsActive = 1 AND TPM.IsActive = 1 AND  UM.IsActive = 1 AND UM.PublicID =  @PublicID ; 
+
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetUserEmailByID
+DROP PROCEDURE IF EXISTS `GetUserEmailByID`;
+DELIMITER //
+CREATE PROCEDURE `GetUserEmailByID`(IN `TEACHERID` VARCHAR(50))
+BEGIN
+		SELECT IF(UM.EmailAddress IS NULL, '' , UM.EmailAddress)	AS 'EmailAddress'
+		FROM usermaster UM WHERE UM.PublicID = TEACHERID AND UM.IsActive = 1;
+END//
+DELIMITER ;
 
 -- Dumping structure for table 3edu_db.grademaster
 DROP TABLE IF EXISTS `grademaster`;
@@ -524,7 +2073,7 @@ CREATE TABLE IF NOT EXISTS `grademaster` (
 
 -- Dumping data for table 3edu_db.grademaster: ~22 rows (approximately)
 /*!40000 ALTER TABLE `grademaster` DISABLE KEYS */;
-INSERT IGNORE INTO `grademaster` (`GradeMasterID`, `Grade`, `IsActive`, `TenantID`, `UpdatedBy`, `UpdatedOn`) VALUES
+INSERT INTO `grademaster` (`GradeMasterID`, `Grade`, `IsActive`, `TenantID`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(1, '1', '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'it', '2021-08-22 22:42:22'),
 	(2, '2', '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'it', '2021-08-22 22:42:22'),
 	(3, '3', '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'it', '2021-08-22 22:42:22'),
@@ -563,7 +2112,7 @@ CREATE TABLE IF NOT EXISTS `gradingmaster` (
 
 -- Dumping data for table 3edu_db.gradingmaster: ~9 rows (approximately)
 /*!40000 ALTER TABLE `gradingmaster` DISABLE KEYS */;
-INSERT IGNORE INTO `gradingmaster` (`GradingMasterID`, `Grade`, `Percentage`, `IsActive`, `UpdatedBy`, `UpdatedOn`) VALUES
+INSERT INTO `gradingmaster` (`GradingMasterID`, `Grade`, `Percentage`, `IsActive`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(1, 'A+', 95, '1', 'Sys', '2020-04-19 06:31:05'),
 	(2, 'A', 85, '1', 'Sys', '2020-04-19 06:31:26'),
 	(3, 'B+', 75, '1', 'Sys', '2020-04-19 06:31:48'),
@@ -587,7 +2136,7 @@ CREATE TABLE IF NOT EXISTS `maritalstatusmaster` (
 
 -- Dumping data for table 3edu_db.maritalstatusmaster: ~4 rows (approximately)
 /*!40000 ALTER TABLE `maritalstatusmaster` DISABLE KEYS */;
-INSERT IGNORE INTO `maritalstatusmaster` (`MaritalStatusMasterID`, `MaritalStatus`, `IsActive`) VALUES
+INSERT INTO `maritalstatusmaster` (`MaritalStatusMasterID`, `MaritalStatus`, `IsActive`) VALUES
 	(1, 'Married', '1'),
 	(2, 'Widow', '1'),
 	(3, 'Divorced', '1'),
@@ -612,7 +2161,7 @@ CREATE TABLE IF NOT EXISTS `periodmaster` (
 
 -- Dumping data for table 3edu_db.periodmaster: ~10 rows (approximately)
 /*!40000 ALTER TABLE `periodmaster` DISABLE KEYS */;
-INSERT IGNORE INTO `periodmaster` (`PeriodMasterID`, `PeriodName`, `SchoolID`, `SequenceID`, `IsActive`, `UpdatedBy`, `UpdatedOn`) VALUES
+INSERT INTO `periodmaster` (`PeriodMasterID`, `PeriodName`, `SchoolID`, `SequenceID`, `IsActive`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(1, 'Period 1', 'SCHL0000000009', 1, '1', 'sys', '2021-06-27 13:03:21'),
 	(2, 'Period 2', 'SCHL0000000009', 2, '1', 'sys', '2021-06-27 13:03:35'),
 	(3, 'Period 3', 'SCHL0000000009', 3, '1', 'sys', '2021-06-27 13:03:42'),
@@ -639,7 +2188,7 @@ CREATE TABLE IF NOT EXISTS `province` (
 
 -- Dumping data for table 3edu_db.province: ~10 rows (approximately)
 /*!40000 ALTER TABLE `province` DISABLE KEYS */;
-INSERT IGNORE INTO `province` (`ProvinceID`, `ProvinceName`, `CountryID`, `IsActive`) VALUES
+INSERT INTO `province` (`ProvinceID`, `ProvinceName`, `CountryID`, `IsActive`) VALUES
 	(1, 'Central', 1, '1'),
 	(2, 'Copperbelt', 1, '1'),
 	(3, 'Eastern', 1, '1'),
@@ -682,13 +2231,61 @@ CREATE TABLE IF NOT EXISTS `schoolmaster` (
 
 -- Dumping data for table 3edu_db.schoolmaster: ~5 rows (approximately)
 /*!40000 ALTER TABLE `schoolmaster` DISABLE KEYS */;
-INSERT IGNORE INTO `schoolmaster` (`SchoolID`, `PublicID`, `EMISNO`, `PicURL`, `SchoolName`, `ShortName`, `SchoolMotto`, `SchoolURl`, `SchoolDescription`, `MaxTerms`, `Longitude`, `Latitude`, `Tel`, `PhoneNo`, `IsActive`, `UpdatedBy`, `UpdatedOn`, `TenantID`) VALUES
+INSERT INTO `schoolmaster` (`SchoolID`, `PublicID`, `EMISNO`, `PicURL`, `SchoolName`, `ShortName`, `SchoolMotto`, `SchoolURl`, `SchoolDescription`, `MaxTerms`, `Longitude`, `Latitude`, `Tel`, `PhoneNo`, `IsActive`, `UpdatedBy`, `UpdatedOn`, `TenantID`) VALUES
 	(2, 'SCHL0000000001', 'E43435', '../../uploads/shcool_logos/SCHL0000000001_logo.png', 'Lusaka Secondary School', '', 'Quality And Ealencey', '', 'ThisSchool Aims at bringing out the best n your ch', 3, 3.3311, 322.2252, '+262222147', '+260998854878', '1', 'a', '2020-01-24 16:56:52', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(4, 'SCHL0000000004', 'E43434', '../../uploads/shcool_logos/defult_school.png', 'Sacred Hart Convert School', '', NULL, NULL, NULL, 3, 434.45466, 33434.34376, '+262222147', '+260998854878', '1', 'a', '2021-04-27 06:08:14', 'a29294e8-f7a1-11eb-a81c-1062e5c23529'),
 	(17, 'SCHL0000000007', 'EMISn2212', '../../uploads/shcool_logos/SCHL0000000007_FVH-Logo.png', 'TESTTTEW', 'TEST', 'TEING IS TESTING', 'www.tick.some', 'SDFSDFSF', 3, 343534535, -1515, '0977512255', '+260977100587', '1', 'a', '2021-09-14 14:42:34', 'TES614098baeb6188.42391041'),
 	(19, 'SCHL0000000009', 'EMISNO2123', '../../uploads/shcool_logos/SCHL0000000009_FVH-Logo.png', 'Wakanda Secondary School', 'Wakanda Secondary School', 'Wakanda Forever', 'www.tick.some', 'Try this', 3, 343534535, -151, '09775122556', '+2609771005687', '1', 'a', '2021-09-14 15:51:02', 'rrr6140a8c632d934.43595166'),
 	(20, 'SCHL00000000010', 'EMISNO2120', '../../uploads/shcool_logos/defult_school.png', 'Amazing Grace', 'AMG', 'Hard Work Overcomes All', 'www.amezinggrace.com', NULL, 3, 1211221, -1144411, '+2602223552', '+260988755', '1', 'a', '2021-10-18 10:21:53', 'Ama616d2ea1a78213.69918222');
 /*!40000 ALTER TABLE `schoolmaster` ENABLE KEYS */;
+
+-- Dumping structure for procedure 3edu_db.SearchActivatedUsers
+DROP PROCEDURE IF EXISTS `SearchActivatedUsers`;
+DELIMITER //
+CREATE PROCEDURE `SearchActivatedUsers`(IN `UserName_` VARCHAR(50), IN `FirstName_` VARCHAR(50), IN `LastName_` VARCHAR(50))
+BEGIN
+		SET @USERNAMEC =    (SELECT IF ( UserName_ IS NULL OR UserName_='' , NULL , CONCAT("%",UserName_,"%")) );
+		SET @FIRSTNAMEC =   (SELECT IF ( FirstName_ IS NULL OR FirstName_='' , NULL , CONCAT("%",FirstName_,"%")) );
+		SET @LASTNAMEC = 		(SELECT IF ( LastName_ IS NULL OR LastName_='' , NULL , CONCAT("%",LastName_,"%")) );
+
+		SELECT   UM.PublicID												AS 'PublicID',
+					UM.FirstName											AS 'FirstName',
+					IF(UM.OtherName IS NULL, '',UM.OtherName)		AS	'OtherName',
+					UM.LastName												AS 'LastName', 
+					IF(UM.NRC IS NULL, 'None', UM.NRC)				AS 'NRC',
+					TPM.PositionName										AS 'PositionName',
+					DP.DepartmentName										AS'DepartmentName'			
+		FROM usermaster UM
+		LEFT JOIN teachermaster TM ON TM.PublicUserID = UM.PublicID 
+		LEFT JOIN department DP ON DP.ShortHand = TM.DepartmentCode
+		LEFT JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.PositionID
+		WHERE ((UM.UserName LIKE @USERNAMEC) OR  (UM.FirstName  LIKE @FIRSTNAMEC) OR (UM.LastName LIKE @LASTNAMEC)) AND ( UM.IsActive = 1 );
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.SearchUsers
+DROP PROCEDURE IF EXISTS `SearchUsers`;
+DELIMITER //
+CREATE PROCEDURE `SearchUsers`(IN `UserName_` VARCHAR(50), IN `FirstName_` VARCHAR(50), IN `LastName_` VARCHAR(50))
+BEGIN
+		SET @USERNAMEC =    (SELECT IF ( UserName_ IS NULL OR UserName_='' , NULL , CONCAT("%",UserName_,"%")) );
+		SET @FIRSTNAMEC =   (SELECT IF ( FirstName_ IS NULL OR FirstName_='' , NULL , CONCAT("%",FirstName_,"%")) );
+		SET @LASTNAMEC = 		(SELECT IF ( LastName_ IS NULL OR LastName_='' , NULL , CONCAT("%",LastName_,"%")) );
+
+		SELECT   UM.PublicID												AS 'PublicID',
+					UM.FirstName											AS 'FirstName',
+					IF(UM.OtherName IS NULL, '',UM.OtherName)		AS	'OtherName',
+					UM.LastName												AS 'LastName', 
+					IF(UM.NRC IS NULL, 'None', UM.NRC)				AS 'NRC',
+					TPM.PositionName										AS 'PositionName',
+					DP.DepartmentName										AS'DepartmentName'			
+		FROM usermaster UM
+		LEFT JOIN teachermaster TM ON TM.PublicUserID = UM.PublicID 
+		LEFT JOIN department DP ON DP.ShortHand = TM.DepartmentCode
+		LEFT JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.PositionID
+		WHERE ((UM.UserName LIKE @USERNAMEC) OR  (UM.FirstName  LIKE @FIRSTNAMEC) OR (UM.LastName LIKE @LASTNAMEC)) AND ( UM.IsActive = 0 );
+END//
+DELIMITER ;
 
 -- Dumping structure for table 3edu_db.sequencemaster
 DROP TABLE IF EXISTS `sequencemaster`;
@@ -703,10 +2300,10 @@ CREATE TABLE IF NOT EXISTS `sequencemaster` (
 
 -- Dumping data for table 3edu_db.sequencemaster: ~18 rows (approximately)
 /*!40000 ALTER TABLE `sequencemaster` DISABLE KEYS */;
-INSERT IGNORE INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
+INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 105, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 310, '2019-11-01 20:00:03'),
+	(3, 'TOKN', 306, '2019-11-01 20:00:03'),
 	(4, 'EMIL', 3, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
 	(6, 'SCHL', 10, '2019-11-17 18:52:58'),
@@ -730,18 +2327,18 @@ CREATE TABLE IF NOT EXISTS `session` (
   `SessionID` int(11) NOT NULL AUTO_INCREMENT,
   `UserMasterPublicID` varchar(50) NOT NULL,
   `SerialID` varchar(50) NOT NULL,
-  `TokenID` varchar(50) NOT NULL,
+  `TokenID` varchar(100) NOT NULL,
   `TokenCreatedTime` varchar(50) NOT NULL,
   `UpdatedBy` varchar(50) NOT NULL,
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionID`),
   KEY `FK_session_usermaster` (`UserMasterPublicID`),
   CONSTRAINT `FK_session_usermaster` FOREIGN KEY (`UserMasterPublicID`) REFERENCES `usermaster` (`PublicID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=311 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=307 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_db.session: ~18 rows (approximately)
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
-INSERT IGNORE INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
+INSERT INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(126, 'TECH00000000080', 'TOKN000000000126', '84e67696a545489c6e2e17b4b79d1f1c4a6591555e4e7623aa', '1629703557', 'TES', '2021-08-23 09:25:57'),
 	(221, 'TECH000000000103', 'TOKN000000000221', '1da195fd8817eaa88adfc2bee0080edd575a9cefb004427225', '1634231351', 'Helen', '2021-10-14 19:09:11'),
 	(223, 'TECH000000000101', 'TOKN000000000223', 'e93e840c79e47121d31bbae514b6ca5ed4752a0d0eb62db067', '1634279436', 'Mwaka', '2021-10-15 08:30:36'),
@@ -755,11 +2352,11 @@ INSERT IGNORE INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `To
 	(260, 'SDNT00000000035', 'TOKN000000000260', 'e821c51f51a28705dd574470704f90f8e86ca798b2a619f9f8', '1637425467', 'SN2021040', '2021-11-20 18:24:27'),
 	(280, 'ADMIN00001', 'TOKN000000000280', '7fa07bdc7c672d975cfd5986abb55e95546839951304c6b5b4', '1641124843', 'a', '2022-01-02 14:00:43'),
 	(283, 'ACCO0000000004', 'TOKN000000000283', 'b87cc1ba0ff9d8c4ee4bcfbcc2929c1ff97144199e48d8d309', '1642301723', 'acc_test', '2022-01-16 04:55:23'),
-	(296, 'TECH0000000001', 'TOKN000000000296', '1f7f142951c06607ef52599f9cefac97883e8ffafc49a3a283', '1642321021', 'h', '2022-01-16 10:17:01'),
-	(306, 'ITADM00001', 'TOKN000000000306', 'a089c30be76f9dbea47ef2ab8e02ffaf3c8a361a15f499d66f', '1646625758', 'it', '2022-03-07 06:02:38'),
-	(308, 'TECH0000000003', 'TOKN000000000308', 'd5a1129f9a14114be4f2922d9234dcf713de7e3b0ce1c5546c', '1646625894', 't', '2022-03-07 06:04:54'),
-	(309, 'SDNT00000000031', 'TOKN000000000309', '08eb9a8b418671a0f4b13f80d4641d3db95a90d258d517e8d7', '1646626009', 'SN2021036', '2022-03-07 06:06:49'),
-	(310, 'ACCO00001', 'TOKN000000000310', '1c9e575311133b515bd93263643cef816d731a81ae21bbfc07', '1646626032', 'acc', '2022-03-07 06:07:12');
+	(285, 'SDNT00000000031', 'TOKN000000000285', '6a9d46c69eb2ab0192875fd9f899e6e134b5b929a4fdf8ba25', '1642302463', 'SN2021036', '2022-01-16 05:07:44'),
+	(299, 'ITADM00001', 'TOKN000000000299', '2e7e8acfc8e98191fa0a988945ba63c21bb550a37d8689d059', '1642326310', 'it', '2022-01-16 11:45:10'),
+	(300, 'ACCO00001', 'TOKN000000000300', 'e8c223d8c80d397b0314c62a5393b3b24808a4971af1eb2bf2', '1642326327', 'acc', '2022-01-16 11:45:27'),
+	(305, 'TECH0000000003', 'TOKN000000000305', 'd2dc090f954c3b4e4bca51910442e7158237ae6808e353dd1116cbe2d5a20fa6', '1643899736', 't', '2022-02-03 16:48:56'),
+	(306, 'TECH0000000001', 'TOKN000000000306', '8d0d4d16c57dadb7dd0780f00e0ef953e117ca2b91520fe6406238383ee6a751', '1643902116', 'h', '2022-02-03 17:28:36');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
@@ -774,11 +2371,11 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   `UpdatedBy` varchar(50) NOT NULL,
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionHistoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=311 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=307 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~181 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~187 rows (approximately)
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
-INSERT IGNORE INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
+INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(120, '120', '202000041', 'TOKN000000000120', 'ded346951f1db8eeaa836276b1a89f73752c350b4dd1fe9308', '1629644352', 's', '2021-08-22 16:59:13'),
 	(121, '121', 'SDNT00000000035', 'TOKN000000000121', '6b2dba56e25335b7406ba187f2af10c3fafbc19b3986a8e172', '1629647125', 'SN2021040', '2021-08-22 17:45:25'),
 	(122, '122', 'TECH0000000003', 'TOKN000000000122', '97651468aeb9c0b9d38214d79ea2a5155866f83f9bebf50a89', '1629655461', 't', '2021-08-22 20:04:21'),
@@ -960,16 +2557,12 @@ INSERT IGNORE INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMaste
 	(298, '298', 'ACCO00001', 'TOKN000000000298', '90eb44bcf5672bed86df9e7014c4d570ab7b74c0266dc77e81', '1642326290', 'acc', '2022-01-16 11:44:50'),
 	(299, '299', 'ITADM00001', 'TOKN000000000299', '2e7e8acfc8e98191fa0a988945ba63c21bb550a37d8689d059', '1642326310', 'it', '2022-01-16 11:45:10'),
 	(300, '300', 'ACCO00001', 'TOKN000000000300', 'e8c223d8c80d397b0314c62a5393b3b24808a4971af1eb2bf2', '1642326327', 'acc', '2022-01-16 11:45:27'),
-	(301, '301', 'ACCO00001', 'TOKN000000000301', 'b21927a5004be3164d9e79c4f7ca7b59b4c7cd3b51fcc0f5bb', '1646624964', 'acc', '2022-03-07 05:49:24'),
-	(302, '302', 'ITADM00001', 'TOKN000000000302', '3c5fbbf489bdb0a28a44a7a18ae632c71beaf6343960262aa0', '1646625530', 'it', '2022-03-07 05:58:50'),
-	(303, '303', 'SDNT00000000031', 'TOKN000000000303', 'ab40dae26800bbe37461a3b89b4eef640e3cc7a282a4f2eb8d', '1646625653', 'SN2021036', '2022-03-07 06:00:53'),
-	(304, '304', 'ITADM00001', 'TOKN000000000304', '7c88c29e264366f2e0463bfa154940a67d0d031a9fc70fc5e8', '1646625671', 'it', '2022-03-07 06:01:11'),
-	(305, '305', 'ITADM00001', 'TOKN000000000305', '65da28eb4c32dded6d48a4be987f30027e9890a5f8c57f17d7', '1646625701', 'it', '2022-03-07 06:01:41'),
-	(306, '306', 'ITADM00001', 'TOKN000000000306', 'a089c30be76f9dbea47ef2ab8e02ffaf3c8a361a15f499d66f', '1646625758', 'it', '2022-03-07 06:02:38'),
-	(307, '307', 'SDNT00000000031', 'TOKN000000000307', '91cd0b2f4049362a97f7aa8fec2076359611bb03ca91f25698', '1646625777', 'SN2021036', '2022-03-07 06:02:57'),
-	(308, '308', 'TECH0000000003', 'TOKN000000000308', 'd5a1129f9a14114be4f2922d9234dcf713de7e3b0ce1c5546c', '1646625894', 't', '2022-03-07 06:04:54'),
-	(309, '309', 'SDNT00000000031', 'TOKN000000000309', '08eb9a8b418671a0f4b13f80d4641d3db95a90d258d517e8d7', '1646626009', 'SN2021036', '2022-03-07 06:06:49'),
-	(310, '310', 'ACCO00001', 'TOKN000000000310', '1c9e575311133b515bd93263643cef816d731a81ae21bbfc07', '1646626032', 'acc', '2022-03-07 06:07:12');
+	(301, '301', 'TECH0000000003', 'TOKN000000000301', '60f7d99ab58789f8a054ba5d4c26300f1bf232a3a28c504897', '1643655860', 't', '2022-01-31 19:04:20'),
+	(302, '302', 'TECH0000000001', 'TOKN000000000302', '837ffadf4a0a4fa96f72b964eb5fe2e46e0c8923a6422ed847', '1643655877', 'h', '2022-01-31 19:04:37'),
+	(303, '303', 'TECH0000000001', 'TOKN000000000303', 'd817a969c6e96a287f159ae4bd31a4a5b5437e28c913d7ba0f', '1643655887', 'h', '2022-01-31 19:04:47'),
+	(304, '304', 'TECH0000000001', 'TOKN000000000304', '69c4d8c18baa24598092df106790e408f55463833d58c7ba6c', '1643897107', 'h', '2022-02-03 16:05:09'),
+	(305, '305', 'TECH0000000003', 'TOKN000000000305', 'd2dc090f954c3b4e4bca51910442e7158237ae6808e353dd11', '1643899736', 't', '2022-02-03 16:48:56'),
+	(306, '306', 'TECH0000000001', 'TOKN000000000306', '8d0d4d16c57dadb7dd0780f00e0ef953e117ca2b91520fe640', '1643902116', 'h', '2022-02-03 17:28:36');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster
@@ -984,7 +2577,7 @@ CREATE TABLE IF NOT EXISTS `statusmaster` (
 
 -- Dumping data for table 3edu_db.statusmaster: ~15 rows (approximately)
 /*!40000 ALTER TABLE `statusmaster` DISABLE KEYS */;
-INSERT IGNORE INTO `statusmaster` (`StatusMasterID`, `StatueCode`, `Statue`) VALUES
+INSERT INTO `statusmaster` (`StatusMasterID`, `StatueCode`, `Statue`) VALUES
 	(1, 'SUCC', 'Success'),
 	(2, 'PEND', 'Pending'),
 	(3, 'ERRO', 'Error'),
@@ -1016,7 +2609,7 @@ CREATE TABLE IF NOT EXISTS `studentattendance` (
 
 -- Dumping data for table 3edu_db.studentattendance: ~26 rows (approximately)
 /*!40000 ALTER TABLE `studentattendance` DISABLE KEYS */;
-INSERT IGNORE INTO `studentattendance` (`StudentAttendanceID`, `StudentID`, `ClassID`, `UpdatedOn`, `Status`, `Reason`) VALUES
+INSERT INTO `studentattendance` (`StudentAttendanceID`, `StudentID`, `ClassID`, `UpdatedOn`, `Status`, `Reason`) VALUES
 	(59, '3EDU202100034', 'CLAS0000000008', '2021-07-02 12:54:13', '2', 'hjvhjv'),
 	(60, '3EDU202100023', 'CLAS0000000004', '2021-07-02 12:54:56', '2', NULL),
 	(61, '3EDU202100020', 'CLAS0000000004', '2021-07-02 12:54:56', '1', NULL),
@@ -1044,6 +2637,40 @@ INSERT IGNORE INTO `studentattendance` (`StudentAttendanceID`, `StudentID`, `Cla
 	(83, 'SN2021029', 'CLAS0000000004', '2022-01-16 05:09:06', '2', NULL),
 	(84, 'SN2021028', 'CLAS0000000004', '2022-01-16 05:09:06', '1', NULL);
 /*!40000 ALTER TABLE `studentattendance` ENABLE KEYS */;
+
+
+--
+-- Table structure for table `studentcomments`
+--
+
+DROP TABLE IF EXISTS `studentcomments`;
+CREATE TABLE `studentcomments` (
+                                   `StudentCommentID` int(11) NOT NULL,
+                                   `StudentMasterPublicID` varchar(50) NOT NULL,
+                                   `TeaherMasterName` varchar(50) DEFAULT NULL,
+                                   `HeadTeacherName` varchar(50) DEFAULT NULL,
+                                   `TeacherComment` varchar(250) DEFAULT NULL,
+                                   `HeadTeacherComment` varchar(250) DEFAULT NULL,
+                                   `State` varchar(30) DEFAULT NULL,
+                                   `Term` varchar(200) NOT NULL,
+                                   `AssessmentName` varchar(200) NOT NULL,
+                                   `CreatedAt` date NOT NULL DEFAULT current_timestamp(),
+                                   `UpdatedAt` date NOT NULL DEFAULT current_timestamp(),
+                                   `UpdatedBy` varchar(250) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+--
+-- Indexes for table `studentcomments`
+--
+ALTER TABLE `studentcomments`
+    ADD PRIMARY KEY (`StudentCommentID`);
+--
+-- AUTO_INCREMENT for dumped tables
+--
+-- AUTO_INCREMENT for table `studentcomments`
+--
+ALTER TABLE `studentcomments`
+    MODIFY `StudentCommentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=209;
+COMMIT;
 
 -- Dumping structure for table 3edu_db.studentdetails
 DROP TABLE IF EXISTS `studentdetails`;
@@ -1108,7 +2735,7 @@ CREATE TABLE IF NOT EXISTS `studentmaster` (
 
 -- Dumping data for table 3edu_db.studentmaster: ~15 rows (approximately)
 /*!40000 ALTER TABLE `studentmaster` DISABLE KEYS */;
-INSERT IGNORE INTO `studentmaster` (`StudentMasterID`, `StudentMasterPublicID`, `ProfilePic`, `StudentNo`, `FirstName`, `LastName`, `OtherName`, `GenderID`, `MaritalStatusID`, `ClassMasterPublicID`, `DOB`, `EmailAddress`, `GuardianContactNo`, `GuardianMaleName`, `GuardianFemaleName`, `Address`, `UpdatedBy`, `UpdatedOn`, `Year`, `IsActive`, `IsGraduated`) VALUES
+INSERT INTO `studentmaster` (`StudentMasterID`, `StudentMasterPublicID`, `ProfilePic`, `StudentNo`, `FirstName`, `LastName`, `OtherName`, `GenderID`, `MaritalStatusID`, `ClassMasterPublicID`, `DOB`, `EmailAddress`, `GuardianContactNo`, `GuardianMaleName`, `GuardianFemaleName`, `Address`, `UpdatedBy`, `UpdatedOn`, `Year`, `IsActive`, `IsGraduated`) VALUES
 	(3, 'SDNT0000000001', '../../uploads/3EDU20210005_images.png', 'SN2021028', 'Alinuswe', 'Banda', NULL, 1, 4, 'CLAS0000000004', '1996-05-22', NULL, '097785684', 'Ali Mwanza', 'Tina Type', 'North mind Bwigimfumu', 'it', '2021-05-22 18:01:06', '2021', '1', '0'),
 	(9, 'SDNT0000000005', '../../uploads/3EDU202100010_reri.jpg', 'SN2021029', 'Samuel', 'Banda', 'Liabwa', 1, 3, 'CLAS0000000004', '1992-01-01', NULL, '0977856258', 'Mwamba Liabwa Banda', 'Mwape Liabwa', 'North Mid Lusaka', 'it', '2021-05-22 22:23:33', '2021', '1', '0'),
 	(17, 'SDNT00000000015', '../../uploads/3EDU20210008_lady.png', 'SN2021030', 'Mwaka', 'Vwalika', 'Candy', 1, 4, 'CLAS0000000004', '2004-01-01', NULL, '0977856258', 'Mwamba Liabwa Vwalika', 'Mwape Vwalika', '204 B provident road Fairview', 'it', '2021-05-22 23:57:34', '2021', '1', '0'),
@@ -1154,7 +2781,7 @@ CREATE TABLE IF NOT EXISTS `studnetassesment` (
 
 -- Dumping data for table 3edu_db.studnetassesment: ~6 rows (approximately)
 /*!40000 ALTER TABLE `studnetassesment` DISABLE KEYS */;
-INSERT IGNORE INTO `studnetassesment` (`StudnetAssesmenID`, `StudentMasterPublicID`, `AssecemntTypeMasterID`, `ClassMasterPublicID`, `SubjectMasterID`, `YearAdded`, `AssecementName`, `Score`, `AddedOn`, `Commment`, `UpdatedBy`, `UpdatedOn`) VALUES
+INSERT INTO `studnetassesment` (`StudnetAssesmenID`, `StudentMasterPublicID`, `AssecemntTypeMasterID`, `ClassMasterPublicID`, `SubjectMasterID`, `YearAdded`, `AssecementName`, `Score`, `AddedOn`, `Commment`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(1, 'SDNT00000000039', 17, 'CLAS00000000068', 39, '2021', 'sets', 85, '2021-10-18 13:19:11', 'GOOD', 'nakamba', '2021-10-18 13:19:11'),
 	(2, 'SDNT00000000039', 17, 'CLAS00000000068', 40, '2021', 'pronouns', 30, '2021-10-18 13:19:46', 'Poor', 'nakamba', '2021-10-18 13:19:46'),
 	(3, 'SDNT00000000039', 17, 'CLAS00000000068', 41, '2021', 'skeleton', 5, '2021-10-18 13:20:18', NULL, 'nakamba', '2021-10-18 13:20:18'),
@@ -1185,7 +2812,7 @@ CREATE TABLE IF NOT EXISTS `subjectmater` (
 
 -- Dumping data for table 3edu_db.subjectmater: ~39 rows (approximately)
 /*!40000 ALTER TABLE `subjectmater` DISABLE KEYS */;
-INSERT IGNORE INTO `subjectmater` (`SubjectMaterID`, `SubjectName`, `SubjectCode`, `DepartmentCode`, `SubjectDiscription`, `SchoolID`, `UpdatedBy`, `UpdatedOn`, `IsActive`) VALUES
+INSERT INTO `subjectmater` (`SubjectMaterID`, `SubjectName`, `SubjectCode`, `DepartmentCode`, `SubjectDiscription`, `SchoolID`, `UpdatedBy`, `UpdatedOn`, `IsActive`) VALUES
 	(1, 'Mathematics', 'MATH', 1, NULL, 'SCHL0000000001', 'HAHHA', '2020-05-24 13:52:00', '1'),
 	(2, 'English', 'ENG', 1, NULL, 'SCHL0000000001', 'Sys', '2020-05-24 13:52:05', '1'),
 	(3, 'History', 'HIST', 1, NULL, 'SCHL0000000001', 'SYS', '2020-05-24 13:53:10', '1'),
@@ -1247,7 +2874,7 @@ CREATE TABLE IF NOT EXISTS `teacherdetails` (
 
 -- Dumping data for table 3edu_db.teacherdetails: ~18 rows (approximately)
 /*!40000 ALTER TABLE `teacherdetails` DISABLE KEYS */;
-INSERT IGNORE INTO `teacherdetails` (`TeacherDetailsID`, `TeacherDetailsPublicID`, `TeacherMasterPublicID`, `SubjectCode`, `UpdatedBy`, `UpdatedOn`, `AddedOn`) VALUES
+INSERT INTO `teacherdetails` (`TeacherDetailsID`, `TeacherDetailsPublicID`, `TeacherMasterPublicID`, `SubjectCode`, `UpdatedBy`, `UpdatedOn`, `AddedOn`) VALUES
 	(1, 'TECHDT0000000002', 'TECH0000000003', 'MATH', 'SYS', '2020-05-24 16:27:49', '2021-08-21 11:26:32'),
 	(2, 'TECHDT0000000001', 'TECH0000000003', 'ADMA', 'sys', '2020-05-24 16:27:49', '2021-08-21 11:26:32'),
 	(3, 'TECHDT0000000005', 'TECH0000000003', 'ART', 't', '2020-06-15 22:56:50', '2021-08-21 11:26:32'),
@@ -1287,7 +2914,7 @@ CREATE TABLE IF NOT EXISTS `teacherdocument` (
 
 -- Dumping data for table 3edu_db.teacherdocument: ~5 rows (approximately)
 /*!40000 ALTER TABLE `teacherdocument` DISABLE KEYS */;
-INSERT IGNORE INTO `teacherdocument` (`TeacherdocumentID`, `Title`, `DocumentTypeID`, `DocumentURL`, `IsApproved`, `AddedBy`, `LastUpdatedBy`, `AddedOn`, `UpdatedOn`) VALUES
+INSERT INTO `teacherdocument` (`TeacherdocumentID`, `Title`, `DocumentTypeID`, `DocumentURL`, `IsApproved`, `AddedBy`, `LastUpdatedBy`, `AddedOn`, `UpdatedOn`) VALUES
 	(5, '', '1', '', '0', 't', 't', '2021-07-04 04:46:13', '2021-07-04 05:47:56'),
 	(11, 'Liko Mwanza Lesson Plan', '1', '../../documents_uploads/TECH0000000003_6128a6a802c2bpdf-test.pdf', '0', 't', 't', '2021-08-27 10:47:36', '2021-08-27 10:47:36'),
 	(12, 'Hellen Lesson Plan', '1', '../../documents_uploads/TECH000000000103_61684f2a90da2pdf-test.pdf', '0', 'Helen', 'Helen', '2021-10-14 17:39:22', '2021-10-14 17:39:22'),
@@ -1317,7 +2944,7 @@ CREATE TABLE IF NOT EXISTS `teachermaster` (
 
 -- Dumping data for table 3edu_db.teachermaster: ~11 rows (approximately)
 /*!40000 ALTER TABLE `teachermaster` DISABLE KEYS */;
-INSERT IGNORE INTO `teachermaster` (`TeacherID`, `TeaherMasterPublicID`, `TeacherPositionID`, `DeparmrntCode`, `StartDate`, `EndDate`, `UpdatedBy`, `UpdatedOn`, `IsActive`) VALUES
+INSERT INTO `teachermaster` (`TeacherID`, `TeaherMasterPublicID`, `TeacherPositionID`, `DeparmrntCode`, `StartDate`, `EndDate`, `UpdatedBy`, `UpdatedOn`, `IsActive`) VALUES
 	(1, 'TECH0000000001', 3, 'Math', '2020-05-24 16:25:03', NULL, 'it', '2020-05-24 16:25:06', '1'),
 	(2, 'TECH0000000003', 4, 'EXAT', '2020-06-15 22:56:50', NULL, 'it', '2020-06-15 22:56:50', '1'),
 	(6, 'TECH00000000068', 1, 'EXAT', '2021-08-21 17:24:46', NULL, 'it', '2021-08-21 17:24:46', '1'),
@@ -1346,7 +2973,7 @@ CREATE TABLE IF NOT EXISTS `teacherpositionmaster` (
 
 -- Dumping data for table 3edu_db.teacherpositionmaster: ~6 rows (approximately)
 /*!40000 ALTER TABLE `teacherpositionmaster` DISABLE KEYS */;
-INSERT IGNORE INTO `teacherpositionmaster` (`TeacherPositionMasterID`, `PositionName`, `PositionDescription`, `UpdatedBy`, `UpdatedOn`, `IsActive`) VALUES
+INSERT INTO `teacherpositionmaster` (`TeacherPositionMasterID`, `PositionName`, `PositionDescription`, `UpdatedBy`, `UpdatedOn`, `IsActive`) VALUES
 	(1, 'Head Of Department', 'This posion is head department', 'admin', '2019-11-04 00:08:23', '1'),
 	(2, 'Deputy Head Teacher', 'Deputy Head Teacher Roll is to manage the School', 'admin', '2019-11-12 14:25:31', '1'),
 	(3, 'Head Teacher ', 'Head Teacher  to manage the over role school activities ', 'admin', '2019-11-12 14:38:50', '1'),
@@ -1369,7 +2996,7 @@ CREATE TABLE IF NOT EXISTS `tenantmaster` (
 
 -- Dumping data for table 3edu_db.tenantmaster: ~6 rows (approximately)
 /*!40000 ALTER TABLE `tenantmaster` DISABLE KEYS */;
-INSERT IGNORE INTO `tenantmaster` (`TenantMasterID`, `TenantID`, `TenantName`, `UpdatedOn`, `IsActive`) VALUES
+INSERT INTO `tenantmaster` (`TenantMasterID`, `TenantID`, `TenantName`, `UpdatedOn`, `IsActive`) VALUES
 	(1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'Lusaka Secondary School ', '2021-08-07 19:10:57', '1'),
 	(2, 'a29294e8-f7a1-11eb-a81c-1062e5c23529', 'Test School ', '2021-08-07 19:11:28', '1'),
 	(3, '3edu_29294e8-f7a1-11eb-a81c-1062e5c23520', '3Eedu Admin', '2021-08-07 21:42:07', '1'),
@@ -1393,7 +3020,7 @@ CREATE TABLE IF NOT EXISTS `termmaster` (
 
 -- Dumping data for table 3edu_db.termmaster: ~6 rows (approximately)
 /*!40000 ALTER TABLE `termmaster` DISABLE KEYS */;
-INSERT IGNORE INTO `termmaster` (`TermMasterID`, `TenantID`, `TermName`, `IsSysActive`, `IsActive`, `UpdatedBy`, `UpdatedOn`) VALUES
+INSERT INTO `termmaster` (`TermMasterID`, `TenantID`, `TermName`, `IsSysActive`, `IsActive`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'Term 1', '1', '1', 'it', '2021-11-27 15:10:22'),
 	(2, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'Term 2', '0', '1', 'it', '2021-11-27 15:10:30'),
 	(3, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'Term 3 ', '0', '1', 'it', '2021-11-27 15:10:40'),
@@ -1422,7 +3049,7 @@ CREATE TABLE IF NOT EXISTS `timetabledetails` (
 
 -- Dumping data for table 3edu_db.timetabledetails: ~22 rows (approximately)
 /*!40000 ALTER TABLE `timetabledetails` DISABLE KEYS */;
-INSERT IGNORE INTO `timetabledetails` (`TimeTableDetailsID`, `TimeTableMaterD`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `UpdatedBy`, `UpdatedOn`, `AddedOn`) VALUES
+INSERT INTO `timetabledetails` (`TimeTableDetailsID`, `TimeTableMaterD`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `UpdatedBy`, `UpdatedOn`, `AddedOn`) VALUES
 	(1, 1, 'MATH', 'ENG', 'SCEN', 'MATH', 'ENG', 'it', '2021-09-25 14:24:36', '2021-06-27 13:00:42'),
 	(2, 5, 'ENG', 'MATH', 'MATH', 'ENG', 'ENG', 'it', '2021-09-25 14:24:36', '2021-06-27 13:12:51'),
 	(3, 6, 'SCEN', 'RE110', 'ZMLG', 'CMST', 'MATH', 'it', '2021-09-25 14:24:50', '2021-06-27 13:23:57'),
@@ -1467,7 +3094,7 @@ CREATE TABLE IF NOT EXISTS `timetablemaster` (
 
 -- Dumping data for table 3edu_db.timetablemaster: ~18 rows (approximately)
 /*!40000 ALTER TABLE `timetablemaster` DISABLE KEYS */;
-INSERT IGNORE INTO `timetablemaster` (`TimeTableMasterID`, `ClassMasterID`, `PeriodMasterID`, `TimeFrom`, `TimeTo`, `IsActive`, `UpdatedBy`, `UpdatedOn`) VALUES
+INSERT INTO `timetablemaster` (`TimeTableMasterID`, `ClassMasterID`, `PeriodMasterID`, `TimeFrom`, `TimeTo`, `IsActive`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(1, 'CLAS0000000004', 1, '08:00:00', '09:00:00', '1', 'sys', '2021-06-27 12:54:50'),
 	(5, 'CLAS0000000004', 2, '09:00:00', '10:00:00', '1', 'sys', '2021-06-27 13:11:54'),
 	(6, 'CLAS0000000004', 3, '10:00:00', '11:00:00', '1', 'sys', '2021-06-27 13:12:03'),
@@ -1500,12 +3127,231 @@ CREATE TABLE IF NOT EXISTS `titlemaster` (
 
 -- Dumping data for table 3edu_db.titlemaster: ~4 rows (approximately)
 /*!40000 ALTER TABLE `titlemaster` DISABLE KEYS */;
-INSERT IGNORE INTO `titlemaster` (`TitleMasterID`, `LongName`, `ShortName`, `isActive`) VALUES
+INSERT INTO `titlemaster` (`TitleMasterID`, `LongName`, `ShortName`, `isActive`) VALUES
 	(1, 'Mister', 'Mr', '1'),
 	(2, 'Miss', 'Miss', '1'),
 	(3, 'Mrs', 'Mrs', '1'),
 	(4, 'Ms', 'Ms', '1');
 /*!40000 ALTER TABLE `titlemaster` ENABLE KEYS */;
+
+-- Dumping structure for procedure 3edu_db.UpdateAssecemntTypeActiveStatusByID
+DROP PROCEDURE IF EXISTS `UpdateAssecemntTypeActiveStatusByID`;
+DELIMITER //
+CREATE PROCEDURE `UpdateAssecemntTypeActiveStatusByID`(IN `AsscementTypePublicID` INT, IN `UpdatedBy_` VARCHAR(50))
+BEGIN
+SET @PublicID  = AsscementTypePublicID;
+
+UPDATE assementtypemaster  SET UpdatedBy = UpdatedBy_, `IsActive` =  CASE  
+	WHEN  `IsActive` = 1	THEN  0
+	WHEN  `IsActive` = 0	THEN  1
+	ELSE 
+	`IsActive`
+	END  
+	WHERE AssementTypeID = @PublicID;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.UpdateClassActiveStatusByID
+DROP PROCEDURE IF EXISTS `UpdateClassActiveStatusByID`;
+DELIMITER //
+CREATE PROCEDURE `UpdateClassActiveStatusByID`(IN `ClassPublicID` VARCHAR(100), IN `UpdatedBy_` VARCHAR(50))
+BEGIN
+SET @PublicID  = ClassPublicID;
+
+UPDATE timetablemaster  SET UpdatedBy = UpdatedBy_, `IsActive` =  CASE  
+	WHEN  `IsActive` = 1	THEN  0
+	WHEN  `IsActive` = 0	THEN  1
+	ELSE 
+	`IsActive`
+	END  
+	WHERE TimeTableMasterID = @PublicID;
+	
+
+
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.UpdateEmailSatusCode
+DROP PROCEDURE IF EXISTS `UpdateEmailSatusCode`;
+DELIMITER //
+CREATE PROCEDURE `UpdateEmailSatusCode`(IN `EMAILESERIAL` VARCHAR(50), IN `STATUSCODE` CHAR(4), IN `CURRENTCODE` CHAR(4))
+BEGIN
+		
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION
+		BEGIN
+		     SELECT 0 AS message;
+		     ROLLBACK;
+		END;
+		
+		UPDATE emailservice  SET `Status` = STATUSCODE WHERE EmailSerial = EMAILESERIAL And `Status` = CURRENTCODE;
+		 
+	
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.UpdatePasswordByUsername
+DROP PROCEDURE IF EXISTS `UpdatePasswordByUsername`;
+DELIMITER //
+CREATE PROCEDURE `UpdatePasswordByUsername`(IN `username_` VARCHAR(50), IN `password_` VARCHAR(300))
+BEGIN
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION
+		BEGIN
+		     SELECT 0 AS message;
+		     ROLLBACK;
+		END;
+		
+		SET @PUBLICID  = (SELECT UM.PublicID FROM usermaster UM WHERE UM.UserName = username_ );
+		
+		UPDATE usermaster SET `Password` = password_, IsActive = 1 WHERE UserName = username_;
+		
+		UPDATE teachermaster SET IsActive = 1 WHERE PublicUserID = @PUBLICID ;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.UpdatePasswordByUserPublicID
+DROP PROCEDURE IF EXISTS `UpdatePasswordByUserPublicID`;
+DELIMITER //
+CREATE PROCEDURE `UpdatePasswordByUserPublicID`(IN `publicid_` VARCHAR(50), IN `password_` VARCHAR(300))
+BEGIN
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION
+		BEGIN
+		     SELECT 0 AS message;
+		     ROLLBACK;
+		END;
+		
+	
+		
+		UPDATE usermaster SET `Password` = password_, IsActive = 1,IsLocked = 0,LoginAttempts = 0 WHERE PublicID = publicid_;
+		
+		
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.UpdatePeriodMaterActiveStatusByID
+DROP PROCEDURE IF EXISTS `UpdatePeriodMaterActiveStatusByID`;
+DELIMITER //
+CREATE PROCEDURE `UpdatePeriodMaterActiveStatusByID`(IN `PeriodPublicID` INT, IN `UpdatedBy_` VARCHAR(50))
+BEGIN
+SET @PublicID  = PeriodPublicID;
+
+UPDATE periodmaster  SET UpdatedBy = UpdatedBy_, `IsActive` =  CASE  
+	WHEN  `IsActive` = 1	THEN  0
+	WHEN  `IsActive` = 0	THEN  1
+	ELSE 
+	`IsActive`
+	END  
+	WHERE PeriodMasterID = @PublicID;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.UpdateSchoolActiveStatusByID
+DROP PROCEDURE IF EXISTS `UpdateSchoolActiveStatusByID`;
+DELIMITER //
+CREATE PROCEDURE `UpdateSchoolActiveStatusByID`(IN `SchoolPublicID` VARCHAR(50), IN `UpdatedBy_` VARCHAR(50))
+BEGIN
+SET @PublicID  = SchoolPublicID;
+SET @TENANTID = (SELECT SM.TenantID FROM schoolmaster SM WHERE SM.PublicID = SchoolPublicID);
+UPDATE schoolmaster SET UpdatedBy = UpdatedBy_, `IsActive` =  CASE  
+	WHEN  `IsActive` = 1	THEN  0
+	WHEN  `IsActive` = 0	THEN  1
+	ELSE 
+	`IsActive`
+	END  
+	WHERE `PublicID` = @PublicID;
+	
+
+SET @ACTIVESTATUS  = (SELECT SM.IsActive FROM schoolmaster SM WHERE SM.PublicID = SchoolPublicID);
+
+UPDATE tenantmaster SET IsActive = @ACTIVESTATUS WHERE TenantID = @TENANTID;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.UpdateStudentLokedStatus
+DROP PROCEDURE IF EXISTS `UpdateStudentLokedStatus`;
+DELIMITER //
+CREATE PROCEDURE `UpdateStudentLokedStatus`(IN `STUDENTNO_` VARCHAR(500), IN `UpdatedBy_` VARCHAR(50))
+BEGIN
+
+SET @PublicID  = (SELECT SM.StudentMasterPublicID FROM studentmaster SM WHERE SM.StudentNo = STUDENTNO_ );
+
+UPDATE usermaster SET UpdatedBy = UpdatedBy_, `IsLocked` =  CASE  
+	WHEN  `IsLocked` = 1	THEN  0
+	WHEN  `IsLocked` = 0	THEN  1
+	ELSE 
+	`IsLocked`
+	END  
+	WHERE `PublicID` = @PublicID;
+
+UPDATE studentmaster  SET UpdatedBy = UpdatedBy_,  IsActive =  CASE  
+	WHEN  `IsActive` = 1	THEN  0
+	WHEN  `IsActive` = 0	THEN  1
+	ELSE 
+	`IsActive`
+	END  
+	WHERE  `StudentMasterPublicID` = @PublicID;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.UpdateSubjectMaterActiveStatusByID
+DROP PROCEDURE IF EXISTS `UpdateSubjectMaterActiveStatusByID`;
+DELIMITER //
+CREATE PROCEDURE `UpdateSubjectMaterActiveStatusByID`(IN `SUBJECTMASTERID_` VARCHAR(50), IN `UpdatedBy_` VARCHAR(50))
+BEGIN
+SET @PublicID = SUBJECTMASTERID_;
+UPDATE subjectmater  SET UpdatedBy = UpdatedBy_, `IsActive` =  CASE  
+	WHEN  `IsActive` = 1	THEN  0
+	WHEN  `IsActive` = 0	THEN  1
+	ELSE 
+	`IsActive`
+	END  
+	WHERE SubjectMaterID = @PublicID;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.UpdateTeacherLockedStatus
+DROP PROCEDURE IF EXISTS `UpdateTeacherLockedStatus`;
+DELIMITER //
+CREATE PROCEDURE `UpdateTeacherLockedStatus`(IN `PublicID_` VARCHAR(50), IN `UpdatedBy_` VARCHAR(50))
+BEGIN
+
+SET @PublicID  = PublicID_;
+
+UPDATE usermaster SET UpdatedBy = UpdatedBy_, `IsLocked` =  CASE  
+	WHEN  `IsLocked` = 1	THEN  0
+	WHEN  `IsLocked` = 0	THEN  1
+	ELSE 
+	`IsLocked`
+	END  
+	WHERE `PublicID` = @PublicID;
+
+UPDATE teachermaster SET UpdatedBy = UpdatedBy_, IsActive =  CASE  
+	WHEN  `IsActive` = 1	THEN  0
+	WHEN  `IsActive` = 0	THEN  1
+	ELSE 
+	`IsActive`
+	END  
+	WHERE `TeaherMasterPublicID`  = @PublicID;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.UpdateTermMasterStatus
+DROP PROCEDURE IF EXISTS `UpdateTermMasterStatus`;
+DELIMITER //
+CREATE PROCEDURE `UpdateTermMasterStatus`(IN `TermID` INT, IN `TenantID_` VARCHAR(500), IN `UpdatedBy_` VARCHAR(50))
+BEGIN
+		SET @TermMasterID  = TermID;
+		
+		UPDATE  termmaster  SET UpdatedBy = UpdatedBy_, `IsSysActive` = 0 WHERE `IsSysActive` = 1 AND TenantID= TenantID_;
+		
+		UPDATE termmaster  SET UpdatedBy = UpdatedBy_, `IsSysActive` =  CASE  
+			WHEN  `IsSysActive` = 1	THEN  0
+			WHEN  `IsSysActive` = 0	THEN  1
+			ELSE 
+			`IsSysActive`
+			END  
+			WHERE TermMasterID = @TermMasterID AND TenantID= TenantID_;
+END//
+DELIMITER ;
 
 -- Dumping structure for table 3edu_db.userdetails
 DROP TABLE IF EXISTS `userdetails`;
@@ -1527,7 +3373,7 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
 
 -- Dumping data for table 3edu_db.userdetails: ~6 rows (approximately)
 /*!40000 ALTER TABLE `userdetails` DISABLE KEYS */;
-INSERT IGNORE INTO `userdetails` (`UserDetailsID`, `UserDetailsPublicID`, `UserMasterID`, `PositionID`, `DepartmentID`, `UpdatedBy`, `UpdatedOn`, `AddedOn`, `IsActive`) VALUES
+INSERT INTO `userdetails` (`UserDetailsID`, `UserDetailsPublicID`, `UserMasterID`, `PositionID`, `DepartmentID`, `UpdatedBy`, `UpdatedOn`, `AddedOn`, `IsActive`) VALUES
 	(26, 'URDI0000000001', 'ACCO0000000004', '6', '42', 'h', '2022-01-16 04:38:27', '2022-01-16 04:38:27', '1'),
 	(27, 'URDI0000000002', 'ACCO0000000006', '6', '42', 'h', '2022-01-16 04:47:28', '2022-01-16 04:47:28', '1'),
 	(28, 'URDI0000000003', 'ACCO0000000007', '6', '42', 'h', '2022-01-16 04:48:47', '2022-01-16 04:48:47', '1'),
@@ -1576,7 +3422,7 @@ CREATE TABLE IF NOT EXISTS `usermaster` (
 
 -- Dumping data for table 3edu_db.usermaster: ~30 rows (approximately)
 /*!40000 ALTER TABLE `usermaster` DISABLE KEYS */;
-INSERT IGNORE INTO `usermaster` (`UserMasterID`, `PublicID`, `ProfilPicURL`, `NRC`, `Passport`, `UserName`, `Password`, `FirstName`, `LastName`, `OtherName`, `EmailAddress`, `ContactNo`, `GenderID`, `MaritalStatusID`, `DOB`, `UserTypeID`, `UpdatedBy`, `UpdatedOn`, `IsActive`, `LoginAttempts`, `IsLocked`, `TenantID`) VALUES
+INSERT INTO `usermaster` (`UserMasterID`, `PublicID`, `ProfilPicURL`, `NRC`, `Passport`, `UserName`, `Password`, `FirstName`, `LastName`, `OtherName`, `EmailAddress`, `ContactNo`, `GenderID`, `MaritalStatusID`, `DOB`, `UserTypeID`, `UpdatedBy`, `UpdatedOn`, `IsActive`, `LoginAttempts`, `IsLocked`, `TenantID`) VALUES
 	(1, 'TECH0000000001', '../../uploads/defult.png', '55445/16/1', 'cc', 'h', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Head', 'System', 'Teacher', 'prototype1496@gmail.com', '988755487', 1, 4, '1997-01-02', 3, 'it', '2019-11-14 08:56:25', '1', '0', '0', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(2, 'TECH0000000003', '../../uploads/defult.png', '515151/8/8', '74444/45/45', 't', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Alinuswe', 'Mwandobo', NULL, 'alinuswemwandobo@gmail.com', '977100587', 1, 1, '1996-01-01', 3, 'it', '2020-11-20 11:52:45', '1', '0', '0', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(5, 'ADMIN00001', '../../uploads/defult.png', NULL, NULL, 'a', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'System', 'Admin', NULL, 'sys@gmail.com', '097758568', 1, 4, '2021-06-18', 1, 'sys', '2021-06-18 11:00:21', '1', '0', '0', '3edu_29294e8-f7a1-11eb-a81c-1062e5c23520'),
@@ -1621,7 +3467,7 @@ CREATE TABLE IF NOT EXISTS `usertypemaster` (
 
 -- Dumping data for table 3edu_db.usertypemaster: ~5 rows (approximately)
 /*!40000 ALTER TABLE `usertypemaster` DISABLE KEYS */;
-INSERT IGNORE INTO `usertypemaster` (`UserTypeMasterID`, `UserType`, `IsActive`) VALUES
+INSERT INTO `usertypemaster` (`UserTypeMasterID`, `UserType`, `IsActive`) VALUES
 	(1, 'Admin', '1'),
 	(2, 'Student', '1'),
 	(3, 'Teacher', '1'),
@@ -1639,2030 +3485,9 @@ CREATE TABLE `vwsequncemaster` (
 	`UpdatedOn` DATETIME NOT NULL
 ) ENGINE=MyISAM;
 
--- Dumping structure for procedure 3edu_db.ActivateUser
-DROP PROCEDURE IF EXISTS `ActivateUser`;
-DELIMITER //
-CREATE PROCEDURE `ActivateUser`(
-	IN `UserMasterID_` INT
-)
-BEGIN
-			DECLARE EXIT HANDLER FOR SQLEXCEPTION
-		BEGIN
-		     SELECT 0 AS message;
-		     ROLLBACK;
-		END;
-		
-		SET @PUBLCID  = (SELECT UM.PublicID FROM usermaster UM WHERE UM.UserMasterID = UserMasterID_);
-		
-		UPDATE teachermaster SET `IsActive` = 1 WHERE PublicUserID = @PUBLCID;
-		UPDATE usermaster  SET `IsActive` = 1 , `Password` = '$2y$10$JL396wwdluH7joCFCxZ8ceWJDwbanf4DycWODBtuhokcw.gqRKz1y' WHERE `UserMasterID` = UserMasterID_ ;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.DeactivateUser
-DROP PROCEDURE IF EXISTS `DeactivateUser`;
-DELIMITER //
-CREATE PROCEDURE `DeactivateUser`(
-	IN `UserMasterID_` INT
-
-
-
-)
-BEGIN
-			DECLARE EXIT HANDLER FOR SQLEXCEPTION
-		BEGIN
-		     SELECT 0 AS message;
-		     ROLLBACK;
-		END;
-		
-		SET @PUBLCID  = (SELECT UM.PublicID FROM usermaster UM WHERE UM.UserMasterID = UserMasterID_);
-		
-		UPDATE teachermaster SET `IsActive` = 0 WHERE PublicUserID = @PUBLCID;
-		UPDATE usermaster  SET `IsActive` = 0 , `Password` = 'DEACTIVATED' WHERE `UserMasterID` = UserMasterID_ ;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAccessmentByStudentPublicID
-DROP PROCEDURE IF EXISTS `GetAccessmentByStudentPublicID`;
-DELIMITER //
-CREATE PROCEDURE `GetAccessmentByStudentPublicID`(
-	IN `STUDENTPUBLICID` VARCHAR(100)
-)
-BEGIN
-		SELECT   STA.StudnetAssesmenID																									AS 'PublicID',
-					STM.StudentNo																												AS 'StudentNo',
-					CONCAT(STM.FirstName,IF(STM.OtherName IS NULL,' ',CONCAT(' ',STM.OtherName,' ')),STM.LastName )	AS 'Name',
-					CONCAT(CM.ClassName,' (',CM.ClassCode,')')																		AS 'ClassName',
-				   CONCAT(SM.SubjectName,' (',SM.SubjectCode,')')																	AS 'Subject',
-					CONCAT(ASTM.AssementTypeName, ' (',STA.AssecementName,')')													AS 'AssecementName',
-					CONCAT(STA.Score,' %')																									AS 'Score',
-				   DATE_FORMAT(STA.UpdatedOn, "%d %b, %Y") 					   												   AS 'MarkedOn'
-				   
-					
-		FROM studnetassesment STA
-		JOIN studentmaster STM ON STM.StudentMasterPublicID = STA.StudentMasterPublicID 
-		JOIN assementtypemaster ASTM ON ASTM.AssementTypeID = STA.AssecemntTypeMasterID
-		
-		JOIN classmaster CM ON CM.ClassMasterPublicID = STA.ClassMasterPublicID AND STM.StudentMasterPublicID = STUDENTPUBLICID
-		JOIN subjectmater SM ON SM.SubjectMaterID = STA.SubjectMasterID
-		ORDER BY CM.GradeMasterID, SM.SubjectName,STA.AddedOn ASC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetActiveTermByID
-DROP PROCEDURE IF EXISTS `GetActiveTermByID`;
-DELIMITER //
-CREATE PROCEDURE `GetActiveTermByID`(
-	IN `TenantID_` VARCHAR(500)
-)
-BEGIN
-			SELECT TM.TermMasterID 'TermMasterID',
-					 TM.TenantID		'TenantID',
-					 TM.TermName		'TermName',
-					 TM.IsSysActive 	'IsSysActive'
-			FROM termmaster TM WHERE TM.TenantID = TenantID_ AND  TM.IsActive ORDER BY TM.IsSysActive ASC,TM.TermName ASC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllActiveAssecmentTypesBYTenantID
-DROP PROCEDURE IF EXISTS `GetAllActiveAssecmentTypesBYTenantID`;
-DELIMITER //
-CREATE PROCEDURE `GetAllActiveAssecmentTypesBYTenantID`(
-	IN `TenanantID_` VARCHAR(300)
-)
-BEGIN
-	SELECT 	 ATM.AssementTypeID 						AS 'AssementTypeID',
-				 ATM.AssementTypeName   				AS 'AssementTypeName',
-				 IF (ATM.IsActive = 1,'Yes','No')	AS  'Active'
-				 
-	FROM assementtypemaster ATM WHERE ATM.TenantID=TenanantID_ ORDER BY  ATM.IsActive DESC, ATM.TenantID ASC,ATM.AssementTypeName ASC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllActiveClasses
-DROP PROCEDURE IF EXISTS `GetAllActiveClasses`;
-DELIMITER //
-CREATE PROCEDURE `GetAllActiveClasses`(
-	IN `TenantID` VARCHAR(400)
-)
-BEGIN
-SELECT   CM.ClassMasterPublicID																											AS 'ClassMasterPublicID',
-			CM.GradeMasterID																													AS 'ClassName',
-			CONCAT(CM.ClassName, ' (',CM.ClassCode,')') 																				AS 'Class',	
-		   	IF(CM.Description IS NULL,'--',CM.Description)																		AS 'Description',
-			DATE_FORMAT(CM.AddedOn, "%d %b, %Y")																						AS 'AddOn',
-			CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName ) 			AS 'UpdatedBy',
-			CONCAT(TUM.FirstName,IF(TUM.OtherName IS NULL,' ',CONCAT(' ',TUM.OtherName,' ')),	TUM.LastName )  	AS 'TeacherName'
-			
-FROM classmaster CM 
-JOIN usermaster UM ON UM.UserName = CM.UpdatedBy
-JOIN usermaster TUM ON TUM.PublicID = CM.ClassTeacherID
-WHERE CM.IsActive = 1 AND CM.TenantID = TenantID ORDER BY CM.GradeMasterID ASC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllActivePeriods
-DROP PROCEDURE IF EXISTS `GetAllActivePeriods`;
-DELIMITER //
-CREATE PROCEDURE `GetAllActivePeriods`(
-	IN `SchoolID` VARCHAR(50)
-)
-BEGIN
-		SELECT PM.PeriodMasterID,
-				 PM.PeriodName 
-		FROM periodmaster PM WHERE PM.IsActive = 1 AND PM.SchoolID = SchoolID ORDER BY PM.SequenceID, PM.PeriodName ASC ;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllActivesGradesByTenantID
-DROP PROCEDURE IF EXISTS `GetAllActivesGradesByTenantID`;
-DELIMITER //
-CREATE PROCEDURE `GetAllActivesGradesByTenantID`(
-	IN `TenantID` VARCHAR(400)
-)
-BEGIN
-SELECT GM.GradeMasterID		AS 'GradeMasterID',
-		 GM.Grade				AS 'Grade',
-		 GM.IsActive			AS 'IsActive'
-FROM grademaster GM WHERE GM.IsActive =1 AND GM.TenantID = TenantID;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllActiveTermsByTenantID
-DROP PROCEDURE IF EXISTS `GetAllActiveTermsByTenantID`;
-DELIMITER //
-CREATE PROCEDURE `GetAllActiveTermsByTenantID`(
-	IN `TenantID_` VARCHAR(100)
-)
-BEGIN
-		SELECT TM.TermMasterID		'TermMasterID',
-				 TM.TenantID		'TenantID',
-				 TM.TermName		'TermName',
-				 TM.IsSysActive   'IsSysActive',
-				 TM.IsActive      'Active'
-		FROM termmaster TM 
-		WHERE TM.TenantID = TenantID_ AND TM.IsActive = 1;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllClasses
-DROP PROCEDURE IF EXISTS `GetAllClasses`;
-DELIMITER //
-CREATE PROCEDURE `GetAllClasses`()
-BEGIN
-SELECT CM.ClassMasterPublicID,
-			CM.GradeMasterID ,
-			CONCAT(CM.ClassName, ' (',CM.ClassCode,')') AS Class
-
-FROM classmaster CM WHERE CM.IsActive = 1 ORDER BY CM.GradeMasterID ASC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllClassesByGradeID
-DROP PROCEDURE IF EXISTS `GetAllClassesByGradeID`;
-DELIMITER //
-CREATE PROCEDURE `GetAllClassesByGradeID`(
-	IN `GradeID` INT
-)
-BEGIN
-SELECT CM.ClassMasterPublicID,
-			CM.GradeMasterID ,
-			CONCAT(CM.ClassName, ' (',CM.ClassCode,')') AS Class
-
-FROM classmaster CM WHERE CM.GradeMasterID =GradeID;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllClassesByTenantID
-DROP PROCEDURE IF EXISTS `GetAllClassesByTenantID`;
-DELIMITER //
-CREATE PROCEDURE `GetAllClassesByTenantID`(
-	IN `TenantID` VARCHAR(300)
-)
-BEGIN
-SELECT CM.ClassMasterPublicID,
-			CM.GradeMasterID ,
-			CONCAT(CM.ClassName, ' (',CM.ClassCode,')') AS Class
-
-FROM classmaster CM WHERE CM.IsActive = 1 AND CM.TenantID = TenantID ORDER BY CM.GradeMasterID ASC ;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllClassesWithMappedSubjects
-DROP PROCEDURE IF EXISTS `GetAllClassesWithMappedSubjects`;
-DELIMITER //
-CREATE PROCEDURE `GetAllClassesWithMappedSubjects`(
-	IN `TenantID_` VARCHAR(500)
-)
-    COMMENT 'This sp reterns all callses that have mapped subjects in class details table '
-BEGIN
-SELECT   CM.ClassMasterPublicID,
-			CM.GradeMasterID ,
-			CONCAT(CM.ClassName, ' (',CM.ClassCode,')') AS Class
-
-FROM classmaster CM WHERE CM.IsActive = 1 AND CM.TenantID = TenantID_ AND CM.ClassMasterPublicID IN (SELECT CD.ClassMasterPublicID FROM classdetails CD) ORDER BY CM.GradeMasterID ASC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllDepartmentsByShoolID
-DROP PROCEDURE IF EXISTS `GetAllDepartmentsByShoolID`;
-DELIMITER //
-CREATE PROCEDURE `GetAllDepartmentsByShoolID`(
-	IN `SHOOLID` VARCHAR(50)
-)
-BEGIN
-		SELECT 	DPT.DepartmentID 													AS 'DepartmentID',
-					DPT.DepartmentName												AS 'DepartmentName',
-					DPT.ShortHand														AS 'ShortHand',
-					CONCAT(DPT.DepartmentName,' (',DPT.ShortHand,')') 		AS 'Department',
-					DPT.SchoolMasterID												AS 'SchoolMasterID' 
-		FROM department DPT WHERE DPT.SchoolMasterID = SHOOLID ORDER BY DPT.DepartmentName ASC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllPeriods
-DROP PROCEDURE IF EXISTS `GetAllPeriods`;
-DELIMITER //
-CREATE PROCEDURE `GetAllPeriods`(
-	IN `CLASSMASTERID_` VARCHAR(50)
-)
-BEGIN
-		SET @CLASSMASTERID  = CLASSMASTERID_;
-		
-		SELECT  TM.TimeTableMasterID					      AS 'TimeTableMasterID',
-				  TM.ClassMasterID								AS 'ClassMasterID',
-				  TM.PeriodMasterID								AS 'PeriodMasterID',
-				  PM.PeriodName    								AS 'PeriodName',
-				  TIME_FORMAT(TM.TimeFrom,"%H:%i")			AS 'TimeForm',
-				  TIME_FORMAT(TM.TimeTo,"%H:%i")				AS 'TimeTo',
-				  IF (TM.IsActive = 1,'Yes', 'No')			AS 'Active'	
-		FROM timetablemaster TM 
-		JOIN periodmaster PM ON PM.PeriodMasterID =  TM.PeriodMasterID 
-		WHERE TM.ClassMasterID = @CLASSMASTERID ORDER BY TM.IsActive DESC, TM.PeriodMasterID ASC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllPeriodsBySchoolID
-DROP PROCEDURE IF EXISTS `GetAllPeriodsBySchoolID`;
-DELIMITER //
-CREATE PROCEDURE `GetAllPeriodsBySchoolID`(
-	IN `SchoolID` VARCHAR(50)
-)
-BEGIN
-      SELECT   PM.PeriodMasterID						AS 'PeriodMasterID',
-					PM.PeriodName							AS 'PeriodName',
-					PM.SchoolID								AS 'SchoolID',
-					PM.SequenceID							AS 'SequenceID',
-					IF(PM.IsActive = 1, 'Yes', 'No') AS 'Active'
-		FROM periodmaster PM 
-		WHERE  PM.SchoolID = SchoolID ORDER BY PM.SequenceID, PM.PeriodName ASC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllSchoolDetails
-DROP PROCEDURE IF EXISTS `GetAllSchoolDetails`;
-DELIMITER //
-CREATE PROCEDURE `GetAllSchoolDetails`()
-BEGIN
-		SELECT SM.PublicID 				AS 'PublicID',
-				 SM.EMISNO	 				AS 'EMISNO',
-				 SM.PicURL					AS 'PicURL',
-				 SM.SchoolName				AS 'SchoolName',
-				 SM.ShortName				AS 'ShortName',
-				 SM.SchoolMotto			AS 'SchoolMotto',
-				 SM.SchoolURl				AS 'SchoolURl',
-				 SM.SchoolDescription	AS 'SchoolDescription',
-				 SM.MaxTerms				AS 'MaxTerms',
-				 SM.Longitude				AS 'Longitude',
-				 SM.Latitude				AS 'Latitude',
-				 SM.Tel						AS 'Tel',
-				 SM.PhoneNo					AS 'PhoneNo',
-				 SM.TenantID				AS 'TenantID',
-				 IF(SM.IsActive=1,'Yes','No') AS 'IsActive'
-		 
-		FROM schoolmaster SM ORDER BY SM.IsActive DESC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllSchoolDetailsBySchoolID
-DROP PROCEDURE IF EXISTS `GetAllSchoolDetailsBySchoolID`;
-DELIMITER //
-CREATE PROCEDURE `GetAllSchoolDetailsBySchoolID`(
-	IN `SCHOOLPUBLICID` VARCHAR(50)
-)
-BEGIN
-		SELECT SM.PublicID 				AS 'PublicID',
-				 SM.EMISNO	 				AS 'EMISNO',
-				 SM.PicURL					AS 'PicURL',
-				 SM.SchoolName				AS 'SchoolName',
-				 SM.ShortName				AS 'ShortName',
-				 SM.SchoolMotto			AS 'SchoolMotto',
-				 SM.SchoolURl				AS 'SchoolURl',
-				 SM.SchoolDescription	AS 'SchoolDescription',
-				 SM.MaxTerms				AS 'MaxTerms',
-				 SM.Longitude				AS 'Longitude',
-				 SM.Latitude				AS 'Latitude',
-				 SM.Tel						AS 'Tel',
-				 SM.PhoneNo					AS 'PhoneNo',
-				 SM.TenantID				AS 'TenantID',
-				 IF(SM.IsActive=1,'Yes','No') AS 'IsActive'
-		 
-		FROM schoolmaster SM WHERE SM.PublicID =  SCHOOLPUBLICID;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllStudentDetails
-DROP PROCEDURE IF EXISTS `GetAllStudentDetails`;
-DELIMITER //
-CREATE PROCEDURE `GetAllStudentDetails`(
-	IN `TenantID` VARCHAR(400)
-)
-BEGIN
-SELECT 	SM.StudentMasterPublicID																													AS 'StudentMasterPublicID',
-			SM.StudentNo																																	AS 'PublicID',
-			CONCAT(SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName )						AS 'Name', 
-		 	SM.GuardianContactNo																															AS 'ContactNo',
-		 	DATE_FORMAT(SM.DOB, "%d %b, %Y")																											AS 'DOB',
-		 	SM.Address																																		AS 'Address',
-		 	GM.Gender																																		AS 'Gender',
-		 	MSM.MaritalStatus																																AS 'MaritalStatus',
-		 	SM.GuardianMaleName																															AS 'GuardianMaleName',
-		 	SM.GuardianFemaleName																														AS 'GuardianFemaleName',
-		 	SM.ProfilePic																																	AS 'ProfilePic'
-		 	
-FROM studentmaster SM
-JOIN gendermaster GM ON GM.GenderMasterID = SM.GenderID
-JOIN maritalstatusmaster MSM ON MSM.MaritalStatusMasterID = SM.MaritalStatusID 
-JOIN usermaster UM ON UM.PublicID = SM.StudentMasterPublicID
-JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID WHERE SM.IsActive = 1 AND UM.TenantID = TenantID ORDER BY SM.StudentNo DESC;
-
-
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllStudentDetailsByClassID
-DROP PROCEDURE IF EXISTS `GetAllStudentDetailsByClassID`;
-DELIMITER //
-CREATE PROCEDURE `GetAllStudentDetailsByClassID`(
-	IN `ClassID` VARCHAR(50)
-)
-BEGIN
-SELECT 	SM.StudentMasterPublicID																													AS 'StudentMasterPublicID',
-			SM.StudentNo																																	AS 'PublicID',
-			CONCAT(SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName )						AS 'Name', 
-		 	SM.GuardianContactNo																															AS 'ContactNo',
-		 	DATE_FORMAT(SM.DOB, "%d %b, %Y")																											AS 'DOB',
-		 	SM.Address																																		AS 'Address',
-		 	GM.Gender																																		AS 'Gender',
-		 	MSM.MaritalStatus																																AS 'MaritalStatus',
-		 	SM.GuardianMaleName																															AS 'GuardianMaleName',
-		 	SM.GuardianFemaleName																														AS 'GuardianFemaleName',
-		 	SM.ProfilePic																																	AS 'ProfilePic'
-		 	
-FROM studentmaster SM
-JOIN gendermaster GM ON GM.GenderMasterID = SM.GenderID
-JOIN maritalstatusmaster MSM ON MSM.MaritalStatusMasterID = SM.MaritalStatusID 
-JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID WHERE SM.IsActive = 1 AND CM.ClassMasterPublicID = ClassID ORDER BY SM.StudentNo DESC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllStudentDetailsByClassMasterPublicID
-DROP PROCEDURE IF EXISTS `GetAllStudentDetailsByClassMasterPublicID`;
-DELIMITER //
-CREATE PROCEDURE `GetAllStudentDetailsByClassMasterPublicID`(
-	IN `CLASSMASTERPUBLICID_` VARCHAR(100),
-	IN `ATENDANCYTYPEID_` INT
-)
-BEGIN
-			SET @CLASSMASTERPUBLICID  = CLASSMASTERPUBLICID_;
-			SET @AtendancyTypeID  = ATENDANCYTYPEID_;
-			
-			SELECT 	SM.StudentMasterPublicID																																AS 'StudentMasterPublicID',
-						SM.StudentNo																																				AS 'StudentNo',
-						CONCAT(SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName,' (',GM.ShortName,')' )		AS 'NameInfo', 
-						CONCAT(SM.StudentNo,'-',SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName,' (',GM.ShortName,')' )		AS 'NameData',
-						CONCAT(SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName )									AS 'Name', 
-						CONCAT(CM.ClassName, ' (',CM.ClassCode,')') 																										AS  'Class',
-					 	SM.GuardianContactNo																																		AS 'ContactNo',
-					 	DATE_FORMAT(SM.DOB, "%d %b, %Y")																														AS 'DOB',
-					 	SM.Address																																					AS 'Address',
-					 	GM.Gender																																					AS 'Gender',
-					 	MSM.MaritalStatus																																			AS 'MaritalStatus',
-					 	SM.GuardianMaleName																																		AS 'GuardianMaleName',
-					 	SM.GuardianFemaleName																																	AS 'GuardianFemaleName',
-					 	SM.ProfilePic																																				AS 'ProfilePic'
-					 	
-			FROM studentmaster SM
-			JOIN gendermaster GM ON GM.GenderMasterID = SM.GenderID
-			JOIN maritalstatusmaster MSM ON MSM.MaritalStatusMasterID = SM.MaritalStatusID 
-			JOIN usermaster UM ON UM.PublicID = SM.StudentMasterPublicID
-			JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID WHERE CM.ClassMasterPublicID = @CLASSMASTERPUBLICID  AND SM.IsActive = 1 AND UM.IsActive = 1
-		
-			
-			ORDER BY SM.FirstName,SM.LastName,SM.StudentNo ASC;
-
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllStudentDetailsByPublicID
-DROP PROCEDURE IF EXISTS `GetAllStudentDetailsByPublicID`;
-DELIMITER //
-CREATE PROCEDURE `GetAllStudentDetailsByPublicID`(
-	IN `PUBLICID_` VARCHAR(50)
-)
-BEGIN
-SET @PUBLICID = PUBLICID_;
-SELECT 	SM.StudentNo																																	AS 'StudenNo',
-			CONCAT(SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName )						AS 'Name', 
-		 	SM.GuardianContactNo																															AS 'ContactNo',
-		 	DATE_FORMAT(SM.DOB, "%d %b, %Y")																											AS 'DOB',
-		 	SM.Address																																		AS 'Address',
-		 	GM.Gender																																		AS 'Gender',
-		 	MSM.MaritalStatus																																AS 'MaritalStatus',
-		 	SM.GuardianMaleName																															AS 'GuardianMaleName',
-		 	SM.GuardianFemaleName																														AS 'GuardianFemaleName',
-		 	SM.ProfilePic																																	AS 'ProfilePic',
-		 	CONCAT(CM.ClassName,' (', CM.ClassCode,')')																							AS 'ClassName',
-		 	IF(SM.EmailAddress IS NULL OR SM.EmailAddress = '','None',SM.EmailAddress )												AS 'EmailAddress',
-		 	CM.ClassMasterPublicID																														AS 'ClassMasterPublicID',
-		 	SCM.PicURL																																		AS 'PicURL'
-		 	
-		 	
-FROM studentmaster SM
-JOIN gendermaster GM ON GM.GenderMasterID = SM.GenderID
-JOIN maritalstatusmaster MSM ON MSM.MaritalStatusMasterID = SM.MaritalStatusID 
-JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID 
-LEFT JOIN schoolmaster SCM ON  SCM.TenantID = CM.TenantID
-WHERE SM.IsActive = 1 AND SM.StudentMasterPublicID = @PUBLICID;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllStudentDetailsByStudentNo
-DROP PROCEDURE IF EXISTS `GetAllStudentDetailsByStudentNo`;
-DELIMITER //
-CREATE PROCEDURE `GetAllStudentDetailsByStudentNo`(
-	IN `StudentNo` VARCHAR(50)
-)
-BEGIN
-SET @StudentNo = StudentNo;
-SELECT 	SM.StudentNo																																	AS 'PublicID',
-			CONCAT(SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName )						AS 'Name', 
-		 	SM.GuardianContactNo																															AS 'ContactNo',
-		 	DATE_FORMAT(SM.DOB, "%d %b, %Y")																											AS 'DOB',
-		 	SM.Address																																		AS 'Address',
-		 	GM.Gender																																		AS 'Gender',
-		 	MSM.MaritalStatus																																AS 'MaritalStatus',
-		 	SM.GuardianMaleName																															AS 'GuardianMaleName',
-		 	SM.GuardianFemaleName																														AS 'GuardianFemaleName',
-		 	SM.ProfilePic																																	AS 'ProfilePic',
-		 	CONCAT(CM.ClassName,' (', CM.ClassCode,')')																							AS 'ClassName',
-		 	IF(SM.EmailAddress IS NULL OR SM.EmailAddress = '','None',SM.EmailAddress )																																AS 'EmailAddress'
-		 	
-FROM studentmaster SM
-JOIN gendermaster GM ON GM.GenderMasterID = SM.GenderID
-JOIN maritalstatusmaster MSM ON MSM.MaritalStatusMasterID = SM.MaritalStatusID 
-JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID  WHERE SM.IsActive = 1 AND SM.StudentNo = @StudentNo;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllSubjects
-DROP PROCEDURE IF EXISTS `GetAllSubjects`;
-DELIMITER //
-CREATE PROCEDURE `GetAllSubjects`()
-BEGIN
-	SELECT SM.SubjectCode AS 												'SujectCode',
-				 CONCAT(SM.SubjectName,' ( ',SM.SubjectCode,' )')		AS 'SubjectName',
-				 	 SM.SubjectName		AS 'Subject' 
-		FROM subjectmater SM WHERE SM.IsActive = 1 ORDER BY SM.SubjectName ASC ;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllSubjectsBySchooID
-DROP PROCEDURE IF EXISTS `GetAllSubjectsBySchooID`;
-DELIMITER //
-CREATE PROCEDURE `GetAllSubjectsBySchooID`(
-	IN `SCHOOLID_` VARCHAR(50)
-)
-BEGIN
-
-SET @SCHOOLID = SCHOOLID_;
-
-SELECT SM.SubjectMaterID                                                   AS 'SubjectMaterID',
-		SM.SubjectCode																			AS  'SubjectCode',
-		 CONCAT(SM.SubjectName,' (',SM.SubjectCode,')')								AS 'Subject',
-		 CONCAT(DPT.DepartmentName,' (',DPT.ShortHand,')')							AS 'Department',
-		 IF(SM.IsActive = 1, 'Yes','No')													AS 'Active' 
-FROM subjectmater SM
-JOIN department DPT ON DPT.DepartmentID = SM.DepartmentCode
-WHERE SM.SchoolID = @SCHOOLID AND DPT.IsActive = 1  ORDER BY SM.IsActive, SM.SubjectName, SM.DepartmentCode ASC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllTeacherDetailsByID
-DROP PROCEDURE IF EXISTS `GetAllTeacherDetailsByID`;
-DELIMITER //
-CREATE PROCEDURE `GetAllTeacherDetailsByID`(
-	IN `TenantID` VARCHAR(400),
-	IN `TeacherID` VARCHAR(50)
-)
-BEGIN
-SELECT TM.TeaherMasterPublicID																																					AS 'TeaherMasterPublicID',
-		 CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName) 														AS 'TeacherName',
-		 UM.FirstName,
-		 UM.OtherName,
-		 UM.LastName,
-		 DPT.DepartmentName,
-		 UM.NRC,
-		  UM.ContactNo,
-		 DATE_FORMAT(UM.DOB, "%d %b, %Y")	AS 'DOB',
-		 UM.ProfilPicURL,
-		 UM.UserName,
-		 IF(UM.EmailAddress IS NULL, 'None', UM.EmailAddress  )  AS 'EmailAddress'
-FROM teachermaster TM 
-JOIN usermaster UM ON UM.PublicID = TM.TeaherMasterPublicID 
-JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.TeacherPositionID
-JOIN department DPT ON DPT.ShortHand = TM.DeparmrntCode
-WHERE UM.TenantID = TenantID AND UM.IsActive = 1 AND TM.IsActive = 1 AND TM.TeaherMasterPublicID = TeacherID AND  TPM.TeacherPositionMasterID NOT IN (2,3);
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllTeacherDetailsByTenantID
-DROP PROCEDURE IF EXISTS `GetAllTeacherDetailsByTenantID`;
-DELIMITER //
-CREATE PROCEDURE `GetAllTeacherDetailsByTenantID`(
-	IN `TenantID_` VARCHAR(500)
-)
-BEGIN
-SELECT TM.TeaherMasterPublicID																																					AS 'TeaherMasterPublicID',
-		 CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName, ' (',DPT.DepartmentName,' Dpt.)') 			AS 'Teacher',
-		 UM.FirstName,
-		 UM.OtherName,
-		 UM.LastName,
-		 DPT.DepartmentName,
-		 UM.NRC,
-		  UM.ContactNo,
-		 DATE_FORMAT(UM.DOB, "%d %b, %Y")	AS 'DOB',
-		 IF (TM.IsActive = 1,'Yes','No')								AS 'IsActive'
-FROM teachermaster TM 
-JOIN usermaster UM ON UM.PublicID = TM.TeaherMasterPublicID 
-JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.TeacherPositionID
-JOIN schoolmaster SM ON SM.TenantID = TenantID_ 
-JOIN department DPT ON DPT.ShortHand = TM.DeparmrntCode AND DPT.SchoolMasterID = SM.PublicID
-WHERE UM.TenantID = TenantID_ ORDER BY TM.IsActive DESC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAllTeacherLessionPlanDocuments
-DROP PROCEDURE IF EXISTS `GetAllTeacherLessionPlanDocuments`;
-DELIMITER //
-CREATE PROCEDURE `GetAllTeacherLessionPlanDocuments`(
-	IN `TenantID_` VARCHAR(300)
-)
-BEGIN
-SELECT 	
-			CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName,'-',GM.ShortName, ' [',DP.DepartmentName,']  (',TD.Title,')' )						AS 'LessonPlanData', 
-			TD.TeacherdocumentID							AS 'TeacherdocumentID',
-			TD.Title											AS 'Title',
-		 	TD.DocumentURL									AS 'DocumentURL',
-		 	 DATE_FORMAT(TD.AddedOn, "%d %b, %Y")  AS 'AddedOn'
-		 		
-
-FROM teacherdocument TD 
-JOIN usermaster UM ON UM.UserName = TD.AddedBy AND UM.TenantID  =TenantID_
-JOIN teachermaster TM ON TM.TeaherMasterPublicID = UM.PublicID 
-JOIN department DP ON DP.ShortHand = TM.DeparmrntCode
-JOIN gendermaster GM ON GM.GenderMasterID = UM.GenderID 
-ORDER BY  TD.UpdatedOn, TD.IsApproved,DP.DepartmentName DESC ;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAssecmentTypeBySubjectCode
-DROP PROCEDURE IF EXISTS `GetAssecmentTypeBySubjectCode`;
-DELIMITER //
-CREATE PROCEDURE `GetAssecmentTypeBySubjectCode`(
-	IN `CLASSMASTERID` VARCHAR(50),
-	IN `SUBJECT_CODE` CHAR(5),
-	IN `TENANTMASTERID` VARCHAR(300)
-)
-BEGIN
-		SET @SUBJECTCODE = SUBJECT_CODE;
-		SET @GRADEID = (SELECT CM.GradeMasterID FROM classmaster CM WHERE CM.ClassMasterPublicID = CLASSMASTERID);
-		SELECT ATM.AssementTypeID,
-				
-				 ATM.AssementTypeName
-				 
-		FROM assementtypemaster ATM
-		WHERE ATM.IsActive = 1 AND ATM.TenantID=TENANTMASTERID  ORDER BY ATM.AssementTypeName ASC ;
-	--	AND ATM.SubjectCode = @SUBJECTCODE AND ATM.GradeMasterID = @GRADEID
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetAssecmwntTye
-DROP PROCEDURE IF EXISTS `GetAssecmwntTye`;
-DELIMITER //
-CREATE PROCEDURE `GetAssecmwntTye`(
-	IN `StudentMasterPublicID_` INT
-)
-BEGIN
-		SELECT   STA.StudnetAssesmenID																									AS 'PublicID',
-					STM.StudentNo																												AS 'StudentNo',
-					CONCAT(STM.FirstName,IF(STM.OtherName IS NULL,' ',CONCAT(' ',STM.OtherName,' ')),STM.LastName )	AS 'Name',
-					CONCAT(CM.ClassName,' (',CM.ClassCode,')')																		AS 'ClassName',
-				   CONCAT(SM.SubjectName,' (',SM.SubjectCode,')')																	AS 'Subject',
-					CONCAT(ASTM.AssementTypeName, ' (',STA.AssecementName,')')													AS 'AssecementName',
-					CONCAT(STA.Score,' %')																									AS 'Score',
-				   DATE_FORMAT(STA.UpdatedOn, "%d %b, %Y") 					   												   AS 'MarkedOn'
-				   
-					
-		FROM studnetassesment STA
-		JOIN studentmaster STM ON STM.StudentMasterPublicID = STA.StudentMasterPublicID 
-		JOIN assementtypemaster ASTM ON ASTM.AssementTypeID = STA.AssecemntTypeMasterID
-		
-		JOIN classmaster CM ON CM.ClassMasterPublicID = STA.ClassMasterPublicID AND STM.StudentMasterPublicID = StudentMasterPublicID_
-		JOIN subjectmater SM ON SM.SubjectMaterID = STA.SubjectMasterID
-		ORDER BY CM.GradeMasterID, STM.StudentNo,STM.FirstName,STM.LastName ASC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetClassByGreadeID
-DROP PROCEDURE IF EXISTS `GetClassByGreadeID`;
-DELIMITER //
-CREATE PROCEDURE `GetClassByGreadeID`(
-	IN `GradeID` INT
-)
-BEGIN
-SET @GRADE = GradeID;
-SELECT CM.ClassMasterPublicID								'ClassMasterPublicID',
-		 CM.ClassName											'ClassName',
-		 CM.GradeMasterID										'GradeMasterID',
-		 CONCAT(CM.ClassName,' (',CM.ClassCode,')')   'class'
-FROM classmaster CM WHERE CM.GradeMasterID = @GRADE ; 
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetClassDetailsByID
-DROP PROCEDURE IF EXISTS `GetClassDetailsByID`;
-DELIMITER //
-CREATE PROCEDURE `GetClassDetailsByID`(
-	IN `ClassMasterID` VARCHAR(50)
-)
-BEGIN
-			SELECT   CM.ClassMasterPublicID																																				AS 'ClassMasterPublicID',
-				CM.ClassCode																																									AS 'ClassCode',
-				CM.ClassName																																									AS 'ClassName',
-				CM.Description																																									AS 'Description',
-				CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName, ' (',DPT.DepartmentName,' Dpt.)') 			AS 'Teacher',
-				TM.TeaherMasterPublicID																																						AS 'TeaherMasterPublicID',
-				GM.GradeMasterID																																								AS 'GradeMasterID',
-				GM.Grade																																											AS 'Grade'
-			FROM classmaster CM 
-			JOIN usermaster UM ON UM.PublicID = CM.ClassTeacherID
-			JOIN  teachermaster TM ON TM.TeaherMasterPublicID = CM.ClassTeacherID
-			JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.TeacherPositionID
-			JOIN department DPT ON DPT.ShortHand = TM.DeparmrntCode
-			JOIN grademaster GM ON GM.GradeMasterID = CM.GradeMasterID
-			WHERE CM.IsActive = 1 AND  CM.ClassMasterPublicID = ClassMasterID;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetClassDetailsByPublicID
-DROP PROCEDURE IF EXISTS `GetClassDetailsByPublicID`;
-DELIMITER //
-CREATE PROCEDURE `GetClassDetailsByPublicID`(
-	IN `CLASSMASTERID_` VARCHAR(50)
-)
-BEGIN
-		SET @CLASSMASTERID = CLASSMASTERID_;
-		SELECT CM.ClassMasterPublicID								'ClassMasterPublicID',
-				 CM.ClassName											'ClassName',
-				 CM.GradeMasterID										'GradeMasterID',
-				 CONCAT(CM.ClassName,' (',CM.ClassCode,')')   'class'
-		FROM classmaster CM WHERE CM.ClassMasterPublicID = @CLASSMASTERID ; 
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetClassRoomsByID
-DROP PROCEDURE IF EXISTS `GetClassRoomsByID`;
-DELIMITER //
-CREATE PROCEDURE `GetClassRoomsByID`(
-	IN `TenantID` VARCHAR(400)
-)
-BEGIN
-		SELECT CR.ClassRoomPublicID		AS 'ClassRoomPublicID', 
-				 CR.ClassRoomName				AS 'ClassRoomName'
-		FROM classroom CR WHERE CR.TenantID = TenantID AND CR.IsActive = 1;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetClassSubjectsByClassMasterID
-DROP PROCEDURE IF EXISTS `GetClassSubjectsByClassMasterID`;
-DELIMITER //
-CREATE PROCEDURE `GetClassSubjectsByClassMasterID`(
-	IN `CLASSMASTERID` VARCHAR(50)
-)
-BEGIN
-		SET @CLASSMASTERID = CLASSMASTERID;
-		SELECT CD.ClassDetailsPublicID									AS 'ClassDetailsPublicID',
-				 CD.ClassMasterPublicID										AS 'ClassMasterPublicID',
-				 CD.SubjectCode												AS 'SubjectCode',
-				 CONCAT(SM.SubjectName, ' (',SM.SubjectCode,')') 	AS 'Subject'
-		FROM classdetails CD 
-		JOIN subjectmater SM ON SM.SubjectCode = CD.SubjectCode 
-		WHERE CD.ClassMasterPublicID = @CLASSMASTERID  AND CD.IsActive = 1 ORDER BY SM.SubjectName ASC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetClassSubjectsByID
-DROP PROCEDURE IF EXISTS `GetClassSubjectsByID`;
-DELIMITER //
-CREATE PROCEDURE `GetClassSubjectsByID`(
-	IN `ClassMasterID` VARCHAR(50),
-	IN `SchoolID` VARCHAR(50)
-)
-BEGIN
-		SELECT CD.ClassDetailsPublicID											AS 'ClassDetailsPublicID',
-				 SM.SubjectCode 														AS 'SujectCode',
-				 CONCAT(SM.SubjectName,' ( ',SM.SubjectCode,' )')			AS 'SubjectName',
-				 SM.SubjectName														AS 'Subject',
-				 SM.SubjectCode		 												AS 'SubjectCode',
-				 CM.ClassRoomName		 												AS 'ClassRoomName',
-				 CM.ClassRoomPublicID 												AS 'ClassRoomPublicID' 
-		FROM subjectmater SM
-		JOIN classdetails CD ON CD.SubjectCode = SM.SubjectCode 
-		JOIN classroom CM ON CM.ClassRoomPublicID = CD.ClassRoomPublicID
-		WHERE CD.ClassMasterPublicID = ClassMasterID AND CD.IsActive = 1 AND SM.SchoolID =SchoolID ;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetCompleteTeacherDetailsByID
-DROP PROCEDURE IF EXISTS `GetCompleteTeacherDetailsByID`;
-DELIMITER //
-CREATE PROCEDURE `GetCompleteTeacherDetailsByID`(
-	IN `TenantID` VARCHAR(500),
-	IN `TeacherID` VARCHAR(50)
-)
-BEGIN
-SELECT TM.TeaherMasterPublicID																																					AS 'TeaherMasterPublicID',
-		 CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName) 														AS 'TeacherName',
-		 UM.FirstName,
-		 UM.OtherName,
-		 UM.LastName,
-		 DPT.DepartmentName,
-		 UM.NRC,
-		  UM.ContactNo,
-		 DATE_FORMAT(UM.DOB, "%d %b, %Y")	AS 'DOB',
-		 UM.ProfilPicURL,
-		 UM.UserName,
-		 IF(UM.EmailAddress IS NULL, 'None', UM.EmailAddress  )  AS 'EmailAddress'
-FROM teachermaster TM 
-JOIN usermaster UM ON UM.PublicID = TM.TeaherMasterPublicID 
-JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.TeacherPositionID
-JOIN department DPT ON DPT.ShortHand = TM.DeparmrntCode
-WHERE UM.TenantID = TenantID AND UM.IsActive = 1 AND TM.IsActive = 1 AND TM.TeaherMasterPublicID = TeacherID AND  TPM.TeacherPositionMasterID;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetCompletStudentDetails
-DROP PROCEDURE IF EXISTS `GetCompletStudentDetails`;
-DELIMITER //
-CREATE PROCEDURE `GetCompletStudentDetails`(
-	IN `TenantID` VARCHAR(500)
-)
-BEGIN
-SELECT 	SM.StudentMasterPublicID																													AS 'StudentMasterPublicID',
-			SM.StudentNo																																	AS 'PublicID',
-			CONCAT(SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName )						AS 'Name', 
-		 	SM.GuardianContactNo																															AS 'ContactNo',
-		 	DATE_FORMAT(SM.DOB, "%d %b, %Y")																											AS 'DOB',
-		 	SM.Address																																		AS 'Address',
-		 	GM.Gender																																		AS 'Gender',
-		 	MSM.MaritalStatus																																AS 'MaritalStatus',
-		 	SM.GuardianMaleName																															AS 'GuardianMaleName',
-		 	SM.GuardianFemaleName																														AS 'GuardianFemaleName',
-		 	SM.ProfilePic																																	AS 'ProfilePic',
-		 	IF(SM.IsActive = 1, 'Yes', 'No')																											AS 'Active'
-		 	
-FROM studentmaster SM
-JOIN gendermaster GM ON GM.GenderMasterID = SM.GenderID
-JOIN maritalstatusmaster MSM ON MSM.MaritalStatusMasterID = SM.MaritalStatusID 
-JOIN usermaster UM ON UM.PublicID = SM.StudentMasterPublicID
-JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID WHERE  UM.TenantID = TenantID ORDER BY SM.IsActive DESC, SM.StudentNo DESC;
-
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetCountryCode
-DROP PROCEDURE IF EXISTS `GetCountryCode`;
-DELIMITER //
-CREATE PROCEDURE `GetCountryCode`()
-BEGIN
-		SELECT   CT.CountryID		AS 'CountryID',
-					CT.ConuntryCode 	AS 'ConuntryCode'
-		FROM country CT WHERE CT.IsActive=1;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetDashboardUserCounts
-DROP PROCEDURE IF EXISTS `GetDashboardUserCounts`;
-DELIMITER //
-CREATE PROCEDURE `GetDashboardUserCounts`(
-	IN `TENANTID_` VARCHAR(400)
-)
-BEGIN
-SET @TENANTID = TENANTID_;
-
-SET @TOTALUSERS = (SELECT COUNT(UM.UserMasterID) FROM usermaster UM WHERE UM.TenantID = @TENANTID AND UM.IsActive = 1);
-SET @TOTALUSERSUPDATEDATE = (SELECT MAX(UM.UpdatedOn) FROM usermaster UM WHERE UM.TenantID = @TENANTID AND UM.IsActive = 1);
-
-SET @TOTALSTUDENTS = (SELECT COUNT(UM.UserMasterID) FROM usermaster UM WHERE UM.TenantID = @TENANTID AND UM.IsActive = 1 AND UM.UserTypeID = 2);
-SET @TOTALSTUDENTSUPDATEDATE = (SELECT MAX(UM.UpdatedOn) FROM usermaster UM WHERE UM.TenantID = @TENANTID AND UM.IsActive = 1 AND UM.UserTypeID = 2);
-
-SET @TOTALTEACHERS = (SELECT COUNT(UM.UserMasterID) FROM usermaster UM WHERE UM.TenantID = @TENANTID AND UM.IsActive = 1 AND UM.UserTypeID = 3);
-SET @TOTALTEACHERSUPDATEDATE = (SELECT MAX(UM.UpdatedOn) FROM usermaster UM WHERE UM.TenantID = @TENANTID AND UM.IsActive = 1 AND UM.UserTypeID = 3);
-
-SELECT @TOTALUSERS 																		AS 'TotalUsers',
-		 DATE_FORMAT(@TOTALUSERSUPDATEDATE, "%d %b, %Y %H:%m")	      	AS 'LastUpdatedDateTotalUsers',
-		 
-	 	 @TOTALSTUDENTS 																	AS 'TotalStudents',
-	 	  DATE_FORMAT(@TOTALSTUDENTSUPDATEDATE, "%d %b, %Y %H:%m")	   AS 'LastUpdatedDateTotalUsers',
-	 	  
-		 @TOTALTEACHERS 																	AS 'TotalTeachers',
-		  DATE_FORMAT(@TOTALTEACHERSUPDATEDATE, "%d %b, %Y %H:%m")	   AS 'LastUpdatedDateTotalUsers';
-		  
-		  
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetDefultGradeCharges
-DROP PROCEDURE IF EXISTS `GetDefultGradeCharges`;
-DELIMITER //
-CREATE PROCEDURE `GetDefultGradeCharges`(
-	IN `TenantID_` VARCHAR(500),
-	IN `NotUsed` INT
-)
-BEGIN
-			SELECT GM.GradeMasterID												AS 'GradeMasterID',
-					 GM.Grade														AS	'Grade',
-					 0 																AS 'Amount',
-					 'System' 														AS 'UpdatedBy',
-					DATE_FORMAT(CURRENT_TIMESTAMP(), "%d %b, %Y")		AS 'UpdatedOn',
-					'No'																AS  'IsCharged'	
-					 	
-			FROM grademaster GM WHERE GM.TenantID = TenantID_ AND GM.IsActive = 1 ORDER BY GM.GradeMasterID ASC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetDepartmentByCode
-DROP PROCEDURE IF EXISTS `GetDepartmentByCode`;
-DELIMITER //
-CREATE PROCEDURE `GetDepartmentByCode`(
-	IN `DEPARTMENTCODE_` CHAR(4)
-)
-BEGIN
-		SET @DEPARTMENTCODE = DEPARTMENTCODE_;
-
-		SELECT 	DP.DepartmentID		AS 'DepartmentID',
-					DP.DepartmentName		AS 'DepartmentName',
-					DP.ShortHand			AS 'ShortHand'
-		FROM department DP
-		WHERE DP.ShortHand = @DEPARTMENTCODE ORDER BY DP.DepartmentName ASC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetDepartmentBySchoolIDAndDptCode
-DROP PROCEDURE IF EXISTS `GetDepartmentBySchoolIDAndDptCode`;
-DELIMITER //
-CREATE PROCEDURE `GetDepartmentBySchoolIDAndDptCode`(
-	IN `SHOOLID` VARCHAR(50),
-	IN `DEPARTMENT_CODE` CHAR(5)
-)
-BEGIN
-	SELECT 	DPT.DepartmentID 													AS 'DepartmentID',
-					DPT.DepartmentName												AS 'DepartmentName',
-					DPT.ShortHand														AS 'ShortHand',
-					CONCAT(DPT.DepartmentName,' (',DPT.ShortHand,')') 		AS 'Department',
-					DPT.SchoolMasterID												AS 'SchoolMasterID' 
-		FROM department DPT WHERE DPT.SchoolMasterID = SHOOLID AND DPT.ShortHand = DEPARTMENT_CODE  ORDER BY DPT.DepartmentName ASC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetDistrictByProvinceId
-DROP PROCEDURE IF EXISTS `GetDistrictByProvinceId`;
-DELIMITER //
-CREATE PROCEDURE `GetDistrictByProvinceId`(
-	IN `Provinceid` INT
-
-
-
-)
-BEGIN
-		SET @ProvinceId = Provinceid;
-		SELECT	DST.DistrictID AS districtId,
-		 			DST.DistrictName		AS name
-		FROM district DST WHERE DST.ProvinceID = @ProvinceId AND DST.IsActive = 1;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GeteacherLessionPlanDocumentsByID
-DROP PROCEDURE IF EXISTS `GeteacherLessionPlanDocumentsByID`;
-DELIMITER //
-CREATE PROCEDURE `GeteacherLessionPlanDocumentsByID`(
-	IN `TeaherMasterPublicID_` VARCHAR(50)
-)
-BEGIN
-SELECT 	
-			CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName,'-',GM.ShortName, ' [',DP.DepartmentName,']  (',TD.Title,')' )						AS 'LessonPlanData', 
-			TD.TeacherdocumentID							AS 'TeacherdocumentID',
-			TD.Title											AS 'Title',
-		 	TD.DocumentURL									AS 'DocumentURL',
-		 	 DATE_FORMAT(TD.AddedOn, "%d %b, %Y")  AS 'AddedOn'
-		 		
-
-FROM teacherdocument TD 
-JOIN usermaster UM ON UM.UserName = TD.AddedBy
-JOIN teachermaster TM ON TM.TeaherMasterPublicID = UM.PublicID
-JOIN department DP ON DP.ShortHand = TM.DeparmrntCode
-JOIN gendermaster GM ON GM.GenderMasterID = UM.GenderID WHERE TM.TeaherMasterPublicID= TeaherMasterPublicID_
-ORDER BY  TD.UpdatedOn, TD.IsApproved,DP.DepartmentName DESC ;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetEmailAdressByPositionID
-DROP PROCEDURE IF EXISTS `GetEmailAdressByPositionID`;
-DELIMITER //
-CREATE PROCEDURE `GetEmailAdressByPositionID`(
-	IN `PositionID_` INT
-
-)
-BEGIN
-			SELECT IF (UM.EmailAddress IS NULL, '', UM.EmailAddress)	AS 'EmailAddress'
-			FROM usermaster UM 
-			JOIN teachermaster TM  ON UM.PublicID = TM.PublicUserID WHERE TM.PositionID = PositionID_ AND UM.IsActive = 1 AND TM.IsActive = 1;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetEmailData
-DROP PROCEDURE IF EXISTS `GetEmailData`;
-DELIMITER //
-CREATE PROCEDURE `GetEmailData`()
-BEGIN
-		DECLARE STATUSCODE CHAR(4);
-		DECLARE NEWSTATUSCODE CHAR(4);
-		DECLARE EXIT HANDLER FOR SQLEXCEPTION
-		BEGIN
-		     SELECT 0 AS message;
-		     ROLLBACK;
-		END;
-		
-		SET STATUSCODE = 'PEND', NEWSTATUSCODE = 'PROC';
-		UPDATE emailservice SET `Status` = NEWSTATUSCODE WHERE `Status` = STATUSCODE ;
-		 
-		SELECT   EM.EmailSerial		AS 'EmailSerial',
-					EM.SendData			AS 'SendData',
-					EM.`Status`			AS 'Status',
-					EM.EmailSubject	AS 'EmailSubject',
-					EM.EmailAddress	AS 'EmailAddress'
-		FROM emailservice EM WHERE EM.`Status` = NEWSTATUSCODE;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetEmptyResult
-DROP PROCEDURE IF EXISTS `GetEmptyResult`;
-DELIMITER //
-CREATE PROCEDURE `GetEmptyResult`()
-BEGIN
-			SELECT 1  AS 'Nothing'
-						LIMIT 0;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetGender
-DROP PROCEDURE IF EXISTS `GetGender`;
-DELIMITER //
-CREATE PROCEDURE `GetGender`()
-BEGIN
-		SELECT 	GM.GenderMasterID AS 'genderId',
-					GM.Gender		AS 'gender'
-		FROM gendermaster GM;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetMaritalStatus
-DROP PROCEDURE IF EXISTS `GetMaritalStatus`;
-DELIMITER //
-CREATE PROCEDURE `GetMaritalStatus`()
-BEGIN
-			SELECT 	MS.MaritalStatusMasterID   	 AS 'MaritalStatusMasterID',
-						MS.MaritalStatus			   	AS 'MaritalStatus'
-			FROM maritalstatusmaster MS WHERE MS.IsActive = 1;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetMaxTems
-DROP PROCEDURE IF EXISTS `GetMaxTems`;
-DELIMITER //
-CREATE PROCEDURE `GetMaxTems`()
-BEGIN
-		SELECT SCH.MaxTerms	'MaxTerms' 
-		FROM school SCH;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetPositionDetails
-DROP PROCEDURE IF EXISTS `GetPositionDetails`;
-DELIMITER //
-CREATE PROCEDURE `GetPositionDetails`(
-	IN `limitstart_` INT,
-	IN `limitend_` INT
-)
-BEGIN
-		
-       
-     		SELECT 	TPM.TeacherPositionMasterID 	AS 'TeacherPositionMasterID',
-						TPM.PositionName					AS 'PositionName',
-						TPM.PositionDescription			AS 'PositionDescription',
-						TPM.IsActive						AS 'IsActive' 			 
-			FROM teacherpositionmaster TPM ORDER BY TPM.TeacherPositionMasterID ASC LIMIT limitstart_, limitend_;
-	END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetPositions
-DROP PROCEDURE IF EXISTS `GetPositions`;
-DELIMITER //
-CREATE PROCEDURE `GetPositions`()
-    COMMENT 'The sp is used to get the aviable defined positions'
-BEGIN
-			SELECT   TPM.TeacherPositionMasterID	AS 'TeacherPositionMasterID',
-						TPM.PositionName					AS 'PositionName'
-			FROM teacherpositionmaster TPM WHERE TPM.IsActive = 1 ORDER BY TPM.PositionName ASC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetPositonPages
-DROP PROCEDURE IF EXISTS `GetPositonPages`;
-DELIMITER //
-CREATE PROCEDURE `GetPositonPages`(
-	IN `limit_` VARCHAR(50)
-)
-BEGIN
-		SET @LIMIT_ = limit_;
-		SET @NUMBEROFTERMS  = (SELECT COUNT(TPM.TeacherPositionMasterID)  AS COUNT FROM teacherpositionmaster TPM );
-		
-		SET @NUMBEROFPAGES = @NUMBEROFTERMS/@LIMIT_;
-		
-		SELECT CEILING(@NUMBEROFPAGES) AS 'Pages',@NUMBEROFTERMS AS 'TotalRecords';
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetProvinces
-DROP PROCEDURE IF EXISTS `GetProvinces`;
-DELIMITER //
-CREATE PROCEDURE `GetProvinces`()
-BEGIN
-			SELECT	PV.ProvinceID		AS 'ProvinceID',
-						PV.ProvinceName	AS 'ProvinceName'
-			FROM province PV;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetSchoolDetailsByTenatID
-DROP PROCEDURE IF EXISTS `GetSchoolDetailsByTenatID`;
-DELIMITER //
-CREATE PROCEDURE `GetSchoolDetailsByTenatID`(
-	IN `TenantID_` VARCHAR(400)
-)
-BEGIN
-SELECT SM.PublicID 				AS 'PublicID',
-		 SM.PicURL					AS 'PicURL',
-		 SM.SchoolName 			AS 'SchoolName',
-		 SM.SchoolMotto			AS 'SchoolMotto',
-		 SM.SchoolURl				AS 'SchoolURl',
-		 SM.SchoolDescription	AS 'SchoolDescription',
-		 SM.Longitude				AS 'Longitude',
-		 SM.Latitude				AS 'Latitude',
-		 SM.Tel 						AS 'Tel'
-FROM schoolmaster SM WHERE SM.TenantID = TenantID_;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetSequence
-DROP PROCEDURE IF EXISTS `GetSequence`;
-DELIMITER //
-CREATE PROCEDURE `GetSequence`(
-	IN `SequenceID` INT
-
-
-)
-    COMMENT 'This sp is used to get the defined sequnce'
-BEGIN
-				DECLARE EXIT HANDLER FOR SQLEXCEPTION
- BEGIN
-			     SELECT 0 AS message;
-			     ROLLBACK;
- END;
-				
-				SET @LASTINSERTEDID = (SELECT SM.LastInsertedID FROM sequencemaster SM WHERE SM.SequenceMasterID = SequenceID );
-				
-				SET @NEWLASTINSETEDID  = (( SELECT SM.LastInsertedID FROM sequencemaster SM WHERE SM.SequenceMasterID = SequenceID)+1 );
-				
-				SET @SEQUNCECODE = (SELECT SM.SequnceCode FROM sequencemaster SM WHERE SM.SequenceMasterID = SequenceID);
-				
-				SET @SEQUNCE  = ( CONCAT(@SEQUNCECODE,"000000000",@NEWLASTINSETEDID) );
-				
-				UPDATE sequencemaster SET `LastInsertedID` = @NEWLASTINSETEDID WHERE SequenceMasterID = SequenceID;
-				
-				SELECT @SEQUNCE	AS 'SequnceNumber';
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetSequnces
-DROP PROCEDURE IF EXISTS `GetSequnces`;
-DELIMITER //
-CREATE PROCEDURE `GetSequnces`()
-BEGIN
-		SELECT SM.SequenceMasterID AS 'SequenceMasterID',
-				 SM.SequnceCode		AS 'SequnceCode',
-				 SM.LastInsertedID	AS 'LastInsertedID',
-				 SM.UpdatedOn			AS 'UpdatedOn'
-		
-		FROM vwsequncemaster SM ORDER BY SM.SequenceMasterID ;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetSessionDetails
-DROP PROCEDURE IF EXISTS `GetSessionDetails`;
-DELIMITER //
-CREATE PROCEDURE `GetSessionDetails`(
-	IN `UserMasterID` INT,
-	IN `SerialID` VARCHAR(50),
-	IN `TokenID` VARCHAR(50)
-
-)
-    COMMENT 'Used to get the details about user sessions '
-BEGIN
-		SELECT 	SES.UserMasterPublicID		AS 'UserMasterPublicID',
-					SES.SerialID					AS 'SerialID',
-					SES.TokenID						AS 'TokenID' 
-		FROM `session` SES WHERE SES.UserMasterPublicID  = UserMasterID AND SES.SerialID = SerialID AND SES.TokenID = TokenID;
-
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetSessionDetailsByUserMasterPublicID
-DROP PROCEDURE IF EXISTS `GetSessionDetailsByUserMasterPublicID`;
-DELIMITER //
-CREATE PROCEDURE `GetSessionDetailsByUserMasterPublicID`(
-	IN `UserMasterPublicID` VARCHAR(50)
-
-)
-BEGIN
-		SELECT 	SN.SerialID				AS 'SerialID',
-					SN.TokenID				AS 'TokenID',
-					SN.TokenCreatedTime	AS 'TokenCreatedTime',
-					SN.UpdatedBy			AS 'Username',
-					SN.UserMasterPublicID AS 'UserMasterPublicID'
-		FROM `session` SN WHERE SN.UserMasterPublicID = UserMasterPublicID;
-
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetStudentAsscementMarkReport
-DROP PROCEDURE IF EXISTS `GetStudentAsscementMarkReport`;
-DELIMITER //
-CREATE PROCEDURE `GetStudentAsscementMarkReport`(
-	IN `TenantID_` VARCHAR(300)
-)
-BEGIN
-		SELECT   STA.StudnetAssesmenID																									AS 'PublicID',
-					STM.StudentNo																												AS 'StudentNo',
-					CONCAT(STM.FirstName,IF(STM.OtherName IS NULL,' ',CONCAT(' ',STM.OtherName,' ')),STM.LastName )	AS 'Name',
-					CONCAT(CM.ClassName,' (',CM.ClassCode,')')																		AS 'ClassName',
-				   CONCAT(SM.SubjectName,' (',SM.SubjectCode,')')																	AS 'Subject',
-					CONCAT(ASTM.AssementTypeName, ' (',STA.AssecementName,')')													AS 'AssecementName',
-					CONCAT(STA.Score,' %')																									AS 'Score',
-				   DATE_FORMAT(STA.UpdatedOn, "%d %b, %Y") 					   												   AS 'MarkedOn'
-				   
-					
-		FROM studnetassesment STA
-		JOIN studentmaster STM ON STM.StudentMasterPublicID = STA.StudentMasterPublicID 
-		JOIN assementtypemaster ASTM ON ASTM.AssementTypeID = STA.AssecemntTypeMasterID
-		
-		JOIN classmaster CM ON CM.ClassMasterPublicID = STA.ClassMasterPublicID AND CM.TenantID = TenantID_
-		JOIN subjectmater SM ON SM.SubjectMaterID = STA.SubjectMasterID
-		ORDER BY CM.GradeMasterID, STM.StudentNo,STM.FirstName,STM.LastName ASC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetStudentAttendanceReport
-DROP PROCEDURE IF EXISTS `GetStudentAttendanceReport`;
-DELIMITER //
-CREATE PROCEDURE `GetStudentAttendanceReport`(
-	IN `TENANTID` VARCHAR(300)
-)
-BEGIN
-		SELECT  STA.StudentAttendanceID																								   AS 'PublicID',
-					 STM.StudentNo																												AS 'StudentNo',
-					CONCAT(STM.FirstName,IF(STM.OtherName IS NULL,' ',CONCAT(' ',STM.OtherName,' ')),STM.LastName )	AS 'Name',
-					CONCAT(CM.ClassName,' (',CM.ClassCode,')')																		AS 'ClassName',
-					IF (STA.Reason IS NULL,'None',STA.Reason)																			AS 'Reason',
-					STAM.Statue																													AS 'Statue',
-				   DATE_FORMAT(STA.UpdatedOn, "%d %b, %Y") 					   												   AS 'MarkedOn'
-					
-		FROM studentattendance STA
-		JOIN studentmaster STM ON STM.StudentNo = STA.StudentID 
-		JOIN classmaster CM ON CM.ClassMasterPublicID = STA.ClassID AND CM.TenantID = TENANTID
-		JOIN statusmaster STAM ON STAM.StatueCode =STA.`Status` 
-		
-		ORDER BY CM.ClassCode,STA.StudentID,DATE (STA.UpdatedOn),STM.FirstName,STM.LastName ASC;
-
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetStudentAttendanceReportByPublicID
-DROP PROCEDURE IF EXISTS `GetStudentAttendanceReportByPublicID`;
-DELIMITER //
-CREATE PROCEDURE `GetStudentAttendanceReportByPublicID`(
-	IN `PUBLIC_ID` VARCHAR(50)
-)
-BEGIN
-SELECT  STA.StudentAttendanceID																								   AS 'PublicID',
-					 STM.StudentNo																												AS 'StudentNo',
-					CONCAT(STM.FirstName,IF(STM.OtherName IS NULL,' ',CONCAT(' ',STM.OtherName,' ')),STM.LastName )	AS 'Name',
-					CONCAT(CM.ClassName,' (',CM.ClassCode,')')																		AS 'ClassName',
-					IF (STA.Reason IS NULL,'None',STA.Reason)																			AS 'Reason',
-					STAM.Statue																													AS 'Statue',
-				   DATE_FORMAT(STA.UpdatedOn, "%d %b, %Y") 					   												   AS 'MarkedOn'
-					
-		FROM studentattendance STA
-		JOIN studentmaster STM ON STM.StudentNo = STA.StudentID 
-		JOIN classmaster CM ON CM.ClassMasterPublicID = STA.ClassID 
-		JOIN statusmaster STAM ON STAM.StatueCode =STA.`Status`
-		WHERE STM.StudentMasterPublicID = PUBLIC_ID ORDER BY CM.ClassCode,STA.StudentID,DATE (STA.UpdatedOn),STM.FirstName,STM.LastName ASC;
-
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetStudentNo
-DROP PROCEDURE IF EXISTS `GetStudentNo`;
-DELIMITER //
-CREATE PROCEDURE `GetStudentNo`(
-	IN `SequenceID` INT
-)
-BEGIN
-   
- 			DECLARE LASTINSERTEDID VARCHAR(50);
-			DECLARE NEWLASTINSETEDID VARCHAR(50);
-			DECLARE SEQUNCECODE CHAR(4);
-		
-    
-         SELECT SM.LastInsertedID INTO LASTINSERTEDID FROM sequencemaster SM WHERE SM.SequenceMasterID = SequenceID;
-			
-			SELECT SM.LastInsertedID+1 INTO NEWLASTINSETEDID FROM sequencemaster SM  WHERE SM.SequenceMasterID = SequenceID;
-				
-			SELECT SM.SequnceCode INTO  SEQUNCECODE FROM sequencemaster SM  WHERE SM.SequenceMasterID = SequenceID;
-				
-			UPDATE sequencemaster SET `LastInsertedID` = NEWLASTINSETEDID WHERE SequenceMasterID = SequenceID;
-				
-			-- return the Sequence
-		 SELECT	CONCAT('SN',YEAR(CURDATE()),"0",NEWLASTINSETEDID) AS SequnceNumber;
-				
-			
-			
-    
-   
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetSubjectsByClassMasterPublicID
-DROP PROCEDURE IF EXISTS `GetSubjectsByClassMasterPublicID`;
-DELIMITER //
-CREATE PROCEDURE `GetSubjectsByClassMasterPublicID`(
-	IN `ClassmasterPublicID_` VARCHAR(50),
-	IN `SCHOOLID` VARCHAR(50)
-)
-BEGIN
-		SET @CLASSMASTERPUBLICID =  ClassmasterPublicID_;
-		
-		SELECT 		 SM.SubjectCode 													AS	'SujectCode',
-						 SM.SubjectMaterID												AS 'SubjectMaterID',
-						 CONCAT(SM.SubjectName,' ( ',SM.SubjectCode,' )')		AS 'SubjectName'
-						   
-		FROM classmaster CM 
-		JOIN classdetails CD ON CD.ClassMasterPublicID = CM.ClassMasterPublicID
-		JOIN subjectmater SM ON SM.SubjectCode = CD.SubjectCode  WHERE CM.ClassMasterPublicID = @CLASSMASTERPUBLICID AND SM.SchoolID = SCHOOLID ;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetSuperAdminDashbordUserCount
-DROP PROCEDURE IF EXISTS `GetSuperAdminDashbordUserCount`;
-DELIMITER //
-CREATE PROCEDURE `GetSuperAdminDashbordUserCount`(
-	IN `TENANTID` VARCHAR(400)
-)
-BEGIN
-
-
-SET @TOTALUSERS = (SELECT COUNT(UM.UserMasterID) FROM usermaster UM WHERE  UM.IsActive = 1);
-SET @TOTALUSERSUPDATEDATE = (SELECT MAX(UM.UpdatedOn) FROM usermaster UM WHERE  UM.IsActive = 1);
-
-SET @TOTALSTUDENTS = (SELECT COUNT(UM.UserMasterID) FROM usermaster UM WHERE  UM.IsActive = 1 AND UM.UserTypeID = 2);
-SET @TOTALSTUDENTSUPDATEDATE = (SELECT MAX(UM.UpdatedOn) FROM usermaster UM WHERE  UM.IsActive = 1 AND UM.UserTypeID = 2);
-
-SET @TOTALTEACHERS = (SELECT COUNT(UM.UserMasterID) FROM usermaster UM WHERE  UM.IsActive = 1 AND UM.UserTypeID = 3);
-SET @TOTALTEACHERSUPDATEDATE = (SELECT MAX(UM.UpdatedOn) FROM usermaster UM WHERE UM.IsActive = 1 AND UM.UserTypeID = 3);
-
-SELECT @TOTALUSERS 																		AS 'TotalUsers',
-		 DATE_FORMAT(@TOTALUSERSUPDATEDATE, "%d %b, %Y %H:%m")	      	AS 'LastUpdatedDateTotalUsers',
-		 
-	 	 @TOTALSTUDENTS 																	AS 'TotalStudents',
-	 	  DATE_FORMAT(@TOTALSTUDENTSUPDATEDATE, "%d %b, %Y %H:%m")	   AS 'LastUpdatedDateTotalUsers',
-	 	  
-		 @TOTALTEACHERS 																	AS 'TotalTeachers',
-		  DATE_FORMAT(@TOTALTEACHERSUPDATEDATE, "%d %b, %Y %H:%m")	   AS 'LastUpdatedDateTotalUsers';
-		  
-		  
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetSysActiveTermsByID
-DROP PROCEDURE IF EXISTS `GetSysActiveTermsByID`;
-DELIMITER //
-CREATE PROCEDURE `GetSysActiveTermsByID`(
-	IN `TenantID_` VARCHAR(500)
-)
-BEGIN
-		SELECT TM.TermMasterID,
-				 TM.TenantID,
-				 TM.TermName	AS 'TermName',
-				 TM.IsSysActive 
-		FROM termmaster TM WHERE TM.TenantID = TenantID_ AND TM.IsSysActive = 1 AND TM.IsActive;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetTeacherDetailsByID
-DROP PROCEDURE IF EXISTS `GetTeacherDetailsByID`;
-DELIMITER //
-CREATE PROCEDURE `GetTeacherDetailsByID`(
-	IN `TenantID` VARCHAR(400)
-)
-BEGIN
-SELECT TM.TeaherMasterPublicID																																					AS 'TeaherMasterPublicID',
-		 CONCAT(UM.FirstName,IF(UM.OtherName IS NULL,' ',CONCAT(' ',UM.OtherName,' ')),	UM.LastName, ' (',DPT.DepartmentName,' Dpt.)') 			AS 'Teacher',
-		 UM.FirstName,
-		 UM.OtherName,
-		 UM.LastName,
-		 DPT.DepartmentName,
-		 UM.NRC,
-		  UM.ContactNo,
-		 DATE_FORMAT(UM.DOB, "%d %b, %Y")	AS 'DOB',
-		 IF (UM.IsActive = 1,'Yes','No')								AS 'IsActive'
-FROM teachermaster TM 
-JOIN usermaster UM ON UM.PublicID = TM.TeaherMasterPublicID 
-JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.TeacherPositionID
-JOIN schoolmaster SM ON SM.TenantID = TenantID 
-JOIN department DPT ON DPT.ShortHand = TM.DeparmrntCode AND DPT.SchoolMasterID = SM.PublicID
-WHERE UM.TenantID = TenantID AND UM.IsActive = 1 AND TM.IsActive = 1 AND TPM.TeacherPositionMasterID NOT IN (2,3);
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetTeacherDocumentDetailsByID
-DROP PROCEDURE IF EXISTS `GetTeacherDocumentDetailsByID`;
-DELIMITER //
-CREATE PROCEDURE `GetTeacherDocumentDetailsByID`(
-	IN `DOCUMENTID_` INT
-)
-BEGIN
-SET @DOCUMENTID = DOCUMENTID_;
-
-SELECT 	TD.TeacherdocumentID		AS 'TeacherdocumentID',
-			TD.Title						AS 'Title',
-		 	TD.DocumentURL				AS 'DocumentURL'
-
-FROM teacherdocument TD WHERE TD.TeacherdocumentID = @DOCUMENTID;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetTermDetails
-DROP PROCEDURE IF EXISTS `GetTermDetails`;
-DELIMITER //
-CREATE PROCEDURE `GetTermDetails`()
-BEGIN
-		SELECT TM.TermMasterID	AS 'TermMasterID',
-				 TM.TermName		AS 'TermName' 
-		FROM termmaster TM ORDER BY TM.TermMasterID ASC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetTermPages
-DROP PROCEDURE IF EXISTS `GetTermPages`;
-DELIMITER //
-CREATE PROCEDURE `GetTermPages`(
-	IN `limit_` VARCHAR(50)
-
-
-
-)
-BEGIN
-		SET @LIMIT_ = limit_;
-		SET @NUMBEROFTERMS  = (SELECT COUNT(TM.TermMasterID)  AS COUNT FROM termmaster TM );
-		
-		SET @NUMBEROFPAGES = @NUMBEROFTERMS/@LIMIT_;
-		
-		SELECT CEILING(@NUMBEROFPAGES) AS 'Pages',@NUMBEROFTERMS AS 'TotalRecords';
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetTimeTable
-DROP PROCEDURE IF EXISTS `GetTimeTable`;
-DELIMITER //
-CREATE PROCEDURE `GetTimeTable`(
-	IN `ClassMasterID_` VARCHAR(50)
-)
-BEGIN
-SET @ClassMasterID_ = ClassMasterID_;
-
-SET @SCHOOLID = (SELECT SM.PublicID FROM schoolmaster SM WHERE SM.TenantID  = (SELECT CM.TenantID FROM classmaster CM WHERE CM.ClassMasterPublicID = @ClassMasterID_) );
-
-SELECT  TTD.TimeTableDetailsID																														AS 'TimeTableDetailsID',
-		  PM.SequenceID																																	AS 'SequenceID',  
-		  CONCAT(PM.PeriodName,"<br>(",TIME_FORMAT(TTM.TimeFrom,"%H:%i"), " - " ,TIME_FORMAT(TTM.TimeTo,"%H:%i"),")")		AS 'PeriodName',
-		  GetClassName(TTD.Monday,@SCHOOLID)																														AS 'SubjectCodeM',
-		  TTD.Monday																																		AS 'Monday',
-		  GetClassName(TTD.Tuesday,@SCHOOLID)																													AS 'SubjectCodeT',
-		  TTD.Tuesday																																		AS 'Tuesday',
-		  GetClassName(TTD.Wednesday,@SCHOOLID)																													AS 'SubjectCodeW',
-		  TTD.Wednesday																																	AS 'Wednesday',
-		  GetClassName(TTD.Thursday,@SCHOOLID)																													AS 'SubjectCodeTH',
-		  TTD.Thursday																																		AS 'Thursday',
-		  GetClassName(TTD.Friday,@SCHOOLID)																														AS 'SubjectCodeF',
-		  TTD.Friday																																		AS 'Friday'
-FROM timetablemaster TTM 
-JOIN periodmaster PM ON PM.PeriodMasterID = TTM.PeriodMasterID
-JOIN timetabledetails TTD ON  TTM.TimeTableMasterID =TTD.TimeTableMaterD
-
-WHERE TTM.ClassMasterID = @ClassMasterID_ AND TTM.IsActive = 1 AND PM.IsActive = 1 ORDER BY TTM.ClassMasterID,PM.SequenceID ASC;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetUserByUsername
-DROP PROCEDURE IF EXISTS `GetUserByUsername`;
-DELIMITER //
-CREATE PROCEDURE `GetUserByUsername`(
-	IN `username` VARCHAR(50)
-)
-    COMMENT 'This sp gets the user details by user name'
-BEGIN
-		SELECT UM.PublicID		AS 'PublicID',
-				 UM.UserName		AS 'UserName',
-				 UM.Password		AS 'Password',
-				 UM.UserTypeID		AS 'UserTypeID',
-				 UM.IsActive  		AS 'IsActive',
-				 IF(UM.EmailAddress IS NULL , Null, UM.EmailAddress)	AS 'EmailAddress',
-				 CONCAT(UM.FirstName," ",IF(UM.OtherName IS NULL, '', UM.OtherName)," ",UM.LastName)	AS 'Name',
-				 TM.TeacherPositionID		AS 'PositionID',
-				 DP.ShortHand		AS 'ShortHand',
-				 TNM.TenantID		AS 'TenantID',
-				 TNM.IsActive		AS 'IsTenantActive',
-				 SM.PublicID		AS 'SchoolPublicID',
-				 SM.PicURL			AS 'LogoPicURL',
-				 UM.ProfilPicURL  AS 'ProfilPicURL',
-				 UM.IsLocked		AS 'IsAccountLocked'
-				 
-		FROM usermaster UM
-		JOIN usertypemaster UTM ON UTM.UserTypeMasterID = UM.UserTypeID
-		JOIN tenantmaster TNM ON TNM.TenantID = UM.TenantID
-		LEFT JOIN teachermaster TM ON TM.TeaherMasterPublicID = UM.PublicID
-		LEFT JOIN department DP ON DP.ShortHand = TM.DeparmrntCode	
-		LEFT JOIN schoolmaster SM ON SM.TenantID = TNM.TenantID
-		WHERE UM.UserName = username ;
-
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetUserDetailsByID
-DROP PROCEDURE IF EXISTS `GetUserDetailsByID`;
-DELIMITER //
-CREATE PROCEDURE `GetUserDetailsByID`(
-	IN `UserID_` VARCHAR(50)
-
-)
-BEGIN
-				SELECT   UM.PublicID												AS 'PublicID',
-							UM.FirstName											AS 'FirstName',
-							IF(UM.OtherName IS NULL, '',UM.OtherName)		AS	'OtherName',
-							UM.LastName												AS 'LastName', 
-							IF(UM.NRC IS NULL, 'None', UM.NRC)				AS 'NRC',
-							TPM.PositionName										AS 'PositionName',
-							DP.DepartmentName										AS 'DepartmentName',
-							GM.Gender												AS	'Gender',
-							IF(UM.Passport IS NULL,'None',UM.Passport)	AS 'Passport',
-							UM.ContactNo											AS 'ContactNo',
-							UM.EmailAddress										AS 'EmailAddress',
-							UM.UserMasterID										AS 'UserMasterID'
-								
-				FROM usermaster UM
-				LEFT JOIN teachermaster TM ON TM.PublicUserID = UM.PublicID 
-				LEFT JOIN department DP ON DP.ShortHand = TM.DepartmentCode
-				LEFT JOIN gendermaster GM ON GM.GenderMasterID = UM.GenderID
-				LEFT JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.PositionID
-				WHERE UM.PublicID = UserID_;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetUserDetailsByPublicID
-DROP PROCEDURE IF EXISTS `GetUserDetailsByPublicID`;
-DELIMITER //
-CREATE PROCEDURE `GetUserDetailsByPublicID`(
-	IN `PublicID` VARCHAR(50)
-)
-BEGIN
-			SET @PublicID = PublicID;
-			SELECT	UM.PublicID 														AS 'PublicID',
-						IF(UM.NRC IS NULL, 'None',UM.NRC)							AS 'NRC',
-						IF(UM.Passport IS NULL, 'None',UM.Passport)				AS 'Passport',
-						UM.UserName															AS 'UserName',
-						UM.FirstName														AS 'FirstName',
-						IF(UM.OtherName IS NULL, 'None',UM.OtherName)		   AS 'OtherName',
-						IF(UM.EmailAddress IS NULL, 'None',UM.EmailAddress)	AS 'EmailAddress',	
-						UM.ContactNo														AS 'ContactNo',
-						GM.Gender															AS 'Gender',
-						MRS.MaritalStatus													AS 'MaritalStatus',
-						UM.DOB																AS 'DOB',
-						TPM.PositionName													AS 'PositionName',
-						TM.StartDate														AS 'StartDate',
-						TM.IsOnLeave														AS 'IsOnLeave'
-					  
-			FROM usermaster UM 
-			JOIN teachermaster TM ON TM.PublicID = UM.PublicID
-			JOIN address AD ON AD.IdentificationID = TM.PublicID
-			JOIN gendermaster GM ON GM.GenderMasterID = UM.GenderID
-			JOIN maritalstatusmaster MRS ON MRS.MaritalStatusMasterID = UM.MaritalStatusID
-			JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.PositionID  WHERE GM.IsActive = 1 AND TPM.IsActive = 1 AND  UM.IsActive = 1 AND UM.PublicID =  @PublicID ; 
-
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.GetUserEmailByID
-DROP PROCEDURE IF EXISTS `GetUserEmailByID`;
-DELIMITER //
-CREATE PROCEDURE `GetUserEmailByID`(
-	IN `TEACHERID` VARCHAR(50)
-)
-BEGIN
-		SELECT IF(UM.EmailAddress IS NULL, '' , UM.EmailAddress)	AS 'EmailAddress'
-		FROM usermaster UM WHERE UM.PublicID = TEACHERID AND UM.IsActive = 1;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.SearchActivatedUsers
-DROP PROCEDURE IF EXISTS `SearchActivatedUsers`;
-DELIMITER //
-CREATE PROCEDURE `SearchActivatedUsers`(
-	IN `UserName_` VARCHAR(50),
-	IN `FirstName_` VARCHAR(50),
-	IN `LastName_` VARCHAR(50)
-
-)
-BEGIN
-		SET @USERNAMEC =    (SELECT IF ( UserName_ IS NULL OR UserName_='' , NULL , CONCAT("%",UserName_,"%")) );
-		SET @FIRSTNAMEC =   (SELECT IF ( FirstName_ IS NULL OR FirstName_='' , NULL , CONCAT("%",FirstName_,"%")) );
-		SET @LASTNAMEC = 		(SELECT IF ( LastName_ IS NULL OR LastName_='' , NULL , CONCAT("%",LastName_,"%")) );
-
-		SELECT   UM.PublicID												AS 'PublicID',
-					UM.FirstName											AS 'FirstName',
-					IF(UM.OtherName IS NULL, '',UM.OtherName)		AS	'OtherName',
-					UM.LastName												AS 'LastName', 
-					IF(UM.NRC IS NULL, 'None', UM.NRC)				AS 'NRC',
-					TPM.PositionName										AS 'PositionName',
-					DP.DepartmentName										AS'DepartmentName'			
-		FROM usermaster UM
-		LEFT JOIN teachermaster TM ON TM.PublicUserID = UM.PublicID 
-		LEFT JOIN department DP ON DP.ShortHand = TM.DepartmentCode
-		LEFT JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.PositionID
-		WHERE ((UM.UserName LIKE @USERNAMEC) OR  (UM.FirstName  LIKE @FIRSTNAMEC) OR (UM.LastName LIKE @LASTNAMEC)) AND ( UM.IsActive = 1 );
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.SearchUsers
-DROP PROCEDURE IF EXISTS `SearchUsers`;
-DELIMITER //
-CREATE PROCEDURE `SearchUsers`(
-	IN `UserName_` VARCHAR(50),
-	IN `FirstName_` VARCHAR(50),
-	IN `LastName_` VARCHAR(50)
-
-)
-BEGIN
-		SET @USERNAMEC =    (SELECT IF ( UserName_ IS NULL OR UserName_='' , NULL , CONCAT("%",UserName_,"%")) );
-		SET @FIRSTNAMEC =   (SELECT IF ( FirstName_ IS NULL OR FirstName_='' , NULL , CONCAT("%",FirstName_,"%")) );
-		SET @LASTNAMEC = 		(SELECT IF ( LastName_ IS NULL OR LastName_='' , NULL , CONCAT("%",LastName_,"%")) );
-
-		SELECT   UM.PublicID												AS 'PublicID',
-					UM.FirstName											AS 'FirstName',
-					IF(UM.OtherName IS NULL, '',UM.OtherName)		AS	'OtherName',
-					UM.LastName												AS 'LastName', 
-					IF(UM.NRC IS NULL, 'None', UM.NRC)				AS 'NRC',
-					TPM.PositionName										AS 'PositionName',
-					DP.DepartmentName										AS'DepartmentName'			
-		FROM usermaster UM
-		LEFT JOIN teachermaster TM ON TM.PublicUserID = UM.PublicID 
-		LEFT JOIN department DP ON DP.ShortHand = TM.DepartmentCode
-		LEFT JOIN teacherpositionmaster TPM ON TPM.TeacherPositionMasterID = TM.PositionID
-		WHERE ((UM.UserName LIKE @USERNAMEC) OR  (UM.FirstName  LIKE @FIRSTNAMEC) OR (UM.LastName LIKE @LASTNAMEC)) AND ( UM.IsActive = 0 );
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.UpdateAssecemntTypeActiveStatusByID
-DROP PROCEDURE IF EXISTS `UpdateAssecemntTypeActiveStatusByID`;
-DELIMITER //
-CREATE PROCEDURE `UpdateAssecemntTypeActiveStatusByID`(
-	IN `AsscementTypePublicID` INT,
-	IN `UpdatedBy_` VARCHAR(50)
-)
-BEGIN
-SET @PublicID  = AsscementTypePublicID;
-
-UPDATE assementtypemaster  SET UpdatedBy = UpdatedBy_, `IsActive` =  CASE  
-	WHEN  `IsActive` = 1	THEN  0
-	WHEN  `IsActive` = 0	THEN  1
-	ELSE 
-	`IsActive`
-	END  
-	WHERE AssementTypeID = @PublicID;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.UpdateClassActiveStatusByID
-DROP PROCEDURE IF EXISTS `UpdateClassActiveStatusByID`;
-DELIMITER //
-CREATE PROCEDURE `UpdateClassActiveStatusByID`(
-	IN `ClassPublicID` VARCHAR(100),
-	IN `UpdatedBy_` VARCHAR(50)
-)
-BEGIN
-SET @PublicID  = ClassPublicID;
-
-UPDATE timetablemaster  SET UpdatedBy = UpdatedBy_, `IsActive` =  CASE  
-	WHEN  `IsActive` = 1	THEN  0
-	WHEN  `IsActive` = 0	THEN  1
-	ELSE 
-	`IsActive`
-	END  
-	WHERE TimeTableMasterID = @PublicID;
-	
-
-
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.UpdateEmailSatusCode
-DROP PROCEDURE IF EXISTS `UpdateEmailSatusCode`;
-DELIMITER //
-CREATE PROCEDURE `UpdateEmailSatusCode`(
-	IN `EMAILESERIAL` VARCHAR(50),
-	IN `STATUSCODE` CHAR(4),
-	IN `CURRENTCODE` CHAR(4)
-)
-    COMMENT 'This sp is used to update the statuse code of the emailservice table'
-BEGIN
-		
-		DECLARE EXIT HANDLER FOR SQLEXCEPTION
-		BEGIN
-		     SELECT 0 AS message;
-		     ROLLBACK;
-		END;
-		
-		UPDATE emailservice  SET `Status` = STATUSCODE WHERE EmailSerial = EMAILESERIAL And `Status` = CURRENTCODE;
-		 
-	
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.UpdatePasswordByUsername
-DROP PROCEDURE IF EXISTS `UpdatePasswordByUsername`;
-DELIMITER //
-CREATE PROCEDURE `UpdatePasswordByUsername`(
-	IN `username_` VARCHAR(50)
-,
-	IN `password_` VARCHAR(300)
-
-
-
-
-
-)
-BEGIN
-		DECLARE EXIT HANDLER FOR SQLEXCEPTION
-		BEGIN
-		     SELECT 0 AS message;
-		     ROLLBACK;
-		END;
-		
-		SET @PUBLICID  = (SELECT UM.PublicID FROM usermaster UM WHERE UM.UserName = username_ );
-		
-		UPDATE usermaster SET `Password` = password_, IsActive = 1 WHERE UserName = username_;
-		
-		UPDATE teachermaster SET IsActive = 1 WHERE PublicUserID = @PUBLICID ;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.UpdatePasswordByUserPublicID
-DROP PROCEDURE IF EXISTS `UpdatePasswordByUserPublicID`;
-DELIMITER //
-CREATE PROCEDURE `UpdatePasswordByUserPublicID`(
-	IN `publicid_` VARCHAR(50)
-,
-	IN `password_` VARCHAR(300)
-
-
-
-
-
-)
-BEGIN
-		DECLARE EXIT HANDLER FOR SQLEXCEPTION
-		BEGIN
-		     SELECT 0 AS message;
-		     ROLLBACK;
-		END;
-		
-	
-		
-		UPDATE usermaster SET `Password` = password_, IsActive = 1,IsLocked = 0,LoginAttempts = 0 WHERE PublicID = publicid_;
-		
-		
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.UpdatePeriodMaterActiveStatusByID
-DROP PROCEDURE IF EXISTS `UpdatePeriodMaterActiveStatusByID`;
-DELIMITER //
-CREATE PROCEDURE `UpdatePeriodMaterActiveStatusByID`(
-	IN `PeriodPublicID` INT,
-	IN `UpdatedBy_` VARCHAR(50)
-)
-BEGIN
-SET @PublicID  = PeriodPublicID;
-
-UPDATE periodmaster  SET UpdatedBy = UpdatedBy_, `IsActive` =  CASE  
-	WHEN  `IsActive` = 1	THEN  0
-	WHEN  `IsActive` = 0	THEN  1
-	ELSE 
-	`IsActive`
-	END  
-	WHERE PeriodMasterID = @PublicID;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.UpdateSchoolActiveStatusByID
-DROP PROCEDURE IF EXISTS `UpdateSchoolActiveStatusByID`;
-DELIMITER //
-CREATE PROCEDURE `UpdateSchoolActiveStatusByID`(
-	IN `SchoolPublicID` VARCHAR(50),
-	IN `UpdatedBy_` VARCHAR(50)
-)
-BEGIN
-SET @PublicID  = SchoolPublicID;
-SET @TENANTID = (SELECT SM.TenantID FROM schoolmaster SM WHERE SM.PublicID = SchoolPublicID);
-UPDATE schoolmaster SET UpdatedBy = UpdatedBy_, `IsActive` =  CASE  
-	WHEN  `IsActive` = 1	THEN  0
-	WHEN  `IsActive` = 0	THEN  1
-	ELSE 
-	`IsActive`
-	END  
-	WHERE `PublicID` = @PublicID;
-	
-
-SET @ACTIVESTATUS  = (SELECT SM.IsActive FROM schoolmaster SM WHERE SM.PublicID = SchoolPublicID);
-
-UPDATE tenantmaster SET IsActive = @ACTIVESTATUS WHERE TenantID = @TENANTID;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.UpdateStudentLokedStatus
-DROP PROCEDURE IF EXISTS `UpdateStudentLokedStatus`;
-DELIMITER //
-CREATE PROCEDURE `UpdateStudentLokedStatus`(
-	IN `STUDENTNO_` VARCHAR(500),
-	IN `UpdatedBy_` VARCHAR(50)
-)
-BEGIN
-
-SET @PublicID  = (SELECT SM.StudentMasterPublicID FROM studentmaster SM WHERE SM.StudentNo = STUDENTNO_ );
-
-UPDATE usermaster SET UpdatedBy = UpdatedBy_, `IsLocked` =  CASE  
-	WHEN  `IsLocked` = 1	THEN  0
-	WHEN  `IsLocked` = 0	THEN  1
-	ELSE 
-	`IsLocked`
-	END  
-	WHERE `PublicID` = @PublicID;
-
-UPDATE studentmaster  SET UpdatedBy = UpdatedBy_,  IsActive =  CASE  
-	WHEN  `IsActive` = 1	THEN  0
-	WHEN  `IsActive` = 0	THEN  1
-	ELSE 
-	`IsActive`
-	END  
-	WHERE  `StudentMasterPublicID` = @PublicID;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.UpdateSubjectMaterActiveStatusByID
-DROP PROCEDURE IF EXISTS `UpdateSubjectMaterActiveStatusByID`;
-DELIMITER //
-CREATE PROCEDURE `UpdateSubjectMaterActiveStatusByID`(
-	IN `SUBJECTMASTERID_` VARCHAR(50),
-	IN `UpdatedBy_` VARCHAR(50)
-)
-BEGIN
-SET @PublicID = SUBJECTMASTERID_;
-UPDATE subjectmater  SET UpdatedBy = UpdatedBy_, `IsActive` =  CASE  
-	WHEN  `IsActive` = 1	THEN  0
-	WHEN  `IsActive` = 0	THEN  1
-	ELSE 
-	`IsActive`
-	END  
-	WHERE SubjectMaterID = @PublicID;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.UpdateTeacherLockedStatus
-DROP PROCEDURE IF EXISTS `UpdateTeacherLockedStatus`;
-DELIMITER //
-CREATE PROCEDURE `UpdateTeacherLockedStatus`(
-	IN `PublicID_` VARCHAR(50),
-	IN `UpdatedBy_` VARCHAR(50)
-)
-BEGIN
-
-SET @PublicID  = PublicID_;
-
-UPDATE usermaster SET UpdatedBy = UpdatedBy_, `IsLocked` =  CASE  
-	WHEN  `IsLocked` = 1	THEN  0
-	WHEN  `IsLocked` = 0	THEN  1
-	ELSE 
-	`IsLocked`
-	END  
-	WHERE `PublicID` = @PublicID;
-
-UPDATE teachermaster SET UpdatedBy = UpdatedBy_, IsActive =  CASE  
-	WHEN  `IsActive` = 1	THEN  0
-	WHEN  `IsActive` = 0	THEN  1
-	ELSE 
-	`IsActive`
-	END  
-	WHERE `TeaherMasterPublicID`  = @PublicID;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure 3edu_db.UpdateTermMasterStatus
-DROP PROCEDURE IF EXISTS `UpdateTermMasterStatus`;
-DELIMITER //
-CREATE PROCEDURE `UpdateTermMasterStatus`(
-	IN `TermID` INT,
-	IN `TenantID_` VARCHAR(500),
-	IN `UpdatedBy_` VARCHAR(50)
-)
-BEGIN
-		SET @TermMasterID  = TermID;
-		
-		UPDATE  termmaster  SET UpdatedBy = UpdatedBy_, `IsSysActive` = 0 WHERE `IsSysActive` = 1 AND TenantID= TenantID_;
-		
-		UPDATE termmaster  SET UpdatedBy = UpdatedBy_, `IsSysActive` =  CASE  
-			WHEN  `IsSysActive` = 1	THEN  0
-			WHEN  `IsSysActive` = 0	THEN  1
-			ELSE 
-			`IsSysActive`
-			END  
-			WHERE TermMasterID = @TermMasterID AND TenantID= TenantID_;
-END//
-DELIMITER ;
-
--- Dumping structure for function 3edu_db.GetClassName
-DROP FUNCTION IF EXISTS `GetClassName`;
-DELIMITER //
-CREATE FUNCTION `GetClassName`(`ClassCode` CHAR(5),
-	`SchoolID` VARCHAR(50)
-) RETURNS varchar(50) CHARSET utf8mb4
-    DETERMINISTIC
-    COMMENT 'This Function is used to get the class name '
-BEGIN
-   
- 			DECLARE SUBJECTNAME VARCHAR(50);
-		
-		     SELECT SM.SubjectName INTO SUBJECTNAME FROM subjectmater SM WHERE SM.SubjectCode = ClassCode AND SM.SchoolID = SchoolID;
-    
-         
-			
-	
-				
-			-- return the Sequence
-			RETURN SUBJECTNAME ;
-				
-			
-			
-    
-   
-END//
-DELIMITER ;
-
--- Dumping structure for function 3edu_db.GetSequence
-DROP FUNCTION IF EXISTS `GetSequence`;
-DELIMITER //
-CREATE FUNCTION `GetSequence`(`SequenceID` INT
-
-
-) RETURNS varchar(50) CHARSET latin1
-    DETERMINISTIC
-    COMMENT 'This Function is used to get a sequnce based on the defined sequnces'
-BEGIN
-   
- 			DECLARE LASTINSERTEDID VARCHAR(50);
-			DECLARE NEWLASTINSETEDID VARCHAR(50);
-			DECLARE SEQUNCECODE CHAR(4);
-		
-    
-         SELECT SM.LastInsertedID INTO LASTINSERTEDID FROM sequencemaster SM WHERE SM.SequenceMasterID = SequenceID;
-			
-			SELECT SM.LastInsertedID+1 INTO NEWLASTINSETEDID FROM sequencemaster SM  WHERE SM.SequenceMasterID = SequenceID;
-				
-			SELECT SM.SequnceCode INTO  SEQUNCECODE FROM sequencemaster SM  WHERE SM.SequenceMasterID = SequenceID;
-				
-			UPDATE sequencemaster SET `LastInsertedID` = NEWLASTINSETEDID WHERE SequenceMasterID = SequenceID;
-				
-			-- return the Sequence
-			RETURN CONCAT(SEQUNCECODE,"000000000",NEWLASTINSETEDID) ;
-				
-			
-			
-    
-   
-END//
-DELIMITER ;
-
--- Dumping structure for function 3edu_db.GetStudntNo
-DROP FUNCTION IF EXISTS `GetStudntNo`;
-DELIMITER //
-CREATE FUNCTION `GetStudntNo`(`SequenceID` INT
-) RETURNS varchar(50) CHARSET latin1
-    DETERMINISTIC
-    COMMENT 'This Function is used to get a sequnce based on the defined sequnces'
-BEGIN
-   
- 			DECLARE LASTINSERTEDID VARCHAR(50);
-			DECLARE NEWLASTINSETEDID VARCHAR(50);
-			DECLARE SEQUNCECODE CHAR(4);
-		
-    
-         SELECT SM.LastInsertedID INTO LASTINSERTEDID FROM sequencemaster SM WHERE SM.SequenceMasterID = SequenceID;
-			
-			SELECT SM.LastInsertedID+1 INTO NEWLASTINSETEDID FROM sequencemaster SM  WHERE SM.SequenceMasterID = SequenceID;
-				
-			SELECT SM.SequnceCode INTO  SEQUNCECODE FROM sequencemaster SM  WHERE SM.SequenceMasterID = SequenceID;
-				
-			UPDATE sequencemaster SET `LastInsertedID` = NEWLASTINSETEDID WHERE SequenceMasterID = SequenceID;
-				
-			-- return the Sequence
-			RETURN CONCAT('SN',YEAR(CURDATE()),"0",NEWLASTINSETEDID) ;
-				
-			
-			
-    
-   
-END//
-DELIMITER ;
-
--- Dumping structure for function 3edu_db.GetTenantIDByClassMasterPublicID
-DROP FUNCTION IF EXISTS `GetTenantIDByClassMasterPublicID`;
-DELIMITER //
-CREATE FUNCTION `GetTenantIDByClassMasterPublicID`(`ClassMasterPublicID_` VARCHAR(100)
-) RETURNS varchar(100) CHARSET utf8mb4
-    DETERMINISTIC
-    COMMENT 'This Function is used to get tenandtID by callss puplic ID '
-BEGIN
-   
- 			DECLARE TENANTID VARCHAR(100);
-		
-		     SELECT CM.TenantID INTO TENANTID FROM classmaster CM WHERE CM.ClassMasterPublicID = ClassMasterPublicID_ ;
-    
-         
-			
-	
-				
-			-- return the Sequence
-			RETURN TENANTID ;
-				
-			
-			
-    
-   
-END//
-DELIMITER ;
-
 -- Dumping structure for trigger 3edu_db.AddStudentToUserMaster
 DROP TRIGGER IF EXISTS `AddStudentToUserMaster`;
-SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
 DELIMITER //
 CREATE TRIGGER `AddStudentToUserMaster` AFTER INSERT ON `studentmaster` FOR EACH ROW BEGIN
 
@@ -3709,7 +3534,7 @@ SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- Dumping structure for trigger 3edu_db.AddTimeTableDeails
 DROP TRIGGER IF EXISTS `AddTimeTableDeails`;
-SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
 DELIMITER //
 CREATE TRIGGER `AddTimeTableDeails` AFTER INSERT ON `timetablemaster` FOR EACH ROW BEGIN
 SET @TIMETABLEMASTERID  = (SELECT MAX(TimeTableMasterID) FROM timetablemaster);
@@ -3743,12 +3568,7 @@ SET SQL_MODE=@OLDTMP_SQL_MODE;
 DROP VIEW IF EXISTS `vwsequncemaster`;
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `vwsequncemaster`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwsequncemaster` AS SELECT SM.SequenceMasterID AS 'SequenceMasterID',
-		 SM.SequnceCode		AS 'SequnceCode',
-		 SM.LastInsertedID	AS 'LastInsertedID',
-		 SM.UpdatedOn			AS 'UpdatedOn'
-
-FROM sequencemaster SM ;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwsequncemaster` AS SELECT `SM`.`SequenceMasterID` AS `SequenceMasterID`, `SM`.`SequnceCode` AS `SequnceCode`, `SM`.`LastInsertedID` AS `LastInsertedID`, `SM`.`UpdatedOn` AS `UpdatedOn` FROM `sequencemaster` AS `SM` ;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;

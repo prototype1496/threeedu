@@ -59,29 +59,18 @@ if (isset($_POST['btn_reg_pupil'])) {
         $female_gardian_name = NULL;
     }
 
-
-
     if (!isset($email_address) || $email_address == Null || $email_address == "") {
 
         $email_address = NULL;
     }
 
-
-
-
-
     if (isset($_FILES["profile_pic"]["name"]) && !empty($_FILES["profile_pic"]["name"])) {
-
-
         $location = "../../uploads/";
         $file_new_name = $StudentNo . '_' . $_FILES["profile_pic"]["name"]; // New and unique name of uploaded file
         // $file_name = $_FILES["profile_pic"]["name"];
         $file_temp = $_FILES["profile_pic"]["tmp_name"];
 
         // move_uploaded_file($file_temp, $location.$file_new_name);
-
-
-
         if (SuperModel::regiter_pupil($first_name, $last_name, $other_name, $gender_id, $dob, $marital_status_id, $class_id, $subject_code_1, $subject_code_2, $subject_code_3, $subject_code_4, $subject_code_5, $subject_code_6, $subject_code_7, $subject_code_8, $male_gardian_name, $female_gardian_name, $gardian_contact_no, $address, $StudentMasterPublicID, $StudentNo, $location . $file_new_name, $UpdatedBy, $email_address)) {
             move_uploaded_file($file_temp, $location . $file_new_name);
 
@@ -667,7 +656,139 @@ if (isset($_POST['btn_reg_pupil'])) {
             </script>";
         }
     }
-} else if (isset($_POST['btn_sequnce'])) {
+} else if (isset($_POST['btn_teacher_comment'])) {
+    $classId = trim(filter_input(INPUT_POST, 'classid', FILTER_DEFAULT));
+    $UpdatedBy = $_SESSION['threeedu_username'];
+    $studentPublicId = isset($_POST['student_puplic_id']) ? $_POST['student_puplic_id'] : array(0 => 0);
+    $comment = isset($_POST['comment']) ? $_POST['comment'] : array(0 => 0);
+    $teacherName = isset($_POST['teacherName']) ? $_POST['teacherName'] : "teacherName";
+    $term = isset($_POST['term_id']) ? $_POST['term_id'] : "term_id";
+    $assessments = isset($_POST['assessments']) ? $_POST['assessments'] : "assessments";
+
+    $count = 0;
+    $data = array();
+    $sizeOfIdArray = sizeof($studentPublicId);
+
+    foreach ($studentPublicId as $key => $value) {
+        if ($count < $sizeOfIdArray) {
+            if (empty($comment[$count])) {
+                $teacherComment = NULL;
+            } else {
+                $teacherComment = $comment[$count];
+            }
+            array_push($data, array(
+                    $studentPublicId[$count],
+                $teacherName, null,
+                $teacherComment, null,
+                "HeadTeacher",  $term, $assessments,$UpdatedBy));
+            $count++;
+        }
+    }
+    if (count($data) > 0) {
+        if (SuperModel::addTeacherComments($data)) {
+            echo "<script>               
+            $(document).ready(
+            function(){                
+               $.jnoty('Comments Submitted Successfully', {
+            sticky: false,
+            header: 'Success',
+            theme: 'jnoty-success',
+            close: function() {window.location.replace('/threeedu/view/teacher/studentComments.php')},
+            });   
+            }); 
+            </script>";
+        } else {
+            echo "<script>               
+            $(document).ready(
+            function(){
+               $.jnoty('Error in submitting grading Please Try Later', {
+            sticky: false,
+            header: 'Error',
+            theme: 'jnoty-danger',
+            clo se: function() {window.location.replace('/threeedu/view/teacher/studentComments.php')},
+            });   
+            }); 
+            </script>";
+        }
+    }
+} else if (isset($_POST['btn_head_teacher_comment'])) {
+    $classId = trim(filter_input(INPUT_POST, 'classid', FILTER_DEFAULT));
+    $UpdatedBy = $_SESSION['threeedu_username'];
+    $studentPublicId = isset($_POST['student_puplic_id']) ? $_POST['student_puplic_id'] : array(0 => 0);
+    $comment = isset($_POST['comment']) ? $_POST['comment'] : array(0 => 0);
+    $teacherName = isset($_POST['teacherName']) ? $_POST['teacherName'] : "teacherName";
+    $term = isset($_POST['term_id']) ? $_POST['term_id'] : "term_id";
+    $assessments = isset($_POST['assessments']) ? $_POST['assessments'] : "assessments";
+    $count = 0;
+    $data = array();
+    $sizeOfIdArray = sizeof($studentPublicId);
+    foreach ($studentPublicId as $key => $value) {
+        if ($count < $sizeOfIdArray) {
+            if (empty($comment[$count])) {
+                $teacherComment = NULL;
+            } else {
+                $teacherComment = $comment[$count];
+            }
+            array_push($data, array("studentPublicId" => $studentPublicId[$count], "teacherName" => $teacherName, "commentData" => $teacherComment, "status" => "Done", "term" => $term,"assessmentName"=> $assessments, "updatedBy" => $UpdatedBy));
+            $count++;
+        }
+    }
+    if (count($data) > 0) {
+        if (SuperModel::addHeadTeacherComments($data)) {
+            echo "<script>               
+            $(document).ready(
+            function(){                
+               $.jnoty('Comments Submitted Successfully', {
+            sticky: false,
+            header: 'Success',
+            theme: 'jnoty-success',
+            close: function() {window.location.replace('/threeedu/view/headteacher/studentComments.php')},
+            });   
+            }); 
+            </script>";
+        } else {
+            echo "<script>               
+            $(document).ready(
+            function(){
+               $.jnoty('Error in submitting grading Please Try Later', {
+            sticky: false,
+            header: 'Error',
+            theme: 'jnoty-danger',
+            clo se: function() {window.location.replace('/threeedu/view/headteacher/studentComments.php')},
+            });   
+            }); 
+            </script>";
+        }
+    }
+} else if (isset($_POST['loginBtnClicked'])) {
+    $clickedBtn = $_POST['loginBtnClicked'];
+    if (SuperModel::saveTeacherSignInTime($clickedBtn,$_POST['publicId'],$_POST['tenantId'])) {
+        echo "<script>               
+            $(document).ready(
+            function(){                
+               $.jnoty('$clickedBtn Details Submitted Successfully', {
+            sticky: false,
+            header: 'Success',
+            theme: 'jnoty-success',
+            close: function() {window.location.replace('/threeedu/view/teacher/loginTime.php')},
+            });   
+            }); 
+            </script>";
+    } else {
+        echo "<script>               
+            $(document).ready(
+            function(){                
+               $.jnoty('$clickedBtn time already saved', {
+            sticky: false,
+            header: 'Warning',
+            theme: 'jnoty-warning',
+            close: function() {window.location.replace('/threeedu/view/teacher/loginTime.php')},
+            });   
+            }); 
+            </script>";
+    }
+}
+else if (isset($_POST['btn_sequnce'])) {
     $SequnceCode = $_POST['sequnce_code'];
 
     if (SuperModel::add_seuence($SequnceCode)) {

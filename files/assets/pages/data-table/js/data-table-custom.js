@@ -294,7 +294,7 @@ $(document).ready(function() {
     // Server side script table end
     // Data source table js end
 
-    // Api table js start
+    // api table js start
     var t = $('#add-row-table').DataTable();
     var counter = 1;
 
@@ -493,7 +493,7 @@ $(document).ready(function() {
         filterColumn($(this).parents('tr').attr('data-column'));
     });
     // Search API end
-    // Api table js end
+    // api table js end
 
     // Styling js start
     $('#base-style').DataTable();
