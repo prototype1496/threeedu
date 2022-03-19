@@ -1,10 +1,10 @@
 <?php 
 require '../../controller/super/SessionStart.php'; 
 require_once '../../db_connection/dbconfig.php';
-require_once '../../model/TeacherModel.php';
+require_once '../../model/SuperModel.php';
 include '../../controller/super/SuperController.php';
 $tenant_id = $_SESSION['threeedu_tenantid'];
-$stm = TeacherModel::get_complet_student_details($tenant_id);
+$stm = SuperModel::get_complet_user_details_by_tenant_id($tenant_id);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +12,7 @@ $stm = TeacherModel::get_complet_student_details($tenant_id);
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dt-ext-buttons-html-5-data-export.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:48:50 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<title>Student Details </title>
+<title>User Details </title>
 
 
 <!--[if lt IE 10]>
@@ -104,8 +104,7 @@ $stm = TeacherModel::get_complet_student_details($tenant_id);
     
     
    
-<!--side bar start  -->
- <?php
+  <?php
                         if ($_SESSION['threeedu_user_id'] == 1)
                             {
                              require './sidbar.php';
@@ -115,24 +114,12 @@ $stm = TeacherModel::get_complet_student_details($tenant_id);
                             require './itadminsidbar.php';
                         }
                         ?>
-<!--side bar end  --> 
 
 <div class="pcoded-content">
 <div class="pcoded-inner-content">
 
 <div class="main-body">
-<div class="page-wrapper">
 
-<div class="page-header">
-<div class="row align-items-end">
-<div class="col-lg-8">
-
-
- </ul>
-</div>
-</div>
-</div>
-</div>
 
 
 <div class="page-body">
@@ -141,7 +128,7 @@ $stm = TeacherModel::get_complet_student_details($tenant_id);
 
 <div class="card">
     <div class="card-header ">
-        <h4>Students Information </h4>      
+        <h4>User Information </h4>      
    <hr>     
     </div>
 <div class="card-block">
@@ -150,13 +137,14 @@ $stm = TeacherModel::get_complet_student_details($tenant_id);
 <thead>
 <tr>
     <th></th>
-<th>Student No.</th>
+    <th>ID</th>
 <th>Name</th>
-
-<th>Contact No.</th>
+<th>NRC</th>
+<th>Contact</th>
 <th>DOB</th>
 <th>Active</th>
 <th>Locked</th>
+
 <th></th>
 </tr>
 </thead>
@@ -164,28 +152,28 @@ $stm = TeacherModel::get_complet_student_details($tenant_id);
       <?php while($row = $stm->fetch(PDO::FETCH_ASSOC))
                             
                     {
-                          $public_id = $row['PublicID'];
+                          $public_id = $row['UserMasterPublicID'];
+                          $name = $row['Name'];
                             ?>
 <tr>
     <td></td>
      <td><?php echo $public_id;?></td>
-         <td><?php echo $row['Name'];?></td>
-        
-        <td ><?php echo $row['ContactNo'];?></td>
+         <td><?php echo $name;?></td>
+        <td ><?php echo $row['NRC'];?></td>
+        <td ><?php echo $row['Contact'];?></td>
         <td ><?php echo $row['DOB'];?></td>
-       <td ><?php echo $row['Active'];?></td>
-       <td ><?php echo $row['IsLocked'];?></td>
+        <td ><?php echo $row['IsActive'];?></td>
+         <td ><?php echo $row['IsLocked'];?></td>
 
 <td>
- 
-     <button onclick="redirectWithID('   <?php if ($row['Active'] =="Yes"){
-        
-         echo $public_id;
-        
-    }else {echo '';}?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-eye"></i></button>
+<!--    <button onclick="redirectWithID('<?php if($row['IsActive'] == "Yes"){echo $public_id;}else{echo "";} ?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-eye"></i></button>
+ -->
    
     <button onclick="redirectResetWithID('<?php echo $public_id;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-unlock"></i></button>
- 
+   
+    <button onclick="resetPassword('<?php echo $public_id;?>','<?php echo $name;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-refresh-cw"></i></button>
+  
+  
 </td>
 </tr>
 
@@ -198,14 +186,13 @@ $stm = TeacherModel::get_complet_student_details($tenant_id);
 </tbody>
 <tfoot>
 <tr>
-    <th></th>
-<th>Student No.</th>
-<th>Name</th>
-
+        <th></th>
+     <th>ID</th>
+<th>Teacher</th>
+<th>NRC</th>
 <th>Contact No.</th>
 <th>DOB</th>
 <th>Active</th>
-
 <th></th>
 </tr>
 </tfoot>
@@ -323,17 +310,24 @@ $stm = TeacherModel::get_complet_student_details($tenant_id);
 
 <script>
  function redirectWithID(id){
-         window.location.href = "/threeedu/view/admin/profile.php?id="+id;
+         window.location.href = "/threeedu/view/admin/userprofile.php?id="+id;
         
     }
     
-     function redirectResetWithID(id){
+        function redirectResetWithID(id){
       
-         window.location.href = "viwestudent.php?student_id="+id;
+         window.location.href = "viweusers.php?user_id_20220091="+id;
         
         
     }
     
+    
+    function resetPassword(id,name){
+      
+         window.location.href = "resetpassword.php?user_id_reset_20220091="+id+"&name="+name;
+        
+        
+    }
 </script>
 <script src="../../files/rocket-loader.min.js" data-cf-settings="028b4b5e88a856df25e89945-|49" defer=""></script></body>
 

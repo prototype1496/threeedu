@@ -125,7 +125,7 @@ INSERT IGNORE INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastIns
 	(20, 'TEDT', 120, '2021-08-21 11:22:16'),
 	(21, 'CLRM', 118, '2021-08-22 11:42:24'),
 	(22, 'TRID', 62, '2021-09-06 04:44:36'),
-	(23, 'BILL', 15, '2021-09-17 16:46:37'),
+	(23, 'BILL', 17, '2021-09-17 16:46:37'),
 	(24, 'ACCO', 0, '2021-11-27 16:15:30'),
 	(25, 'TRAN', 88, '2021-11-28 02:57:12');
 /*!40000 ALTER TABLE `sequencemaster` ENABLE KEYS */;
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `transactiondetails` (
   UNIQUE KEY `ReciptNo` (`ReciptNo`),
   KEY `FK_transactiondetails_transactionmaster` (`TransactionMasterPublicID`),
   CONSTRAINT `FK_transactiondetails_transactionmaster` FOREIGN KEY (`TransactionMasterPublicID`) REFERENCES `transactionmaster` (`TransactionMasterPublicID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_accounts_db.transactiondetails: ~6 rows (approximately)
 /*!40000 ALTER TABLE `transactiondetails` DISABLE KEYS */;
@@ -159,7 +159,10 @@ INSERT IGNORE INTO `transactiondetails` (`TransactionDetailsID`, `TransactionMas
 	(17, 'TRAN00000000039', 'BILL00000000012', 300, 500, 1, 'SDNT00000000031', 'acc', 'acc', '2020-01-16 08:09:55', '2020-01-16 08:09:55', '1'),
 	(18, 'TRAN00000000050', 'BILL00000000013', 200, 1300, 1, 'SDNT00000000031', 'acc', 'acc', '2021-01-16 08:14:32', '2021-01-16 08:14:32', '1'),
 	(19, 'TRAN00000000050', 'BILL00000000014', 100, 1200, 1, 'SDNT00000000031', 'acc', 'acc', '2021-01-16 08:14:51', '2021-01-16 08:14:51', '1'),
-	(20, 'TRAN00000000072', 'BILL00000000015', 500, 1700, 1, 'SDNT00000000031', 'acc', 'acc', '2022-01-16 08:25:29', '2022-01-16 08:25:29', '1');
+	(20, 'TRAN00000000072', 'BILL00000000015', 500, 1700, 1, 'SDNT00000000031', 'acc', 'acc', '2022-01-16 08:25:29', '2022-01-16 08:25:29', '1'),
+	(21, 'TRAN00000000072', 'BILL00000000016', 100, 1600, 1, 'SDNT00000000031', 'acc', 'acc', '2022-03-19 10:43:13', '2022-03-19 10:43:13', '1'),
+	(24, 'TRAN00000000010', 'BILL00000000001', 0, 1000, 1, 'SDNT00000000035', 'acc', 'acc', '2022-03-19 10:44:25', '2022-03-19 10:44:53', '1'),
+	(25, 'TRAN00000000010', 'BILL00000000017', 250, 750, 1, 'SDNT00000000035', 'acc', 'acc', '2022-03-19 10:47:02', '2022-03-19 10:47:02', '1');
 /*!40000 ALTER TABLE `transactiondetails` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_accounts_db.transactionmaster
@@ -181,14 +184,15 @@ CREATE TABLE IF NOT EXISTS `transactionmaster` (
   `TenantMasterID` varchar(500) NOT NULL,
   PRIMARY KEY (`TransactionMasterID`),
   UNIQUE KEY `TransactionMasterPublicID` (`TransactionMasterPublicID`)
-) ENGINE=InnoDB AUTO_INCREMENT=208 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=209 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_accounts_db.transactionmaster: ~3 rows (approximately)
 /*!40000 ALTER TABLE `transactionmaster` DISABLE KEYS */;
 INSERT IGNORE INTO `transactionmaster` (`TransactionMasterID`, `TransactionMasterPublicID`, `StudentMasterPublicID`, `TermMasterID`, `GradeMasterID`, `GradeName`, `Balance`, `BilledAmount`, `IsActive`, `UpdatedBy`, `Year`, `UpdatedOn`, `AddedOn`, `TenantMasterID`) VALUES
 	(118, 'TRAN00000000039', 'SDNT00000000031', 1, 8, '8', 500, 1000, '1', 'acc', '2020', '2020-01-16 08:07:20', '2020-01-16 08:07:20', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(137, 'TRAN00000000050', 'SDNT00000000031', 1, 8, '8', 1200, 1000, '1', 'acc', '2021', '2021-01-16 08:12:00', '2021-01-16 08:12:00', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
-	(175, 'TRAN00000000072', 'SDNT00000000031', 1, 8, '8', 1700, 1000, '1', 'acc', '2022', '2022-01-16 08:21:50', '2022-01-16 08:21:50', '5fe7597e-f7a1-11eb-a81c-1062e5c23529');
+	(175, 'TRAN00000000072', 'SDNT00000000031', 1, 8, '8', 1600, 1000, '1', 'acc', '2022', '2022-01-16 08:21:50', '2022-01-16 08:21:50', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
+	(208, 'TRAN00000000010', 'SDNT00000000035', 1, 8, '8', 750, 1000, '1', 'acc', '2022', '2022-03-19 10:37:17', '2022-03-19 10:37:15', '5fe7597e-f7a1-11eb-a81c-1062e5c23529');
 /*!40000 ALTER TABLE `transactionmaster` ENABLE KEYS */;
 
 -- Dumping structure for procedure 3edu_accounts_db.CheckIfFessExists

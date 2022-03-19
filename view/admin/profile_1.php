@@ -8,18 +8,16 @@ $student_no = trim(filter_input(INPUT_GET, 'id', FILTER_DEFAULT));
 $row = SuperModel::get_student_details_by_student_no($student_no);
 
 
-
 if (isset($row['PublicID'])){
 
-      $student_public_id =   trim($row['StudentMasterPublicID']);
-      
-     
+      $student_public_id =   trim($row['PublicID']);
 $student_data = SuperModel::get_all_transaction_history($student_public_id);
-
+$stm_balance_data = SuperModel::get_total_bill_blance($student_public_id);
 }else{
   $student_data = SuperModel::get_all_transaction_history('');  
     
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,7 +110,13 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
 
 
 <!--side bar start  -->
-<?php require './sidbar.php'; ?>
+   <?php
+                            if ($_SESSION['threeedu_user_id'] == 1) {
+                                require './sidbar.php';
+                            } else if ($_SESSION['threeedu_user_id'] == 4) {
+                                require './itadminsidbar.php';
+                            }
+                            ?>
 <!--side bar end  -->
 
 
@@ -125,6 +129,13 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
             <div class="page-wrapper">
 
                 <div class="page-body">
+                    
+                    <?php if ($student_no == "" || !isset($student_no)){
+                        
+                             echo '<center><h1><b>Student profile inactive<b> </h1></center>';
+                        
+                    }else { ?>
+                    
 
                     <div class="row">
                         <div class="col-md-12">
@@ -366,7 +377,7 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
  <table id="simpletable2" class="table  table-striped table-bordered nowrap">
 <thead>
 <tr>
-    <th>Amount Paid</th>
+    <th>Amount</th>
      <th>Balance</th>
 <th>Date Paid</th>
 
@@ -374,12 +385,12 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
 </tr>
 </thead>
 <tbody>
-      <?php
+    <?php
 while ($row = $student_data->fetch(PDO::FETCH_ASSOC)) {
 
     ?>
     <tr>
-          
+          <td></td>
       
         <td><?php echo $row['PaidAmout']; ?></td>
         <td><?php echo $row['Balace']; ?></td>
@@ -394,14 +405,13 @@ while ($row = $student_data->fetch(PDO::FETCH_ASSOC)) {
 
 
 
-
 </tbody>
 <tfoot>
 <tr>
-     <th>Amount Paid</th>
-     <th>Balance</th>
+     <th>Amount</th>
 <th>Date Paid</th>
 
+</tr>
 </tfoot>
 </table>   
     
@@ -446,7 +456,7 @@ while ($row = $student_data->fetch(PDO::FETCH_ASSOC)) {
                         </div>
                     </div>
 
-
+                    <?php }?>
                 </div>
             </div>
         </div>

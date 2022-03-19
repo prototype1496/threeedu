@@ -6,6 +6,9 @@ require_once '../../model/SuperModel.php';
 
    $student_pulic_id  =  $_SESSION['threeedu_public_id'];
    $tenant_id  =  $_SESSION['threeedu_tenantid'];
+   
+   $attendancy_data = SuperModel::get_student_attendncy_days($student_pulic_id);
+
    $stm_get_atendance_history = SuperModel::get_single_studnet_attendance_report_by_id($student_pulic_id);
 $get_stuednt_details = SuperModel::get_student_details_by_student_public_id($student_pulic_id);
 
@@ -36,6 +39,10 @@ $classmaster_id = $get_stuednt_details['ClassMasterPublicID'];
              array_push($periods,$row['PeriodName']);
           
             }
+            
+            
+            
+            
             
          
 ?>
@@ -214,9 +221,9 @@ $classmaster_id = $get_stuednt_details['ClassMasterPublicID'];
 <div class="card">
 <div class="card-header">
 <h5 class="card-header-text">About Me</h5>
-<button id="edit-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right">
+<!--<button id="edit-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right">
  <i class="icofont icofont-edit"></i>
-</button>
+</button>-->
 </div>
 <div class="card-block">
 <div class="view-info">
@@ -551,8 +558,8 @@ $classmaster_id = $get_stuednt_details['ClassMasterPublicID'];
 <div class="card-block">
 <ul class="list-group list-contacts">
 <li class="list-group-item active"><a href="#">Total Attendance</a></li>
-<li class="list-group-item"><a href="#">Present Days: 0</a></li>
-<li class="list-group-item"><a href="#">Absent Days: 0</a></li>
+<li class="list-group-item"><a href="#">Present Days: <?php echo $attendancy_data['TOTALPRESENTDAYS'];?></a></li>
+<li class="list-group-item"><a href="#">Absent Days: <?php echo $attendancy_data['TOTALABSETDAYS'];?></a></li>
 </ul>
 </div>
  <div class="card-block groups-contact">

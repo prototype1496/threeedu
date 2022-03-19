@@ -1626,6 +1626,333 @@ else if (isset($_POST['btn_create_acc'])) {
         
     }
 }
+else if (isset($_POST['btn_reset_password'])) {
+
+    $UpdatedBy = $_SESSION['threeedu_username'];
+    $tenant_id = $_SESSION['threeedu_tenantid'];
+
+    $public_id = trim(filter_input(INPUT_POST, 'public_id', FILTER_DEFAULT));
+    $password = trim(filter_input(INPUT_POST, 'password', FILTER_DEFAULT));
+    $_name = trim(filter_input(INPUT_POST, 'name', FILTER_DEFAULT));
+    
+    
+    $hushed_password =  password_hash($password, PASSWORD_DEFAULT);
+ 
+ 
+    
+        if (SuperModel::reset_user_password($public_id,$hushed_password,$UpdatedBy)) {
+           
+            
+            echo "<script>               
+                         $(document).ready(
+
+                         function(){
+
+                            $.jnoty('Password Updated Successfully', {
+                         sticky: false,
+                         header: 'Erro',
+                         theme: 'jnoty-success',
+                         close: function() {window.location.replace('/threeedu/view/admin/viweusers.php')},
+                         });   
+                         }); 
+                         </script>";
+            
+        } else {
+            
+            echo "<script>               
+                         $(document).ready(
+
+                         function(){
+
+                            $.jnoty('Error in updateing Password Please Try Again Later', {
+                         sticky: false,
+                         header: 'Erro',
+                         theme: 'jnoty-success',
+                         close: function() {window.location.replace('/threeedu/view/admin/viweusers.php')},
+                         });   
+                         }); 
+                         </script>";
+            
+           
+        }
+        
+}
+else if (isset($_POST['btn_create_itadmin'])) {
+    $acc_id = SuperModel::get_sequence_id(22);
+
+    $username = trim(filter_input(INPUT_POST, 'username', FILTER_DEFAULT));
+
+    $password = trim(filter_input(INPUT_POST, 'password', FILTER_DEFAULT));
+ 
+    $first_name = trim(filter_input(INPUT_POST, 'first_name', FILTER_DEFAULT));
+    $last_name = trim(filter_input(INPUT_POST, 'last_name', FILTER_DEFAULT));
+
+    $other_name = trim(filter_input(INPUT_POST, 'other_name', FILTER_DEFAULT));
+
+    $gender_id = trim(filter_input(INPUT_POST, 'gender_id', FILTER_DEFAULT));
+
+    $dob = trim(filter_input(INPUT_POST, 'dob', FILTER_DEFAULT));
+
+    $marital_status_id = trim(filter_input(INPUT_POST, 'marital_status_id', FILTER_DEFAULT));
+
+    $position_id = trim(filter_input(INPUT_POST, 'position_id', FILTER_DEFAULT));
+
+    $department_id = trim(filter_input(INPUT_POST, 'department_id', FILTER_DEFAULT));
+
+    $nrc = trim(filter_input(INPUT_POST, 'nrc', FILTER_DEFAULT));
+
+    $passport = trim(filter_input(INPUT_POST, 'passport', FILTER_DEFAULT));
+
+    $concat_no = trim(filter_input(INPUT_POST, 'concat_no', FILTER_DEFAULT));
+
+    $email_address = trim(filter_input(INPUT_POST, 'email_address', FILTER_DEFAULT));
+
+    $district_id = trim(filter_input(INPUT_POST, 'district_id', FILTER_DEFAULT));
+    $pramary_address = trim(filter_input(INPUT_POST, 'pramary_address', FILTER_DEFAULT));
+
+    $secondary_address = trim(filter_input(INPUT_POST, 'secondary_address', FILTER_DEFAULT));
+
+    $user_type = Config::$USER_TYPE_ITADMIN; //teacher usertype
+
+
+    
+    
+    //Make values Null if they are empty 
+    if (!isset($other_name) || $other_name == Null || $other_name == "" || empty($other_name)) {
+
+        $other_name = NULL;
+    }
+
+
+
+    if (!isset($nrc) || $nrc == Null || $nrc == "" || empty($nrc)) {
+
+        $nrc = NULL;
+    }
+
+    if (!isset($passport) || $passport == Null || $passport == "" || empty($passport)) {
+
+        $passport = NULL;
+    }
+
+
+
+    if (!isset($email_address) || $email_address == Null || $email_address == "" || empty($email_address)) {
+
+        $email_address = NULL;
+    }
+
+
+    if (!isset($secondary_address) || $secondary_address == Null || $secondary_address == "" || empty($secondary_address)) {
+
+        $secondary_address = NULL;
+    }
+        //End  values Null if they are empty 
+
+
+    $hushed_password =  password_hash($password, PASSWORD_DEFAULT);
+    $UpdatedBy = $_SESSION['threeedu_username'];
+    $tenant_id = $_SESSION['threeedu_tenantid'];
+    
+    $role_id = $_SESSION['threeedu_user_id'];
+    $teacher_position_id =  $_SESSION['threeedu_teacher_possition_id'];
+    
+     $count = 0;
+        $subject_data = array();
+
+        // print_r(strlen($student_no[0])) ; 
+       // $size_of_id_array = sizeof($subject_code);
+
+      
+    
+
+    if (isset($_FILES["profile_pic"]["name"]) && !empty($_FILES["profile_pic"]["name"])) {
+
+
+        $location = "../../uploads/acc_profile/";
+        $file_new_name = $acc_id . '_' . $_FILES["profile_pic"]["name"]; // New and unique name of uploaded file
+        // $file_name = $_FILES["profile_pic"]["name"];
+        $file_temp = $_FILES["profile_pic"]["tmp_name"];
+
+      
+
+       
+///test 
+        $pic_url = $location . $file_new_name;
+
+        //print_r(count($data));
+          if (SuperModel::create_itadmin($pic_url,$acc_id, $nrc, $passport, $username, $hushed_password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id))
+          { 
+                move_uploaded_file($file_temp, $pic_url); 
+              
+              //The below code is to redirect usere to correct page i.e addmin , IT Admin e.t.c
+              if ($role_id == 3 && $teacher_position_id == 1)
+                    {
+                                echo "<script>               
+                         $(document).ready(
+
+                         function(){
+
+                            $.jnoty('IT Amdmin  Added Successfuly', {
+                         sticky: false,
+                         header: 'Success',
+                         theme: 'jnoty-success',
+                         close: function() {window.location.replace('../../view/headteacher/additadmin.php')},
+                         });   
+                         }); 
+                         </script>";
+                    }
+                   else if ($role_id == 4)
+                   {
+                              echo "<script>               
+                        $(document).ready(
+
+                        function(){
+
+                           $.jnoty('IT Amdmin Added Successfuly', {
+                        sticky: false,
+                        header: 'Success',
+                        theme: 'jnoty-success',
+                        close: function() {window.location.replace('../../view/admin/additadmin.php')},
+                        });   
+                        }); 
+                        </script>";
+                   }
+             //The below code is to redirect usere to correct page i.e addmin , IT Admin e.t.c END 
+              
+             
+         }
+          else {
+              
+              
+              
+              //The below code is to redirect usere to correct page i.e addmin , IT Admin e.t.c
+              if ($role_id == 3 && $teacher_position_id == 1)
+                    {
+                                echo "<script>               
+                                $(document).ready(
+
+                                function(){
+
+                                   $.jnoty('We encountered an error in adding an IT Amdmin Please Contact Admin', {
+                                sticky: false,
+                                header: 'Erro',
+                                theme: 'jnoty-danger',
+                                close: function() {window.location.replace('../../view/headteacher/additadmin.php')},
+                                });   
+                                }); 
+                                </script>";
+                    }
+                   else if ($role_id == 4)
+                   {
+                               echo "<script>               
+                                $(document).ready(
+
+                                function(){
+
+                                   $.jnoty('We encountered an error in adding an IT Amdmin Please Contact Admin', {
+                                sticky: false,
+                                header: 'Erro',
+                                theme: 'jnoty-danger',
+                                close: function() {window.location.replace('../../view/admin/additadmin.php')},
+                                });   
+                                }); 
+                                </script>";
+                   }
+             //The below code is to redirect usere to correct page i.e addmin , IT Admin e.t.c END 
+              
+              
+              
+              
+              
+          }
+
+       
+        }
+         else {
+              //This code sets the profile pic to a defult image
+                $pic_url = "../../uploads/defult.png";
+                if(SuperModel::create_itadmin($pic_url,$acc_id, $nrc, $passport, $username, $hushed_password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id))
+                {
+
+                  //The below code is to redirect usere to correct page i.e addmin , IT Admin e.t.c
+              if ($role_id == 3 && $teacher_position_id == 1)
+                    {
+                                echo "<script>               
+                         $(document).ready(
+
+                         function(){
+
+                            $.jnoty('IT Amdmin Added Successfuly', {
+                         sticky: false,
+                         header: 'Success',
+                         theme: 'jnoty-success',
+                         close: function() {window.location.replace('../../view/headteacher/additadmin.php')},
+                         });   
+                         }); 
+                         </script>";
+                    }
+                   else if ($role_id == 4)
+                   {
+                              echo "<script>               
+                        $(document).ready(
+
+                        function(){
+
+                           $.jnoty('IT Amdmin Added Successfuly', {
+                        sticky: false,
+                        header: 'Success',
+                        theme: 'jnoty-success',
+                        close: function() {window.location.replace('../../view/admin/additadmin.php')},
+                        });   
+                        }); 
+                        </script>";
+                   }
+             //The below code is to redirect usere to correct page i.e addmin , IT Admin e.t.c END 
+                
+                }else {
+                      
+              //The below code is to redirect usere to correct page i.e addmin , IT Admin e.t.c
+              if ($role_id == 3 && $teacher_position_id == 1)
+                    {
+                                echo "<script>               
+                                $(document).ready(
+
+                                function(){
+
+                                   $.jnoty('We encountered an error in adding an IT Amdmin Please Contact Admin', {
+                                sticky: false,
+                                header: 'Erro',
+                                theme: 'jnoty-danger',
+                                close: function() {window.location.replace('../../view/headteacher/additadmin.php')},
+                                });   
+                                }); 
+                                </script>";
+                    }
+                   else if ($role_id == 4)
+                   {
+                               echo "<script>               
+                                $(document).ready(
+
+                                function(){
+
+                                   $.jnoty('We encountered an error in adding an IT Amdmin Please Contact Admin', {
+                                sticky: false,
+                                header: 'Erro',
+                                theme: 'jnoty-danger',
+                                close: function() {window.location.replace('../../view/admin/additadmin.php')},
+                                });   
+                                }); 
+                                </script>";
+                   }
+             //The below code is to redirect usere to correct page i.e addmin , IT Admin e.t.c END 
+              
+              
+
+                  }
+        
+    }
+}
 
 //Beaceue the btn_create_teeacher is big we have a separate function to avoid boiler plate code
 function add_teacher_details($pic_url,$subject_data,$teacher_id, $nrc, $passport, $username, $hushed_password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id) {

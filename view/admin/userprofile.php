@@ -2,24 +2,11 @@
 require '../../controller/super/SessionStart.php'; 
 require '../../db_connection/dbconfig.php'; 
 require '../../model/SuperModel.php'; 
+$tenant_id = $_SESSION['threeedu_tenantid'];
+$teacher_id = trim(filter_input(INPUT_GET, 'id', FILTER_DEFAULT));
 
-$student_no = trim(filter_input(INPUT_GET, 'id', FILTER_DEFAULT));
+$row = SuperModel::get_all_complet_teacher_details_by_tenant_id($tenant_id,$teacher_id);
 
-$row = SuperModel::get_student_details_by_student_no($student_no);
-
-
-
-if (isset($row['PublicID'])){
-
-      $student_public_id =   trim($row['StudentMasterPublicID']);
-      
-     
-$student_data = SuperModel::get_all_transaction_history($student_public_id);
-
-}else{
-  $student_data = SuperModel::get_all_transaction_history('');  
-    
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +14,7 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dashboard-crm.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:45:47 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<title>Pupil Profile </title>
+<title>Teacher Profile </title>
 
 
 <!--[if lt IE 10]>
@@ -112,7 +99,18 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
 
 
 <!--side bar start  -->
-<?php require './sidbar.php'; ?>
+ <!--side bar start  -->
+                        <?php
+                        if ($_SESSION['threeedu_user_id'] == 1)
+                            {
+                             require './sidbar.php';
+                            } 
+                        else if ($_SESSION['threeedu_user_id'] == 4) 
+                        {
+                            require './itadminsidbar.php';
+                        }
+                        ?>
+                        <!--side bar end  -->
 <!--side bar end  -->
 
 
@@ -125,7 +123,11 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
             <div class="page-wrapper">
 
                 <div class="page-body">
-
+ <?php if ($teacher_id == "" || !isset($teacher_id)){
+                        
+                             echo '<center><h1><b>Teacher profile inactive<b> </h1></center>';
+                        
+                    }else { ?>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -134,7 +136,7 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
 
                                     <div class="form">
                                         <div>
-                                            <h4>Student Profile</h4>
+                                            <h4>Teacher Profile</h4>
                                         </div>
                                         <br />
                                     </div>
@@ -147,8 +149,8 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
                                             <div class="form-group">
 
                                                 <div>
-                                                    <a href="<?php echo $row['ProfilePic'] ; ?>" data-lightbox="roadtrip" class="profile-image" >
-                                                    <img src="<?php echo $row['ProfilePic'] ; ?>" class="img-circle" alt="Cinque Terre" width="200" height="200" />
+                                                    <a href="<?php echo $row['ProfilPicURL'] ; ?>" data-lightbox="roadtrip" class="profile-image" >
+                                                    <img src="<?php echo $row['ProfilPicURL'] ; ?>" class="img-circle" alt="Profile Pic" width="200" height="200" />
                                                     </a>
                                                 </div>
                                                 <br />
@@ -156,7 +158,7 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
                                                 <br />
                                                 <br />
                                                 <br />
-                                                <h1 style="color:purple; font-family: verdana; font-size: 140%; "> <?php echo $row['Name'] ; ?></h1>
+                                                <h1 style="color:purple; font-family: verdana; font-size: 140%; "> <?php echo $row['TeacherName'] ; ?></h1>
                                             </div>
                                         </div>
 
@@ -173,8 +175,8 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
                                                     <div class="col-md-6">
                                                         <div>
                                                             <div class="form-group">
-                                                                <H4 class="text-c-blue">Student ID</H4>
-                                                                <h1 style="color:maroon; font-family: 'Times New Roman'; font-size: 120%; "><?php echo $row['PublicID'] ; ?></h1>
+                                                                <H4 class="text-c-blue">Teacher ID</H4>
+                                                                <h1 style="color:maroon; font-family: 'Times New Roman'; font-size: 120%; "><?php echo $row['TeaherMasterPublicID'] ; ?></h1>
 
                                                             </div>
 
@@ -187,12 +189,12 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <dt>
-                                                            <p class="text-right">Grade</p>
+                                                            <p class="text-right">Department</p>
                                                         </dt>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div>
-                                                            <?php echo $row['ClassName'] ; ?>
+                                                            <?php echo $row['DepartmentName'] ; ?>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -204,12 +206,12 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <dt>
-                                                            <p class="text-right">Gender</p>
+                                                            <p class="text-right">Contact No</p>
                                                         </dt>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div>
-                                                            <?php echo $row['Gender'] ; ?>
+                                                            <?php echo $row['ContactNo'] ; ?>
 
                                                         </div>
                                                     </div>
@@ -241,12 +243,12 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <dt>
-                                                            <p class="text-right">Father's Names</p>
+                                                            <p class="text-right">NRC</p>
                                                         </dt>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div>
-                                                           <?php echo $row['GuardianMaleName'] ; ?>
+                                                           <?php echo $row['NRC'] ; ?>
 
                                                         </div>
                                                     </div>
@@ -257,12 +259,12 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <dt>
-                                                            <p class="text-right">Mother's Names</p>
+                                                            <p class="text-right">Username</p>
                                                         </dt>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div>
-                                                           <?php echo $row['GuardianFemaleName'] ; ?>
+                                                           <?php echo $row['UserName'] ; ?>
 
                                                         </div>
                                                     </div>
@@ -301,7 +303,7 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
 
 
 
-                                                <div class="row">
+<!--                                                <div class="row">
                                                     <div class="col-md-6">
                                                         <dt>
                                                             <p class="text-right">Address</p>
@@ -313,7 +315,7 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
 
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>-->
 
                                             </div>
                                         </div>
@@ -323,128 +325,10 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
                             </div>
                         </div>
                     </div>
+    <?php }?>
 
 
 
-
-                    <div class="row">
-                        <div class="col-md-6">
-                           
-                               
-                              
-                               
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <h5>Academic Performance Panel</h5>
-                                                        
-                                                        <div class="card-header-right">
-                                                            <ul class="list-unstyled card-option">
-                                                                <li><i class="feather icon-maximize full-card"></i></li>
-                                                                <li><i class="feather icon-minus minimize-card"></i></li>
-                                                               
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <div class="card-block">
-                                                        <div id="sales-analytics" style="height: 265px;"></div>
-                                                    </div>
-                                                </div>
-                                            
-                                
-                                
-                            
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                
-                               
-                               
-                                    <div class="card-block contact-details">
-                                        <center> <h4>Payment Details Panel</h4></center>
-<div class="data_table_main table-responsive dt-responsive">
-
- <table id="simpletable2" class="table  table-striped table-bordered nowrap">
-<thead>
-<tr>
-    <th>Amount Paid</th>
-     <th>Balance</th>
-<th>Date Paid</th>
-
-
-</tr>
-</thead>
-<tbody>
-      <?php
-while ($row = $student_data->fetch(PDO::FETCH_ASSOC)) {
-
-    ?>
-    <tr>
-          
-      
-        <td><?php echo $row['PaidAmout']; ?></td>
-        <td><?php echo $row['Balace']; ?></td>
-     
-         
-            <td><?php echo $row['BilledOn']; ?></td>
-         
-
-    </tr>
-
-<?php } ?>
-
-
-
-
-</tbody>
-<tfoot>
-<tr>
-     <th>Amount Paid</th>
-     <th>Balance</th>
-<th>Date Paid</th>
-
-</tfoot>
-</table>   
-    
-    
-    
-</div>
-</div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="card borderless-card">
-                        <div class="card-block info-breadcrumb">
-                            <div class="breadcrumb-header">
-                                <h5>Books Borrowed</h5>
-                                <span>O</span>
-                            </div>
-
-
-                            <div>
-                               none
-                            </div>
-
-
-                            <div class="page-header-breadcrumb">
-                                <ul class="breadcrumb-title">
-                                    <li class="breadcrumb-item">
-                                        <a href="#!">
-                                            <i class="icofont icofont-home"></i>
-                                        </a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        <a href="#!">Breadcrumb</a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        <a href="#!">Caption Breadcrumb</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
 
 
                 </div>
@@ -528,15 +412,9 @@ while ($row = $student_data->fetch(PDO::FETCH_ASSOC)) {
 <script src="../../files/assets/pages/widget/amchart/gauge.js" type="960c3b30522fb895a4c59633-text/javascript"></script>
 <script src="../../files/assets/pages/widget/amchart/pie.js" type="960c3b30522fb895a4c59633-text/javascript"></script>
 <script src="../../files/assets/pages/widget/amchart/light.js" type="960c3b30522fb895a4c59633-text/javascript"></script>
- <script src="../files/assets/js/jquery.mCustomScrollbar.concat.min.js" type="960c3b30522fb895a4c59633-text/javascript"></script>
 
 <script src="../../files/assets/js/pcoded.min.js" type="960c3b30522fb895a4c59633-text/javascript"></script>
 <script src="../../files/assets/js/vartical-layout.min.js" type="960c3b30522fb895a4c59633-text/javascript"></script>
-
-
- <script type="960c3b30522fb895a4c59633-text/javascript" src="../../files/assets/pages/dashboard/custom-dashboard.js"></script>
- 
- 
 <script src="../../files/assets/js/jquery.mCustomScrollbar.concat.min.js" type="960c3b30522fb895a4c59633-text/javascript"></script>
 <script type="960c3b30522fb895a4c59633-text/javascript" src="../../files/assets/pages/dashboard/crm-dashboard.min.js"></script>
 <script type="960c3b30522fb895a4c59633-text/javascript" src="../../files/assets/js/script.js"></script>

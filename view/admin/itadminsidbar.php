@@ -55,7 +55,22 @@
 
                     </li>
                     
-                   
+                    <li class="">
+                        <a href="additadmin.php">
+
+                            <span class="pcoded-mtext">Add IT Admin</span>
+                        </a>
+
+                    </li>
+                    
+                    <li class="">
+                        <a href="viweusers.php">
+
+                            <span class="pcoded-mtext">User Profiles</span>
+                        </a>
+
+                    </li>
+                    
                 </ul>
             </li>
 

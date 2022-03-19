@@ -422,6 +422,21 @@ class SuperModel
         $row = $stm->fetch(PDO::FETCH_ASSOC);
         return $row;
     }
+    
+    public static function get_student_attendncy_days($public_id)
+    {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetTotalStudentAttendancyDaysByPublicID(:public_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':public_id' => $public_id));
+        $row = $stm->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    }
+
 
     public static function get_all_teacher_details_by_tenant_id($tenatnt_id, $teacher_id)
     {
@@ -480,6 +495,21 @@ class SuperModel
         return $stm;
     }
 
+    
+        public static function get_complet_user_details_by_tenant_id($tenatnt_id)
+    {
+        //this function gets all details including the head and deputy head teacher recods by tenant ID 
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAllUserDetailsByTenantID(:tenant_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenatnt_id));
+
+        return $stm;
+    }
+    
 
     public static function get_active_terms_by_tenant_id($tenatnt_id)
     {
@@ -1410,6 +1440,43 @@ class SuperModel
             return FALSE;
         }
     }
+    
+    
+    
+     public static function create_itadmin($pic_url, $acc_id, $nrc, $passport, $username, $hushed_password, $first_name, $last_name, $other_name, $email_address, $concat_no, $gender_id, $marital_status_id, $dob, $user_type, $UpdatedBy, $position_id, $department_id, $pramary_address, $secondary_address, $district_id, $tenant_id)
+    {
+        //the below function creates a session in the databes for every log in 
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+            // print_r(count($tem_data[0]));
+            //$args  = array_fill(0, count($tem_data[0]), '?');
+            //Insets data new session into the session table
+            $query = "INSERT INTO usermaster(PublicID, ProfilPicURL, NRC, Passport, UserName, Password, FirstName, LastName, OtherName, EmailAddress, ContactNo, GenderID, MaritalStatusID, DOB, UserTypeID, UpdatedBy, IsActive,TenantID)VALUES (:PublicID, :ProfilPicURL, :NRC, :Passport, :UserName, :Password, :FirstName, :LastName, :OtherName, :EmailAddress, :ContactNo, :GenderID, :MaritalStatusID, :DOB, :UserTypeID, :UpdatedBy, 0,:TenantID)";
+            $stm = $conn->prepare($query);
+            $stm->execute(array(':PublicID' => $acc_id, ':ProfilPicURL' => $pic_url, ':NRC' => $nrc, ':Passport' => $passport, ':UserName' => $username, ':Password' => $hushed_password, ':FirstName' => $first_name, ':LastName' => $last_name, ':OtherName' => $other_name, ':EmailAddress' => $email_address, ':ContactNo' => $concat_no, ':GenderID' => $gender_id, ':MaritalStatusID' => $marital_status_id, ':DOB' => $dob, ':UserTypeID' => $user_type, ':UpdatedBy' => $UpdatedBy, ':TenantID' => $tenant_id));
+
+            $query2 = "INSERT INTO userdetails (UserDetailsPublicID,UserMasterID, PositionID, DepartmentID, UpdatedBy, IsActive) VALUES (GetSequence(25),:UserMasterID,:PositionID, :DepartmentID, :UpdatedBy, 1)";
+            $stm2 = $conn->prepare($query2);
+            $stm2->execute(array(':UserMasterID' => $acc_id, ':PositionID' => $position_id, ':DepartmentID' => $department_id, ':UpdatedBy' => $UpdatedBy));
+
+            $query3 = "INSERT INTO address (PrimaryAddress, SecondaryAddress, DistrictID, IdentificationID) VALUES (:PrimaryAddress, :SecondaryAddress, :DistrictID, :IdentificationID)";
+            $stm3 = $conn->prepare($query3);
+            $stm3->execute(array(':PrimaryAddress' => $pramary_address, ':SecondaryAddress' => $secondary_address, ':DistrictID' => $district_id, ':IdentificationID' => $acc_id));
+
+            //print_r($stm);
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+            echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
 
     public static function add_acessment($tem_data)
     {
@@ -2971,6 +3038,64 @@ class SuperModel
 
             $conn = Null;
             return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+            echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
+    
+    public static function updated_user_status($UserID, $UpdatedBy)
+    {
+        //the below function creates a session in the databes for every log in 
+
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+
+            $query = "CALL UpdateUserLockedStatus(:Userid,:UpdatedBy)";
+            $stm = $conn->prepare($query);
+
+            $stm->execute(array(':Userid' => $UserID, ':UpdatedBy' => $UpdatedBy));
+            $conn->commit();
+   
+            $conn = Null;
+            
+         
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+            echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
+    
+     public static function reset_user_password($public_id,$hushed_password,$UpdatedBy)
+    {
+        //the below function creates a session in the databes for every log in 
+       // echo $public_id.'------'.$hushed_password.'------'.$UpdatedBy;
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+
+            $query = "CALL ResetPasswordByUserPublicID(:Userid,:Password,:UpdatedBy)";
+            $stm = $conn->prepare($query);
+
+            $stm->execute(array(':Userid' => $public_id, ':Password' => $hushed_password,':UpdatedBy' => $UpdatedBy));
+            
+          
+            $conn->commit();
+
+            $conn = Null;
+            
+            return TRUE;
+           
         } catch (Exception $exc) {
             $conn->rollBack();
             echo $exc->getMessage();

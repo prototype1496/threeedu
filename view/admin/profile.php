@@ -7,6 +7,17 @@ $student_no = trim(filter_input(INPUT_GET, 'id', FILTER_DEFAULT));
 
 $row = SuperModel::get_student_details_by_student_no($student_no);
 
+
+if (isset($row['PublicID'])){
+
+      $student_public_id =   trim($row['StudentMasterPublicID']);
+$student_data = SuperModel::get_all_transaction_history($student_public_id);
+
+}else{
+  $student_data = SuperModel::get_all_transaction_history('');  
+    
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -366,41 +377,39 @@ $row = SuperModel::get_student_details_by_student_no($student_no);
  <table id="simpletable2" class="table  table-striped table-bordered nowrap">
 <thead>
 <tr>
-    <th>Amount</th>
+     <th>Amount Paid</th>
+     <th>Balance</th>
 <th>Date Paid</th>
 
 
 </tr>
 </thead>
 <tbody>
-      <?php // while($row_data = $get_stdent_asscement->fetch(PDO::FETCH_ASSOC))
-                            
-//                    {
-                       
-                            ?>
-<tr>
-   
-<!--         <td><?php echo $row_data['ClassName'];?></td>
-        
-       
-        <td ><?php echo $row_data['Subject'];?></td>-->
-        
-             <td></td>     
-          <td></td>   
+    <?php
+while ($row = $student_data->fetch(PDO::FETCH_ASSOC)) {
 
+    ?>
+    <tr>
+          <td></td>
+      
+        <td><?php echo $row['PaidAmout']; ?></td>
+        <td><?php echo $row['Balace']; ?></td>
+     
+         
+            <td><?php echo $row['BilledOn']; ?></td>
+         
 
-</tr>
+    </tr>
 
-     <?php // } ?>
-
-
+<?php } ?>
 
 
 
 </tbody>
 <tfoot>
 <tr>
-     <th>Amount</th>
+      <th>Amount Paid</th>
+     <th>Balance</th>
 <th>Date Paid</th>
 
 </tr>

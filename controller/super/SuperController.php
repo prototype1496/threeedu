@@ -72,6 +72,39 @@ if (isset($_GET['student_id'])) {
             </script>";
         }
         
-        
+}  else if (isset($_GET['user_id_20220091'])) {
+
+    $user_id = $_GET['user_id_20220091'];
   
-} 
+
+    $UpdatedBy = $_SESSION['threeedu_username'];
+ 
+ 
+    
+        if (SuperModel::updated_user_status($user_id,$UpdatedBy)) {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+            showSuccessToast('Status Updated Successfully');
+             window.location.replace('/threeedu/view/admin/viweusers.php')
+                
+              
+            }); 
+            
+            </script>";
+        } else {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+           
+                showInfoToast('Error in updateing Status Please Try Again Later');
+                window.location.replace('/threeedu/view/admin/viweusers.php')
+            }); 
+            </script>";
+        }
+        
+}
+
+ 

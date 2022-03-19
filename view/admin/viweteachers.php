@@ -140,9 +140,10 @@ $stm = SuperModel::get_complet_teacher_details_by_tenant_id($tenant_id);
     <th>ID</th>
 <th>Teacher</th>
 <th>NRC</th>
-<th>Contact No.</th>
+<th>Contact</th>
 <th>DOB</th>
 <th>Active</th>
+<th>Locked</th>
 
 <th></th>
 </tr>
@@ -152,15 +153,17 @@ $stm = SuperModel::get_complet_teacher_details_by_tenant_id($tenant_id);
                             
                     {
                           $public_id = $row['TeaherMasterPublicID'];
+                          $name = $row['Teacher'];
                             ?>
 <tr>
     <td></td>
      <td><?php echo $public_id;?></td>
-         <td><?php echo $row['Teacher'];?></td>
+         <td><?php echo $name ;?></td>
         <td ><?php echo $row['NRC'];?></td>
         <td ><?php echo $row['ContactNo'];?></td>
         <td ><?php echo $row['DOB'];?></td>
         <td ><?php echo $row['IsActive'];?></td>
+         <td ><?php echo $row['IsLocked'];?></td>
 
 <td>
     <button onclick="redirectWithID('<?php if($row['IsActive'] == "Yes"){echo $public_id;}else{echo "";} ?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-eye"></i></button>
@@ -168,6 +171,8 @@ $stm = SuperModel::get_complet_teacher_details_by_tenant_id($tenant_id);
    
     <button onclick="redirectResetWithID('<?php echo $public_id;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-unlock"></i></button>
  
+     <button onclick="resetPassword('<?php echo $public_id;?>','<?php echo $name;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-refresh-cw"></i></button>
+  
 </td>
 </tr>
 
@@ -311,6 +316,14 @@ $stm = SuperModel::get_complet_teacher_details_by_tenant_id($tenant_id);
         function redirectResetWithID(id){
       
          window.location.href = "viweteachers.php?teacher_id="+id;
+        
+        
+    }
+    
+    
+       function resetPassword(id,name){
+      
+         window.location.href = "resetpassword.php?user_id_reset_20220091="+id+"&name="+name;
         
         
     }

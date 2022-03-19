@@ -18,7 +18,7 @@ $stm = SuperModel::get_teacher_document_details($document_id);
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dt-ext-buttons-html-5-data-export.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Jun 2019 08:48:50 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<title>Viwe Lesson Plan </title>
+<title>View Lesson Plan </title>
 
 
 <!--[if lt IE 10]>
@@ -150,7 +150,12 @@ $stm = SuperModel::get_teacher_document_details($document_id);
 
                             <div class="card-block  warning-breadcrumb">
                                 <div class="breadcrumb-header">
-                                    <h5>Lession Plan</h5>
+                                    <h5>Lesson Plan</h5>
+                                   
+                                </div>
+                                 <div style="float: right;" class="breadcrumb-header">
+                                    
+                                    <a class="feather icon-arrow-left" href="/threeedu/view/headteacher/index.php"> Back</a>
                                 </div>
                                
                             </div>
