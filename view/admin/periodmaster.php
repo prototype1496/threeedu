@@ -6,6 +6,7 @@ require_once '../../controller/super/MaterController.php';
 
 $school_id = $_SESSION['threeedu_schoolid'];
 
+print_r($school_id);
 $stm = SuperModel::get_all_periods_masters_by_id($school_id);
 
 

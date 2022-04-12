@@ -235,8 +235,9 @@ $stm_term_data = SuperModel::get_active_terms($tenant_id);
                                                                             <th></th>
                                                                             <th>Student ID</th>
                                                                             <th>Student Details</th>
-                                                                            <th>Balance</th>
                                                                             <th>Billed Amount</th>
+                                                                            <th>Balance</th>
+                                                                            
 
                                                                             
                                                                              
@@ -249,6 +250,8 @@ $stm_term_data = SuperModel::get_active_terms($tenant_id);
                                                                            
                                                                           $toatlabalace  = $row['TOTALBALACE'];
                                                                           
+                                                                            $current_billed  = $row['CURRENTBILLED'];
+                                                                          
                                                                          
                                                                      
                                                                             ?>
@@ -257,8 +260,9 @@ $stm_term_data = SuperModel::get_active_terms($tenant_id);
                                                                                 
                                                                                 <td><?php echo $row['StudentMasterPublicID']; ?></td>
                                                                                 <td><?php echo $row['Name']; ?></td>
+                                                                                 <td><?php echo $row['BilledAmount']; ?></td>
                                                                                 <td><?php echo $row['Balace']; ?></td>
-                                                                                <td><?php echo $row['BilledAmount']; ?></td>
+                                                                               
                                                                                 
 
                                                                             </tr>
@@ -279,8 +283,10 @@ $stm_term_data = SuperModel::get_active_terms($tenant_id);
                                                                                <th></th>
                                                                         <th>Student ID</th>
                                                                             <th>Student Details</th>
+                                                                            
+                                                                             <th>Billed Amount</th>
                                                                             <th>Balance</th>
-                                                                            <th>Billed Amount</th>
+                                                                           
                                                                         </tr>
                                                                     </tfoot>
                                                                 </table>
@@ -294,7 +300,18 @@ $stm_term_data = SuperModel::get_active_terms($tenant_id);
                                                                                $toatlabalace_t = 0;
                                                                                
                                                                            }
-                                                            echo '<H5><b>Total Blance: K'.$toatlabalace_t.'</b></H5>'?>
+                                                                           
+                                                                           
+                                                                            if(isset($current_billed)){
+                                                                                   
+                                                                                 $current_billed  = $current_billed;  
+                                                                           }else {
+                                                                               $current_billed = 0;
+                                                                               
+                                                                           }
+                                                            echo '<H5><b>Total Balance: K'.$toatlabalace_t.'</b></H5><br>';
+                                                             echo '<H5><b>Total Billed Amount: K'.$current_billed.'</b></H5>';
+                                                             ?>
                                                         </div>
                                                     </div>
 

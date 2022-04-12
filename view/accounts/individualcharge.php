@@ -7,10 +7,23 @@ require_once '../../model/SuperModel.php';
 $tenant_id = $_SESSION['threeedu_tenantid'];
 $school_id = $_SESSION['threeedu_schoolid'];
 
-
 $classes = SuperModel::get_all_classes_by_tenant_id($tenant_id);
+$classes_array = array();
 
-if (isset($_GET['student_public_id'])){
+
+
+if (isset($_GET['student_public_id']) && $_GET['classid']){
+    
+    $classes2 = SuperModel::get_all_classes_by_tenant_id($tenant_id);
+    
+while ($row2 = $classes2->fetch(PDO::FETCH_ASSOC)) {
+    
+   $classes_array[$row2['ClassMasterPublicID']]=$row2['Class'];
+}
+
+
+    
+    
 
       $student_public_id =   trim(filter_input(INPUT_GET, 'student_public_id', FILTER_DEFAULT));
 $student_data = SuperModel::get_all_transaction_history($student_public_id);
@@ -19,6 +32,8 @@ $stm_balance_data = SuperModel::get_total_bill_blance($student_public_id);
   $student_data = SuperModel::get_all_transaction_history('');  
     
 }
+
+
 
 ?>
 <!DOCTYPE html>
@@ -161,8 +176,25 @@ $stm_balance_data = SuperModel::get_total_bill_blance($student_public_id);
                <input type="hidden" name="student_public_id" value="<?php if(isset($student_public_id)){echo $student_public_id;}?>">
                
                <select id="selected_class_id" onchange="get_particuler_studentdata()" required="" name="classid" class="js-example-data-array col-sm-4">
-            <option value="" disabled="disabled" selected="selected" >Select Class</option>
-                <?php
+            
+                   <?php
+                   if(isset( $_GET['classid'])){
+                       $class_id_ = $_GET['classid'];
+                       
+                       
+                       
+                       ?>
+                  <option value="<?php echo $class_id_;?>" disabled="disabled" selected="selected" ><?php echo $classes_array[$class_id_];?></option>
+                  
+             <?php 
+                   
+                   }else {
+                       ?>
+                        <option value="" disabled="disabled" selected="selected" >Select Class</option>
+                   <?php
+                   
+                   }
+                  
                 while ($row = $classes->fetch(PDO::FETCH_ASSOC)) {
                     ?>
                     <option value="<?php echo $row['ClassMasterPublicID']; ?>"><?php echo $row['Class']; ?></option>

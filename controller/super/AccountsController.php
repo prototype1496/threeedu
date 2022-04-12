@@ -75,7 +75,8 @@ if (isset($_POST['btn_charge_student'])) {
      
 } else if (isset($_POST['btn_load_transactions'])){
     $student_public_id = trim(filter_input(INPUT_POST, 'student_id', FILTER_DEFAULT));
-    header("Location:/threeedu/view/accounts/individualcharge.php?student_public_id=$student_public_id");
+    $classid = trim(filter_input(INPUT_POST, 'classid', FILTER_DEFAULT));
+    header("Location:/threeedu/view/accounts/individualcharge.php?student_public_id=$student_public_id&classid=$classid");
     
      
 }  else if (isset($_POST['btn_load_transactions_history'])){
@@ -101,13 +102,13 @@ if (isset($_POST['btn_charge_student'])) {
   
     if (SuperModel::add_bill($tansaction_id,$balance,$student_public_id,$UpdatedBy,$amount)) {
          
-    header("Location:/threeedu/view/accounts/individualcharge.php?student_public_id=$student_public_id");
+    header("Location:/threeedu/view/accounts/individualcharge.php");
     
-        
+   //  header("Location:/threeedu/view/accounts/individualcharge.php?student_public_id=$student_public_id");    
     }else {
     
-   header("Location:/threeedu/view/accounts/individualcharge.php?student_public_id=$student_public_id");
-    
+ //  header("Location:/threeedu/view/accounts/individualcharge.php?student_public_id=$student_public_id");
+   header("Location:/threeedu/view/accounts/individualcharge.php"); 
     }
      
 }
