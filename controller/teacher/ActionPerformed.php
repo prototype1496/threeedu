@@ -31,7 +31,12 @@ if (isset($_POST['btn_upadte_time_table'])) {
         $day = 4;
     } else if ($day_of_weeek == 'Friday') {
         $day = 5;
-    } else {
+    }  else if ($day_of_weeek == 'Saturday') {
+        $day = 6;
+    }
+    else if ($day_of_weeek == 'Sunday') {
+        $day = 7;
+    }else {
         $day = -1;
     }
 

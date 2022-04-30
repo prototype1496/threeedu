@@ -14,10 +14,7 @@ $classmaster_id ="";
             $wednsday  = array();
             $thursday  = array();
             $friday  = array();
-            $saturday = array();
-            $sunday= array();
             $periods = array();
-
  if ( isset($_GET['classmasterid']) )
           {
             $classmaster_id  = trim(filter_input(INPUT_GET, 'classmasterid', FILTER_DEFAULT));
@@ -31,8 +28,6 @@ $classmaster_id ="";
              array_push($wednsday,$row['SubjectCodeW']);
              array_push($thursday,$row['SubjectCodeTH']);
              array_push($friday,$row['SubjectCodeF']);
-              array_push($saturday, $row['SubjectCodeS']);
-        array_push($sunday, $row['SubjectCodeSN']);
              array_push($periods,$row['PeriodName']);
           
             }
@@ -309,34 +304,6 @@ $classmaster_id ="";
   </td>
 </tr>
 
-
-
-                                                                                                <tr>
-
-                                                                                                            <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Saturday</td>
-                                                                                                            <?php foreach ($saturday as $key => $value) {
-                                                                                                                ?>
-                                                                                                                <td><?php echo $value ?></td>
-
-                                                                                                            <?php } ?>
-                                                                                                            <td> <button onclick="redirectWithID('<?php echo $classmaster_id; ?>', 'Saturday')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit"></i></button>
-                                                                                                            </td>
-                                                                                                        </tr>
-                                                                                                        
-                                                                                                        
-                                                                                                        
-                                                                                                            <tr>
-
-                                                                                                            <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Sunday</td>
-                                                                                                            <?php foreach ($sunday as $key => $value) {
-                                                                                                                ?>
-                                                                                                                <td><?php echo $value ?></td>
-
-                                                                                                            <?php } ?>
-                                                                                                            <td> <button onclick="redirectWithID('<?php echo $classmaster_id; ?>', 'Sunday')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit"></i></button>
-                                                                                                            </td>
-                                                                                                        </tr>
-
                                                 </thead>
                                                 
                                             </table>
@@ -345,7 +312,7 @@ $classmaster_id ="";
                                        
                                         <?php } else { ?>
                                        
-                                      <center>  <h5><b>Please Select Class<b></h5>
+                                      <center>  <h5><b>Please Select Calsss<b></h5>
                                                    <img src="../../img/timetable.png"/></center>
                                        
                                       <?php } ?>

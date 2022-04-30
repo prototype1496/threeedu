@@ -14,6 +14,10 @@ $get_stuednt_details = SuperModel::get_student_details_by_student_public_id($stu
 
 $get_stdent_asscement = SuperModel::get_student_assecemnttype_by_public_id($student_pulic_id);
 
+$student_data = SuperModel::get_all_transaction_history($student_pulic_id);
+
+//print_r($student_pulic_id);
+
 $stm = TeacherModel::get_all_student_details($tenant_id);
 
 $classes = SuperModel::get_all_classes_with_mapped_subjects($tenant_id);
@@ -23,6 +27,8 @@ $classmaster_id = $get_stuednt_details['ClassMasterPublicID'];
             $wednsday  = array();
             $thursday  = array();
             $friday  = array();
+            $saturday = array();
+            $sunday= array();
             $periods = array();
 
             $classmaster_id  = $classmaster_id;
@@ -36,6 +42,8 @@ $classmaster_id = $get_stuednt_details['ClassMasterPublicID'];
              array_push($wednsday,$row['SubjectCodeW']);
              array_push($thursday,$row['SubjectCodeTH']);
              array_push($friday,$row['SubjectCodeF']);
+                array_push($saturday, $row['SubjectCodeS']);
+        array_push($sunday, $row['SubjectCodeSN']);
              array_push($periods,$row['PeriodName']);
           
             }
@@ -206,6 +214,11 @@ $classmaster_id = $get_stuednt_details['ClassMasterPublicID'];
 </li>
 <li class="nav-item">
 <a class="nav-link" data-toggle="tab" href="#review" role="tab">Academic  Results</a>
+<div class="slide"></div>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" data-toggle="tab" href="#account" role="tab">Accounts History</a>
 <div class="slide"></div>
 </li>
 
@@ -529,6 +542,32 @@ $classmaster_id = $get_stuednt_details['ClassMasterPublicID'];
   
 </tr>
 
+<tr>
+   
+    <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Saturday</td>
+     <?php foreach ($saturday as $key => $value) {
+                         
+                      ?>
+    <td><?php echo $value ?></td>
+       
+     <?php   } ?>
+  
+</tr>
+
+
+
+<tr>
+   
+    <td  class="text-c-yellow" bgcolor="47706a" style="font-size: 20px; font-weight: bold;" >Sunday</td>
+     <?php foreach ($sunday as $key => $value) {
+                         
+                      ?>
+    <td><?php echo $value ?></td>
+       
+     <?php   } ?>
+  
+</tr>
+
                                                 </thead>
                                                 
                                             </table>
@@ -735,6 +774,79 @@ Received
 </div>
 </div>
 </div>
+    
+   <div class="tab-pane" id="account" role="tabpane5">
+<div class="row">
+<div class="col-xl-3">
+
+
+</div>
+<div class="col-xl-12">
+<div class="row">
+<div class="col-sm-12">
+
+<div class="card">
+
+<div class="card-block contact-details">
+<div class="data_table_main table-responsive dt-responsive">
+
+ <table id="simpletable" class="table  table-striped table-bordered nowrap">
+<thead>
+<tr>
+
+<tbody id="">
+ <?php
+while ($row_sd = $student_data->fetch(PDO::FETCH_ASSOC)) {
+
+    ?>
+    <tr>
+          <td></td>
+         
+        <td><?php echo $row_sd['Name']; ?></td>
+        <td><?php echo $row_sd['PaidAmout']; ?></td>
+        <td><?php echo $row_sd['Balace']; ?></td>
+        <td><?php echo $row_sd['PaymentType']; ?></td>
+          <td><?php echo $row_sd['ReciptNo']; ?></td>
+            <td><?php echo $row_sd['BilledOn']; ?></td>
+              <td><?php echo $row_sd['UpdatedBy']; ?></td>
+
+    </tr>
+
+<?php } ?>
+
+
+
+
+
+</tbody>
+<tfoot>
+<tr>
+<th></th>
+<th>Name</th>
+<th>Paid Amount (K)</th>
+<th>Balance (K)</th>
+<th>Payment Method</th>
+<th>receipt No.</th>
+<th>Billed On</th>
+<th>Billed By</th>
+</tr>
+</tfoot>
+</table>   
+    
+    
+    
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div> 
+    
+    
+    
 
 </div>
 

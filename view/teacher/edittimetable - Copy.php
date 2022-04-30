@@ -17,8 +17,6 @@ $tuesday = array();
 $wednsday = array();
 $thursday = array();
 $friday = array();
-$saturday = array();
-$sunday= array();
 $periods = array();
 if (isset($_GET['id']) && isset($_GET['day'])) {
 
@@ -56,16 +54,6 @@ if (isset($_GET['id']) && isset($_GET['day'])) {
         $periods[$row['Friday'] . $cunt] = $row['PeriodName'];
         $friday[$row['Friday'] . $cunt] = $row['SubjectCodeF'];
         $period_ids[$row['Friday'] . $cunt] = $row['TimeTableDetailsID'];
-        
-        
-        $periods[$row['Saturday'] . $cunt] = $row['PeriodName'];
-        $saturday[$row['Saturday'] . $cunt] = $row['SubjectCodeS'];
-        $period_ids[$row['Saturday'] . $cunt] = $row['TimeTableDetailsID'];
-        
-        
-         $periods[$row['Sunday'] . $cunt] = $row['PeriodName'];
-        $sunday[$row['Sunday'] . $cunt] = $row['SubjectCodeSN'];
-        $period_ids[$row['Sunday'] . $cunt] = $row['TimeTableDetailsID'];
     }
 } else {
     
@@ -389,69 +377,6 @@ if (isset($_GET['id']) && isset($_GET['day'])) {
 
 
                                                                                                         foreach ($friday as $key => $value) {
-                                                                                                            ?>
-                                                                                                            <div class="col-sm-6">
-                                                                                                                <input type="hidden" name="timtable_deatails_id[]" value="<?php echo $period_ids[$key]; ?>"/>
-                                                                                                                <label class="label-form"><b><?php echo $periods[$key]; ?></b></label>
-                                                                                                                <div class="form-group">
-                                                                                                                    <select id="" onchange=""  name="subject_code[]" class="js-example-data-array col-sm-4">
-                                                                                                                        <option value="<?PHP echo substr($key, 0, -1); ?>"  selected="selected" ><?PHP echo $value; ?></option>
-                                                                                                                         <option value=""   >Free Period</option>
-                                                                                                                        <?php
-                                                                                                                        foreach ($subjects_arry as $key => $value) {
-                                                                                                                            ?>
-                                                                                                                            <option value="<?php echo$key; ?>"><?php echo $value; ?></option>                      
-        <?php }
-        ?>
-
-                                                                                                                    </select>
-                                                                                                                </div>  
-                                                                                                            </div>
-
-                                                                                                            <?php
-                                                                                                    }
-                                                                                                     
-                                                                                                                        }
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                   //This is surtaday Start 
-                                                                                                    else if ($day_of_week == 'Saturday') {
-
-
-
-                                                                                                        foreach ($saturday as $key => $value) {
-                                                                                                            ?>
-                                                                                                            <div class="col-sm-6">
-                                                                                                                <input type="hidden" name="timtable_deatails_id[]" value="<?php echo $period_ids[$key]; ?>"/>
-                                                                                                                <label class="label-form"><b><?php echo $periods[$key]; ?></b></label>
-                                                                                                                <div class="form-group">
-                                                                                                                    <select id="" onchange=""  name="subject_code[]" class="js-example-data-array col-sm-4">
-                                                                                                                        <option value="<?PHP echo substr($key, 0, -1); ?>"  selected="selected" ><?PHP echo $value; ?></option>
-                                                                                                                         <option value=""   >Free Period</option>
-                                                                                                                        <?php
-                                                                                                                        foreach ($subjects_arry as $key => $value) {
-                                                                                                                            ?>
-                                                                                                                            <option value="<?php echo$key; ?>"><?php echo $value; ?></option>                      
-        <?php }
-        ?>
-
-                                                                                                                    </select>
-                                                                                                                </div>  
-                                                                                                            </div>
-
-                                                                                                            <?php
-                                                                                                        }
-                                                                                                    }
-                                                                                                    
-                                                                                                    
-                                                                                                    
-                                                                                                    //This is Sunday Start 
-                                                                                                    else if ($day_of_week == 'Sunday') {
-
-
-
-                                                                                                        foreach ($sunday as $key => $value) {
                                                                                                             ?>
                                                                                                             <div class="col-sm-6">
                                                                                                                 <input type="hidden" name="timtable_deatails_id[]" value="<?php echo $period_ids[$key]; ?>"/>

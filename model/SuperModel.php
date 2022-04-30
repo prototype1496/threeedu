@@ -987,7 +987,15 @@ class SuperModel
                 $query = "UPDATE timetabledetails SET Thursday = ? , UpdatedBy = ? WHERE TimeTableDetailsID = ?;";
             } else if ($day == 5) {
                 $query = "UPDATE timetabledetails SET Friday = ? , UpdatedBy = ? WHERE TimeTableDetailsID = ?;";
-            } else {
+            } 
+            else if ($day == 6) {
+                $query = "UPDATE timetabledetails SET Saturday = ? , UpdatedBy = ? WHERE TimeTableDetailsID = ?;";
+            }
+            
+            else if ($day == 7) {
+                $query = "UPDATE timetabledetails SET Sunday = ? , UpdatedBy = ? WHERE TimeTableDetailsID = ?;";
+            }
+            else {
                 $query = '';
             }
 
