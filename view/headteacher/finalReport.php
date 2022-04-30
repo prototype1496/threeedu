@@ -18,6 +18,7 @@ $schoolDetails = SuperModel::getSchoolDetailsByPublicId($publicId);
 $studentComments = SuperModel::getStudentCommentsByPublicId($publicId, $term,$assessment,$date);
 $year = date('Y', strtotime($date));
 
+
 if(isset($studentComments)){
     header("");
 }
@@ -288,7 +289,7 @@ $headTeacherComments = $studentComments["HeadTeacherComment"];
                                                                                                                 colspan="3"
                                                                                                                 style="font-size:1rem; padding:10px; color: #0a6aa1;">
                                                                                                                 <b>
-                                                                                                                    <?php echo $assessmentName ?>
+                                                                                                                    <?php echo isset($assessment)? $assessment:''; ?>
                                                                                                                    </b>
                                                                                                             </td>
                                                                                                         </tr>
