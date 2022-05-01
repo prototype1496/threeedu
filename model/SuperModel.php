@@ -60,7 +60,7 @@ class SuperModel
         if ($stm->rowCount() > 0) {
             while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
                 $assessmentName = $row['AssementTypeName'];
-               echo  '<option  value=\''.$assessmentName.'\'> '.$assessmentName.'</option>';
+               echo  '<option  value=\''.$row['AssementTypeID'].'\'> '.$assessmentName.'</option>';
             }
         }
         return $stm;
@@ -173,6 +173,23 @@ class SuperModel
         return $stm->fetch(PDO::FETCH_ASSOC);
     }
 
+    
+    
+    public static function get_assesment_by_id($tenant_id,$asscement_type_id)
+    {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAccessmentTypeByID(:tenant_id,:asscement_type_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenant_id,':asscement_type_id'=>$asscement_type_id));
+        $row = $stm->fetch(PDO::FETCH_ASSOC);
+
+        return $row;
+    }
+    
     public static function getSchoolDetailsByPublicId($publicId)
     {
         $studentDetails = self::getStudentDetailsByPublicId($publicId);
@@ -305,16 +322,16 @@ class SuperModel
     }
 
 
-    public static function get_student_assecemnttype_by_public_id($PUBLICID)
+    public static function get_student_assecemnttype_by_public_id($PUBLICID,$assessment)
     {
 
         $Connection = new Connection();
         $conn = $Connection->connect();
 
-        $query = "CALL GetAccessmentByStudentPublicID(:public_id);";
+        $query = "CALL GetAccessmentByStudentPublicIDAndAssecmentTypeID(:public_id,:assecment_type_id);";
 
         $stm = $conn->prepare($query);
-        $stm->execute(array(':public_id' => $PUBLICID));
+        $stm->execute(array(':public_id' => $PUBLICID,':assecment_type_id'=>$assessment));
 
         return $stm;
     }
@@ -1566,7 +1583,8 @@ class SuperModel
 
             //What the beow lines of code are doing is they are loading a districts and displying them in a dropdown using php
 
-            echo '  <div class="form-group"> <label class="bmd-label-floating">Class</label> <div class="form-select-list"> <select  required="" class="form-control custom-select-value" name="class_id" id = "class_id" onchange="get_subjects()" > <option value="" disabled="disabled" selected="selected">Select Class</option>';
+            echo '  <div class="form-group"> <label class="bmd-label-floating">Class</label> <div class="form-select-list"> '
+            . '<select  required="" class="form-control custom-select-value" name="class_id" id = "class_id" onchange="get_subjects()" > ';
             while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
 
 
@@ -2077,6 +2095,38 @@ class SuperModel
         } catch (Exception $exc) {
             $conn->rollBack();
             // echo $exc->getMessage();
+            return FALSE;
+        }
+    }
+    
+    
+    
+    public static function updat_regitered_pupil($first_name, $last_name, $other_name, $gender_id, $dob, $marital_status_id, $class_id, $subject_code_1, $subject_code_2, $subject_code_3, $subject_code_4, $subject_code_5, $subject_code_6, $subject_code_7, $subject_code_8, $male_gardian_name, $female_gardian_name, $gardian_contact_no, $address, $StudentMasterPublicID, $StudentNo, $file_temp, $UpdatedBy, $email_address)
+    {
+        //the below function creates a session in the databes for every log in 
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+
+            $subject_array = array();
+
+//            $query = "INSERT INTO `studentmaster` (`StudentMasterPublicID`, `ProfilePic`, `StudentNo`, `FirstName`, `LastName`, `OtherName`, `GenderID`, `MaritalStatusID`, `DOB`, `GuardianContactNo`, `GuardianMaleName`, `GuardianFemaleName`, `Address`, `UpdatedBy`, `IsActive`,`EmailAddress`, `ClassMasterPublicID`) VALUES (:StudentMasterPublicID, :ProfilePic, :StudentNo, :FirstName, :LastName, :OtherName, :GenderID, :MaritalStatusID, :DOB, :GuardianContactNo, :GuardianMaleName, :GuardianFemaleName, :Address, :UpdatedBy, '1',:EmailAddress,:ClassMasterPublicID);";
+//            $stm = $conn->prepare($query);
+//            $stm->execute(array(':StudentMasterPublicID' => $StudentMasterPublicID, ':ProfilePic' => $file_temp, ':StudentNo' => $StudentNo, ':FirstName' => $first_name, ':LastName' => $last_name, ':OtherName' => $other_name, ':GenderID' => $gender_id, ':MaritalStatusID' => $marital_status_id, ':DOB' => $dob, ':GuardianContactNo' => $gardian_contact_no, ':GuardianMaleName' => $male_gardian_name, ':GuardianFemaleName' => $female_gardian_name, ':Address' => $address, ':UpdatedBy' => $UpdatedBy, ':EmailAddress' => $email_address, ':ClassMasterPublicID' => $class_id));
+
+            $query = "UPDATE studentmaster SET FirstName =:FirstName, LastName =:LastName ,OtherName=:OtherName , GenderID=:GenderID ,MaritalStatusID=:MaritalStatusID ,DOB=:DOB ,GuardianContactNo=:GuardianContactNo ,GuardianMaleName=:GuardianMaleName ,GuardianFemaleName=:GuardianFemaleName ,Address =:Address ,UpdatedBy =:UpdatedBy ,EmailAddress =:EmailAddress, ClassMasterPublicID =:ClassMasterPublicID WHERE StudentMasterPublicID =:StudentMasterPublicID;";
+            $stm = $conn->prepare($query);
+            $stm->execute(array(':StudentMasterPublicID' => $StudentMasterPublicID,':FirstName' => $first_name, ':LastName' => $last_name, ':OtherName' => $other_name, ':GenderID' => $gender_id, ':MaritalStatusID' => $marital_status_id, ':DOB' => $dob, ':GuardianContactNo' => $gardian_contact_no, ':GuardianMaleName' => $male_gardian_name, ':GuardianFemaleName' => $female_gardian_name, ':Address' => $address, ':UpdatedBy' => $UpdatedBy, ':EmailAddress' => $email_address, ':ClassMasterPublicID' => $class_id));
+
+            
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+             echo $exc->getMessage();
             return FALSE;
         }
     }

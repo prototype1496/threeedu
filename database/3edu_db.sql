@@ -306,7 +306,7 @@ CREATE TABLE IF NOT EXISTS `comboboxvaluemaster` (
   UNIQUE KEY `ComboBoxValueMasterID` (`ComboBoxValueMasterID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.comboboxvaluemaster: ~0 rows (approximately)
+-- Dumping data for table 3edu_db.comboboxvaluemaster: ~1 rows (approximately)
 /*!40000 ALTER TABLE `comboboxvaluemaster` DISABLE KEYS */;
 INSERT IGNORE INTO `comboboxvaluemaster` (`ComboBoxValueMasterID`, `ID`, `Name`, `Value`, `Active`, `UpdatedOn`) VALUES
 	(1, '1', 'DocumentType', 'Leson Plan', '1', '2021-07-03 18:11:26');
@@ -323,7 +323,7 @@ CREATE TABLE IF NOT EXISTS `country` (
   UNIQUE KEY `ConuntryCode` (`ConuntryCode`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.country: ~0 rows (approximately)
+-- Dumping data for table 3edu_db.country: ~1 rows (approximately)
 /*!40000 ALTER TABLE `country` DISABLE KEYS */;
 INSERT IGNORE INTO `country` (`CountryID`, `CountryName`, `ConuntryCode`, `IsActive`) VALUES
 	(1, 'Zambia ', '+260', '1');
@@ -523,7 +523,7 @@ CREATE TABLE IF NOT EXISTS `emailservice` (
   CONSTRAINT `FK_emailservice_statusmaster` FOREIGN KEY (`Status`) REFERENCES `statusmaster` (`StatueCode`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.emailservice: ~0 rows (approximately)
+-- Dumping data for table 3edu_db.emailservice: ~1 rows (approximately)
 /*!40000 ALTER TABLE `emailservice` DISABLE KEYS */;
 INSERT IGNORE INTO `emailservice` (`EmailServiceID`, `EmailSerial`, `EmailAddress`, `EmailSubject`, `SendData`, `Status`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(1, 'EMIL0000000001', 'prototype1496@gmail.com', 'Teacher Time Management System Temp Login Cridentials', 'Wellcome to T.T.M.S<br><b>Username: </b> alinuswemwandobo@gmail.com<br><b>Temp Password: </b>VIJOE<br>Please login in to system and to change your password<br><br><b>If this message dose not belong to you please ignore it and have a good day </b> ', 'COMP', 'admin', '2020-11-20 11:52:46');
@@ -648,7 +648,7 @@ CREATE TABLE IF NOT EXISTS `periodmaster` (
   CONSTRAINT `FK_periodmaster_schoolmaster` FOREIGN KEY (`SchoolID`) REFERENCES `schoolmaster` (`PublicID`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.periodmaster: ~11 rows (approximately)
+-- Dumping data for table 3edu_db.periodmaster: ~15 rows (approximately)
 /*!40000 ALTER TABLE `periodmaster` DISABLE KEYS */;
 INSERT IGNORE INTO `periodmaster` (`PeriodMasterID`, `PeriodName`, `SchoolID`, `SequenceID`, `IsActive`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(1, 'Period 1', 'SCHL0000000009', 1, '1', 'sys', '2021-06-27 13:03:21'),
@@ -750,13 +750,13 @@ CREATE TABLE IF NOT EXISTS `sequencemaster` (
 INSERT IGNORE INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 107, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 387, '2019-11-01 20:00:03'),
+	(3, 'TOKN', 394, '2019-11-01 20:00:03'),
 	(4, 'EMIL', 3, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
 	(6, 'SCHL', 11, '2019-11-17 18:52:58'),
 	(7, 'TRD', 2, '2019-11-18 21:59:20'),
-	(8, 'STNO', 48, '2021-05-22 19:45:06'),
-	(9, 'SDNT', 43, '2021-05-22 20:49:17'),
+	(8, 'STNO', 49, '2021-05-22 19:45:06'),
+	(9, 'SDNT', 44, '2021-05-22 20:49:17'),
 	(10, 'STDT', 44, '2021-05-22 22:25:57'),
 	(18, 'CLAS', 77, '2021-08-16 12:49:49'),
 	(19, 'CLDT', 105, '2021-08-16 12:50:17'),
@@ -781,7 +781,7 @@ CREATE TABLE IF NOT EXISTS `session` (
   PRIMARY KEY (`SessionID`),
   KEY `FK_session_usermaster` (`UserMasterPublicID`),
   CONSTRAINT `FK_session_usermaster` FOREIGN KEY (`UserMasterPublicID`) REFERENCES `usermaster` (`PublicID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=388 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=395 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_db.session: ~26 rows (approximately)
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
@@ -803,15 +803,15 @@ INSERT IGNORE INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `To
 	(337, 'TECH0000000001', 'TOKN000000000337', '9272bf6fb286674d59d15f6c1e4df1dcae9eb45f6518227757c9d08a168a8599', '1648315757', 'h', '2022-03-26 17:29:17'),
 	(341, 'TECH0000000003', 'TOKN000000000341', 'a2ff068e070dbf98cfa1678d844beee224ef347c2931ead229c5eb6fdbaec0c9', '1648352013', 't', '2022-03-27 03:33:33'),
 	(342, 'ITAD00000000024', 'TOKN000000000342', '2538db74f4d1c92011c64ab0ebbdd9b7fac260f1c5e6c4e4f4a79c2420d05b81', '1648352132', 'ali_admin', '2022-03-27 03:35:32'),
-	(344, 'ITADM00001', 'TOKN000000000344', 'c28f5bc50a0a0ce4ae1ccc1ef6064788f71d0992606d2b9c63241a489299bda3', '1648382431', 'it', '2022-03-27 12:00:32'),
 	(346, 'ADMIN00001', 'TOKN000000000346', 'd34aaefa1d24c6e87d400882ac33e1c5173acfac66447e5f3b3363c262c67f12', '1648405887', 'a', '2022-03-27 18:31:28'),
 	(347, 'ACCO00001', 'TOKN000000000347', 'c31fd57384767498e90c3e50efeff6ab57b4cc8c657a12fcc1ce89896252a666', '1649672086', 'acc', '2022-04-11 10:14:47'),
 	(374, 'ACCO00000000012', 'TOKN000000000374', '06c95ab3703373d98ab46baa61c165b3830e544a609a14d414e6bcdab8c3ada0', '1651335146', 'Accounts', '2022-04-30 18:12:26'),
 	(378, 'ITAD00000000026', 'TOKN000000000378', '5c8020560736dca3a2ea2a5f1267e620bb2ca926f72e20e3a3bba99553d83342', '1651339286', 'Madmin', '2022-04-30 19:21:26'),
 	(380, 'SDNT00000000040', 'TOKN000000000380', 'e5987ea1db66985e4743d9c1afe2b1e3ba5fa7ee3086e223eed3b69def29ecb0', '1651341857', 'SN2022045', '2022-04-30 20:04:17'),
 	(381, 'SDNT00000000043', 'TOKN000000000381', '06c918f9d5b660697abf54cd6df63cbfe8d0388efdcd18562551dd9068134837', '1651342080', 'SN2022048', '2022-04-30 20:08:00'),
-	(385, 'TECH000000000106', 'TOKN000000000385', '13c3e00b8b13836b67348f51f242dbfe153cbeb2da4eeeb32ab7afaee6db3b2a', '1651342795', 'Nyambe', '2022-04-30 20:19:55'),
-	(387, 'TECH000000000107', 'TOKN000000000387', 'd086938b60172dad5ba339cb4452505b61de99024c8fb44e4cb52820e292ccae', '1651344550', 'Tupa', '2022-04-30 20:49:10');
+	(388, 'ITADM00001', 'TOKN000000000388', 'ecbb0416e2552468d942c7514cd42eca3d91c08dfa92335b72b4b967593dff67', '1651377307', 'it', '2022-05-01 05:55:07'),
+	(393, 'TECH000000000106', 'TOKN000000000393', '93f650d6c10d4882c9571dc11add3c7fb02c3f4550e7da617b414a83df09179c', '1651420877', 'Nyambe', '2022-05-01 18:01:17'),
+	(394, 'TECH000000000107', 'TOKN000000000394', '7b663ad5a81ddff9c403b3499af28556a530d6b1c5af612106d9809c9e470a78', '1651420969', 'Tupa', '2022-05-01 18:02:50');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
@@ -826,9 +826,9 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   `UpdatedBy` varchar(50) NOT NULL,
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionHistoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=388 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=395 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~259 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~275 rows (approximately)
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
 INSERT IGNORE INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(120, '120', '202000041', 'TOKN000000000120', 'ded346951f1db8eeaa836276b1a89f73752c350b4dd1fe9308', '1629644352', 's', '2021-08-22 16:59:13'),
@@ -1098,7 +1098,14 @@ INSERT IGNORE INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMaste
 	(384, '384', 'TECH000000000106', 'TOKN000000000384', '04752f4fd2b7986981445b8b7db197c9412b2d4670148cbbbb', '1651342743', 'Nyambe', '2022-04-30 20:19:03'),
 	(385, '385', 'TECH000000000106', 'TOKN000000000385', '13c3e00b8b13836b67348f51f242dbfe153cbeb2da4eeeb32a', '1651342795', 'Nyambe', '2022-04-30 20:19:55'),
 	(386, '386', 'TECH000000000107', 'TOKN000000000386', '512c96da664c1e25e85e47fe70ddaa491fec2cefbb97efc6a7', '1651344091', 'Tupa', '2022-04-30 20:41:31'),
-	(387, '387', 'TECH000000000107', 'TOKN000000000387', 'd086938b60172dad5ba339cb4452505b61de99024c8fb44e4c', '1651344550', 'Tupa', '2022-04-30 20:49:10');
+	(387, '387', 'TECH000000000107', 'TOKN000000000387', 'd086938b60172dad5ba339cb4452505b61de99024c8fb44e4c', '1651344550', 'Tupa', '2022-04-30 20:49:10'),
+	(388, '388', 'ITADM00001', 'TOKN000000000388', 'ecbb0416e2552468d942c7514cd42eca3d91c08dfa92335b72', '1651377307', 'it', '2022-05-01 05:55:07'),
+	(389, '389', 'TECH000000000107', 'TOKN000000000389', '7cbb38fdda6740d6a001c37be71c0dc8b9e6642c780148cf0d', '1651417347', 'Tupa', '2022-05-01 17:02:27'),
+	(390, '390', 'TECH000000000107', 'TOKN000000000390', 'a77500a82879260f8be5e273c33430b67ebafc7f26dc7a61b2', '1651419253', 'Tupa', '2022-05-01 17:34:13'),
+	(391, '391', 'TECH000000000106', 'TOKN000000000391', '434e7656ba7dee50555aa774882e8861ca2f08149906a4c4fa', '1651419312', 'Nyambe', '2022-05-01 17:35:12'),
+	(392, '392', 'TECH000000000107', 'TOKN000000000392', 'cf98232734ca002f393c2782aebc918f5be5d81d61aa5bd1db', '1651419719', 'Tupa', '2022-05-01 17:41:59'),
+	(393, '393', 'TECH000000000106', 'TOKN000000000393', '93f650d6c10d4882c9571dc11add3c7fb02c3f4550e7da617b', '1651420877', 'Nyambe', '2022-05-01 18:01:17'),
+	(394, '394', 'TECH000000000107', 'TOKN000000000394', '7b663ad5a81ddff9c403b3499af28556a530d6b1c5af612106', '1651420969', 'Tupa', '2022-05-01 18:02:50');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster
@@ -1189,19 +1196,20 @@ CREATE TABLE IF NOT EXISTS `studentcomments` (
   `HeadTeacherComment` varchar(250) DEFAULT NULL,
   `State` varchar(30) DEFAULT NULL,
   `Term` varchar(200) NOT NULL,
-  `AssessmentName` varchar(200) NOT NULL,
+  `AssessmentName` int(11) NOT NULL DEFAULT 0,
   `CreatedAt` date NOT NULL DEFAULT current_timestamp(),
   `UpdatedAt` date NOT NULL DEFAULT current_timestamp(),
   `UpdatedBy` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`StudentCommentID`)
-) ENGINE=InnoDB AUTO_INCREMENT=212 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=216 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.studentcomments: ~3 rows (approximately)
+-- Dumping data for table 3edu_db.studentcomments: ~4 rows (approximately)
 /*!40000 ALTER TABLE `studentcomments` DISABLE KEYS */;
 INSERT IGNORE INTO `studentcomments` (`StudentCommentID`, `StudentMasterPublicID`, `TeaherMasterName`, `HeadTeacherName`, `TeacherComment`, `HeadTeacherComment`, `State`, `Term`, `AssessmentName`, `CreatedAt`, `UpdatedAt`, `UpdatedBy`) VALUES
-	(209, 'SDNT00000000042', 'Nyambe Mubukwanu', 'Tupa Mukamba', 'Luka is slow to understand, He needs time and attention on every subject', 'We are so proud of her Performance', 'Done', 'Term 1', 'End of Term Test', '2022-04-16', '2022-04-16', 'Tupa'),
-	(210, 'SDNT00000000041', 'Nyambe Mubukwanu', 'Tupa Mukamba', 'Thandi , Is very smart she needs to keep up with this spirit ', 'he needs to pull up the Socks', 'Done', 'Term 1', 'End of Term Test', '2022-04-16', '2022-04-16', 'Tupa'),
-	(211, 'SDNT00000000040', 'Nyambe Mubukwanu', 'Tupa Mukamba', 'Tokazani, Is a brave and smart boy', 'Great result Tokozani, keep it up', 'Done', 'Term 1', 'End of Term Test', '2022-04-16', '2022-04-16', 'Tupa');
+	(212, 'SDNT00000000043', 'Nyambe Mubukwanu', 'Tupa Mukamba', 'gOOD', 'Avrage', 'Done', 'Term 1', 18, '2022-05-01', '2022-05-01', 'Tupa'),
+	(213, 'SDNT00000000042', 'Nyambe Mubukwanu', 'Tupa Mukamba', 'GOOD', 'Avrage', 'Done', 'Term 1', 18, '2022-05-01', '2022-05-01', 'Tupa'),
+	(214, 'SDNT00000000041', 'Nyambe Mubukwanu', 'Tupa Mukamba', 'gOOD', 'Avrage', 'Done', 'Term 1', 18, '2022-05-01', '2022-05-01', 'Tupa'),
+	(215, 'SDNT00000000040', 'Nyambe Mubukwanu', 'Tupa Mukamba', 'Avrage', 'Avrage', 'Done', 'Term 1', 18, '2022-05-01', '2022-05-01', 'Tupa');
 /*!40000 ALTER TABLE `studentcomments` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.studentdetails
@@ -1263,7 +1271,7 @@ CREATE TABLE IF NOT EXISTS `studentmaster` (
   CONSTRAINT `FK_studentmaster_classmaster` FOREIGN KEY (`ClassMasterPublicID`) REFERENCES `classmaster` (`ClassMasterPublicID`) ON UPDATE CASCADE,
   CONSTRAINT `FK_studentmaster_gendermaster` FOREIGN KEY (`GenderID`) REFERENCES `gendermaster` (`GenderMasterID`) ON UPDATE CASCADE,
   CONSTRAINT `FK_studentmaster_maritalstatusmaster` FOREIGN KEY (`MaritalStatusID`) REFERENCES `maritalstatusmaster` (`MaritalStatusMasterID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_db.studentmaster: ~19 rows (approximately)
 /*!40000 ALTER TABLE `studentmaster` DISABLE KEYS */;
@@ -1277,7 +1285,7 @@ INSERT IGNORE INTO `studentmaster` (`StudentMasterID`, `StudentMasterPublicID`, 
 	(27, 'SDNT00000000029', '../../uploads/defult.png', 'SN2021034', 'Mwazube', 'Mkonde', NULL, 1, 4, 'CLAS0000000008', '2021-07-04', NULL, '', 'Mwaba Kaenga', NULL, 'Lusaka Xelston', 'it', '2021-07-04 12:03:36', '2021', '1', '0'),
 	(29, 'SDNT00000000030', '../../uploads/defult.png', 'SN2021035', 'Emmanuel', 'Mwando', 'Mwando', 1, 4, 'CLAS0000000004', '1996-01-01', 'prototype1496@gmail.com', '0977100587', 'Mwamba Liabwa Banda', 'Banda', '204 B provident road Fairview', 'it', '2021-08-07 16:37:46', '2021', '1', '0'),
 	(30, 'SDNT00000000031', '../../uploads/3EDU202100036_marcal.jpg', 'SN2021036', 'Student', 'X', 'Mwando', 1, 4, 'CLAS0000000004', '1996-01-01', 'prototype1496@gmail.com', '0977100587', 'Mwamba Liabwa Banda', 'Banda', '204 B provident road Fairview', 'it', '2021-08-07 16:38:56', '2021', '1', '0'),
-	(31, 'SDNT00000000032', '../../uploads/3EDU20210005_images.png', 'SN2021037', 'Test J', 'John', NULL, 1, 4, 'CLAS0000000004', '2000-12-31', 'prototype1496@gmail.com', '0977100587', 'Mwamba Liabwa Banda', 'Mwandobo', 'Accara', 'it', '2021-08-07 18:31:50', '2021', '1', '0'),
+	(31, 'SDNT00000000032', '../../uploads/3EDU20210005_images.png', 'SN2021037', 'Test', 'John', 'Kambondo', 1, 4, 'CLAS0000000008', '2003-12-31', 'prototype1496@gmail.com', '0977100583', 'Mwamba Liabwa', 'Mwandobo BK', 'Accara, Zambia', 'it', '2021-08-07 18:31:50', '2021', '1', '0'),
 	(34, 'SDNT00000000035', '../../uploads/defult.png', 'SN2021040', 'Tenant', 'Tenat Nwe', NULL, 1, 1, 'CLAS0000000004', '1996-01-01', 'prototype1496@gmail.com', '0977100587', 'sdsd', 'Mwando', 'Lusaka, Chelenge', 'it', '2021-08-08 07:45:28', '2021', '1', '0'),
 	(35, 'SDNT00000000036', '../../uploads/SN2021041_images.png', 'SN2021041', 'Liko', 'Mwnza', NULL, 2, 4, 'CLAS00000000067', '2003-01-01', 'prototype1496@gmail.com', '0977100587', 'Mwamba Liabwa Banda', 'Mwandobo', 'C/O.Mr.A.B.Mwandobo Flat 23C MURAMBA ROAD CHILENJE', 'ta', '2021-10-14 17:46:42', '2021', '1', '0'),
 	(36, 'SDNT00000000037', '../../uploads/SN2021042_images.png', 'SN2021042', 'Muke', 'Mambwe', NULL, 2, 4, 'CLAS00000000067', '2003-01-01', NULL, '0973609319', 'Mwamba Liabwa Banda', 'Banda', '204 B provident road Fairview', 'Mwaka', '2021-10-14 17:48:40', '2021', '1', '0'),
@@ -1286,7 +1294,7 @@ INSERT IGNORE INTO `studentmaster` (`StudentMasterID`, `StudentMasterPublicID`, 
 	(39, 'SDNT00000000040', '../../uploads/SN2022045_Tukozani194614694.jpg', 'SN2022045', 'Tokozani', 'Lungu', NULL, 1, 4, 'CLAS00000000076', '2022-04-13', 'alimwanza@gmail.com', '0971145232', 'Peter Mwanza', 'Alice Mwiche', '4 Azikwe Road Lusaka', 'Madmin', '2022-04-13 00:22:31', '2021', '1', '0'),
 	(40, 'SDNT00000000041', '../../uploads/SN2022046_Chileshe194653423.jpg', 'SN2022046', 'Thandi', 'Zimba', NULL, 2, 4, 'CLAS00000000076', '2022-04-11', 'alimwanza@gmail.com', '0971145232', 'Peter Mwanza', 'Alice Mwiche', '4 Azikwe Road lusaka', 'Madmin', '2022-04-13 00:23:42', '2021', '1', '0'),
 	(41, 'SDNT00000000042', '../../uploads/SN2022047_CholaChanda192556708.png', 'SN2022047', 'Luka', 'Nyrenda', NULL, 1, 4, 'CLAS00000000076', '2022-04-11', 'alimwanza@gmail.com', '0971145232', 'Peter Mwanza', 'Alice Mwiche', 'Lusaka Zambia', 'Madmin', '2022-04-13 00:25:13', '2021', '1', '0'),
-	(42, 'SDNT00000000043', '../../uploads/SN2022048_Francis190715338.jpg', 'SN2022048', 'Francis', 'Lili', NULL, 1, 4, 'CLAS00000000077', '2022-04-12', 'alimwanza@gmail.com', '0971145232', 'Peter Mwanza', 'Alice Mwiche', 'Lusaka Zambia', 'Madmin', '2022-04-13 00:40:58', '2021', '1', '0');
+	(42, 'SDNT00000000043', '../../uploads/SN2022048_Francis190715338.jpg', 'SN2022048', 'Francis', 'Lili', NULL, 1, 4, 'CLAS00000000076', '2022-04-12', 'alimwanza@gmail.com', '0971145232', 'Peter Mwanza', 'Alice Mwiche', 'Lusaka Zambia', 'Madmin', '2022-04-13 00:40:58', '2021', '1', '0');
 /*!40000 ALTER TABLE `studentmaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.studnetassesment
@@ -1313,9 +1321,9 @@ CREATE TABLE IF NOT EXISTS `studnetassesment` (
   CONSTRAINT `FK_studnetassesment_classmaster` FOREIGN KEY (`ClassMasterPublicID`) REFERENCES `classmaster` (`ClassMasterPublicID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_studnetassesment_studentmaster` FOREIGN KEY (`StudentMasterPublicID`) REFERENCES `studentmaster` (`StudentMasterPublicID`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `FK_studnetassesment_subjectmater` FOREIGN KEY (`SubjectMasterID`) REFERENCES `subjectmater` (`SubjectMaterID`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.studnetassesment: ~18 rows (approximately)
+-- Dumping data for table 3edu_db.studnetassesment: ~22 rows (approximately)
 /*!40000 ALTER TABLE `studnetassesment` DISABLE KEYS */;
 INSERT IGNORE INTO `studnetassesment` (`StudnetAssesmenID`, `StudentMasterPublicID`, `AssecemntTypeMasterID`, `ClassMasterPublicID`, `SubjectMasterID`, `YearAdded`, `AssecementName`, `Score`, `AddedOn`, `Commment`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(1, 'SDNT00000000039', 17, 'CLAS00000000068', 39, '2021', 'sets', 85, '2021-10-18 13:19:11', 'GOOD', 'nakamba', '2021-10-18 13:19:11'),
@@ -1335,7 +1343,11 @@ INSERT IGNORE INTO `studnetassesment` (`StudnetAssesmenID`, `StudentMasterPublic
 	(15, 'SDNT00000000040', 18, 'CLAS00000000076', 47, '2022', 'test 1', 90, '2022-04-16 11:42:03', NULL, 'Nyambe', '2022-04-16 11:42:03'),
 	(16, 'SDNT00000000042', 18, 'CLAS00000000076', 46, '2022', 'test 1', 98, '2022-04-16 11:43:12', NULL, 'Nyambe', '2022-04-16 11:43:12'),
 	(17, 'SDNT00000000041', 18, 'CLAS00000000076', 46, '2022', 'test 1', 80, '2022-04-16 11:43:12', NULL, 'Nyambe', '2022-04-16 11:43:12'),
-	(18, 'SDNT00000000040', 18, 'CLAS00000000076', 46, '2022', 'test 1', 9, '2022-04-16 11:43:12', NULL, 'Nyambe', '2022-04-16 11:43:12');
+	(18, 'SDNT00000000040', 18, 'CLAS00000000076', 46, '2022', 'test 1', 9, '2022-04-16 11:43:12', NULL, 'Nyambe', '2022-04-16 11:43:12'),
+	(19, 'SDNT00000000043', 18, 'CLAS00000000076', 48, '2022', 'test 2', 40, '2022-05-01 18:02:33', 'gOOD', 'Nyambe', '2022-05-01 18:02:33'),
+	(20, 'SDNT00000000042', 18, 'CLAS00000000076', 48, '2022', 'test 2', 85, '2022-05-01 18:02:33', 'gOOD', 'Nyambe', '2022-05-01 18:02:33'),
+	(21, 'SDNT00000000041', 18, 'CLAS00000000076', 48, '2022', 'test 2', 50, '2022-05-01 18:02:33', 'Avrage', 'Nyambe', '2022-05-01 18:02:33'),
+	(22, 'SDNT00000000040', 18, 'CLAS00000000076', 48, '2022', 'test 2', 50, '2022-05-01 18:02:33', 'Avrage', 'Nyambe', '2022-05-01 18:02:33');
 /*!40000 ALTER TABLE `studnetassesment` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.subjectmater
@@ -1508,7 +1520,7 @@ INSERT IGNORE INTO `teachermaster` (`TeacherID`, `TeaherMasterPublicID`, `Teache
 	(1, 'TECH0000000001', 3, 'Math', '2020-05-24 16:25:03', NULL, 'it', '2020-05-24 16:25:06', '1'),
 	(2, 'TECH0000000003', 4, 'EXAT', '2020-06-15 22:56:50', NULL, 'it', '2020-06-15 22:56:50', '1'),
 	(6, 'TECH00000000068', 1, 'EXAT', '2021-08-21 17:24:46', NULL, 'it', '2021-08-21 17:24:46', '1'),
-	(9, 'TECH00000000079', 1, 'EXAT', '2021-08-21 18:02:09', NULL, 'it', '2021-08-21 18:02:09', '1'),
+	(9, 'TECH00000000079', 1, 'EXAT', '2021-08-21 18:02:09', NULL, 'it', '2021-08-21 18:02:09', '0'),
 	(10, 'TECH00000000080', 4, 'EGLA', '2021-08-21 18:05:08', NULL, 'it', '2021-08-21 18:05:08', '1'),
 	(21, 'TECH00000000091', 4, 'SCEN', '2021-08-23 09:31:52', NULL, 'it', '2021-08-23 09:31:52', '1'),
 	(26, 'TECH000000000101', 3, 'Maju', '2021-10-10 15:12:00', NULL, 'ta', '2021-10-10 15:12:00', '1'),
@@ -1616,10 +1628,10 @@ CREATE TABLE IF NOT EXISTS `timetabledetails` (
   CONSTRAINT `FK_timetabledetails_timetablemaster` FOREIGN KEY (`TimeTableMaterD`) REFERENCES `timetablemaster` (`TimeTableMasterID`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.timetabledetails: ~23 rows (approximately)
+-- Dumping data for table 3edu_db.timetabledetails: ~27 rows (approximately)
 /*!40000 ALTER TABLE `timetabledetails` DISABLE KEYS */;
 INSERT IGNORE INTO `timetabledetails` (`TimeTableDetailsID`, `TimeTableMaterD`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday`, `Sunday`, `UpdatedBy`, `UpdatedOn`, `AddedOn`) VALUES
-	(1, 1, 'MATH', 'ENG', 'SCEN', 'MATH', 'ENG', NULL, NULL, 'it', '2021-09-25 14:24:36', '2021-06-27 13:00:42'),
+	(1, 1, 'MATH', 'ENG', 'SCEN', 'MATH', 'ENG', 'ENG', NULL, 'it', '2022-05-01 05:57:45', '2021-06-27 13:00:42'),
 	(2, 5, 'ENG', 'MATH', 'MATH', 'ENG', 'ENG', NULL, NULL, 'it', '2021-09-25 14:24:36', '2021-06-27 13:12:51'),
 	(3, 6, 'SCEN', 'RE110', 'ZMLG', 'CMST', 'MATH', NULL, NULL, 'it', '2021-09-25 14:24:50', '2021-06-27 13:23:57'),
 	(4, 7, NULL, NULL, 'ITSC', 'MATH', 'MATH', NULL, NULL, 'it', '2021-09-25 14:24:36', '2021-06-27 13:24:18'),
@@ -1666,7 +1678,7 @@ CREATE TABLE IF NOT EXISTS `timetablemaster` (
   CONSTRAINT `FK_timetablemaster_periodmaster` FOREIGN KEY (`PeriodMasterID`) REFERENCES `periodmaster` (`PeriodMasterID`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.timetablemaster: ~19 rows (approximately)
+-- Dumping data for table 3edu_db.timetablemaster: ~23 rows (approximately)
 /*!40000 ALTER TABLE `timetablemaster` DISABLE KEYS */;
 INSERT IGNORE INTO `timetablemaster` (`TimeTableMasterID`, `ClassMasterID`, `PeriodMasterID`, `TimeFrom`, `TimeTo`, `IsActive`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(1, 'CLAS0000000004', 1, '08:00:00', '09:00:00', '1', 'sys', '2021-06-27 12:54:50'),
@@ -1795,7 +1807,7 @@ INSERT IGNORE INTO `usermaster` (`UserMasterID`, `PublicID`, `ProfilPicURL`, `NR
 	(9, 'SDNT00000000032', '../../uploads/defult.png', NULL, NULL, 'SN202137', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Test J', 'John', NULL, NULL, NULL, 1, 4, '2000-12-31', 2, 'it', '2021-08-07 18:31:50', '1', '0', '0', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(11, 'SDNT00000000000', '../../uploads/defult.png', NULL, NULL, 'SN202137', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'D', 'F', NULL, NULL, NULL, 2, 3, '2021-08-07', 2, 'it', '2021-08-07 19:06:06', '1', '0', '0', 'a29294e8-f7a1-11eb-a81c-1062e5c23529'),
 	(14, 'SDNT00000000035', '../../uploads/defult.png', NULL, NULL, 'SN2021040', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Tenant', 'Tenat Nwe', NULL, NULL, NULL, 1, 1, '1996-01-01', 2, 'it', '2021-08-08 07:45:28', '1', '0', '0', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
-	(27, 'TECH00000000079', '../../uploads/defult.png', '515151/16/', '55455', 'alinuswemwandobo@gmail.com', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Alinuwe', 'Mwandobo', 'Mwando', 'prototype1496@gmail.com', '0977100587', 1, 2, '1996-01-01', 3, 'it', '2021-08-21 18:02:09', '1', '0', '0', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
+	(27, 'TECH00000000079', '../../uploads/defult.png', '515151/16/', '55455', 'alinuswemwandobo@gmail.com', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Alinuwe', 'Mwandobo', 'Mwando', 'prototype1496@gmail.com', '0977100587', 1, 2, '1996-01-01', 3, 'it', '2021-08-21 18:02:09', '1', '0', '1', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(28, 'TECH00000000080', '../../uploads/teacher_profile/TECH00000000080_Screenshot 2021-08-20 211428.png', '515151/8/8', '74444/45/40', 'TES', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Sannuel', 'Banda', 'Mwando', 'prototype1496@gmail.com', '0977100587', 1, 2, '1196-01-01', 3, 'it', '2021-08-21 18:05:08', '1', '0', '0', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(39, 'TECH00000000091', '../../uploads/defult.png', '515151/8/8', NULL, 'thisisatest', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Emmanuel', 'Mwando', NULL, 'prototype14926@gmail.com', '0977100580', 1, 1, '1996-01-01', 3, 'it', '2021-08-23 09:31:52', '0', '0', '0', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(43, 'ITAD00000000021', '../../uploads/it_profile/ITAD00000000021_lady.png', '5151051/8/', '744440/45/40', 'TESTadmin', '$2y$10$2ZCc8dd426.0EuN6e3jSIuS1bXXSwhnEu2MfZNUgRpl9RjMyRqRXO', 'Test', 'Test', 'Tt', 'prTototype1496@gmail.com', '0977100587', 1, 4, '1996-10-31', 4, 'a', '2021-09-14 14:42:34', '0', '0', '0', 'TES614098baeb6188.42391041'),
@@ -1916,6 +1928,47 @@ BEGIN
 		JOIN classmaster CM ON CM.ClassMasterPublicID = STA.ClassMasterPublicID AND STM.StudentMasterPublicID = STUDENTPUBLICID
 		JOIN subjectmater SM ON SM.SubjectMaterID = STA.SubjectMasterID
 		ORDER BY CM.GradeMasterID, SM.SubjectName,STA.AddedOn ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAccessmentByStudentPublicIDAndAssecmentTypeID
+DROP PROCEDURE IF EXISTS `GetAccessmentByStudentPublicIDAndAssecmentTypeID`;
+DELIMITER //
+CREATE PROCEDURE `GetAccessmentByStudentPublicIDAndAssecmentTypeID`(
+	IN `STUDENTPUBLICID` VARCHAR(100),
+	IN `AssecemntTypeMasterID_` INT,
+	IN `date` DATE
+)
+BEGIN
+	SELECT   STA.StudnetAssesmenID																									AS 'PublicID',
+					STM.StudentNo																												AS 'StudentNo',
+					CONCAT(STM.FirstName,IF(STM.OtherName IS NULL,' ',CONCAT(' ',STM.OtherName,' ')),STM.LastName )	AS 'Name',
+					CONCAT(CM.ClassName,' (',CM.ClassCode,')')																		AS 'ClassName',
+				   CONCAT(SM.SubjectName,' (',SM.SubjectCode,')')																	AS 'Subject',
+					CONCAT(ASTM.AssementTypeName, ' (',STA.AssecementName,')')													AS 'AssecementName',
+					CONCAT(STA.Score,' %')																									AS 'Score',
+				   DATE_FORMAT(STA.UpdatedOn, "%d %b, %Y") 					   												   AS 'MarkedOn'
+				   
+					
+		FROM studnetassesment STA
+		JOIN studentmaster STM ON STM.StudentMasterPublicID = STA.StudentMasterPublicID 
+		JOIN assementtypemaster ASTM ON ASTM.AssementTypeID = AssecemntTypeMasterID_
+		
+		JOIN classmaster CM ON CM.ClassMasterPublicID = STA.ClassMasterPublicID AND STM.StudentMasterPublicID = STUDENTPUBLICID
+		JOIN subjectmater SM ON SM.SubjectMaterID = STA.SubjectMasterID
+		ORDER BY CM.GradeMasterID, SM.SubjectName,STA.AddedOn ASC;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAccessmentTypeByID
+DROP PROCEDURE IF EXISTS `GetAccessmentTypeByID`;
+DELIMITER //
+CREATE PROCEDURE `GetAccessmentTypeByID`(
+	IN `TenantID_` VARCHAR(500),
+	IN `AssementTypeID_` INT
+)
+BEGIN
+SELECT * FROM assementtypemaster ACS WHERE ACS.TenantID =TenantID_ AND ACS.AssementTypeID = AssementTypeID_;
 END//
 DELIMITER ;
 
@@ -2285,22 +2338,33 @@ BEGIN
 SET @StudentNo = StudentNo;
 SELECT 	SM.StudentNo																																	AS 'PublicID',
 			SM.StudentMasterPublicID																													AS 'StudentMasterPublicID',
-			CONCAT(SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName )						AS 'Name', 
+			CONCAT(SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName )						AS 'Name',
+			SM.FirstName																																	AS 'FirstName', 
+			SM.LastName 																																	AS 'LastName', 
+			SM.OtherName																																	AS 'OtherName', 
 		 	SM.GuardianContactNo																															AS 'ContactNo',
 		 	DATE_FORMAT(SM.DOB, "%d %b, %Y")																											AS 'DOB',
+	    	SM.DOB																	                                  						   AS 'OGDOB',
 		 	SM.Address																																		AS 'Address',
+		 	GM.GenderMasterID																															   AS 'GenderMasterID',
 		 	GM.Gender																																		AS 'Gender',
 		 	MSM.MaritalStatus																																AS 'MaritalStatus',
+		 	MSM.MaritalStatusMasterID																													AS 'MaritalStatusID',
 		 	SM.GuardianMaleName																															AS 'GuardianMaleName',
 		 	SM.GuardianFemaleName																														AS 'GuardianFemaleName',
 		 	SM.ProfilePic																																	AS 'ProfilePic',
 		 	CONCAT(CM.ClassName,' (', CM.ClassCode,')')																							AS 'ClassName',
-		 	IF(SM.EmailAddress IS NULL OR SM.EmailAddress = '','None',SM.EmailAddress )																																AS 'EmailAddress'
+		  	CM.ClassMasterPublicID								                                                                  AS 'ClassMasterPublicID',				  CONCAT(CM.ClassName,' (',CM.ClassCode,')')                                                                     AS 'Class',
+		  	GRM.GradeMasterID																																AS 'GradeMasterID',
+		  	GRM.Grade																																		AS 'Grade',
+		 	IF(SM.EmailAddress IS NULL OR SM.EmailAddress = '','None',SM.EmailAddress )								   			AS 'EmailAddress'
 		 	
 FROM studentmaster SM
 JOIN gendermaster GM ON GM.GenderMasterID = SM.GenderID
 JOIN maritalstatusmaster MSM ON MSM.MaritalStatusMasterID = SM.MaritalStatusID 
-JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID  WHERE SM.IsActive = 1 AND SM.StudentNo = @StudentNo;
+JOIN classmaster CM ON CM.ClassMasterPublicID = SM.ClassMasterPublicID  
+JOIN grademaster GRM ON GRM.GradeMasterID = CM.GradeMasterID
+WHERE SM.IsActive = 1 AND SM.StudentNo = @StudentNo;
 END//
 DELIMITER ;
 

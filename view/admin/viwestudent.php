@@ -186,6 +186,8 @@ $stm = TeacherModel::get_complet_student_details($tenant_id);
    
     <button onclick="redirectResetWithID('<?php echo $public_id;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-unlock"></i></button>
  
+    <button onclick="redirectResetWithIDU('<?php echo $public_id;?>')" style="padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px;" class="btn btn-info"><i class="feather icon-edit"></i></button>
+ 
 </td>
 </tr>
 
@@ -330,6 +332,13 @@ $stm = TeacherModel::get_complet_student_details($tenant_id);
      function redirectResetWithID(id){
       
          window.location.href = "viwestudent.php?student_id="+id;
+        
+        
+    }
+    
+     function redirectResetWithIDU(id){
+      
+         window.location.href = "/threeedu/view/admin/studentupdate.php?id="+id;
         
         
     }

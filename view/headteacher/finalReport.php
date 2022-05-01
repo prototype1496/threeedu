@@ -11,13 +11,19 @@ $classes = SuperModel::get_all_classes_by_tenant_id($tenant_id);
 $publicId = $_GET["public_id"];
 $term = $_GET["term"];
 $date = $_GET["date"];
-$assessment = $_GET["assessment"];
-$studentAssesment = SuperModel::get_student_assecemnttype_by_public_id($publicId);
+$assessment_type_id = $_GET["assessment"];
+
+
+print_r($date);
+$studentAssesment = SuperModel::get_student_assecemnttype_by_public_id($publicId,$assessment_type_id);
+
+$assecment_type_data = SuperModel::get_assesment_by_id($tenant_id,$assessment_type_id);
 $studentDetails = SuperModel::getStudentDetailsByPublicId($publicId);
 $schoolDetails = SuperModel::getSchoolDetailsByPublicId($publicId);
-$studentComments = SuperModel::getStudentCommentsByPublicId($publicId, $term,$assessment,$date);
+$studentComments = SuperModel::getStudentCommentsByPublicId($publicId, $term,$assessment_type_id,$date);
 $year = date('Y', strtotime($date));
 
+$assessment = $assecment_type_data['AssementTypeName'];
 
 if(isset($studentComments)){
     header("");
@@ -309,7 +315,10 @@ $headTeacherComments = $studentComments["HeadTeacherComment"];
                                                                                                                 GRADE
                                                                                                             </td>
                                                                                                         </tr>
-                                                                                                        <?php while ($row_data = $studentAssesment->fetch(PDO::FETCH_ASSOC)) { ?>
+                                                                                                        <?php while ($row_data = $studentAssesment->fetch(PDO::FETCH_ASSOC)) {
+                                                                                                            $assessment = $row_data['AssecementName'];
+                                                                                                            
+                                                                                                            ?>
                                                                                                             <tr>
                                                                                                                 <td align="center"><?php echo $row_data['Subject']; ?></td>
                                                                                                                 <td align="center"><?php echo $row_data['Score']; ?></td>

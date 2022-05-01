@@ -159,7 +159,7 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
 
                                                 <div>
                                                     <a href="<?php echo $row['ProfilePic'] ; ?>" data-lightbox="roadtrip" class="profile-image" >
-                                                    <img src="<?php echo $row['ProfilePic'] ; ?>" class="img-circle" alt="Cinque Terre" width="200" height="200" />
+                                                    <img src="<?php echo $row['ProfilePic'] ; ?>" class="img-circle" alt="Profile Pic" width="200" height="200" />
                                                     </a>
                                                 </div>
                                                 <br />
@@ -172,6 +172,9 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
                                         </div>
 
                                         <div class="col-md-6">
+                                            
+                                             
+                                            
                                             <div class="form-group">
 
 
@@ -182,6 +185,9 @@ $student_data = SuperModel::get_all_transaction_history($student_public_id);
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
+                                                      <div class="dt-buttons">
+                                                           <a style="font-size: 20px; padding:3px;" class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="excel-bg" href="/threeedu/view/admin/studentupdate.php?id=<?php echo $student_no; ?>"><span>Edit</span></a>
+                                                       </div>
                                                         <div>
                                                             <div class="form-group">
                                                                 <H4 class="text-c-blue">Student ID</H4>
