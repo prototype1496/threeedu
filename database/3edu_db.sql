@@ -306,7 +306,7 @@ CREATE TABLE IF NOT EXISTS `comboboxvaluemaster` (
   UNIQUE KEY `ComboBoxValueMasterID` (`ComboBoxValueMasterID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.comboboxvaluemaster: ~1 rows (approximately)
+-- Dumping data for table 3edu_db.comboboxvaluemaster: ~0 rows (approximately)
 /*!40000 ALTER TABLE `comboboxvaluemaster` DISABLE KEYS */;
 INSERT IGNORE INTO `comboboxvaluemaster` (`ComboBoxValueMasterID`, `ID`, `Name`, `Value`, `Active`, `UpdatedOn`) VALUES
 	(1, '1', 'DocumentType', 'Leson Plan', '1', '2021-07-03 18:11:26');
@@ -323,7 +323,7 @@ CREATE TABLE IF NOT EXISTS `country` (
   UNIQUE KEY `ConuntryCode` (`ConuntryCode`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.country: ~1 rows (approximately)
+-- Dumping data for table 3edu_db.country: ~0 rows (approximately)
 /*!40000 ALTER TABLE `country` DISABLE KEYS */;
 INSERT IGNORE INTO `country` (`CountryID`, `CountryName`, `ConuntryCode`, `IsActive`) VALUES
 	(1, 'Zambia ', '+260', '1');
@@ -523,7 +523,7 @@ CREATE TABLE IF NOT EXISTS `emailservice` (
   CONSTRAINT `FK_emailservice_statusmaster` FOREIGN KEY (`Status`) REFERENCES `statusmaster` (`StatueCode`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.emailservice: ~1 rows (approximately)
+-- Dumping data for table 3edu_db.emailservice: ~0 rows (approximately)
 /*!40000 ALTER TABLE `emailservice` DISABLE KEYS */;
 INSERT IGNORE INTO `emailservice` (`EmailServiceID`, `EmailSerial`, `EmailAddress`, `EmailSubject`, `SendData`, `Status`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(1, 'EMIL0000000001', 'prototype1496@gmail.com', 'Teacher Time Management System Temp Login Cridentials', 'Wellcome to T.T.M.S<br><b>Username: </b> alinuswemwandobo@gmail.com<br><b>Temp Password: </b>VIJOE<br>Please login in to system and to change your password<br><br><b>If this message dose not belong to you please ignore it and have a good day </b> ', 'COMP', 'admin', '2020-11-20 11:52:46');
@@ -1323,7 +1323,7 @@ CREATE TABLE IF NOT EXISTS `studnetassesment` (
   CONSTRAINT `FK_studnetassesment_subjectmater` FOREIGN KEY (`SubjectMasterID`) REFERENCES `subjectmater` (`SubjectMaterID`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.studnetassesment: ~22 rows (approximately)
+-- Dumping data for table 3edu_db.studnetassesment: ~18 rows (approximately)
 /*!40000 ALTER TABLE `studnetassesment` DISABLE KEYS */;
 INSERT IGNORE INTO `studnetassesment` (`StudnetAssesmenID`, `StudentMasterPublicID`, `AssecemntTypeMasterID`, `ClassMasterPublicID`, `SubjectMasterID`, `YearAdded`, `AssecementName`, `Score`, `AddedOn`, `Commment`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(1, 'SDNT00000000039', 17, 'CLAS00000000068', 39, '2021', 'sets', 85, '2021-10-18 13:19:11', 'GOOD', 'nakamba', '2021-10-18 13:19:11'),
@@ -1343,11 +1343,7 @@ INSERT IGNORE INTO `studnetassesment` (`StudnetAssesmenID`, `StudentMasterPublic
 	(15, 'SDNT00000000040', 18, 'CLAS00000000076', 47, '2022', 'test 1', 90, '2022-04-16 11:42:03', NULL, 'Nyambe', '2022-04-16 11:42:03'),
 	(16, 'SDNT00000000042', 18, 'CLAS00000000076', 46, '2022', 'test 1', 98, '2022-04-16 11:43:12', NULL, 'Nyambe', '2022-04-16 11:43:12'),
 	(17, 'SDNT00000000041', 18, 'CLAS00000000076', 46, '2022', 'test 1', 80, '2022-04-16 11:43:12', NULL, 'Nyambe', '2022-04-16 11:43:12'),
-	(18, 'SDNT00000000040', 18, 'CLAS00000000076', 46, '2022', 'test 1', 9, '2022-04-16 11:43:12', NULL, 'Nyambe', '2022-04-16 11:43:12'),
-	(19, 'SDNT00000000043', 18, 'CLAS00000000076', 48, '2022', 'test 2', 40, '2022-05-01 18:02:33', 'gOOD', 'Nyambe', '2022-05-01 18:02:33'),
-	(20, 'SDNT00000000042', 18, 'CLAS00000000076', 48, '2022', 'test 2', 85, '2022-05-01 18:02:33', 'gOOD', 'Nyambe', '2022-05-01 18:02:33'),
-	(21, 'SDNT00000000041', 18, 'CLAS00000000076', 48, '2022', 'test 2', 50, '2022-05-01 18:02:33', 'Avrage', 'Nyambe', '2022-05-01 18:02:33'),
-	(22, 'SDNT00000000040', 18, 'CLAS00000000076', 48, '2022', 'test 2', 50, '2022-05-01 18:02:33', 'Avrage', 'Nyambe', '2022-05-01 18:02:33');
+	(18, 'SDNT00000000040', 18, 'CLAS00000000076', 46, '2022', 'test 1', 9, '2022-04-16 11:43:12', NULL, 'Nyambe', '2022-04-16 11:43:12');
 /*!40000 ALTER TABLE `studnetassesment` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.subjectmater
@@ -1936,8 +1932,7 @@ DROP PROCEDURE IF EXISTS `GetAccessmentByStudentPublicIDAndAssecmentTypeID`;
 DELIMITER //
 CREATE PROCEDURE `GetAccessmentByStudentPublicIDAndAssecmentTypeID`(
 	IN `STUDENTPUBLICID` VARCHAR(100),
-	IN `AssecemntTypeMasterID_` INT,
-	IN `date` DATE
+	IN `AssecemntTypeMasterID_` INT
 )
 BEGIN
 	SELECT   STA.StudnetAssesmenID																									AS 'PublicID',

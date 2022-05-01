@@ -14,7 +14,7 @@ $date = $_GET["date"];
 $assessment_type_id = $_GET["assessment"];
 
 
-print_r($date);
+
 $studentAssesment = SuperModel::get_student_assecemnttype_by_public_id($publicId,$assessment_type_id);
 
 $assecment_type_data = SuperModel::get_assesment_by_id($tenant_id,$assessment_type_id);
