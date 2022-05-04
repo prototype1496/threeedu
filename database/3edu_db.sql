@@ -750,7 +750,7 @@ CREATE TABLE IF NOT EXISTS `sequencemaster` (
 INSERT IGNORE INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 107, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 394, '2019-11-01 20:00:03'),
+	(3, 'TOKN', 398, '2019-11-01 20:00:03'),
 	(4, 'EMIL', 3, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
 	(6, 'SCHL', 11, '2019-11-17 18:52:58'),
@@ -781,7 +781,7 @@ CREATE TABLE IF NOT EXISTS `session` (
   PRIMARY KEY (`SessionID`),
   KEY `FK_session_usermaster` (`UserMasterPublicID`),
   CONSTRAINT `FK_session_usermaster` FOREIGN KEY (`UserMasterPublicID`) REFERENCES `usermaster` (`PublicID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=395 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=399 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_db.session: ~26 rows (approximately)
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
@@ -807,11 +807,11 @@ INSERT IGNORE INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `To
 	(347, 'ACCO00001', 'TOKN000000000347', 'c31fd57384767498e90c3e50efeff6ab57b4cc8c657a12fcc1ce89896252a666', '1649672086', 'acc', '2022-04-11 10:14:47'),
 	(374, 'ACCO00000000012', 'TOKN000000000374', '06c95ab3703373d98ab46baa61c165b3830e544a609a14d414e6bcdab8c3ada0', '1651335146', 'Accounts', '2022-04-30 18:12:26'),
 	(378, 'ITAD00000000026', 'TOKN000000000378', '5c8020560736dca3a2ea2a5f1267e620bb2ca926f72e20e3a3bba99553d83342', '1651339286', 'Madmin', '2022-04-30 19:21:26'),
-	(380, 'SDNT00000000040', 'TOKN000000000380', 'e5987ea1db66985e4743d9c1afe2b1e3ba5fa7ee3086e223eed3b69def29ecb0', '1651341857', 'SN2022045', '2022-04-30 20:04:17'),
 	(381, 'SDNT00000000043', 'TOKN000000000381', '06c918f9d5b660697abf54cd6df63cbfe8d0388efdcd18562551dd9068134837', '1651342080', 'SN2022048', '2022-04-30 20:08:00'),
 	(388, 'ITADM00001', 'TOKN000000000388', 'ecbb0416e2552468d942c7514cd42eca3d91c08dfa92335b72b4b967593dff67', '1651377307', 'it', '2022-05-01 05:55:07'),
 	(393, 'TECH000000000106', 'TOKN000000000393', '93f650d6c10d4882c9571dc11add3c7fb02c3f4550e7da617b414a83df09179c', '1651420877', 'Nyambe', '2022-05-01 18:01:17'),
-	(394, 'TECH000000000107', 'TOKN000000000394', '7b663ad5a81ddff9c403b3499af28556a530d6b1c5af612106d9809c9e470a78', '1651420969', 'Tupa', '2022-05-01 18:02:50');
+	(397, 'SDNT00000000040', 'TOKN000000000397', 'ee59dc3435a61c2236a4a21286dc065e22f1d3638a8df5c0e86f247749948594', '1651634877', 'SN2022045', '2022-05-04 05:27:57'),
+	(398, 'TECH000000000107', 'TOKN000000000398', '96f8a89af59d8d958804f87fa9e3614864f2c1b255fb5b3d893f876be1827dbe', '1651634961', 'Tupa', '2022-05-04 05:29:21');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
@@ -826,9 +826,9 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   `UpdatedBy` varchar(50) NOT NULL,
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionHistoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=395 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=399 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~275 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~279 rows (approximately)
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
 INSERT IGNORE INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
 	(120, '120', '202000041', 'TOKN000000000120', 'ded346951f1db8eeaa836276b1a89f73752c350b4dd1fe9308', '1629644352', 's', '2021-08-22 16:59:13'),
@@ -1105,7 +1105,11 @@ INSERT IGNORE INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMaste
 	(391, '391', 'TECH000000000106', 'TOKN000000000391', '434e7656ba7dee50555aa774882e8861ca2f08149906a4c4fa', '1651419312', 'Nyambe', '2022-05-01 17:35:12'),
 	(392, '392', 'TECH000000000107', 'TOKN000000000392', 'cf98232734ca002f393c2782aebc918f5be5d81d61aa5bd1db', '1651419719', 'Tupa', '2022-05-01 17:41:59'),
 	(393, '393', 'TECH000000000106', 'TOKN000000000393', '93f650d6c10d4882c9571dc11add3c7fb02c3f4550e7da617b', '1651420877', 'Nyambe', '2022-05-01 18:01:17'),
-	(394, '394', 'TECH000000000107', 'TOKN000000000394', '7b663ad5a81ddff9c403b3499af28556a530d6b1c5af612106', '1651420969', 'Tupa', '2022-05-01 18:02:50');
+	(394, '394', 'TECH000000000107', 'TOKN000000000394', '7b663ad5a81ddff9c403b3499af28556a530d6b1c5af612106', '1651420969', 'Tupa', '2022-05-01 18:02:50'),
+	(395, '395', 'SDNT00000000040', 'TOKN000000000395', '2100ba180c8f83a05fb8de7a36fe93b990f08b1262159461ec', '1651514935', 'SN2022045', '2022-05-02 20:08:55'),
+	(396, '396', 'SDNT00000000040', 'TOKN000000000396', 'da4da6ababc3e7c3fa8a197a6bd090978adb3449986748e5d9', '1651514942', 'SN2022045', '2022-05-02 20:09:02'),
+	(397, '397', 'SDNT00000000040', 'TOKN000000000397', 'ee59dc3435a61c2236a4a21286dc065e22f1d3638a8df5c0e8', '1651634877', 'SN2022045', '2022-05-04 05:27:57'),
+	(398, '398', 'TECH000000000107', 'TOKN000000000398', '96f8a89af59d8d958804f87fa9e3614864f2c1b255fb5b3d89', '1651634961', 'Tupa', '2022-05-04 05:29:21');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster
@@ -1206,10 +1210,10 @@ CREATE TABLE IF NOT EXISTS `studentcomments` (
 -- Dumping data for table 3edu_db.studentcomments: ~4 rows (approximately)
 /*!40000 ALTER TABLE `studentcomments` DISABLE KEYS */;
 INSERT IGNORE INTO `studentcomments` (`StudentCommentID`, `StudentMasterPublicID`, `TeaherMasterName`, `HeadTeacherName`, `TeacherComment`, `HeadTeacherComment`, `State`, `Term`, `AssessmentName`, `CreatedAt`, `UpdatedAt`, `UpdatedBy`) VALUES
-	(212, 'SDNT00000000043', 'Nyambe Mubukwanu', 'Tupa Mukamba', 'gOOD', 'Avrage', 'Done', 'Term 1', 18, '2022-05-01', '2022-05-01', 'Tupa'),
-	(213, 'SDNT00000000042', 'Nyambe Mubukwanu', 'Tupa Mukamba', 'GOOD', 'Avrage', 'Done', 'Term 1', 18, '2022-05-01', '2022-05-01', 'Tupa'),
-	(214, 'SDNT00000000041', 'Nyambe Mubukwanu', 'Tupa Mukamba', 'gOOD', 'Avrage', 'Done', 'Term 1', 18, '2022-05-01', '2022-05-01', 'Tupa'),
-	(215, 'SDNT00000000040', 'Nyambe Mubukwanu', 'Tupa Mukamba', 'Avrage', 'Avrage', 'Done', 'Term 1', 18, '2022-05-01', '2022-05-01', 'Tupa');
+	(212, 'SDNT00000000043', 'Nyambe Mubukwanu', 'Tupa Mukamba', 'gOOD', 'Avrage', 'Done', 'Term 1', 18, '2022-04-01', '2022-05-01', 'Tupa'),
+	(213, 'SDNT00000000042', 'Nyambe Mubukwanu', 'Tupa Mukamba', 'GOOD', 'Avrage', 'Done', 'Term 1', 18, '2022-04-01', '2022-05-01', 'Tupa'),
+	(214, 'SDNT00000000041', 'Nyambe Mubukwanu', 'Tupa Mukamba', 'gOOD', 'Avrage', 'Done', 'Term 1', 18, '2022-04-01', '2022-05-01', 'Tupa'),
+	(215, 'SDNT00000000040', 'Nyambe Mubukwanu', 'Tupa Mukamba', 'Avrage', 'Avrage', 'Done', 'Term 1', 18, '2022-04-01', '2022-05-01', 'Tupa');
 /*!40000 ALTER TABLE `studentcomments` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.studentdetails
@@ -1828,7 +1832,7 @@ INSERT IGNORE INTO `usermaster` (`UserMasterID`, `PublicID`, `ProfilPicURL`, `NR
 	(73, 'ITAD00000000025', '../../uploads/defult.png', '515151/17/', '74444/45/40', 'thittest', '$2y$10$vfbiJ8BxdqAiCHHfOd6/ROZX1zeSilEvCzAaWG8uTEYYgAWY.fJz6', 'uhb', 'bjhj', 'hjb', 'prototy8pe1496@gmail.com', '0977100586', 1, 1, '1996-01-01', 4, 'it', '2022-03-19 06:28:35', '1', '0', '0', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
 	(74, 'ITAD00000000026', '../../uploads/it_profile/ITAD00000000026_Profile193826187.jpg', '339006010', 'ZN20231453', 'Madmin', '$2y$10$GDxjqf3ApsEeLdHm0/x2S.0ErqEILtlUaUNGObDY1m2a1myg0sb6K', 'Ali', 'Mwanza', NULL, 'alimwanza@gmail.com', '+260971145253', 1, 4, '2022-04-11', 4, 'a', '2022-04-12 23:58:42', '1', '0', '0', 'Thr6255f612d73866.53144529'),
 	(75, 'TECH000000000106', '../../uploads/teacher_profile/TECH000000000106_test teacher.png', '339006010', 'ZN20231453', 'Nyambe', '$2y$10$5PEVpYyk6EorqxCk2CFe8.fNPbfCH4/xMXR/j1o2VmWgxWVD4L9WO', 'Nyambe', 'Mubukwanu', NULL, 'alimwanza@gmail.com', '+260971145253', 1, 4, '2022-04-13', 3, 'Madmin', '2022-04-13 00:11:11', '1', '0', '0', 'Thr6255f612d73866.53144529'),
-	(76, 'TECH000000000107', '../../uploads/teacher_profile/TECH000000000107_Tupa Profile.jpg', '339006010', 'ZN20231453', 'Tupa', '$2y$10$yWDCZYuCDrJBqxnUYeUNee7UQ.4c3YskE2teQuZNt.mWA/UH42Ik2', 'Tupa', 'Mukamba', NULL, 'alimwanza@gmail.com', '+260971145253', 1, 4, '2022-04-13', 3, 'Madmin', '2022-04-13 00:13:51', '1', '0', '0', 'Thr6255f612d73866.53144529'),
+	(76, 'TECH000000000107', '../../uploads/teacher_profile/TECH000000000107_Tupa Profile.jpg', '339006010', 'ZN20231453', 'getStudentCommentsByPublicId', '$2y$10$yWDCZYuCDrJBqxnUYeUNee7UQ.4c3YskE2teQuZNt.mWA/UH42Ik2', 'Tupa', 'Mukamba', NULL, 'alimwanza@gmail.com', '+260971145253', 1, 4, '2022-04-13', 3, 'Madmin', '2022-04-13 00:13:51', '1', '0', '0', 'Thr6255f612d73866.53144529'),
 	(77, 'ACCO00000000012', '../../uploads/acc_profile/ACCO00000000012_Sandra194944234.jfif', '339006010', 'ZN20231453', 'Accounts', '$2y$10$.AcQF65JqeCUiA7zzDKS/ej.kvBSChhvAPY3vihvdShRfCP3YoUMG', 'Sandra', 'Lungu', NULL, 'alimwanza@gmail.com', '+260971145253', 2, 4, '2022-04-13', 5, 'Madmin', '2022-04-13 00:17:09', '1', '0', '0', 'Thr6255f612d73866.53144529'),
 	(78, 'SDNT00000000040', '../../uploads/defult.png', NULL, NULL, 'SN2022045', '$2y$10$tp3hdh1CBLqC/4Q0wGXYHeJBBNz/GonqBLNwIOALffpaRIL/BXbnO', 'Tokozani', 'Lungu', NULL, NULL, NULL, 1, 4, '2022-04-13', 2, 'Madmin', '2022-04-13 00:22:31', '1', '0', '0', 'Thr6255f612d73866.53144529'),
 	(79, 'SDNT00000000041', '../../uploads/defult.png', NULL, NULL, 'SN2022046', '$2y$10$ra/kOeiaK7t3NV6JrEotTOmNe8W4JZtk2F.Z7PvddgeSjH.StgJL6', 'Thandi', 'Zimba', NULL, NULL, NULL, 2, 4, '2022-04-11', 2, 'Madmin', '2022-04-13 00:23:42', '1', '0', '0', 'Thr6255f612d73866.53144529'),
@@ -1932,7 +1936,8 @@ DROP PROCEDURE IF EXISTS `GetAccessmentByStudentPublicIDAndAssecmentTypeID`;
 DELIMITER //
 CREATE PROCEDURE `GetAccessmentByStudentPublicIDAndAssecmentTypeID`(
 	IN `STUDENTPUBLICID` VARCHAR(100),
-	IN `AssecemntTypeMasterID_` INT
+	IN `AssecemntTypeMasterID_` INT,
+	IN `date_` DATE
 )
 BEGIN
 	SELECT   STA.StudnetAssesmenID																									AS 'PublicID',
@@ -1951,7 +1956,8 @@ BEGIN
 		
 		JOIN classmaster CM ON CM.ClassMasterPublicID = STA.ClassMasterPublicID AND STM.StudentMasterPublicID = STUDENTPUBLICID
 		JOIN subjectmater SM ON SM.SubjectMaterID = STA.SubjectMasterID
-		ORDER BY CM.GradeMasterID, SM.SubjectName,STA.AddedOn ASC;
+		WHERE STA.YearAdded = YEAR(date_) AND MONTH(STA.AddedOn) =  MONTH(date_)
+		ORDER BY CM.GradeMasterID, SM.SubjectName,STA.AddedOn ASC ;
 END//
 DELIMITER ;
 

@@ -15,7 +15,7 @@ $assessment_type_id = $_GET["assessment"];
 
 
 
-$studentAssesment = SuperModel::get_student_assecemnttype_by_public_id($publicId,$assessment_type_id);
+$studentAssesment = SuperModel::get_student_assecemnttype_by_public_id_assesment_id($publicId,$assessment_type_id,$date);
 
 $assecment_type_data = SuperModel::get_assesment_by_id($tenant_id,$assessment_type_id);
 $studentDetails = SuperModel::getStudentDetailsByPublicId($publicId);

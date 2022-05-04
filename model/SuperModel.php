@@ -322,16 +322,34 @@ class SuperModel
     }
 
 
-    public static function get_student_assecemnttype_by_public_id($PUBLICID,$assessment)
+    public static function get_student_assecemnttype_by_public_id($PUBLICID)
     {
 
         $Connection = new Connection();
         $conn = $Connection->connect();
 
-        $query = "CALL GetAccessmentByStudentPublicIDAndAssecmentTypeID(:public_id,:assecment_type_id);";
+        $query = "CALL GetAccessmentByStudentPublicID(:public_id);";
 
         $stm = $conn->prepare($query);
-        $stm->execute(array(':public_id' => $PUBLICID,':assecment_type_id'=>$assessment));
+        $stm->execute(array(':public_id' => $PUBLICID));
+
+        return $stm;
+    }
+    
+    
+    public static function get_student_assecemnttype_by_public_id_assesment_id($PUBLICID,$assessment,$date)
+    {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $time = strtotime($date);
+         $date = date("Y-m-d",$time);
+         print_r($date);
+        $query = "CALL GetAccessmentByStudentPublicIDAndAssecmentTypeID(:public_id,:assecment_type_id,:date);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':public_id' => $PUBLICID,':assecment_type_id'=>$assessment,':date'=>$date));
 
         return $stm;
     }

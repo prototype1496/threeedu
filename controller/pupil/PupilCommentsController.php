@@ -17,7 +17,7 @@ if (isset($_POST['publicId'])) {
 function getStudentReportDetailsBy($publicId, $term,$assessment,$date) {
     $comments = SuperModel::getStudentCommentsByPublicId($publicId, $term,$assessment,$date);
     if (empty($comments)) {
-        header('location:/threeedu/view/headteacher/finalReportFilter.php?error=record not found');
+        header('location:/threeedu/view/headteacher/finalReportFilter.php?error=comments not found entered');
     } else {
         header('location:/threeedu/view/headteacher/finalReport.php?public_id='.$publicId.'&term='.$term.'&assessment='.$assessment.'&date='.$date);
     }
