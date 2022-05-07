@@ -154,7 +154,7 @@ $stm_active_term_data = SuperModel::get_sys_active_terms($tenant_id);
                                                                     <div class="col-md-12">
                                                                         <div style="float: right;" class="">
                                                                        <label class="bmd-label-floating"><h5>Active Term</h5></label><br>
-                                                                        <b><?php echo $stm_active_term_data['TermName']; ?></b><br>
+                                                                       <b><?php echo isset($stm_active_term_data['TermName'])? $stm_active_term_data['TermName'] : "Kindly Ask Admin To Set Terms"; ?></b><br>
                                                                     </div>
                                                                 </div> 
                                                                 

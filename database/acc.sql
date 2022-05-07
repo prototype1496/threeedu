@@ -1,13 +1,15 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.4.21-MariaDB - mariadb.org binary distribution
+-- Server version:               10.4.24-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win64
--- HeidiSQL Version:             11.3.0.6295
+-- HeidiSQL Version:             12.0.0.6468
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
@@ -34,18 +36,20 @@ CREATE TABLE IF NOT EXISTS `feecharges` (
   `AddedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`GradeMasterID`,`TenantMasterID`,`TermID`,`Year`) USING BTREE,
   UNIQUE KEY `FeeChargesID` (`FeeChargesID`)
-) ENGINE=InnoDB AUTO_INCREMENT=329 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=337 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_accounts_db.feecharges: ~6 rows (approximately)
-/*!40000 ALTER TABLE `feecharges` DISABLE KEYS */;
+-- Dumping data for table 3edu_accounts_db.feecharges: ~8 rows (approximately)
 INSERT IGNORE INTO `feecharges` (`FeeChargesID`, `GradeMasterID`, `TermID`, `TenantMasterID`, `Year`, `Grade`, `IsCharged`, `Amount`, `UpdatedBy`, `UpdatedOn`, `AddedOn`) VALUES
 	(323, 23, 9, 'Thr6255f612d73866.53144529', '2022', '1', 1, 5000, 'Accounts', '2022-04-13 01:44:36', '2022-04-13 01:44:36'),
 	(325, 23, 10, 'Thr6255f612d73866.53144529', '2022', '1', 1, 5000, 'Accounts', '2022-04-13 01:49:39', '2022-04-13 01:49:39'),
 	(327, 23, 11, 'Thr6255f612d73866.53144529', '2022', '1', 1, 1000, 'Accounts', '2022-04-13 02:54:01', '2022-04-13 02:54:01'),
 	(324, 24, 9, 'Thr6255f612d73866.53144529', '2022', '2', 1, 5000, 'Accounts', '2022-04-13 01:44:36', '2022-04-13 01:44:36'),
 	(326, 24, 10, 'Thr6255f612d73866.53144529', '2022', '2', 1, 5000, 'Accounts', '2022-04-13 01:49:40', '2022-04-13 01:49:40'),
-	(328, 24, 11, 'Thr6255f612d73866.53144529', '2022', '2', 1, 1000, 'Accounts', '2022-04-13 02:54:01', '2022-04-13 02:54:01');
-/*!40000 ALTER TABLE `feecharges` ENABLE KEYS */;
+	(328, 24, 11, 'Thr6255f612d73866.53144529', '2022', '2', 1, 1000, 'Accounts', '2022-04-13 02:54:01', '2022-04-13 02:54:01'),
+	(333, 25, 12, 'Ali62763c730ca728.22561562', '2022', 'Grade 1', 1, 8000, 'accc', '2022-05-07 16:50:50', '2022-05-07 16:50:50'),
+	(335, 25, 13, 'Ali62763c730ca728.22561562', '2022', 'Grade 1', 1, 4000, 'accc', '2022-05-07 16:57:12', '2022-05-07 16:57:12'),
+	(334, 26, 12, 'Ali62763c730ca728.22561562', '2022', 'Grade 2', 1, 11000, 'accc', '2022-05-07 16:50:50', '2022-05-07 16:50:50'),
+	(336, 26, 13, 'Ali62763c730ca728.22561562', '2022', 'Grade 2', 1, 4000, 'accc', '2022-05-07 16:57:12', '2022-05-07 16:57:12');
 
 -- Dumping structure for table 3edu_accounts_db.patmenttypemaster
 DROP TABLE IF EXISTS `patmenttypemaster`;
@@ -57,11 +61,9 @@ CREATE TABLE IF NOT EXISTS `patmenttypemaster` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_accounts_db.patmenttypemaster: ~2 rows (approximately)
-/*!40000 ALTER TABLE `patmenttypemaster` DISABLE KEYS */;
 INSERT IGNORE INTO `patmenttypemaster` (`PatmentTypeMasterID`, `PaymentType`, `IsActive`) VALUES
 	(1, 'On Demad Payment', '1'),
 	(2, 'Card', '1');
-/*!40000 ALTER TABLE `patmenttypemaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_accounts_db.sequencemaster
 DROP TABLE IF EXISTS `sequencemaster`;
@@ -75,7 +77,6 @@ CREATE TABLE IF NOT EXISTS `sequencemaster` (
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_accounts_db.sequencemaster: ~18 rows (approximately)
-/*!40000 ALTER TABLE `sequencemaster` DISABLE KEYS */;
 INSERT IGNORE INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 105, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
@@ -92,10 +93,9 @@ INSERT IGNORE INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastIns
 	(20, 'TEDT', 120, '2021-08-21 11:22:16'),
 	(21, 'CLRM', 118, '2021-08-22 11:42:24'),
 	(22, 'TRID', 62, '2021-09-06 04:44:36'),
-	(23, 'BILL', 31, '2021-09-17 16:46:37'),
+	(23, 'BILL', 33, '2021-09-17 16:46:37'),
 	(24, 'ACCO', 0, '2021-11-27 16:15:30'),
-	(25, 'TRAN', 241, '2021-11-28 02:57:12');
-/*!40000 ALTER TABLE `sequencemaster` ENABLE KEYS */;
+	(25, 'TRAN', 252, '2021-11-28 02:57:12');
 
 -- Dumping structure for table 3edu_accounts_db.transactiondetails
 DROP TABLE IF EXISTS `transactiondetails`;
@@ -116,18 +116,18 @@ CREATE TABLE IF NOT EXISTS `transactiondetails` (
   UNIQUE KEY `ReciptNo` (`ReciptNo`),
   KEY `FK_transactiondetails_transactionmaster` (`TransactionMasterPublicID`),
   CONSTRAINT `FK_transactiondetails_transactionmaster` FOREIGN KEY (`TransactionMasterPublicID`) REFERENCES `transactionmaster` (`TransactionMasterPublicID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_accounts_db.transactiondetails: ~6 rows (approximately)
-/*!40000 ALTER TABLE `transactiondetails` DISABLE KEYS */;
 INSERT IGNORE INTO `transactiondetails` (`TransactionDetailsID`, `TransactionMasterPublicID`, `ReciptNo`, `PaidAmout`, `Balace`, `PaymentType`, `PaidBy`, `RecivedBy`, `UpdatedBy`, `AddedOn`, `UpdatedOn`, `IsActive`) VALUES
 	(34, 'TRAN000000000233', 'BILL00000000026', 1000, 4000, 1, 'SDNT00000000043', 'Accounts', 'Accounts', '2022-04-13 01:45:53', '2022-04-13 01:45:53', '1'),
 	(35, 'TRAN000000000232', 'BILL00000000027', 1000, 4000, 1, 'SDNT00000000042', 'Accounts', 'Accounts', '2022-04-13 01:46:27', '2022-04-13 01:46:27', '1'),
 	(36, 'TRAN000000000237', 'BILL00000000028', 1000, 8000, 1, 'SDNT00000000043', 'Accounts', 'Accounts', '2022-04-13 02:11:32', '2022-04-13 02:11:32', '1'),
 	(37, 'TRAN000000000241', 'BILL00000000029', 1500.45, 7499.55, 1, 'SDNT00000000043', 'Accounts', 'Accounts', '2022-04-13 02:56:11', '2022-04-13 02:56:11', '1'),
 	(38, 'TRAN000000000241', 'BILL00000000030', 500, 6999.55, 1, 'SDNT00000000043', 'Accounts', 'Accounts', '2022-04-13 02:59:15', '2022-04-13 02:59:15', '1'),
-	(39, 'TRAN000000000241', 'BILL00000000031', -500, 7499.55, 1, 'SDNT00000000043', 'Accounts', 'Accounts', '2022-04-13 03:00:52', '2022-04-13 03:00:52', '1');
-/*!40000 ALTER TABLE `transactiondetails` ENABLE KEYS */;
+	(39, 'TRAN000000000241', 'BILL00000000031', -500, 7499.55, 1, 'SDNT00000000043', 'Accounts', 'Accounts', '2022-04-13 03:00:52', '2022-04-13 03:00:52', '1'),
+	(40, 'TRAN000000000249', 'BILL00000000032', 12000, -1000, 1, 'SDNT00000000047', 'accc', 'accc', '2022-05-07 16:55:59', '2022-05-07 16:55:59', '1'),
+	(41, 'TRAN000000000252', 'BILL00000000033', 1000, 2000, 1, 'SDNT00000000047', 'accc', 'accc', '2022-05-07 16:58:00', '2022-05-07 16:58:00', '1');
 
 -- Dumping structure for table 3edu_accounts_db.transactionmaster
 DROP TABLE IF EXISTS `transactionmaster`;
@@ -148,10 +148,9 @@ CREATE TABLE IF NOT EXISTS `transactionmaster` (
   `TenantMasterID` varchar(500) NOT NULL,
   PRIMARY KEY (`TransactionMasterID`),
   UNIQUE KEY `TransactionMasterPublicID` (`TransactionMasterPublicID`)
-) ENGINE=InnoDB AUTO_INCREMENT=436 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=450 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_accounts_db.transactionmaster: ~12 rows (approximately)
-/*!40000 ALTER TABLE `transactionmaster` DISABLE KEYS */;
+-- Dumping data for table 3edu_accounts_db.transactionmaster: ~14 rows (approximately)
 INSERT IGNORE INTO `transactionmaster` (`TransactionMasterID`, `TransactionMasterPublicID`, `StudentMasterPublicID`, `TermMasterID`, `GradeMasterID`, `GradeName`, `Balance`, `BilledAmount`, `IsActive`, `UpdatedBy`, `Year`, `UpdatedOn`, `AddedOn`, `TenantMasterID`) VALUES
 	(418, 'TRAN000000000230', 'SDNT00000000040', 9, 23, '1', 5000, 5000, '1', 'System', '2021', '2022-04-13 01:44:36', '2022-04-13 01:44:36', 'Thr6255f612d73866.53144529'),
 	(419, 'TRAN000000000231', 'SDNT00000000041', 9, 23, '1', 5000, 5000, '1', 'System', '2022', '2022-04-13 01:44:36', '2022-04-13 01:44:36', 'Thr6255f612d73866.53144529'),
@@ -164,8 +163,13 @@ INSERT IGNORE INTO `transactionmaster` (`TransactionMasterID`, `TransactionMaste
 	(432, 'TRAN000000000238', 'SDNT00000000040', 11, 23, '1', 11000, 1000, '1', 'System', '2022', '2022-04-13 02:54:01', '2022-04-13 02:54:01', 'Thr6255f612d73866.53144529'),
 	(433, 'TRAN000000000239', 'SDNT00000000041', 11, 23, '1', 11000, 1000, '1', 'System', '2022', '2022-04-13 02:54:01', '2022-04-13 02:54:01', 'Thr6255f612d73866.53144529'),
 	(434, 'TRAN000000000240', 'SDNT00000000042', 11, 23, '1', 10000, 1000, '1', 'System', '2022', '2022-04-13 02:54:01', '2022-04-13 02:54:01', 'Thr6255f612d73866.53144529'),
-	(435, 'TRAN000000000241', 'SDNT00000000043', 11, 23, '1', 7499.55, 1000, '1', 'Accounts', '2022', '2022-04-13 02:54:01', '2022-04-13 02:54:01', 'Thr6255f612d73866.53144529');
-/*!40000 ALTER TABLE `transactionmaster` ENABLE KEYS */;
+	(435, 'TRAN000000000241', 'SDNT00000000043', 11, 23, '1', 7499.55, 1000, '1', 'Accounts', '2022', '2022-04-13 02:54:01', '2022-04-13 02:54:01', 'Thr6255f612d73866.53144529'),
+	(442, 'TRAN000000000247', 'SDNT00000000045', 12, 25, 'Grade 1', 8000, 8000, '1', 'System', '2022', '2022-05-07 16:50:50', '2022-05-07 16:50:50', 'Ali62763c730ca728.22561562'),
+	(443, 'TRAN000000000248', 'SDNT00000000046', 12, 26, 'Grade 2', 11000, 11000, '1', 'System', '2022', '2022-05-07 16:50:50', '2022-05-07 16:50:50', 'Ali62763c730ca728.22561562'),
+	(444, 'TRAN000000000249', 'SDNT00000000047', 12, 26, 'Grade 2', -1000, 11000, '1', 'accc', '2022', '2022-05-07 16:50:50', '2022-05-07 16:50:50', 'Ali62763c730ca728.22561562'),
+	(446, 'TRAN000000000250', 'SDNT00000000045', 13, 25, 'Grade 1', 12000, 4000, '1', 'System', '2022', '2022-05-07 16:57:12', '2022-05-07 16:57:12', 'Ali62763c730ca728.22561562'),
+	(447, 'TRAN000000000251', 'SDNT00000000046', 13, 26, 'Grade 2', 15000, 4000, '1', 'System', '2022', '2022-05-07 16:57:12', '2022-05-07 16:57:12', 'Ali62763c730ca728.22561562'),
+	(448, 'TRAN000000000252', 'SDNT00000000047', 13, 26, 'Grade 2', 2000, 4000, '1', 'accc', '2022', '2022-05-07 16:57:12', '2022-05-07 16:57:12', 'Ali62763c730ca728.22561562');
 
 -- Dumping structure for procedure 3edu_accounts_db.CheckIfFessExists
 DROP PROCEDURE IF EXISTS `CheckIfFessExists`;
@@ -478,7 +482,7 @@ SET @GRADENAME = (SELECT FC.Grade FROM feecharges FC WHERE FC.FeeChargesID = @FE
 SET @TENANTID = (SELECT FC.TenantMasterID FROM feecharges FC WHERE FC.FeeChargesID = @FEECHARGID);
 
 SET @CLASSMASTERID  = (SELECT CM.ClassMasterPublicID FROM 3edu_db.classmaster CM WHERE CM.GradeMasterID = @GRADEMASTERID AND CM.TenantID = @TENANTID LIMIT 1);
-
+ 
 
 
 INSERT INTO transactionmaster
@@ -501,7 +505,7 @@ INSERT INTO transactionmaster
 	GetPreviousBlance(StudentMasterPublicID,@AMOUNT),
 	@AMOUNT,
 	@TENANTID
-	FROM 3edu_db.studentmaster SM WHERE SM.ClassMasterPublicID = @CLASSMASTERID AND SM.IsActive = 1 AND SM.IsGraduated = 0 ;
+	FROM 3edu_db.studentmaster SM WHERE SM.ClassMasterPublicID in (SELECT CM.ClassMasterPublicID FROM 3edu_db.classmaster CM WHERE CM.GradeMasterID = @GRADEMASTERID AND CM.TenantID = @TENANTID) AND SM.IsActive = 1 AND SM.IsGraduated = 0 ;
 	
 	
 	
@@ -530,6 +534,7 @@ END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
