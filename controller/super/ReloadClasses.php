@@ -18,7 +18,7 @@ if ($_GET['id'] == 1) {
 } elseif ($_GET['id'] == 4) {
     $super_maodel->get_student_data_by_id($_GET['class_id'], $_GET['assecmenttype_id']);
 } elseif ($_GET['id'] == 5) {
-    $super_maodel->getStudentInputCommentsByClassId($_GET['class_id']);
+    $super_maodel->getStudentInputCommentsByClassId($_GET['class_id'],$_GET['term_id'],$_GET['assacemtn_type_id'],$_GET['query_id']);
 } elseif ($_GET['id'] == 6) {
     $super_maodel->getAllActiveTerms($_GET['tenant_id']);
 }elseif ($_GET['id'] == 7) {

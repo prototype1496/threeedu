@@ -13,14 +13,14 @@ $term = $_GET["term"];
 $date = $_GET["date"];
 $assessment_type_id = $_GET["assessment"];
 
+$studentComments = SuperModel::getStudentCommentsByPublicId($publicId, $term,$assessment_type_id,$date);
 
-
-$studentAssesment = SuperModel::get_student_assecemnttype_by_public_id_assesment_id($publicId,$assessment_type_id,$date);
+$studentAssesment = SuperModel::get_student_assecemnttype_by_public_id_assesment_id($publicId,$assessment_type_id,$date,$term,$studentComments["ClassMasterPublicID"]);
 
 $assecment_type_data = SuperModel::get_assesment_by_id($tenant_id,$assessment_type_id);
-$studentDetails = SuperModel::getStudentDetailsByPublicId($publicId);
+//$studentDetails = SuperModel::getStudentDetailsByPublicId($publicId);
 $schoolDetails = SuperModel::getSchoolDetailsByPublicId($publicId);
-$studentComments = SuperModel::getStudentCommentsByPublicId($publicId, $term,$assessment_type_id,$date);
+
 $year = date('Y', strtotime($date));
 
 $assessment = $assecment_type_data['AssementTypeName'];
@@ -249,7 +249,7 @@ $headTeacherComments = $studentComments["HeadTeacherComment"];
                                                                                                             <td colspan="1"
                                                                                                                 align="center"
                                                                                                                 style="color: #0a6aa1; margin-bottom: 1rem;">
-                                                                                                                <h2> <?php echo $studentDetails['ClassName'] ?></h2>
+                                                                                                                <h2> <?php echo $studentComments['ClassName'] ?></h2>
                                                                                                             </td>
                                                                                                         </tr>
                                                                                                         <tr>
@@ -257,7 +257,7 @@ $headTeacherComments = $studentComments["HeadTeacherComment"];
                                                                                                                     align="center"
                                                                                                                     style="font-size:1rem; border: transparent; border-bottom: 2px solid black;  padding:20px;">
                                                                                                                 <b>NAME<br>
-                                                                                                                    <?php echo $studentDetails['Name'] ?>
+                                                                                                                    <?php echo $studentComments['Name'] ?>
                                                                                                                 </b>
                                                                                                             </td>
                                                                                                             <td
@@ -265,14 +265,14 @@ $headTeacherComments = $studentComments["HeadTeacherComment"];
                                                                                                                     style="font-size:1rem; border: transparent;   border-bottom: 2px solid black; padding:20px;">
                                                                                                                 <b>CLASS
                                                                                                                     <br>
-                                                                                                                    <?php echo $studentDetails['ClassName'] ?>
+                                                                                                                    <?php echo $studentComments['ClassName'] ?>
                                                                                                                 </b>
                                                                                                             </td>
                                                                                                             <td
                                                                                                                     align="center"
                                                                                                                     style="font-size:1rem; border: transparent;  border-bottom: 2px solid black; padding:20px;">
                                                                                                                 <b>TERM<br>
-                                                                                                                    <?php echo $term ?>
+                                                                                                                    <?php echo $studentComments['TermName'] ?>
                                                                                                                 </b>
                                                                                                             </td>
                                                                                                             <td
@@ -323,7 +323,7 @@ $headTeacherComments = $studentComments["HeadTeacherComment"];
                                                                                                                 <td align="center"><?php echo $row_data['Subject']; ?></td>
                                                                                                                 <td align="center"><?php echo $row_data['Score']; ?></td>
                                                                                                                 <td align="center">
-                                                                                                                    70
+                                                                                                                  <?php echo $row_data['ClassAvarage'].' %'?>
                                                                                                                 </td>
                                                                                                                 <td align="center"><?php
                                                                                                                     $score = $row_data['Score'];

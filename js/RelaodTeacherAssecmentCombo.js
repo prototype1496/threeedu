@@ -83,6 +83,21 @@ function get_assessments() {
     console.log("assessments loaded")
 }
 
+function reload_term_combo(){
+    
+  get_terms();
+ 
+}
+
+function reload_class_combo(){
+get_all_assessments_types();
+ 
+    
+}
+
+
+
+
 function get_studentdata() {
     console.log("get_studentdata")
     const class_id = document.getElementById("selected_class_id").value;
@@ -97,14 +112,64 @@ function get_studentdata() {
 
 function getStudentInputComments() {
     console.log("getStudentInputComments")
-    const class_id = document.getElementById("selected_class_id").value;
-    const temp_parm = "class_id=" + class_id ;
+    let class_id = document.getElementById("selected_class_id").value;
+    let term_id = document.getElementById("term_id").value;
+    let assacemtn_type_id = document.getElementById("assessments").value;
+    let temp_parm = "class_id=" + class_id + "&&term_id="+term_id+ "&&assacemtn_type_id="+assacemtn_type_id+"&&query_id=1";
     xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "../../controller/super/ReloadClasses.php?id=5&&" + temp_parm, false);
     xmlhttp.send(null);
-    console.log("url", "../../controller/super/ReloadClasses.php?id=5&&" + temp_parm)
-    console.log(xmlhttp.responseText)
+   // console.log("url", "../../controller/super/ReloadClasses.php?id=5&&" + temp_parm)
+    //console.log(xmlhttp.responseText)
     document.getElementById("student_data").innerHTML = xmlhttp.responseText;
+    
+    
+     $('#excel-bg').DataTable({
+        dom: 'Bfrtip',
+        buttons: [{
+            extend: 'excelHtml5',
+            customize: function(xlsx) {
+                var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                $('row c[r^="F"]', sheet).each(function() {
+                    if ($('is t', this).text().replace(/[^\d]/g, '') * 1 >= 500000) {
+                        $(this).attr('s', '20');
+                    }
+                });
+            }
+        }]
+    });
+}
+
+
+
+function getStudentInputCommentsHeadTeacher() {
+    console.log("getStudentInputCommentsHeadTeacher")
+    let class_id = document.getElementById("selected_class_id").value;
+    let term_id = document.getElementById("term_id").value;
+    let assacemtn_type_id = document.getElementById("assessments").value;
+    let temp_parm = "class_id=" + class_id + "&&term_id="+term_id+ "&&assacemtn_type_id="+assacemtn_type_id+"&&query_id=2";
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "../../controller/super/ReloadClasses.php?id=5&&" + temp_parm, false);
+    xmlhttp.send(null);
+   // console.log("url", "../../controller/super/ReloadClasses.php?id=5&&" + temp_parm)
+    //console.log(xmlhttp.responseText)
+    document.getElementById("student_data").innerHTML = xmlhttp.responseText;
+    
+    
+     $('#excel-bg').DataTable({
+        dom: 'Bfrtip',
+        buttons: [{
+            extend: 'excelHtml5',
+            customize: function(xlsx) {
+                var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                $('row c[r^="F"]', sheet).each(function() {
+                    if ($('is t', this).text().replace(/[^\d]/g, '') * 1 >= 500000) {
+                        $(this).attr('s', '20');
+                    }
+                });
+            }
+        }]
+    });
 }
 
 function get_all_student_details() {

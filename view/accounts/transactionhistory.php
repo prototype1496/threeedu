@@ -198,25 +198,22 @@ $student_master_data = SuperModel::get_all_master_transaction_history($student_p
  
  </div>
      </div>
-<div class="dt-responsive table-responsive">
-<table id="excel-bg" class="table table-striped table-bordered nowrap">
-<thead>
 
-</thead>
-<tbody id="">
+
+
  <?php
 while ($row1 = $student_master_data->fetch(PDO::FETCH_ASSOC)) {
 
     ?>
+ 
+ <div class="dt-responsive table-responsive">
+<!--                                                                remved excel-bg from id becasue its not validation other recods-->
+                                                                <table id="excel-bg" class="table table-striped table-bordered nowrap">
+<thead>    
     <tr>
-         
-         
-          <td colspan="7"><b><?php echo $row1['BillInfo']; ?></b></td>
-      
-
-    </tr>
-    <tr>
-
+<th colspan="7"><?php echo $row1['BillInfo']; ?></th>
+</tr>
+<tr>
 <th>Name</th>
 <th>Paid Amount (K)</th>
 <th>Balance (K)</th>
@@ -227,6 +224,8 @@ while ($row1 = $student_master_data->fetch(PDO::FETCH_ASSOC)) {
 
 
 </tr>
+</thead>
+<tbody >
  <?php
  
  if (isset($_GET['student_public_id'])){
@@ -258,16 +257,18 @@ while ($row = $student_data->fetch(PDO::FETCH_ASSOC)) {
     </tr>
     
     <?php } ?>
+    
+    </tbody>
+
+</table>
+</div>
 <?php } ?>
 
 
 
 
 
-</tbody>
 
-</table>
-</div>
  
  
 </div>

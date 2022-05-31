@@ -6,10 +6,11 @@ require_once '../../model/SuperModel.php';
 
 $tenant_id = $_SESSION['threeedu_tenantid'];
 $school_id = $_SESSION['threeedu_schoolid'];
+$publicId = $_SESSION['threeedu_public_id'];
 $stm = TeacherModel::get_all_student_details($tenant_id);
 $classes = SuperModel::get_all_classes_by_tenant_id($tenant_id);
-$teacher = SuperModel::get_teacher_details_by_tenant_id($tenant_id)->fetch();
-$teacherFullName = $teacher['FirstName'] . " " . $teacher['LastName'];
+$teacherHead = SuperModel::getHeadTeacherDetails($publicId);
+$teacherFullName = $teacherHead['FirstName'] . " " . $teacherHead['LastName'];
 
 ?>
 <!DOCTYPE html>
@@ -19,7 +20,7 @@ $teacherFullName = $teacher['FirstName'] . " " . $teacher['LastName'];
 <!-- Added by HTTrack -->
 <meta http-equiv="content-type" content="text/html;charset=UTF-8"/><!-- /Added by HTTrack -->
 <head>
-    <title>Teacher Comments </title>
+    <title>Student Comments </title>
 
 
     <!--[if lt IE 10]>
@@ -111,16 +112,14 @@ $teacherFullName = $teacher['FirstName'] . " " . $teacher['LastName'];
                 <!--side bar end  -->
                 <div class="pcoded-content">
                     <div class="pcoded-inner-content">
-
                         <div class="main-body">
-
                             <input type="hidden" id="school_id" value="<?php echo $school_id; ?>">
+                            <input type="hidden" id="tenant_id" name="tenant_id"
+                                   value="<?php echo $tenant_id; ?>"/>
                             <div class="page-body">
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <form method="post" action="../../controller/super/ActionPerformed.php">
-                                            <input type="hidden" id="tenant_id" name="tenant_id"
-                                                   value="<?php echo $tenant_id; ?>"/>
 
                                             <div class="card">
 
@@ -130,7 +129,7 @@ $teacherFullName = $teacher['FirstName'] . " " . $teacher['LastName'];
                                                         <div class="row">
                                                             <div class="col-sm-12 col-xl-3 m-b-30">
                                                                 <select id="selected_class_id"
-                                                                        onchange="reload_term_combo()"
+                                                                        onchange="getStudentInputComments()"
                                                                         required="" name="classid"
                                                                         class="js-example-data-array col-sm-4">
                                                                     <option value="" disabled="disabled"
@@ -143,18 +142,16 @@ $teacherFullName = $teacher['FirstName'] . " " . $teacher['LastName'];
                                                                     <?php } ?>
                                                                 </select>
                                                             </div>
-                                                            <div class="col-sm-12 col-xl-3 m-b-30">
+                                                            <div
+                                                                    class="col-sm-12 col-xl-3 m-b-30">
                                                                 <select id="term_id"
-                                                                        onchange="reload_class_combo()"
                                                                         required
                                                                         name="term_id"
                                                                         class="js-example-data-array col-sm-4">
                                                                 </select>
                                                             </div>
-                                                            <div
-                                                                    class="col-sm-12 col-xl-3 m-b-30">
+                                                            <div class="col-sm-12 col-xl-3 m-b-30">
                                                                 <select id="assessments"
-                                                                        onchange="getStudentInputComments()"
                                                                         required
                                                                         name="assessments"
                                                                         class="js-example-data-array col-sm-4">
@@ -163,26 +160,17 @@ $teacherFullName = $teacher['FirstName'] . " " . $teacher['LastName'];
                                                         </div>
                                                     </div>
                                                     <hr>
-                                                    <div class="dt-responsive table-responsive" id="student_data">
-                                                     
+                                                  
+                                                            <div id="student_data"></div>
+                                                            <!--This data is being loaded in the ReloadTeacherAssecementCombo   -->
+                                                           
                                                         <hr>
-
-                                                        <input hidden name="teacherName"
-                                                               value="<?php echo $teacherFullName ?>"/>
-<!--                                                        <div id="btn_teacher_comment" class="col-sm-1 col-xl-2 m-b-10">
-                                                            <button class="form-control btn-info align-items-end"
-                                                                    onclick=" = () => {
-                                                                       let element = document.getElementsByName(teacherName)
-                                                                         element.style.display = 'visible';
-                                                                        }
-                                                                    "
-                                                                    name="btn_teacher_comment"
-                                                                    value="btn_teacher_comment"
-                                                                    type="submit">Submit
-                                                            </button>
-                                                        </div>-->
+                                                       
+                              
                                                     </div>
                                                 </div>
+                                                
+         
                                             </div>
                                         </form>
                                     </div>
@@ -355,7 +343,6 @@ $teacherFullName = $teacher['FirstName'] . " " . $teacher['LastName'];
 
     }
 </script>
-
 <script src="../../files/rocket-loader.min.js" data-cf-settings="028b4b5e88a856df25e89945-|49" defer=""></script>
 </body>
 

@@ -32,18 +32,30 @@ class SuperModel
         return $stm;
     }
 
-    public  static function getAllActiveTerms($tenantId){
-        $Connection = new Connection();
+    public  static function getAllActiveTerms($tenant_id){
+
+           $Connection = new Connection();
         $conn = $Connection->connect();
-        $query = "SELECT * FROM termmaster WHERE TenantID = '$tenantId'";
+
+        $query = "CALL GetActiveTermByID(:tenant_id);";
+
         $stm = $conn->prepare($query);
-        $stm->execute();
+        $stm->execute(array(':tenant_id' => $tenant_id));
+      
+
+//
+//
+//        $Connection = new Connection();
+//        $conn = $Connection->connect();
+//        $query = "SELECT * FROM termmaster WHERE TenantID = '$tenantId'";
+//        $stm = $conn->prepare($query);
+//        $stm->execute();
 
         echo "  <option value='' disabled='disabled' selected='selected' >Select Term</option> ";
         if ($stm->rowCount() > 0) {
             while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
                 $termName = $row['TermName'];
-               echo  '<option  value=\''.$termName.'\'> '.$termName.'</option>';
+               echo  '<option  value=\''.$row['TermMasterID'].'\'> '.$termName.'</option>';
             }
         }
         return $stm;
@@ -111,7 +123,7 @@ class SuperModel
             $Connection = new Connection();
             $conn = $Connection->connect();
             $conn->beginTransaction();
-            $query = "INSERT INTO `studentcomments` (`StudentMasterPublicID`,`TeaherMasterName`,`HeadTeacherName`, `TeacherComment`,`HeadTeacherComment`,`State`,`Term`,`AssessmentName`,`UpdatedBy`) VALUES (?,?,?,?,?,?,?,?,?);";
+            $query = "INSERT INTO `studentcomments` (ClassMasterPublicID, StudentMasterPublicID, TermID, AssementTypeID, TeacherComment, TeacherID, UpdatedBy, AddedBy) VALUES (?,?,?,?,?,?,?,?);";
             $stm = $conn->prepare($query);
             foreach ($tem_data as $data) {
                 if (!empty($data[0])) {
@@ -123,7 +135,7 @@ class SuperModel
             return true;
         } catch (Exception $exc) {
             $conn->rollBack();
-            echo $exc;
+         // print_r($exc);
             return false;
         }
     }
@@ -133,20 +145,22 @@ class SuperModel
             $Connection = new Connection();
             $conn = $Connection->connect();
             $conn->beginTransaction();
-            $query = "UPDATE `studentcomments` SET HeadTeacherName =?, HeadTeacherComment = ? , UpdatedBy = ?,State = ? WHERE State = ? AND StudentMasterPublicID = ? AND Term	= ? AND AssessmentName = ? ";
+            $query = "UPDATE `studentcomments` SET HeadTeacherComment =?, Status = ? , HeadTeacherID = ?,UpdatedBy = ? WHERE StudentMasterPublicID = ? AND ClassMasterPublicID = ? AND TermID= ? AND AssementTypeID = ? AND Year = YEAR(CURDATE())   ";
             $stm = $conn->prepare($query);
-            $state = "HeadTeacher";
+           
 
             foreach ($tem_data as $data) {
-                $stm->bindParam(1, $data["teacherName"], PDO::PARAM_STR);
-                $stm->bindParam(2, $data['commentData'], PDO::PARAM_STR);
-                $stm->bindParam(3, $data["updatedBy"], PDO::PARAM_STR);
-                $stm->bindParam(4, $data['status'], PDO::PARAM_STR);
-                $stm->bindParam(5, $state, PDO::PARAM_STR);
-                $stm->bindParam(6, $data['studentPublicId'], PDO::PARAM_STR);
-                $stm->bindParam(7, $data['term'], PDO::PARAM_STR);
-                $stm->bindParam(8, $data['assessmentName'], PDO::PARAM_STR);
+                $stm->bindParam(1, $data[0], PDO::PARAM_STR);
+                $stm->bindParam(2, $data[1], PDO::PARAM_STR);
+                $stm->bindParam(3, $data[2], PDO::PARAM_STR);
+                $stm->bindParam(4, $data[3], PDO::PARAM_STR);
+                $stm->bindParam(5, $data[4], PDO::PARAM_STR);
+                $stm->bindParam(6, $data[5], PDO::PARAM_STR);
+                $stm->bindParam(7, $data[6], PDO::PARAM_INT);
+                $stm->bindParam(8, $data[7], PDO::PARAM_INT);
                 $stm->execute();
+                
+              //  print_r($data[1]);
             }
 
             $conn->commit();
@@ -154,7 +168,7 @@ class SuperModel
             return true;
         } catch (Exception $exc) {
             $conn->rollBack();
-            echo $exc;
+         //   echo $exc;
             return false;
         }
     }
@@ -167,9 +181,9 @@ class SuperModel
         $month = date("m", $time);
         $year = date("Y", $time);
 
-        $query = "SELECT * FROM studentcomments WHERE StudentMasterPublicID = '$publicId' AND AssessmentName = '$assessment' AND Term LIKE '$term' AND MONTH(CreatedAt) = '$month' AND YEAR(CreatedAt) = '$year' ORDER BY studentcomments.StudentCommentID DESC LIMIT 1;";
-        $stm = $conn->prepare($query);
-        $stm->execute();
+        $query = "Call GetStudentAddedComentsByIDS(:publicId,:term,:year,:assessmenttype_id)";
+       $stm = $conn->prepare($query);
+        $stm->execute(array(':publicId' => $publicId,':term'=>$term,':year'=>$year,':assessmenttype_id' => $assessment));
         return $stm->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -226,27 +240,97 @@ class SuperModel
     }
 
 
-    function getStudentInputCommentsByClassId($class_id)
+    function getStudentInputCommentsByClassId($class_id,$term_id,$assessments,$query_id)
     {
         //This function is used to load Students in the studentComment.php grid
         $Connection = new Connection();
         $conn = $Connection->connect();
         // this is the stored procidure from the db that is loading the destrics after passing in an province ID
-        $query = "CALL GetAllStudentDetailsByClassMasterPublicID(:class_id,:assecmenttype_id);";
+        
+        if($query_id == 1){
+            $query = "CALL GetAllStudentInfoByClassMasterPublicID(:class_id,:term_id,:assessments);"; 
+        }
+        if($query_id == 2){
+            $query = "CALL GetAllStudentCommentInfoByClassMasterPublicID(:class_id,:term_id,:assessments);"; 
+        }
         $stm = $conn->prepare($query);
-        $stm->execute(array(':class_id' => $class_id, ':assecmenttype_id' => '0000000'));
+        $stm->execute(array(':class_id' => $class_id,':term_id'=>$term_id,':assessments'=>$assessments));
         if ($stm->rowCount() > 0) {
+            ?>
+              <div class="dt-responsive table-responsive">
+                                                        <table id="excel-bg" class="table table-striped table-bordered nowrap">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Student No.</th>
+                                                                <th>Name</th>
+<!--                                                                <th>Class</th>-->
+                                                                <th>Comment</th>
+                                                            </tr>
+                                                            </thead>
+                                                               <tbody>
+           <?php
+            
             while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
                 $public_id = $row['StudentMasterPublicID']; ?>
                 <tr>
                     <input name="student_puplic_id[]" value="<?php echo $public_id; ?>" type="hidden"/>
                     <td><?php echo $row['StudentNo']; ?></td>
                     <td><?php echo $row['NameInfo']; ?></td>
-                    <td><?php echo $row['Class']; ?></td>
-                    <td><input name="comment[]" placeholder="Enter Comment"/></td>
+<!--                    <td><?php echo $row['Class']; ?></td>-->
+                    <td><input required="" name="comment[]" placeholder="Enter Comment"/></td>
                 </tr>
                 <?php
             }
+            
+            if($query_id == 1){
+            ?>
+             </tbody>
+                                                            <tfoot>
+                                                            <tr>
+                                                                <th>Student No.</th>
+                                                                <th>Name</th>
+<!--                                                                <th>Class</th>-->
+                                                                <th>Comment</th>
+                                                            </tr>
+                                                            </tfoot>
+                                                  </table><br><br>
+                  <div id="btn_head_teacher_comment" class="col-sm-1 col-xl-2 m-b-10">
+                                                             
+         <button class="form-control btn-info align-items-end"name="btn_teacher_comment" value="btn_teacher_comment" type="submit">Submit </button>
+        
+                                                        </div>
+                   <?php 
+            }
+            
+            if($query_id == 2){
+                  ?>
+                </tbody>
+                                                            <tfoot>
+                                                            <tr>
+                                                                <th>Student No.</th>
+                                                                <th>Name</th>
+<!--                                                                <th>Class</th>-->
+                                                                <th>Comment</th>
+                                                            </tr>
+                                                            </tfoot>
+                                                  </table><br><br>
+                  <div id="btn_head_teacher_comment" class="col-sm-1 col-xl-2 m-b-10">
+                                                             
+         <button class="form-control btn-info align-items-end"name="btn_head_teacher_comment" value="btn_head_teacher_comment" type="submit">Submit </button>
+        
+                                                        </div>
+              
+                
+                                                  
+                                                  
+                                                  
+          <?php       
+            }
+            
+                  
+        }else{
+            
+            echo '<center><img src="../../img/select_class.png"></img></center>';
         }
     }
 
@@ -337,7 +421,7 @@ class SuperModel
     }
     
     
-    public static function get_student_assecemnttype_by_public_id_assesment_id($PUBLICID,$assessment,$date)
+    public static function get_student_assecemnttype_by_public_id_assesment_id($PUBLICID,$assessment,$date,$termid,$classMasterPublicID)
     {
 
         $Connection = new Connection();
@@ -345,11 +429,11 @@ class SuperModel
 
         $time = strtotime($date);
          $date = date("Y-m-d",$time);
-         print_r($date);
-        $query = "CALL GetAccessmentByStudentPublicIDAndAssecmentTypeID(:public_id,:assecment_type_id,:date);";
+         //print_r($date);
+        $query = "CALL GetAccessmentByStudentPublicIDAndAssecmentTypeID(:public_id,:assecment_type_id,:date,:termid,:classMasterPublicID);";
 
         $stm = $conn->prepare($query);
-        $stm->execute(array(':public_id' => $PUBLICID,':assecment_type_id'=>$assessment,':date'=>$date));
+        $stm->execute(array(':public_id' => $PUBLICID,':assecment_type_id'=>$assessment,':date'=>$date,':termid'=>$termid,':classMasterPublicID'=>$classMasterPublicID));
 
         return $stm;
     }
@@ -1532,7 +1616,7 @@ class SuperModel
             // print_r(count($tem_data[0]));
             //$args  = array_fill(0, count($tem_data[0]), '?');
             //Insets data new session into the session table
-            $query = "INSERT INTO `studnetassesment` (`StudentMasterPublicID`, `AssecemntTypeMasterID`, `ClassMasterPublicID`, `Score`, `Commment`, `UpdatedBy`,`AssecementName`,`SubjectMasterID`) VALUES (?, ?, ?, ?, ?, ?,?,?);";
+            $query = "INSERT INTO `studnetassesment` (`StudentMasterPublicID`, `AssecemntTypeMasterID`, `ClassMasterPublicID`, `Score`, `Commment`, `UpdatedBy`,`AssecementName`,`SubjectMasterID`,`TermMasterID`) VALUES (?, ?, ?, ?, ?, ?,?,?,?);";
             $stm = $conn->prepare($query);
 
             // print_r($stm);
