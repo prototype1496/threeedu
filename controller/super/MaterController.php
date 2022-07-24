@@ -153,6 +153,69 @@ if (isset($_POST['btn_class_rooom_master'])) {
             }); 
             </script>";
     }
+} else if (isset($_POST['btn_class_grading_master'])) {
+
+    $percentage = isset($_POST['pecentage']) ? $_POST['pecentage'] : array(0 => 0);
+    $grade_public_id = isset($_POST['grading_id']) ? $_POST['grading_id'] : array(0 => 0);
+
+    $UpdatedBy = $_SESSION['threeedu_username'];
+    $tenant_id = $_SESSION['threeedu_tenantid'];
+
+    $count = 0;
+    $data = array();
+
+    // print_r(strlen($student_no[0])) ; 
+    $size_of_id_array = sizeof($percentage);
+
+    //The Loop below is used add data throm the subects into one array that will be used to add data to the teacher deetails TBL
+    foreach ($percentage as $key => $value) {
+
+        if (empty($percentage[$count])) {
+            $percentage_data = 0;
+        } else {
+            $percentage_data = $percentage[$count];
+        }
+
+         array_push($data, array($percentage_data, $UpdatedBy,$grade_public_id[$count]));
+            $count++;
+            
+     
+    }
+
+    //print_r($data);
+
+    if (count($data) > 0) {
+
+        if (SuperModel::update_grades($data)) {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+                showSuccessToast('Percentage Updated Successfully');
+              
+            }); 
+            
+            </script>";
+        } else {
+            echo "<script>               
+            $(document).ready(
+             
+            function(){
+                showInfoToast('Percentage Not Updated Please Try Again Later');
+               
+            }); 
+            </script>";
+        }
+    } else {
+        echo "<script>               
+            $(document).ready(
+             
+            function(){
+                showInfoToast('You can not have an empty Grid plase fill Requiered Filds');
+         
+            }); 
+            </script>";
+    }
 }
 else if (isset($_POST['btn_depatment_master'])) {
 

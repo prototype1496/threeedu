@@ -325,19 +325,7 @@ $headTeacherComments = $studentComments["HeadTeacherComment"];
                                                                                                                 <td align="center">
                                                                                                                   <?php echo $row_data['ClassAvarage'].' %'?>
                                                                                                                 </td>
-                                                                                                                <td align="center"><?php
-                                                                                                                    $score = $row_data['Score'];
-                                                                                                                    if ($score >= 0 && $score <= 50)
-                                                                                                                        echo $grade = "Fail";
-                                                                                                                    if ($score > 50 && $score <= 70)
-                                                                                                                        echo $grade = "C";
-                                                                                                                    if ($score > 70 && $score <= 80)
-                                                                                                                        echo $grade = "B";
-                                                                                                                    if ($score > 80 && $score <= 90)
-                                                                                                                        echo $grade = "A";
-                                                                                                                    if ($score > 90)
-                                                                                                                        echo $grade = "E";
-                                                                                                                    ?></td>
+                                                                                                                <td align="center"><?php echo $row_data['Grade']; ?></td>
                                                                                                             </tr>
                                                                                                         <?php } ?>
 

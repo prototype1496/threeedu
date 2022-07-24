@@ -173,6 +173,12 @@
                         </li>
                         
                          <li class="">
+                            <a href="grademastering.php">
+                                <span class="pcoded-mtext">Grading Master</span>
+                            </a>
+                        </li>
+                        
+                         <li class="">
                              <a href="grademmaster.php">
                                 <span class="pcoded-mtext">Grade Master</span>
                             </a>

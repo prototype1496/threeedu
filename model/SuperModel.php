@@ -217,6 +217,20 @@ class SuperModel
         $stm->execute(array(':schoolId' => $schoolId));
         return $stm->fetch(PDO::FETCH_ASSOC);
     }
+    
+      
+    public static function get_grading_master_details_by_tenantId($tenantId)
+    {
+       
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+        $query = "CALL GetGradingMasterDetails(:tenantlId);";
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenantlId' => $tenantId));
+      
+        return $stm;
+    }
+    
 
     public static function getUserDetailsByName($userName)
     {
@@ -1286,6 +1300,44 @@ class SuperModel
             return FALSE;
         }
     }
+    
+    
+     public static function update_grades($grade_data)
+    {
+        //the below function creates a session in the databes for every log in 
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+
+            $query = "UPDATE gradingmaster SET Percentage =?, UpdatedBy=? WHERE GradingMasterID =?";
+            $stm = $conn->prepare($query);
+
+            // print_r($subject_data);
+            foreach ($grade_data as $grade_data) {
+                //print_r($grade_data);
+                if (!empty($grade_data[0])) {
+                    // print_r($class_room_data);
+                    $stm->execute($grade_data);
+                } else {
+
+                }
+
+                //  
+            }
+
+
+            //print_r($stm);
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+            //echo $exc->getMessage();
+            return FALSE;
+        }
+    }
 
     public static function add_class_room($class_room_data)
     {
@@ -1437,6 +1489,10 @@ class SuperModel
             $query3 = "INSERT INTO address (PrimaryAddress, SecondaryAddress, DistrictID, IdentificationID) VALUES (:PrimaryAddress, :SecondaryAddress, :DistrictID, :IdentificationID)";
             $stm3 = $conn->prepare($query3);
             $stm3->execute(array(':PrimaryAddress' => $pramary_address, ':SecondaryAddress' => $secondary_address, ':DistrictID' => $district_id, ':IdentificationID' => $it_id));
+
+             $query4 = "CALL AddDefultsToGradingTable(:TENANTGERATEDID)";
+            $stm4 = $conn->prepare($query4);
+            $stm4->execute(array(':TENANTGERATEDID' => $tenant_id));
 
 
             //print_r($stm);
