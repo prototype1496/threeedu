@@ -230,6 +230,20 @@ class SuperModel {
 
         return $stm;
     }
+    
+    
+    public static function get_active_terms_by_tenant_id($tenatnt_id) {
+
+        $Connection = new Connection();
+        $conn = $Connection->connect();
+
+        $query = "CALL GetAllActiveTermsByTenantID(:tenant_id);";
+
+        $stm = $conn->prepare($query);
+        $stm->execute(array(':tenant_id' => $tenatnt_id));
+
+        return $stm;
+    }
 
     public static function get_active_grades_by_tenant_id($tenatnt_id) {
 
@@ -357,21 +371,21 @@ class SuperModel {
     
     
     
-    public static function get_all_transactional_history($term_id,$year,$query_run) {
+    public static function get_all_transactional_history($term_id,$year,$query_run,$tenant_id) {
 
         $Connection = new Connection();
         $con = $Connection->accounts_db_connect();
         
         if ($query_run == 1){
-          $query = "CALL GetTotalTransactioanalHitoryByIDDate(:term,:year);";
+          $query = "CALL GetTotalTransactioanalHitoryByIDDate(:term,:year,:tenant_id);";
           
           $stm = $con->prepare($query);
-        $stm->execute(array(':term' => $term_id,':year' => $year));
+        $stm->execute(array(':term' => $term_id,':year' => $year,':tenant_id' => $tenant_id));
         }else{
             
-            $query = "CALL GetTotalTransactioanalHitory();"; 
+            $query = "CALL GetTotalTransactioanalHitory(:tenant_id);"; 
              $stm = $con->prepare($query);
-            $stm->execute();
+            $stm->execute(array(':tenant_id' => $tenant_id));
         }
 
        
@@ -532,6 +546,31 @@ class SuperModel {
         }
     }
     
+    
+    
+    
+    public static function add_term_master($term_name,$UpdatedBy,$tenant_id) {
+     //the below function adds the assementtype type to the assementtype table
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+
+            $query = "INSERT INTO `termmaster` (TenantID, TermName, IsSysActive, IsActive, UpdatedBy) VALUES (:TenantID,:TermName,0,1,:UpdatedBy);";
+            $stm = $conn->prepare($query);
+
+            $stm->execute(array(':TenantID' => $tenant_id,':TermName' => $term_name,':UpdatedBy' => $UpdatedBy));
+
+            $conn->commit();
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+            //echo $exc->getMessage();
+            return FALSE;
+        }
+    }
     
       public static function add_period_master($period_name,$sequence,$school_id,$UpdatedBy) {
      //the below function adds the assementtype type to the assementtype table
@@ -2490,6 +2529,31 @@ class SuperModel {
         }
     }
     
+    
+    
+      public static function updated_term_master_status($term_master_id,$tenant_id,$UpdatedBy) {
+        //the below function creates a session in the databes for every log in 
+    
+        try {
+            $Connection = new Connection();
+            $conn = $Connection->connect();
+
+            $conn->beginTransaction();
+
+            $query = "CALL UpdateTermMasterStatus(:term_master_id,:tenant_id,:UpdatedBy)";
+            $stm = $conn->prepare($query);
+
+            $stm->execute(array(':term_master_id'=>$term_master_id,':tenant_id'=>$tenant_id,':UpdatedBy'=>$UpdatedBy));
+            $conn->commit();
+            
+            $conn = Null;
+            return TRUE;
+        } catch (Exception $exc) {
+            $conn->rollBack();
+           // echo $exc->getMessage();
+            return FALSE;
+        }
+    }
     
     public static function updated_period_master_status($period_master_id,$UpdatedBy) {
         //the below function creates a session in the databes for every log in 

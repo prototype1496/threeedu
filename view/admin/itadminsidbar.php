@@ -145,7 +145,11 @@
                 <ul class="pcoded-submenu">
 
 
-
+                     <li class="">
+                         <a href="termmaster.php">
+                                <span class="pcoded-mtext">Term master</span>
+                            </a>
+                        </li>
 
                         <li class="">
                             <a href="assessmetypemaster.php">

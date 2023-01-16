@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `feecharges` (
   `AddedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`GradeMasterID`,`TenantMasterID`,`TermID`,`Year`) USING BTREE,
   UNIQUE KEY `FeeChargesID` (`FeeChargesID`)
-) ENGINE=InnoDB AUTO_INCREMENT=176 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=189 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_accounts_db.feecharges: ~39 rows (approximately)
 DELETE FROM `feecharges`;
@@ -43,42 +43,55 @@ INSERT INTO `feecharges` (`FeeChargesID`, `GradeMasterID`, `TermID`, `TenantMast
 	(124, 1, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2020', '1', 1, 1000, 'acc', '2020-01-16 08:07:20', '2020-01-16 08:07:20'),
 	(137, 1, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2021', '1', 1, 1000, 'acc', '2021-01-16 08:12:00', '2021-01-16 08:12:00'),
 	(163, 1, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2022', '1', 1, 1000, 'acc', '2022-01-16 08:21:50', '2022-01-16 08:21:50'),
+	(176, 1, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2023', '1', 1, 500, 'acc', '2023-01-16 12:13:39', '2023-01-16 12:13:39'),
 	(125, 2, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2020', '2', 1, 1000, 'acc', '2020-01-16 08:07:20', '2020-01-16 08:07:20'),
 	(138, 2, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2021', '2', 1, 1000, 'acc', '2021-01-16 08:12:00', '2021-01-16 08:12:00'),
 	(164, 2, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2022', '2', 1, 1000, 'acc', '2022-01-16 08:21:50', '2022-01-16 08:21:50'),
+	(177, 2, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2023', '2', 1, 500, 'acc', '2023-01-16 12:13:39', '2023-01-16 12:13:39'),
 	(126, 3, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2020', '3', 1, 1000, 'acc', '2020-01-16 08:07:20', '2020-01-16 08:07:20'),
 	(139, 3, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2021', '3', 1, 1000, 'acc', '2021-01-16 08:12:00', '2021-01-16 08:12:00'),
 	(165, 3, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2022', '3', 1, 1000, 'acc', '2022-01-16 08:21:50', '2022-01-16 08:21:50'),
+	(178, 3, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2023', '3', 1, 500, 'acc', '2023-01-16 12:13:39', '2023-01-16 12:13:39'),
 	(127, 4, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2020', '4', 1, 1000, 'acc', '2020-01-16 08:07:20', '2020-01-16 08:07:20'),
 	(140, 4, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2021', '4', 1, 1000, 'acc', '2021-01-16 08:12:00', '2021-01-16 08:12:00'),
 	(166, 4, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2022', '4', 1, 1000, 'acc', '2022-01-16 08:21:50', '2022-01-16 08:21:50'),
+	(179, 4, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2023', '4', 1, 500, 'acc', '2023-01-16 12:13:39', '2023-01-16 12:13:39'),
 	(128, 5, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2020', '5', 1, 1000, 'acc', '2020-01-16 08:07:20', '2020-01-16 08:07:20'),
 	(141, 5, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2021', '5', 1, 1000, 'acc', '2021-01-16 08:12:00', '2021-01-16 08:12:00'),
 	(167, 5, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2022', '5', 1, 1000, 'acc', '2022-01-16 08:21:50', '2022-01-16 08:21:50'),
+	(180, 5, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2023', '5', 1, 500, 'acc', '2023-01-16 12:13:39', '2023-01-16 12:13:39'),
 	(129, 6, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2020', '6', 1, 1000, 'acc', '2020-01-16 08:07:20', '2020-01-16 08:07:20'),
 	(142, 6, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2021', '6', 1, 1000, 'acc', '2021-01-16 08:12:00', '2021-01-16 08:12:00'),
 	(168, 6, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2022', '6', 1, 1000, 'acc', '2022-01-16 08:21:50', '2022-01-16 08:21:50'),
+	(181, 6, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2023', '6', 1, 500, 'acc', '2023-01-16 12:13:39', '2023-01-16 12:13:39'),
 	(130, 7, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2020', '7', 1, 1000, 'acc', '2020-01-16 08:07:20', '2020-01-16 08:07:20'),
 	(143, 7, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2021', '7', 1, 1000, 'acc', '2021-01-16 08:12:00', '2021-01-16 08:12:00'),
 	(169, 7, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2022', '7', 1, 1000, 'acc', '2022-01-16 08:21:50', '2022-01-16 08:21:50'),
+	(182, 7, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2023', '7', 1, 500, 'acc', '2023-01-16 12:13:39', '2023-01-16 12:13:39'),
 	(131, 8, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2020', '8', 1, 1000, 'acc', '2020-01-16 08:07:20', '2020-01-16 08:07:20'),
 	(144, 8, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2021', '8', 1, 1000, 'acc', '2021-01-16 08:12:00', '2021-01-16 08:12:00'),
 	(170, 8, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2022', '8', 1, 1000, 'acc', '2022-01-16 08:21:50', '2022-01-16 08:21:50'),
+	(183, 8, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2023', '8', 1, 500, 'acc', '2023-01-16 12:13:39', '2023-01-16 12:13:39'),
 	(132, 9, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2020', '9', 1, 1000, 'acc', '2020-01-16 08:07:20', '2020-01-16 08:07:20'),
 	(145, 9, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2021', '9', 1, 1000, 'acc', '2021-01-16 08:12:00', '2021-01-16 08:12:00'),
 	(171, 9, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2022', '9', 1, 1000, 'acc', '2022-01-16 08:21:50', '2022-01-16 08:21:50'),
+	(184, 9, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2023', '9', 1, 500, 'acc', '2023-01-16 12:13:39', '2023-01-16 12:13:39'),
 	(133, 10, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2020', '10', 1, 1000, 'acc', '2020-01-16 08:07:20', '2020-01-16 08:07:20'),
 	(146, 10, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2021', '10', 1, 1000, 'acc', '2021-01-16 08:12:00', '2021-01-16 08:12:00'),
 	(172, 10, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2022', '10', 1, 1000, 'acc', '2022-01-16 08:21:50', '2022-01-16 08:21:50'),
+	(185, 10, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2023', '10', 1, 500, 'acc', '2023-01-16 12:13:39', '2023-01-16 12:13:39'),
 	(134, 11, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2020', '11', 1, 1000, 'acc', '2020-01-16 08:07:20', '2020-01-16 08:07:20'),
 	(147, 11, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2021', '11', 1, 1000, 'acc', '2021-01-16 08:12:00', '2021-01-16 08:12:00'),
 	(173, 11, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2022', '11', 1, 1000, 'acc', '2022-01-16 08:21:50', '2022-01-16 08:21:50'),
+	(186, 11, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2023', '11', 1, 500, 'acc', '2023-01-16 12:13:39', '2023-01-16 12:13:39'),
 	(135, 12, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2020', '12', 1, 1000, 'acc', '2020-01-16 08:07:20', '2020-01-16 08:07:20'),
 	(148, 12, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2021', '12', 1, 1000, 'acc', '2021-01-16 08:12:00', '2021-01-16 08:12:00'),
 	(174, 12, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2022', '12', 1, 1000, 'acc', '2022-01-16 08:21:50', '2022-01-16 08:21:50'),
+	(187, 12, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2023', '12', 1, 500, 'acc', '2023-01-16 12:13:39', '2023-01-16 12:13:39'),
 	(136, 13, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2020', 'O Level', 1, 1000, 'acc', '2020-01-16 08:07:20', '2020-01-16 08:07:20'),
 	(149, 13, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2021', 'O Level', 1, 1000, 'acc', '2021-01-16 08:12:00', '2021-01-16 08:12:00'),
-	(175, 13, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2022', 'O Level', 1, 1000, 'acc', '2022-01-16 08:21:50', '2022-01-16 08:21:50');
+	(175, 13, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2022', 'O Level', 1, 1000, 'acc', '2022-01-16 08:21:50', '2022-01-16 08:21:50'),
+	(188, 13, 1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', '2023', 'O Level', 1, 500, 'acc', '2023-01-16 12:13:39', '2023-01-16 12:13:39');
 /*!40000 ALTER TABLE `feecharges` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_accounts_db.patmenttypemaster
@@ -130,7 +143,7 @@ INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID
 	(22, 'TRID', 62, '2021-09-06 04:44:36'),
 	(23, 'BILL', 15, '2021-09-17 16:46:37'),
 	(24, 'ACCO', 0, '2021-11-27 16:15:30'),
-	(25, 'TRAN', 77, '2021-11-28 02:57:12');
+	(25, 'TRAN', 88, '2021-11-28 02:57:12');
 /*!40000 ALTER TABLE `sequencemaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_accounts_db.transactiondetails
@@ -182,17 +195,29 @@ CREATE TABLE IF NOT EXISTS `transactionmaster` (
   `Year` year(4) NOT NULL DEFAULT year(current_timestamp()),
   `UpdatedOn` varchar(50) NOT NULL DEFAULT current_timestamp(),
   `AddedOn` datetime NOT NULL DEFAULT current_timestamp(),
+  `TenantMasterID` varchar(500) NOT NULL,
   PRIMARY KEY (`TransactionMasterID`),
   UNIQUE KEY `TransactionMasterPublicID` (`TransactionMasterPublicID`)
-) ENGINE=InnoDB AUTO_INCREMENT=189 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=208 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_accounts_db.transactionmaster: ~3 rows (approximately)
 DELETE FROM `transactionmaster`;
 /*!40000 ALTER TABLE `transactionmaster` DISABLE KEYS */;
-INSERT INTO `transactionmaster` (`TransactionMasterID`, `TransactionMasterPublicID`, `StudentMasterPublicID`, `TermMasterID`, `GradeMasterID`, `GradeName`, `Balance`, `BilledAmount`, `IsActive`, `UpdatedBy`, `Year`, `UpdatedOn`, `AddedOn`) VALUES
-	(118, 'TRAN00000000039', 'SDNT00000000031', 1, 8, '8', 500, 1000, '1', 'acc', '2020', '2020-01-16 08:07:20', '2020-01-16 08:07:20'),
-	(137, 'TRAN00000000050', 'SDNT00000000031', 1, 8, '8', 1200, 1000, '1', 'acc', '2021', '2021-01-16 08:12:00', '2021-01-16 08:12:00'),
-	(175, 'TRAN00000000072', 'SDNT00000000031', 1, 8, '8', 1700, 1000, '1', 'acc', '2022', '2022-01-16 08:21:50', '2022-01-16 08:21:50');
+INSERT INTO `transactionmaster` (`TransactionMasterID`, `TransactionMasterPublicID`, `StudentMasterPublicID`, `TermMasterID`, `GradeMasterID`, `GradeName`, `Balance`, `BilledAmount`, `IsActive`, `UpdatedBy`, `Year`, `UpdatedOn`, `AddedOn`, `TenantMasterID`) VALUES
+	(118, 'TRAN00000000039', 'SDNT00000000031', 1, 8, '8', 500, 1000, '1', 'acc', '2020', '2020-01-16 08:07:20', '2020-01-16 08:07:20', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
+	(137, 'TRAN00000000050', 'SDNT00000000031', 1, 8, '8', 1200, 1000, '1', 'acc', '2021', '2021-01-16 08:12:00', '2021-01-16 08:12:00', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
+	(175, 'TRAN00000000072', 'SDNT00000000031', 1, 8, '8', 1700, 1000, '1', 'acc', '2022', '2022-01-16 08:21:50', '2022-01-16 08:21:50', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
+	(189, 'TRAN00000000078', 'SDNT0000000001', 1, 8, '8', 500, 500, '1', 'System', '2023', '2023-01-16 12:13:39', '2023-01-16 12:13:39', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
+	(190, 'TRAN00000000079', 'SDNT0000000005', 1, 8, '8', 500, 500, '1', 'System', '2023', '2023-01-16 12:13:39', '2023-01-16 12:13:39', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
+	(191, 'TRAN00000000080', 'SDNT00000000015', 1, 8, '8', 500, 500, '1', 'System', '2023', '2023-01-16 12:13:39', '2023-01-16 12:13:39', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
+	(192, 'TRAN00000000081', 'SDNT00000000018', 1, 8, '8', 500, 500, '1', 'System', '2023', '2023-01-16 12:13:39', '2023-01-16 12:13:39', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
+	(193, 'TRAN00000000082', 'SDNT00000000030', 1, 8, '8', 500, 500, '1', 'System', '2023', '2023-01-16 12:13:39', '2023-01-16 12:13:39', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
+	(194, 'TRAN00000000083', 'SDNT00000000031', 1, 8, '8', 2200, 500, '1', 'System', '2023', '2023-01-16 12:13:39', '2023-01-16 12:13:39', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
+	(195, 'TRAN00000000084', 'SDNT00000000032', 1, 8, '8', 500, 500, '1', 'System', '2023', '2023-01-16 12:13:39', '2023-01-16 12:13:39', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
+	(196, 'TRAN00000000085', 'SDNT00000000035', 1, 8, '8', 500, 500, '1', 'System', '2023', '2023-01-16 12:13:39', '2023-01-16 12:13:39', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
+	(204, 'TRAN00000000086', 'SDNT00000000029', 1, 9, '9', 500, 500, '1', 'System', '2023', '2023-01-16 12:13:39', '2023-01-16 12:13:39', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
+	(205, 'TRAN00000000087', 'SDNT00000000026', 1, 11, '11', 500, 500, '1', 'System', '2023', '2023-01-16 12:13:39', '2023-01-16 12:13:39', '5fe7597e-f7a1-11eb-a81c-1062e5c23529'),
+	(206, 'TRAN00000000088', 'SDNT00000000028', 1, 11, '11', 500, 500, '1', 'System', '2023', '2023-01-16 12:13:39', '2023-01-16 12:13:39', '5fe7597e-f7a1-11eb-a81c-1062e5c23529');
 /*!40000 ALTER TABLE `transactionmaster` ENABLE KEYS */;
 
 -- Dumping structure for procedure 3edu_accounts_db.CheckIfFessExists
@@ -329,7 +354,9 @@ DELIMITER ;
 -- Dumping structure for procedure 3edu_accounts_db.GetTotalTransactioanalHitory
 DROP PROCEDURE IF EXISTS `GetTotalTransactioanalHitory`;
 DELIMITER //
-CREATE PROCEDURE `GetTotalTransactioanalHitory`()
+CREATE PROCEDURE `GetTotalTransactioanalHitory`(
+	IN `TenantID_` VARCHAR(500)
+)
 BEGIN
 
 SET @TOTALBALACE = (SELECT  SUM(TM.Balance) FROM transactionmaster TM WHERE TM.Year = YEAR(CURDATE()));
@@ -341,7 +368,7 @@ SELECT TM.StudentMasterPublicID																															AS 'StudentMasterP
 		 @TOTALBALACE																																			AS 'TOTALBALACE'
 FROM transactionmaster TM 
 JOIN 3edu_db.studentmaster SM ON SM.StudentMasterPublicID = TM.StudentMasterPublicID
-WHERE TM.Year = YEAR(CURDATE())
+WHERE TM.Year = YEAR(CURDATE()) AND TM.TenantMasterID = TenantID_
 GROUP BY TM.StudentMasterPublicID ORDER BY SM.FirstName, SM.LastName ASC;
 END//
 DELIMITER ;
@@ -351,7 +378,8 @@ DROP PROCEDURE IF EXISTS `GetTotalTransactioanalHitoryByIDDate`;
 DELIMITER //
 CREATE PROCEDURE `GetTotalTransactioanalHitoryByIDDate`(
 	IN `TermMasterID_` INT,
-	IN `Year_` YEAR
+	IN `Year_` YEAR,
+	IN `TenantID_` VARCHAR(500)
 )
 BEGIN
 SET @TOTALBALACE = (SELECT  SUM(TM.Balance) FROM transactionmaster TM  WHERE  TM.TermMasterID =TermMasterID_ AND TM.Year = Year_);
@@ -362,7 +390,7 @@ SELECT TM.StudentMasterPublicID																															AS 'StudentMasterP
 		 CONCAT(SM.StudentNo,'-',SM.FirstName,IF(SM.OtherName IS NULL,' ',CONCAT(' ',SM.OtherName,' ')),	SM.LastName )		AS 'Name',
 		 @TOTALBALACE																																			AS 'TOTALBALACE'
 FROM transactionmaster TM 
-JOIN 3edu_db.studentmaster SM ON SM.StudentMasterPublicID = TM.StudentMasterPublicID WHERE  TM.TermMasterID =TermMasterID_ AND TM.Year = Year_
+JOIN 3edu_db.studentmaster SM ON SM.StudentMasterPublicID = TM.StudentMasterPublicID WHERE  TM.TermMasterID =TermMasterID_ AND TM.Year = Year_ AND TM.TenantMasterID = TenantID_
 GROUP BY TM.StudentMasterPublicID ORDER BY SM.FirstName, SM.LastName ASC;
 
 END//
@@ -434,7 +462,7 @@ DELIMITER ;
 
 -- Dumping structure for trigger 3edu_accounts_db.BilllStudents
 DROP TRIGGER IF EXISTS `BilllStudents`;
-SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `BilllStudents` AFTER INSERT ON `feecharges` FOR EACH ROW BEGIN
 SET @FEECHARGID = (SELECT MAX(FCH.FeeChargesID) FROM feecharges FCH);
@@ -461,7 +489,8 @@ INSERT INTO transactionmaster
 	GradeMasterID, 
 	GradeName, 
 	Balance, 
-	BilledAmount
+	BilledAmount,
+	TenantMasterID
 	)
 	SELECT
 	GetSequence(25),  
@@ -470,7 +499,8 @@ INSERT INTO transactionmaster
 	@GRADEMASTERID,
 	@GRADENAME,
 	GetTotalBlance(StudentMasterPublicID,@AMOUNT),
-	@AMOUNT
+	@AMOUNT,
+	@TENANTID
 	FROM 3edu_db.studentmaster SM WHERE SM.ClassMasterPublicID = @CLASSMASTERID AND SM.IsActive = 1 AND SM.IsGraduated = 0 ;
 	
 	

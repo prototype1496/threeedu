@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `assementtypemaster` (
   CONSTRAINT `FK_assementtypemaster_tenantmaster` FOREIGN KEY (`TenantID`) REFERENCES `tenantmaster` (`TenantID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.assementtypemaster: ~10 rows (approximately)
+-- Dumping data for table 3edu_db.assementtypemaster: ~9 rows (approximately)
 DELETE FROM `assementtypemaster`;
 /*!40000 ALTER TABLE `assementtypemaster` DISABLE KEYS */;
 INSERT INTO `assementtypemaster` (`AssementTypeID`, `AssementTypeName`, `IsActive`, `UpdatedOn`, `UpdatedBy`, `TenantID`) VALUES
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `classdetails` (
   CONSTRAINT `FK_classdetails_subjectmater` FOREIGN KEY (`SubjectCode`) REFERENCES `subjectmater` (`SubjectCode`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.classdetails: ~42 rows (approximately)
+-- Dumping data for table 3edu_db.classdetails: ~41 rows (approximately)
 DELETE FROM `classdetails`;
 /*!40000 ALTER TABLE `classdetails` DISABLE KEYS */;
 INSERT INTO `classdetails` (`ClassDetailsID`, `ClassDetailsPublicID`, `ClassMasterPublicID`, `SubjectCode`, `ClassRoomPublicID`, `IsActive`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -250,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `classroom` (
   CONSTRAINT `FK_classroom_tenantmaster` FOREIGN KEY (`TenantID`) REFERENCES `tenantmaster` (`TenantID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=377 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.classroom: ~13 rows (approximately)
+-- Dumping data for table 3edu_db.classroom: ~11 rows (approximately)
 DELETE FROM `classroom`;
 /*!40000 ALTER TABLE `classroom` DISABLE KEYS */;
 INSERT INTO `classroom` (`ClassRoomID`, `ClassRoomPublicID`, `ClassRoomName`, `UpdatedBy`, `UpdatedOn`, `IsActive`, `TenantID`) VALUES
@@ -282,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `comboboxvaluemaster` (
   UNIQUE KEY `ComboBoxValueMasterID` (`ComboBoxValueMasterID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.comboboxvaluemaster: ~1 rows (approximately)
+-- Dumping data for table 3edu_db.comboboxvaluemaster: ~0 rows (approximately)
 DELETE FROM `comboboxvaluemaster`;
 /*!40000 ALTER TABLE `comboboxvaluemaster` DISABLE KEYS */;
 INSERT INTO `comboboxvaluemaster` (`ComboBoxValueMasterID`, `ID`, `Name`, `Value`, `Active`, `UpdatedOn`) VALUES
@@ -300,7 +300,7 @@ CREATE TABLE IF NOT EXISTS `country` (
   UNIQUE KEY `ConuntryCode` (`ConuntryCode`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.country: ~1 rows (approximately)
+-- Dumping data for table 3edu_db.country: ~0 rows (approximately)
 DELETE FROM `country`;
 /*!40000 ALTER TABLE `country` DISABLE KEYS */;
 INSERT INTO `country` (`CountryID`, `CountryName`, `ConuntryCode`, `IsActive`) VALUES
@@ -498,7 +498,7 @@ CREATE TABLE IF NOT EXISTS `emailservice` (
   CONSTRAINT `FK_emailservice_statusmaster` FOREIGN KEY (`Status`) REFERENCES `statusmaster` (`StatueCode`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.emailservice: ~1 rows (approximately)
+-- Dumping data for table 3edu_db.emailservice: ~0 rows (approximately)
 DELETE FROM `emailservice`;
 /*!40000 ALTER TABLE `emailservice` DISABLE KEYS */;
 INSERT INTO `emailservice` (`EmailServiceID`, `EmailSerial`, `EmailAddress`, `EmailSubject`, `SendData`, `Status`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -626,7 +626,7 @@ CREATE TABLE IF NOT EXISTS `periodmaster` (
   CONSTRAINT `FK_periodmaster_schoolmaster` FOREIGN KEY (`SchoolID`) REFERENCES `schoolmaster` (`PublicID`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.periodmaster: ~10 rows (approximately)
+-- Dumping data for table 3edu_db.periodmaster: ~8 rows (approximately)
 DELETE FROM `periodmaster`;
 /*!40000 ALTER TABLE `periodmaster` DISABLE KEYS */;
 INSERT INTO `periodmaster` (`PeriodMasterID`, `PeriodName`, `SchoolID`, `SequenceID`, `IsActive`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -698,7 +698,7 @@ CREATE TABLE IF NOT EXISTS `schoolmaster` (
   CONSTRAINT `FK_schoolmaster_tenantmaster` FOREIGN KEY (`TenantID`) REFERENCES `tenantmaster` (`TenantID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table 3edu_db.schoolmaster: ~5 rows (approximately)
+-- Dumping data for table 3edu_db.schoolmaster: ~4 rows (approximately)
 DELETE FROM `schoolmaster`;
 /*!40000 ALTER TABLE `schoolmaster` DISABLE KEYS */;
 INSERT INTO `schoolmaster` (`SchoolID`, `PublicID`, `EMISNO`, `PicURL`, `SchoolName`, `ShortName`, `SchoolMotto`, `SchoolURl`, `SchoolDescription`, `MaxTerms`, `Longitude`, `Latitude`, `Tel`, `PhoneNo`, `IsActive`, `UpdatedBy`, `UpdatedOn`, `TenantID`) VALUES
@@ -726,7 +726,7 @@ DELETE FROM `sequencemaster`;
 INSERT INTO `sequencemaster` (`SequenceMasterID`, `SequnceCode`, `LastInsertedID`, `UpdatedOn`) VALUES
 	(1, 'TECH', 105, '2019-11-01 19:08:09'),
 	(2, 'HEAD', 0, '2019-11-01 19:49:01'),
-	(3, 'TOKN', 295, '2019-11-01 20:00:03'),
+	(3, 'TOKN', 300, '2019-11-01 20:00:03'),
 	(4, 'EMIL', 3, '2019-11-15 05:28:12'),
 	(5, 'TRPD', 3, '2019-11-17 07:13:19'),
 	(6, 'SCHL', 10, '2019-11-17 18:52:58'),
@@ -757,7 +757,7 @@ CREATE TABLE IF NOT EXISTS `session` (
   PRIMARY KEY (`SessionID`),
   KEY `FK_session_usermaster` (`UserMasterPublicID`),
   CONSTRAINT `FK_session_usermaster` FOREIGN KEY (`UserMasterPublicID`) REFERENCES `usermaster` (`PublicID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=296 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=301 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_db.session: ~18 rows (approximately)
 DELETE FROM `session`;
@@ -778,9 +778,9 @@ INSERT INTO `session` (`SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`,
 	(283, 'ACCO0000000004', 'TOKN000000000283', 'b87cc1ba0ff9d8c4ee4bcfbcc2929c1ff97144199e48d8d309', '1642301723', 'acc_test', '2022-01-16 04:55:23'),
 	(285, 'SDNT00000000031', 'TOKN000000000285', '6a9d46c69eb2ab0192875fd9f899e6e134b5b929a4fdf8ba25', '1642302463', 'SN2021036', '2022-01-16 05:07:44'),
 	(286, 'TECH0000000003', 'TOKN000000000286', '7416290938ee9c6805df161cf219c01f6f54b6e6998307fd38', '1642302503', 't', '2022-01-16 05:08:23'),
-	(293, 'ITADM00001', 'TOKN000000000293', 'd18bc639c02b03998ab2310b0891d5e3dda0ce1e5b4020acbe', '1642305053', 'it', '2022-01-16 05:50:53'),
-	(294, 'TECH0000000001', 'TOKN000000000294', '004f4e3c523015475be9cc0e5834a80018eace0623ce1f7679', '1642305212', 'h', '2022-01-16 05:53:32'),
-	(295, 'ACCO00001', 'TOKN000000000295', '3655fbd545559fd7f838adaf61cb1702dc39190ef466e74ca2', '1642305451', 'acc', '2022-01-16 05:57:31');
+	(296, 'TECH0000000001', 'TOKN000000000296', '1f7f142951c06607ef52599f9cefac97883e8ffafc49a3a283', '1642321021', 'h', '2022-01-16 10:17:01'),
+	(299, 'ITADM00001', 'TOKN000000000299', '2e7e8acfc8e98191fa0a988945ba63c21bb550a37d8689d059', '1642326310', 'it', '2022-01-16 11:45:10'),
+	(300, 'ACCO00001', 'TOKN000000000300', 'e8c223d8c80d397b0314c62a5393b3b24808a4971af1eb2bf2', '1642326327', 'acc', '2022-01-16 11:45:27');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.sessionhistory
@@ -795,9 +795,9 @@ CREATE TABLE IF NOT EXISTS `sessionhistory` (
   `UpdatedBy` varchar(50) NOT NULL,
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionHistoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=296 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=301 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.sessionhistory: ~176 rows (approximately)
+-- Dumping data for table 3edu_db.sessionhistory: ~181 rows (approximately)
 DELETE FROM `sessionhistory`;
 /*!40000 ALTER TABLE `sessionhistory` DISABLE KEYS */;
 INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublicID`, `SerialID`, `TokenID`, `TokenCreatedTime`, `UpdatedBy`, `UpdatedOn`) VALUES
@@ -976,7 +976,12 @@ INSERT INTO `sessionhistory` (`SessionHistoryID`, `SessionID`, `UserMasterPublic
 	(292, '292', 'ITADM00001', 'TOKN000000000292', '4149d64c77df2f5249cb71057e87fa6e3f9d65f97c7c52a7b9', '1642304584', 'it', '2022-01-16 05:43:04'),
 	(293, '293', 'ITADM00001', 'TOKN000000000293', 'd18bc639c02b03998ab2310b0891d5e3dda0ce1e5b4020acbe', '1642305053', 'it', '2022-01-16 05:50:53'),
 	(294, '294', 'TECH0000000001', 'TOKN000000000294', '004f4e3c523015475be9cc0e5834a80018eace0623ce1f7679', '1642305212', 'h', '2022-01-16 05:53:32'),
-	(295, '295', 'ACCO00001', 'TOKN000000000295', '3655fbd545559fd7f838adaf61cb1702dc39190ef466e74ca2', '1642305451', 'acc', '2022-01-16 05:57:31');
+	(295, '295', 'ACCO00001', 'TOKN000000000295', '3655fbd545559fd7f838adaf61cb1702dc39190ef466e74ca2', '1642305451', 'acc', '2022-01-16 05:57:31'),
+	(296, '296', 'TECH0000000001', 'TOKN000000000296', '1f7f142951c06607ef52599f9cefac97883e8ffafc49a3a283', '1642321021', 'h', '2022-01-16 10:17:01'),
+	(297, '297', 'ITADM00001', 'TOKN000000000297', 'fba65000c55855858fdd8a027564ee05972a081c533adb11e5', '1642321034', 'it', '2022-01-16 10:17:15'),
+	(298, '298', 'ACCO00001', 'TOKN000000000298', '90eb44bcf5672bed86df9e7014c4d570ab7b74c0266dc77e81', '1642326290', 'acc', '2022-01-16 11:44:50'),
+	(299, '299', 'ITADM00001', 'TOKN000000000299', '2e7e8acfc8e98191fa0a988945ba63c21bb550a37d8689d059', '1642326310', 'it', '2022-01-16 11:45:10'),
+	(300, '300', 'ACCO00001', 'TOKN000000000300', 'e8c223d8c80d397b0314c62a5393b3b24808a4971af1eb2bf2', '1642326327', 'acc', '2022-01-16 11:45:27');
 /*!40000 ALTER TABLE `sessionhistory` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.statusmaster
@@ -1116,7 +1121,7 @@ CREATE TABLE IF NOT EXISTS `studentmaster` (
   CONSTRAINT `FK_studentmaster_maritalstatusmaster` FOREIGN KEY (`MaritalStatusID`) REFERENCES `maritalstatusmaster` (`MaritalStatusMasterID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.studentmaster: ~15 rows (approximately)
+-- Dumping data for table 3edu_db.studentmaster: ~14 rows (approximately)
 DELETE FROM `studentmaster`;
 /*!40000 ALTER TABLE `studentmaster` DISABLE KEYS */;
 INSERT INTO `studentmaster` (`StudentMasterID`, `StudentMasterPublicID`, `ProfilePic`, `StudentNo`, `FirstName`, `LastName`, `OtherName`, `GenderID`, `MaritalStatusID`, `ClassMasterPublicID`, `DOB`, `EmailAddress`, `GuardianContactNo`, `GuardianMaleName`, `GuardianFemaleName`, `Address`, `UpdatedBy`, `UpdatedOn`, `Year`, `IsActive`, `IsGraduated`) VALUES
@@ -1195,7 +1200,7 @@ CREATE TABLE IF NOT EXISTS `subjectmater` (
   CONSTRAINT `FK_subjectmater_schoolmaster` FOREIGN KEY (`SchoolID`) REFERENCES `schoolmaster` (`PublicID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.subjectmater: ~39 rows (approximately)
+-- Dumping data for table 3edu_db.subjectmater: ~38 rows (approximately)
 DELETE FROM `subjectmater`;
 /*!40000 ALTER TABLE `subjectmater` DISABLE KEYS */;
 INSERT INTO `subjectmater` (`SubjectMaterID`, `SubjectName`, `SubjectCode`, `DepartmentCode`, `SubjectDiscription`, `SchoolID`, `UpdatedBy`, `UpdatedOn`, `IsActive`) VALUES
@@ -1258,7 +1263,7 @@ CREATE TABLE IF NOT EXISTS `teacherdetails` (
   CONSTRAINT `FK_teacherdetails_teachermaster` FOREIGN KEY (`TeacherMasterPublicID`) REFERENCES `teachermaster` (`TeaherMasterPublicID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.teacherdetails: ~18 rows (approximately)
+-- Dumping data for table 3edu_db.teacherdetails: ~17 rows (approximately)
 DELETE FROM `teacherdetails`;
 /*!40000 ALTER TABLE `teacherdetails` DISABLE KEYS */;
 INSERT INTO `teacherdetails` (`TeacherDetailsID`, `TeacherDetailsPublicID`, `TeacherMasterPublicID`, `SubjectCode`, `UpdatedBy`, `UpdatedOn`, `AddedOn`) VALUES
@@ -1330,7 +1335,7 @@ CREATE TABLE IF NOT EXISTS `teachermaster` (
   CONSTRAINT `FK_teachermaster_teacherpositionmaster` FOREIGN KEY (`TeacherPositionID`) REFERENCES `teacherpositionmaster` (`TeacherPositionMasterID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.teachermaster: ~11 rows (approximately)
+-- Dumping data for table 3edu_db.teachermaster: ~9 rows (approximately)
 DELETE FROM `teachermaster`;
 /*!40000 ALTER TABLE `teachermaster` DISABLE KEYS */;
 INSERT INTO `teachermaster` (`TeacherID`, `TeaherMasterPublicID`, `TeacherPositionID`, `DeparmrntCode`, `StartDate`, `EndDate`, `UpdatedBy`, `UpdatedOn`, `IsActive`) VALUES
@@ -1384,7 +1389,7 @@ CREATE TABLE IF NOT EXISTS `tenantmaster` (
   UNIQUE KEY `TenantID` (`TenantID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.tenantmaster: ~6 rows (approximately)
+-- Dumping data for table 3edu_db.tenantmaster: ~4 rows (approximately)
 DELETE FROM `tenantmaster`;
 /*!40000 ALTER TABLE `tenantmaster` DISABLE KEYS */;
 INSERT INTO `tenantmaster` (`TenantMasterID`, `TenantID`, `TenantName`, `UpdatedOn`, `IsActive`) VALUES
@@ -1404,20 +1409,21 @@ CREATE TABLE IF NOT EXISTS `termmaster` (
   `TermName` varchar(50) NOT NULL,
   `IsSysActive` char(1) NOT NULL DEFAULT '0',
   `IsActive` char(1) NOT NULL DEFAULT '0',
+  `UpdatedBy` varchar(50) NOT NULL DEFAULT '0',
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`TermMasterID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table 3edu_db.termmaster: ~6 rows (approximately)
 DELETE FROM `termmaster`;
 /*!40000 ALTER TABLE `termmaster` DISABLE KEYS */;
-INSERT INTO `termmaster` (`TermMasterID`, `TenantID`, `TermName`, `IsSysActive`, `IsActive`, `UpdatedOn`) VALUES
-	(1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'Term 1', '1', '1', '2021-11-27 15:10:22'),
-	(2, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'Term 2', '0', '1', '2021-11-27 15:10:30'),
-	(3, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'Term 3 ', '0', '1', '2021-11-27 15:10:40'),
-	(4, 'Ama616d2ea1a78213.69918222', 'Term 1', '0', '1', '2021-11-27 15:11:03'),
-	(5, 'Ama616d2ea1a78213.69918222', 'Term 2', '0', '1', '2021-11-27 15:11:11'),
-	(6, 'Ama616d2ea1a78213.69918222', 'Term 3', '1', '1', '2021-11-27 15:11:23');
+INSERT INTO `termmaster` (`TermMasterID`, `TenantID`, `TermName`, `IsSysActive`, `IsActive`, `UpdatedBy`, `UpdatedOn`) VALUES
+	(1, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'Term 1', '1', '1', 'it', '2021-11-27 15:10:22'),
+	(2, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'Term 2', '0', '1', 'it', '2021-11-27 15:10:30'),
+	(3, '5fe7597e-f7a1-11eb-a81c-1062e5c23529', 'Term 3 ', '0', '1', 'it', '2021-11-27 15:10:40'),
+	(4, 'Ama616d2ea1a78213.69918222', 'Term 1', '0', '1', '0', '2021-11-27 15:11:03'),
+	(5, 'Ama616d2ea1a78213.69918222', 'Term 2', '0', '1', '0', '2021-11-27 15:11:11'),
+	(6, 'Ama616d2ea1a78213.69918222', 'Term 3', '1', '1', '0', '2021-11-27 15:11:23');
 /*!40000 ALTER TABLE `termmaster` ENABLE KEYS */;
 
 -- Dumping structure for table 3edu_db.timetabledetails
@@ -1438,7 +1444,7 @@ CREATE TABLE IF NOT EXISTS `timetabledetails` (
   CONSTRAINT `FK_timetabledetails_timetablemaster` FOREIGN KEY (`TimeTableMaterD`) REFERENCES `timetablemaster` (`TimeTableMasterID`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 
--- Dumping data for table 3edu_db.timetabledetails: ~22 rows (approximately)
+-- Dumping data for table 3edu_db.timetabledetails: ~23 rows (approximately)
 DELETE FROM `timetabledetails`;
 /*!40000 ALTER TABLE `timetabledetails` DISABLE KEYS */;
 INSERT INTO `timetabledetails` (`TimeTableDetailsID`, `TimeTableMaterD`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `UpdatedBy`, `UpdatedOn`, `AddedOn`) VALUES
@@ -1744,7 +1750,7 @@ BEGIN
 					 TM.TenantID		'TenantID',
 					 TM.TermName		'TermName',
 					 TM.IsSysActive 	'IsSysActive'
-			FROM termmaster TM WHERE TM.TenantID = TenantID_ AND  TM.IsActive;
+			FROM termmaster TM WHERE TM.TenantID = TenantID_ AND  TM.IsActive ORDER BY TM.IsSysActive ASC,TM.TermName ASC;
 END//
 DELIMITER ;
 
@@ -1809,6 +1815,23 @@ SELECT GM.GradeMasterID		AS 'GradeMasterID',
 		 GM.Grade				AS 'Grade',
 		 GM.IsActive			AS 'IsActive'
 FROM grademaster GM WHERE GM.IsActive =1 AND GM.TenantID = TenantID;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.GetAllActiveTermsByTenantID
+DROP PROCEDURE IF EXISTS `GetAllActiveTermsByTenantID`;
+DELIMITER //
+CREATE PROCEDURE `GetAllActiveTermsByTenantID`(
+	IN `TenantID_` VARCHAR(100)
+)
+BEGIN
+		SELECT TM.TermMasterID		'TermMasterID',
+				 TM.TenantID		'TenantID',
+				 TM.TermName		'TermName',
+				 TM.IsSysActive   'IsSysActive',
+				 TM.IsActive      'Active'
+		FROM termmaster TM 
+		WHERE TM.TenantID = TenantID_ AND TM.IsActive = 1;
 END//
 DELIMITER ;
 
@@ -3520,6 +3543,29 @@ UPDATE teachermaster SET UpdatedBy = UpdatedBy_, IsActive =  CASE
 	`IsActive`
 	END  
 	WHERE `TeaherMasterPublicID`  = @PublicID;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure 3edu_db.UpdateTermMasterStatus
+DROP PROCEDURE IF EXISTS `UpdateTermMasterStatus`;
+DELIMITER //
+CREATE PROCEDURE `UpdateTermMasterStatus`(
+	IN `TermID` INT,
+	IN `TenantID_` VARCHAR(500),
+	IN `UpdatedBy_` VARCHAR(50)
+)
+BEGIN
+		SET @TermMasterID  = TermID;
+		
+		UPDATE  termmaster  SET UpdatedBy = UpdatedBy_, `IsSysActive` = 0 WHERE `IsSysActive` = 1 AND TenantID= TenantID_;
+		
+		UPDATE termmaster  SET UpdatedBy = UpdatedBy_, `IsSysActive` =  CASE  
+			WHEN  `IsSysActive` = 1	THEN  0
+			WHEN  `IsSysActive` = 0	THEN  1
+			ELSE 
+			`IsSysActive`
+			END  
+			WHERE TermMasterID = @TermMasterID AND TenantID= TenantID_;
 END//
 DELIMITER ;
 
